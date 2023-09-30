@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "config:base",
+    "group:allNonMajor",
+    "docker:disable"
+  ],
+  "rangeStrategy": "bump",
+  "composerIgnorePlatformReqs": [
+    "ext-ctype",
+    "ext-iconv",
+    "ext-sodium"
+  ],
+  "ignoreDeps": [
+    "php",
+    "@symfony/ux-autocomplete",
+    "@symfony/ux-dropzone",
+    "@symfony/ux-live-component",
+    "@symfony/ux-chartjs",
+    "bootstrap-v4",
+    "chart.js"
+  ]
+}

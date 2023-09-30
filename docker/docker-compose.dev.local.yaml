@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+    app:
+      build:
+        context: ../
+        dockerfile: docker/app-local/Dockerfile
+      ports:
+        - "80:80"
+        - "443:443"
+      links:
+        - db
+        - mailcatcher
+      volumes:
+        - source_sync:/var/www/haussmann-medias:nocopy
+      extra_hosts:
+        - "haussmann-medias.local:127.0.0.1"
+        - "www.haussmann-medias.local:127.0.0.1"
+        - "host.docker.internal:host-gateway"
+
+    db:
+      image: postgres:15
+      environment:
+        POSTGRES_USER: app
+        POSTGRES_PASSWORD: root
+        POSTGRES_DB: app
+      ports:
+        - "5432:5432"
+
+    mailcatcher:
+      image: schickling/mailcatcher
+      ports:
+        - "1080:1080"
+        - "1025:1025"
+
+volumes:
+  source_sync:
+    name: app_sync
+    external: true

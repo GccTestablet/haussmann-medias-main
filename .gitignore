@@ -1,0 +1,9 @@
+.idea
+**/.idea
+.DS_Store 
+**/.DS_Store 
+.php_cs.cache
+.docker-sync
+
+
+.phpunit.result.cache
