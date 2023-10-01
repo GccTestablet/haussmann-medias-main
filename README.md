@@ -1,4 +1,6 @@
 # Haussmann Medias - Main
+### Urls
+> http://www.haussmann-medias.local/
 ### Run locally
 #### Install
 > Install Docker and Docker Compose

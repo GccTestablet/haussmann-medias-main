@@ -14,9 +14,6 @@
     "php",
     "@symfony/ux-autocomplete",
     "@symfony/ux-dropzone",
-    "@symfony/ux-live-component",
-    "@symfony/ux-chartjs",
-    "bootstrap-v4",
-    "chart.js"
+    "@symfony/ux-live-component"
   ]
 }

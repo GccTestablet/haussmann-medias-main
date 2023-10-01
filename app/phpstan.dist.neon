@@ -1,0 +1,10 @@
+parameters:
+  level: max
+  bootstrapFiles:
+    - vendor/autoload.php
+  paths:
+    - src
+    - tests
+  excludePaths:
+    - tests/bootstrap.php
+  checkGenericClassInNonGenericObjectType: false
