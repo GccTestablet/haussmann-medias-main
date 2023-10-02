@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
-use App\Form\Dto\Security\LoginDto;
-use App\Form\Type\Security\LoginType;
+use App\Form\Dto\Security\LoginFormDto;
+use App\Form\Type\Security\LoginFormType;
 use App\Service\Security\UserActivityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,8 +38,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $login = new LoginDto();
-        $form = $this->formFactory->create(LoginType::class, $login);
+        $login = new LoginFormDto();
+        $form = $this->formFactory->create(LoginFormType::class, $login);
         $form->handleRequest($request);
         if (!$form->isSubmitted() || !$form->isValid()) {
             throw new CustomUserMessageAuthenticationException(

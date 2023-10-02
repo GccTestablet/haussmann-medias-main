@@ -12,11 +12,11 @@ trait TimestampableEntity
 {
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    protected \DateTime $createdAt;
+    private \DateTime $createdAt;
 
     #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    protected \DateTime $updatedAt;
+    private \DateTime $updatedAt;
 
     public function getCreatedAt(): \DateTime
     {

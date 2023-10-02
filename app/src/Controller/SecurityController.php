@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Form\Dto\Security\LoginDto;
-use App\Form\Type\Security\LoginType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\Shared\AbstractAppController;
+use App\Form\Dto\Security\LoginFormDto;
+use App\Form\Type\Security\LoginFormType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
+class SecurityController extends AbstractAppController
 {
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -19,10 +19,10 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $login = (new LoginDto())
+        $login = (new LoginFormDto())
             ->setEmail($lastUsername)
         ;
-        $form = $this->createForm(LoginType::class, $login);
+        $form = $this->createForm(LoginFormType::class, $login);
 
         return $this->render('security/login.html.twig', [
             'form' => $form,

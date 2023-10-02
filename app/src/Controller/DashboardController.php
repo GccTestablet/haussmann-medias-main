@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\Shared\AbstractAppController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DashboardController extends AbstractController
+class DashboardController extends AbstractAppController
 {
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(): Response

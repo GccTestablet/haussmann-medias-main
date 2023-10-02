@@ -9,15 +9,22 @@ use App\Entity\Shared\TimestampableEntity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
+    final public const ROLE_USER = 'ROLE_USER';
+    final public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    final public const ROLE_ADMIN = 'ROLE_ADMIN';
+    final public const ROLE_SUPPLIER = 'ROLE_SUPPLIER';
+    final public const ROLE_DISTRIBUTOR = 'ROLE_DISTRIBUTOR';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,11 +48,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private string $password;
-
-    /**
-     * User plain password used for registration. DO NOT STORE IN DATABASE!
-     */
-    private ?string $plainPassword = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private bool $enabled = true;
@@ -100,8 +102,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = self::ROLE_USER;
 
         return \array_unique($roles);
     }
@@ -124,18 +127,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(?string $plainPassword): static
-    {
-        $this->plainPassword = $plainPassword;
 
         return $this;
     }
@@ -183,6 +174,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        $this->plainPassword = null;
     }
 }
