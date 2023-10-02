@@ -25,6 +25,9 @@ Encore
   .addEntry("assets/vendor", "./assets/js/vendor.ts")
 
   .addStyleEntry("assets/css/base", "./assets/scss/base.scss")
+  .addStyleEntry("assets/css/app", "./assets/scss/app.scss")
+  .addStyleEntry("assets/css/demo", "./assets/scss/demo.scss")
+  .addStyleEntry("assets/css/core", "./assets/scss/core.scss")
 
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
   .splitEntryChunks()

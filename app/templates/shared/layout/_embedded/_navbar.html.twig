@@ -1,0 +1,17 @@
+<div class="layout-page">
+    <!-- Nav -->
+    <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="container-fluid">
+            {{ include('shared/layout/_embedded/_navbar/_search.html.twig') }} <!-- search-->
+            <ul class="navbar-nav flex-row align-items-center ms-auto">
+                {{ include('shared/layout/_embedded/_navbar/_language.html.twig') }} <!-- language-->
+            </ul>
+                {{ include('shared/layout/_embedded/_navbar/_notification.html.twig') }} <!-- notifications-->
+                {{ include('shared/layout/_embedded/_navbar/_style-switcher.html.twig') }} <!-- style switcher-->
+            </ul>
+            {{ include('shared/layout/_embedded/_navbar/_search-small-screens.html.twig') }} <!-- search small screens-->
+            {{ include('shared/layout/_embedded/_navbar/_user.html.twig') }} <!-- user-->
+        </div>
+    </nav>
+    <!--/ Nav -->
+</div>
