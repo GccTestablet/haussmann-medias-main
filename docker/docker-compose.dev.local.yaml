@@ -24,7 +24,7 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_DB: app
     ports:
-      - "5432:5432"
+      - "35432:5432"
 
   mailcatcher:
     image: schickling/mailcatcher
