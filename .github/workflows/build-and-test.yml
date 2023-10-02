@@ -70,3 +70,50 @@ jobs:
             bin/phing analyze
       - name: Clean up
         run: docker rmi -f ${{ env.BUILDER_TAG }}
+
+  phpunit:
+    #    if: ${{ false }}
+    name: PHPUnit tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: /tmp/build/
+      - name: Extract archive
+        run: |
+          tar xzf /tmp/build/archive.tar.gz
+          rm -rf /tmp/build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build container
+        timeout-minutes: 5
+        run: |
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} build
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} up -d
+      - name: Run tests
+        run: docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T app bash -c 'bin/phing test_prepare && bin/phing coverage'
+      - name: Clean up
+        if: always()
+        run: |
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} down --remove-orphans --volumes
+          docker rmi -f app
+
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    needs:
+      - code-style
+      - phpunit
+    if: ${{ success() && github.actor != 'renovate[bot]' }}
+    steps:
+      - name: Delete artifact
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: build
