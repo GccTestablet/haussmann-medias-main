@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
+use App\Service\Security\UserActivityManager;
 use App\Tools\Parser\DateParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,7 +31,8 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly EntityManagerInterface $entityManager,
-        private readonly DateParser $dateParser
+        private readonly DateParser $dateParser,
+        private readonly UserActivityManager $userActivityManager
     ) {}
 
     public function authenticate(Request $request): Passport
@@ -53,8 +55,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     {
         $user = $token->getUser();
         if ($user instanceof User) {
-            $user->setLastLogin($this->dateParser->getDateTime());
-            $this->entityManager->flush();
+            $this->userActivityManager->updateLastLogin($user);
         }
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
