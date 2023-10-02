@@ -1,4 +1,6 @@
 {
+  "name": "gccteam/haussmann-medias-main",
+  "description": "Haussmann Medias - Main site",
   "type": "project",
   "license": "proprietary",
   "minimum-stability": "stable",

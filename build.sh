@@ -1,6 +1,5 @@
 #!/bin/bash -xe
 
-pwd
 # Validate composer.json and composer.lock
 composer validate
 
