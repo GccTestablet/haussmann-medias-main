@@ -1,0 +1,47 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: docker/app/Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - APP_ENV=test
+    links:
+      - db
+      - mailcatcher
+    volumes:
+      - "shared-volume:/var/www/haussmann-medias:z"
+      - "../app/tests/coverage:/var/www/haussmann-medias/app/tests/coverage"
+    networks:
+      shared-network:
+        aliases:
+          - haussmann-medias.local
+          - www.haussmann-medias.local
+    extra_hosts:
+      - "haussmann-medias.local:127.0.0.1"
+      - "www.haussmann-medias.local:127.0.0.1"
+      - "host.docker.internal:host-gateway"
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: app
+    networks:
+      shared-network:
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    networks:
+      shared-network: {}
+    expose:
+      - 1080
+      - 1025
+
+networks:
+  shared-network: {}
+volumes:
+  shared-volume: {}

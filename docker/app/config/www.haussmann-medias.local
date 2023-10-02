@@ -1,0 +1,64 @@
+server {
+    gzip            	on;
+    gzip_types
+        text/plain
+        text/css
+        text/js
+        text/xml
+        text/javascript
+        application/javascript
+        application/x-javascript
+        application/json
+        application/xml
+        application/rss+xml
+        image/svg+xml/javascript;
+    gzip_min_length     1000;
+    gzip_comp_level     6;
+    gzip_vary       	on;
+    gzip_proxied    	any;
+    gzip_disable    	msie6;
+
+    client_max_body_size 200M;
+
+    listen 80;
+
+    server_name www.haussmann-medias.local;
+    root /var/www/haussmann-medias/app/public;
+
+    rewrite ^/index\.php/?(.*)$ /$1 permanent;
+
+    location / {
+        index index.php;
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        rewrite ^(.*)$ /index.php/$1 last;
+    }
+
+    location ~ ^/(index|config)\.php(/|$) {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+
+        internal;
+    }
+
+    location ~* ^.+\.(jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|tar|wav|bmp|rtf|htc)$ {
+        expires 	31d;
+        add_header  Cache-Control private;
+
+        error_page 404 = @rewriteapp;
+    }
+
+    location ~* \.(css|js)$ {
+        expires 	7d;
+        add_header  Cache-Control private;
+    }
+
+    error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+}

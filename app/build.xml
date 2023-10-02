@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+
+<project name="Haussmann Medias" default="dev_prepare">
+    <property name="project_dir" value="${project.basedir}" />
+    <property name="root_dir" value="${project.basedir}/.." />
+
+    <!-- Globals -->
+    <target name="prod_deploy" description="Run deploy commands">
+        <phingcall target="deploy" />
+        <echo message="Reset files owners" />
+        <exec command="chown -R www-data:www-data *" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="deploy" description="Run deploy commands">
+        <phingcall target="composer" />
+        <phingcall target="yarn_init" />
+        <phingcall target="yarn_build" />
+        <phingcall target="dump_js_routing" />
+        <echo message="Clear cache" />
+        <exec command="rm -rf var/cache/*" dir="${project_dir}" passthru="true" checkreturn="true" />
+        <exec command="bin/console cache:clear" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="coverage" description="Run PHPUnit coverage">
+        <echo message="PHPUnit coverage running" />
+        <exec command="bin/phpunit --coverage-clover tests/coverage/coverage.xml" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="phpunit" description="Run PHPUnit tests">
+        <phingcall target="test_prepare" />
+        <phingcall target="testing_php_unit" />
+        <phingcall target="testing_php_integration" />
+    </target>
+
+    <!-- Prepare -->
+    <target name="dev_prepare" description="Prepare dev env">
+        <phingcall target="db_create" />
+        <echo message="Clear cache" />
+        <exec command="bin/console cache:clear --env=dev" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="test_prepare" description="Prepare dev env">
+        <property name="env" value="test" />
+        <phingcall target="db_create" />
+        <echo message="Clear cache" />
+        <exec command="bin/console cache:clear --env=test" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <!-- Testing -->
+    <target name="testing_php_unit" description="Run PHPUnit tests (Unit suite)">
+        <echo message="PHPUnit tests (Unit suite) running" />
+        <exec command="bin/phpunit --testsuite=unit" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="testing_php_integration" description="Run PHPUnit tests (Integration suite)">
+        <echo message="PHPUnit tests (Integration suite) running" />
+        <exec command="bin/phpunit --testsuite=integration" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <!-- Analysis -->
+    <target name="analyze" description="Analyze code">
+        <phingcall target="php_analyze" />
+        <phingcall target="phpstan_analyze" />
+        <phingcall target="symfony_analyze" />
+        <phingcall target="js_analyze" />
+    </target>
+
+    <target name="php_analyze" description="Run PHPCS analyzer">
+        <echo message="PHPCS analyzing" />
+        <exec command="bin/php-cs-fixer fix --dry-run --no-interaction --no-ansi" dir="${project_dir}" passthru="true" checkreturn="true" />
+        <echo message="Rector analyzing" />
+        <exec command="bin/rector process --dry-run" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="phpstan_analyze" description="Run PHP STAN analyzer">
+        <echo message="PHPStan analyzing" />
+        <exec command="bin/phpstan analyse --no-interaction --no-ansi --memory-limit=-1" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="symfony_analyze">
+        <phingcall target="symfony_linters" />
+        <phingcall target="check_database" />
+    </target>
+
+    <target name="symfony_linters">
+        <echo message="Checking containers" />
+        <exec command="bin/console lint:container --no-interaction --no-ansi" dir="${project_dir}" passthru="true" checkreturn="true" />
+        <echo message="Checking yaml files" />
+        <exec command="bin/console lint:yaml config --parse-tags --no-interaction --no-ansi" dir="${project_dir}" passthru="true" checkreturn="true" />
+        <echo message="Checking twig files" />
+        <exec command="bin/console lint:twig templates --no-interaction --no-ansi" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="js_analyze">
+        <echo message="Checking JS" />
+        <exec command="yarn lint:eslint" dir="${project_dir}" passthru="true" checkreturn="true" />
+        <exec command="yarn lint:prettier" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="check_database">
+        <echo message="Checking mapping files" />
+        <exec command="bin/console doctrine:schema:validate --skip-sync" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="check_translations">
+        <echo message="Checking missing translations" />
+        <exec command="bin/console debug:translation --only-missing en ." dir="${project_dir}" passthru="true" checkreturn="true" />
+        <exec command="bin/console debug:translation --only-missing fr ." dir="${project_dir}" passthru="true" checkreturn="true" />
+
+        <echo message="Checking unused translations" />
+        <exec command="bin/console debug:translation --only-unused en ." dir="${project_dir}" passthru="true" checkreturn="true" />
+        <exec command="bin/console debug:translation --only-unused fr ." dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <!-- Packages -->
+    <target name="composer">
+        <echo message="Installing composer dependencies" />
+        <exec command="composer install --no-scripts --no-interaction --no-ansi" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="yarn_init">
+        <echo message="Installing yarn dependencies" />
+        <exec command="yarn install --force" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="yarn_build">
+        <echo message="Running yarn build command" />
+        <exec command="yarn run build" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <!-- Database -->
+    <target name="db_create">
+        <phingcall target="db_recreate" />
+        <phingcall target="db_migrations" />
+    </target>
+
+    <target name="db_recreate">
+        <property name="env" value="dev" />
+        <echo message="(Re)creating ${env} database" />
+        <exec command="php ${project_dir}/bin/console doctrine:database:drop --env=${env} --if-exists --force" passthru="true" checkreturn="true" />
+        <exec command="php ${project_dir}/bin/console doctrine:database:create --env=${env} --if-not-exists" passthru="true" checkreturn="true" />
+        <exec command='php ${project_dir}/bin/console doctrine:database:import --env=${env} ${project_dir}/tests/Fixtures/sql/initDb.sql' passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="db_migrations">
+        <property name="env" value="dev" />
+        <echo message="Running migrations" />
+        <exec command="php ${project_dir}/bin/console doctrine:migrations:migrate --env=${env} --no-interaction" passthru="true" checkreturn="true" />
+    </target>
+
+    <!-- Misc -->
+    <target name="dump_js_routing">
+        <echo message="Dump JS routing" />
+        <exec command="php ${project_dir}/bin/console fos:js-routing:dump --format=json --target=public/js_routes.json" checkreturn="true" passthru="true" />
+    </target>
+
+    <target name="cleanup" description="Run cleanup tools">
+        <echo message="PHPCS" />
+        <exec command="bin/php-cs-fixer fix --no-interaction --no-ansi" dir="${project_dir}" passthru="true" checkreturn="true" />
+        <exec command="yarn format:prettier" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+</project>
