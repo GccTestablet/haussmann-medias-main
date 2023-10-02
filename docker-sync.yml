@@ -1,9 +1,9 @@
 version: '2'
- 
+
 options:
-   compose-file-path: './docker/docker-compose.dev.local.yaml'
- 
+  compose-file-path: './docker/docker-compose.dev.local.yaml'
+
 syncs:
-    app_sync:
-        src: './'
-        sync_excludes: ['app/var', 'app/var', 'app/.idea', '.docker-sync', '.git']
+  app_sync:
+    src: './'
+    sync_excludes: [ 'app/var', 'app/var', 'app/.idea', '.docker-sync', '.git' ]
