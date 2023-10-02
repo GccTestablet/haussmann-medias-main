@@ -25,13 +25,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?string $firstName = null;
+    private string $firstName;
 
     #[ORM\Column]
-    private ?string $LastName = null;
+    private string $LastName;
 
     #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
+    private string $email;
 
     /**
      * @var string[]
@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column]
-    private ?string $password = null;
+    private string $password;
 
     /**
      * User plain password used for registration. DO NOT STORE IN DATABASE!
