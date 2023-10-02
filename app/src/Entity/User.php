@@ -35,7 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $firstName;
 
     #[ORM\Column]
-    private string $LastName;
+    private string $lastName;
 
     #[ORM\Column(length: 180, unique: true)]
     private string $email;
@@ -77,12 +77,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getLastName(): ?string
     {
-        return $this->LastName;
+        return $this->lastName;
     }
 
-    public function setLastName(?string $LastName): self
+    public function setLastName(?string $lastName): self
     {
-        $this->LastName = $LastName;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -169,7 +169,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return $this->email;
+    }
+
+    public function getFullName(): string
+    {
+        return \sprintf('%s %s', $this->firstName, $this->lastName);
     }
 
     public function eraseCredentials(): void

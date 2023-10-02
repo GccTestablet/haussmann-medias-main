@@ -1,0 +1,28 @@
+<mjml>
+    <mj-head>
+        <mj-title>{{ block('page_title') }}</mj-title>
+        <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+        <mj-attributes>
+            <mj-text font-size="14px" color="#666666" padding="5px 15px" />
+            <mj-spacer height="40px" />
+            <mj-button background-color="#0b5ed7" color="#FFFFFF" height="20px" target="_blank" />
+            <mj-section padding="5px 0"/>
+            <mj-column padding="5px 0"/>
+            <mj-class name="h1" font-size="18px" font-weight="400" align="center" />
+            <mj-class name="bold" font-weight="500" />
+            <mj-all font-family="Roboto" />
+        </mj-attributes>
+        <mj-style>
+            b {
+                font-weight: 500;
+            }
+        </mj-style>
+    </mj-head>
+    <mj-body background-color="#f6f4f5" width="600px">
+        {% block html %}{% endblock %}
+    </mj-body>
+</mjml>
+
+{% if showPlainText %}
+    {% block plain_text %}{% endblock %}
+{% endif %}

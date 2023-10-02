@@ -1,0 +1,30 @@
+{% extends 'shared/layout/layout_email.mjml.twig' %}
+
+{% block page_title %}Bonjour {{ user.fullName }}{% endblock %}
+
+{% block page_content %}
+    <mj-section>
+        <mj-column>
+            <mj-text>Votre compte a été créée sur le site {{ siteName }}.</mj-text>
+            <mj-text>
+                <ul>
+                    <li>Login : <b>{{ user.email }}</b></li>
+                    <li>Mot de passe : <b>{{ plainPassword }}</b></li>
+                </ul>
+            </mj-text>
+            <mj-text>Vous pourrez changer votre mot de passe à tout moment depuis votre profil.</mj-text>
+        </mj-column>
+    </mj-section>
+{% endblock %}
+
+{% block plain_text_content %}
+    Bonjour {{ user.fullName }},
+
+    Votre compte a été créée sur le site {{ siteName }}.
+
+    Identifiant : {{ user.email }}
+
+    Mot de passe : {{ plainPassword }}
+
+    Vous pourrez changer votre mot de passe à tout moment depuis votre profil.
+{% endblock %}
