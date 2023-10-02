@@ -1,4 +1,4 @@
-FROM rconstant/uzege-ortho:0.9.4
+FROM gccteam/haussmann-medias:0.1.0
 
 RUN rm -rf /var/www/haussmann-medias/app/var/*
 
