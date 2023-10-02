@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+cd app
+
 # Validate composer.json and composer.lock
 composer validate
 
