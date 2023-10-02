@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    /**
+     * User plain password used for registration. DO NOT STORE IN DATABASE!
+     */
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
