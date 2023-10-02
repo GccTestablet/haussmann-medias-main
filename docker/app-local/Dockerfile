@@ -9,6 +9,14 @@ RUN \
     # Copy configuration
     cp ../docker/app/config/www.haussmann-medias.local /etc/nginx/sites-enabled/
 
+RUN \
+    # Prepare public folders
+    mkdir -p public/tmp public/media \
+    # Prepare logs/caches
+    mkdir -p var/log var/cache \
+    && rm -rf var/cache/* \
+    && chmod -R 777 var/log var/cache
+
 EXPOSE 80
 EXPOSE 443
 

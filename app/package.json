@@ -9,6 +9,7 @@
     "@symfony/webpack-encore": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
+    "compression-webpack-plugin": "^10.0.0",
     "core-js": "^3.23.0",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
@@ -21,6 +22,7 @@
     "ts-loader": "^9.0.0",
     "typescript": "^5.2.2",
     "webpack": "^5.74.0",
+    "webpack-bundle-analyzer": "^4.9.1",
     "webpack-cli": "^4.10.0",
     "webpack-notifier": "^1.15.0"
   },
@@ -34,5 +36,10 @@
     "lint:prettier": "prettier --list-different '**/*.{js,jsx,ts,tsx,css,scss,json,yaml}'",
     "lint:eslint": "eslint assets/",
     "format:prettier": "prettier --write '**/*.{js,jsx,ts,tsx,css,scss,json,yaml}'"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.2",
+    "mjml": "^4.14.1"
   }
 }

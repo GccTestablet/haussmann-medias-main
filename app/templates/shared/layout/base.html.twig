@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<head>
+    <title>
+        {% if block('page_title') is defined and block('page_title') is not empty %}
+            - {{ block('page_title') }}
+        {% elseif block('title') is defined and block('title') is not empty %}
+            - {{ block('title') }}
+        {% endif %}
+    </title>
+    <!-- Meta -->
+    {% block meta %}
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="">
+        <meta name="author" content="" />
+    {% endblock %}
+
+{#    <link rel="icon" href="{{ asset('favicon.ico') }}" />#}
+{#    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">#}
+{#    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">#}
+{#    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">#}
+
+    <!-- Font -->
+    {% block css_font %}
+    {% endblock %}
+    <!-- CSS plugin -->
+    {% block css_plugin %}
+        {{ encore_entry_link_tags('assets/vendor') }}
+    {% endblock %}
+    <!-- CSS global -->
+    {% block css_global %}
+        {{ encore_entry_link_tags('assets/css/base') }}
+    {% endblock %}
+    <!-- CSS page -->
+    {% block css_page %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+<!-- JS tracking -->
+{% block js_tracking %}{% endblock %}
+<!-- JS plugin -->
+{% block js_plugin %}
+    {{ encore_entry_script_tags('assets/vendor') }}
+{% endblock %}
+<!-- JS global -->
+{% block js_global %}{% endblock %}
+<!-- JS page -->
+{% block js_page %}{% endblock %}
+</body>
+</html>

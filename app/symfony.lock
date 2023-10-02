@@ -50,6 +50,19 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v6.2.0"
     },
+    "notfloran/mjml-bundle": {
+        "version": "3.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "158f3cc144a0ccf89b40c1a6290407ba84dcf5e2"
+        },
+        "files": [
+            "config/packages/mjml.yaml",
+            "config/packages/prod/mjml.yaml"
+        ]
+    },
     "phpstan/phpstan": {
         "version": "1.10",
         "recipe": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6280cda3e308f8dcdd79ed698852e62",
+    "content-hash": "b36f5959c784d5207d78a7306994e7f8",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1899,6 +1899,59 @@
                 }
             ],
             "time": "2023-06-21T08:46:11+00:00"
+        },
+        {
+            "name": "notfloran/mjml-bundle",
+            "version": "v3.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Akollade/mjml-bundle.git",
+                "reference": "bff4429bb49a5eafe030742d5635aa502b1a7493"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Akollade/mjml-bundle/zipball/bff4429bb49a5eafe030742d5635aa502b1a7493",
+                "reference": "bff4429bb49a5eafe030742d5635aa502b1a7493",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0 || ^6.0",
+                "symfony/process": "^3.4 || ^4.0 || ^5.0 || ^6.0",
+                "symfony/twig-bundle": "^3.4 || ^4.0 || ^5.0 || ^6.0"
+            },
+            "require-dev": {
+                "matthiasnoback/symfony-config-test": "^4.1",
+                "phpstan/phpstan": "^0.12.0",
+                "phpunit/phpunit": "^7.0|^8.0",
+                "symplify/easy-coding-standard": "^9.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NotFloran\\MjmlBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Floran Brutel",
+                    "email": "me@floran.fr"
+                }
+            ],
+            "description": "Symfony bundle for MJML",
+            "keywords": [
+                "email",
+                "mjml"
+            ],
+            "support": {
+                "issues": "https://github.com/Akollade/mjml-bundle/issues",
+                "source": "https://github.com/Akollade/mjml-bundle/tree/v3.7.1"
+            },
+            "time": "2023-07-04T06:24:53+00:00"
         },
         {
             "name": "phing/phing",

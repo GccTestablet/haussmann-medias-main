@@ -1,4 +1,5 @@
 const Encore = require("@symfony/webpack-encore");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -20,7 +21,8 @@ Encore
    * Each entry will result in one JavaScript file (e.g. app.js)
    * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
    */
-  .addEntry("app", "./assets/js/app.ts")
+  .addEntry("assets/app", "./assets/js/app.ts")
+  .addEntry("assets/vendor", "./assets/js/vendor.ts")
 
   .addStyleEntry("assets/css/base", "./assets/scss/base.scss")
 
@@ -65,16 +67,19 @@ Encore
   .enableTypeScriptLoader()
 
   // uncomment if you use Stimulus
-  .enableStimulusBridge("./assets/controllers.json");
+  .enableStimulusBridge("./assets/controllers.json")
 
-// uncomment if you use React
-//.enableReactPreset()
+  // uncomment if you use React
+  //.enableReactPreset()
 
-// uncomment to get integrity="..." attributes on your script & link tags
-// requires WebpackEncoreBundle 1.4 or higher
-//.enableIntegrityHashes(Encore.isProduction())
+  // uncomment to get integrity="..." attributes on your script & link tags
+  // requires WebpackEncoreBundle 1.4 or higher
+  //.enableIntegrityHashes(Encore.isProduction())
 
-// uncomment if you're having problems with a jQuery plugin
-//.autoProvidejQuery()
+  // uncomment if you're having problems with a jQuery plugin
+  //.autoProvidejQuery()
+
+  // Plugins
+  .addPlugin(new CompressionPlugin());
 
 module.exports = Encore.getWebpackConfig();
