@@ -1,5 +1,5 @@
 parameters:
-  level: max
+  level: 6
   bootstrapFiles:
     - vendor/autoload.php
   paths:
