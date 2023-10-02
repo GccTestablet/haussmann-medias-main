@@ -139,7 +139,6 @@
         <echo message="(Re)creating ${env} database" />
         <exec command="php ${project_dir}/bin/console doctrine:database:drop --env=${env} --if-exists --force" passthru="true" checkreturn="true" />
         <exec command="php ${project_dir}/bin/console doctrine:database:create --env=${env} --if-not-exists" passthru="true" checkreturn="true" />
-        <exec command='php ${project_dir}/bin/console doctrine:database:import --env=${env} ${project_dir}/tests/Fixtures/sql/initDb.sql' passthru="true" checkreturn="true" />
     </target>
 
     <target name="db_migrations">
