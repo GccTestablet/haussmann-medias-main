@@ -16,11 +16,6 @@ class ResetPasswordMail implements MailInterface
         private readonly string $confirmationUrl,
     ) {}
 
-    public function from(): Address
-    {
-        return new Address(self::SENDER_EMAIL, self::SENDER_NAME);
-    }
-
     public function to(): array
     {
         return [new Address($this->user->getEmail(), $this->user->getFullName())];

@@ -16,11 +16,6 @@ class RegisterMail implements MailInterface
         private readonly string $plainPassword
     ) {}
 
-    public function from(): Address
-    {
-        return new Address(self::SENDER_EMAIL, self::SENDER_NAME);
-    }
-
     public function to(): array
     {
         return [new Address($this->user->getEmail(), $this->user->getLastName())];
@@ -38,7 +33,6 @@ class RegisterMail implements MailInterface
             [
                 'user' => $this->user,
                 'plainPassword' => $this->plainPassword,
-                'siteName' => self::SENDER_NAME,
             ]
         );
     }
