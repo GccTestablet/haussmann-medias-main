@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Dto\Admin;
+namespace App\Form\Dto\User;
 
 use App\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class RegisterFormDto
+class UserFormDto
 {
     private ?string $firstName = null;
 
@@ -16,10 +16,23 @@ class RegisterFormDto
     #[Assert\Email]
     private ?string $email = null;
 
-    #[Assert\Choice(choices: [User::ROLE_ADMIN, User::ROLE_SUPPLIER, User::ROLE_DISTRIBUTOR])]
+    #[Assert\Choice(choices: [User::ROLE_SUPER_ADMIN, User::ROLE_ADMIN, User::ROLE_SUPPLIER, User::ROLE_DISTRIBUTOR])]
     private ?string $role = null;
 
-    private ?User $user = null;
+    public function __construct(
+        private readonly User $user,
+        private readonly bool $exists,
+    ) {}
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function isExists(): bool
+    {
+        return $this->exists;
+    }
 
     public function getFirstName(): ?string
     {
@@ -65,18 +78,6 @@ class RegisterFormDto
     public function setRole(?string $role): static
     {
         $this->role = $role;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }

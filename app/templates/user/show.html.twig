@@ -1,5 +1,9 @@
 {% extends 'shared/layout/base.html.twig' %}
 
 {% block body %}
+    <h1>Profile {{ user.fullName }}</h1>
+
     {{ dump(user) }}
+
+    <a href="{{ path('app_user_update', {'id': user.id}) }}">Update</a>
 {% endblock %}

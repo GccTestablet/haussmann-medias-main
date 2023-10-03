@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Mailer\Admin;
+namespace App\Mailer\Security;
 
 use App\Entity\User;
 use App\Mailer\Shared\MailInterface;
@@ -34,7 +34,7 @@ class RegisterMail implements MailInterface
     public function template(): Template
     {
         return new Template(
-            'mail/admin/register.mjml.twig',
+            'mail/security/register.mjml.twig',
             [
                 'user' => $this->user,
                 'plainPassword' => $this->plainPassword,

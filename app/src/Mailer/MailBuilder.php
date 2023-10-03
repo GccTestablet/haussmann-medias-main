@@ -20,7 +20,7 @@ class MailBuilder
     /**
      * @var Address[]
      */
-    private ?array $to = null;
+    private array $to = [];
 
     public function __construct(
         private readonly MailerInterface $mailer,

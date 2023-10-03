@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\EventSubscriber\Mailer;
 
 use App\Event\Mailer\RegistrationEvent;
-use App\Mailer\Admin\RegisterMail;
 use App\Mailer\MailSender;
+use App\Mailer\Security\RegisterMail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SecurityEventSubscriber implements EventSubscriberInterface
