@@ -15,6 +15,17 @@ class UserManager
         private readonly EntityManagerInterface $entityManager,
     ) {}
 
+    /**
+     * @return User[]
+     */
+    public function findAll(): array
+    {
+        return $this->getRepository()->findBy(
+            [],
+            ['lastName' => 'ASC', 'firstName' => 'ASC']
+        );
+    }
+
     public function findByEmail(string $email): ?User
     {
         return $this->getRepository()->findOneBy(['email' => $email]);

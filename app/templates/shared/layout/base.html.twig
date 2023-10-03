@@ -33,6 +33,7 @@
     <!-- CSS global -->
     {% block css_global %}
         {{ encore_entry_link_tags('assets/css/base') }}
+        {{ encore_entry_link_tags('assets/app') }} {# TODO: move to layout #}
     {% endblock %}
     <!-- CSS page -->
     {% block css_page %}{% endblock %}
@@ -46,7 +47,9 @@
     {{ encore_entry_script_tags('assets/vendor') }}
 {% endblock %}
 <!-- JS global -->
-{% block js_global %}{% endblock %}
+{% block js_global %}
+    {{ encore_entry_script_tags('assets/app') }} {# TODO: move to layout #}
+{% endblock %}
 <!-- JS page -->
 {% block js_page %}{% endblock %}
 </body>

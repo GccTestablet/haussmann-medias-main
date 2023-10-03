@@ -7,6 +7,8 @@ namespace App\Entity;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -27,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column]
     private string $firstName;
@@ -56,9 +58,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $lastActivity = null;
 
+    /**
+     * @var Collection<int, Company>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserCompany::class, cascade: ['persist'])]
+    private Collection $companies;
+
+    public function __construct()
+    {
+        $this->companies = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getFirstName(): ?string
@@ -161,6 +181,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastActivity(?\DateTime $lastActivity): self
     {
         $this->lastActivity = $lastActivity;
+
+        return $this;
+    }
+
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function setCompanies(Collection $companies): static
+    {
+        $this->companies = $companies;
 
         return $this;
     }
