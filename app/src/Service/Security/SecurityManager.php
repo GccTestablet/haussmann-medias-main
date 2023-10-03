@@ -31,4 +31,9 @@ class SecurityManager
 
         return \current($array);
     }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->security->isGranted($role);
+    }
 }

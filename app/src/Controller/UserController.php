@@ -10,6 +10,7 @@ use App\Form\Dto\User\UserFormDto;
 use App\Form\DtoFactory\User\UserFormDtoFactory;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Handler\User\UserFormHandler;
+use App\Security\Voter\UserVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,6 +56,8 @@ class UserController extends AbstractAppController
     #[Route('/{id}/update', name: 'app_user_update', requirements: ['id' => '\d+'])]
     public function update(Request $request, User $user): Response
     {
+        $this->denyAccessUnlessGranted(UserVoter::SAME_USER, $user);
+
         $formHandlerResponse = $this->getFormHandlerResponse($request, $user);
 
         $form = $formHandlerResponse->getForm();
