@@ -18,6 +18,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
+    final public const ROLE_USER = 'ROLE_USER';
+    final public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    final public const ROLE_ADMIN = 'ROLE_ADMIN';
+    final public const ROLE_SUPPLIER = 'ROLE_SUPPLIER';
+    final public const ROLE_DISTRIBUTOR = 'ROLE_DISTRIBUTOR';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $firstName;
 
     #[ORM\Column]
-    private string $LastName;
+    private string $lastName;
 
     #[ORM\Column(length: 180, unique: true)]
     private string $email;
@@ -41,11 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private string $password;
-
-    /**
-     * User plain password used for registration. DO NOT STORE IN DATABASE!
-     */
-    private ?string $plainPassword = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private bool $enabled = true;
@@ -75,12 +75,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getLastName(): ?string
     {
-        return $this->LastName;
+        return $this->lastName;
     }
 
-    public function setLastName(?string $LastName): self
+    public function setLastName(?string $lastName): self
     {
-        $this->LastName = $LastName;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -100,8 +100,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = self::ROLE_USER;
 
         return \array_unique($roles);
     }
@@ -124,18 +125,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(?string $plainPassword): static
-    {
-        $this->plainPassword = $plainPassword;
 
         return $this;
     }
@@ -178,11 +167,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return $this->email;
+    }
+
+    public function getFullName(): string
+    {
+        return \sprintf('%s %s', $this->firstName, $this->lastName);
     }
 
     public function eraseCredentials(): void
     {
-        $this->plainPassword = null;
     }
 }

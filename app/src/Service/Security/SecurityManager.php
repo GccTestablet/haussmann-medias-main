@@ -24,4 +24,16 @@ class SecurityManager
 
         return $user;
     }
+
+    public function getUserRole(User $user): string
+    {
+        $array = \array_filter($user->getRoles(), static fn (string $role) => $role !== User::ROLE_USER);
+
+        return \current($array);
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->security->isGranted($role);
+    }
 }

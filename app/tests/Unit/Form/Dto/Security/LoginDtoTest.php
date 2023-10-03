@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Form\Dto\Security;
 
-use App\Form\Dto\Security\LoginDto;
+use App\Form\Dto\Security\LoginFormDto;
 use App\Tests\AbstractTestCase;
 
 class LoginDtoTest extends AbstractTestCase
 {
-    private ?LoginDto $loginDto;
+    private ?LoginFormDto $loginDto;
 
     protected function setUp(): void
     {
-        $this->loginDto = new LoginDto();
+        $this->loginDto = new LoginFormDto();
     }
 
     public function testGetAndSetEmail(): void

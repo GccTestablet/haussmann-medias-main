@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Security;
 
-class LoginDto
+class LoginFormDto
 {
     private ?string $email = null;
 
