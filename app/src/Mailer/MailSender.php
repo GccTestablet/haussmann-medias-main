@@ -16,7 +16,6 @@ class MailSender
     {
         $this->mailerBuilder
             ->init($mail->subject(), $mail->template())
-            ->setFrom($mail->from())
             ->setTo($mail->to())
             ->send()
         ;

@@ -56,6 +56,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $lastActivity = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTime $passwordRequestedAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $passwordResetToken = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,7 +140,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled): self
+    public function setEnabled(bool $enabled): static
     {
         $this->enabled = $enabled;
 
@@ -146,7 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->lastLogin;
     }
 
-    public function setLastLogin(?\DateTime $lastLogin): self
+    public function setLastLogin(?\DateTime $lastLogin): static
     {
         $this->lastLogin = $lastLogin;
 
@@ -158,9 +164,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->lastActivity;
     }
 
-    public function setLastActivity(?\DateTime $lastActivity): self
+    public function setLastActivity(?\DateTime $lastActivity): static
     {
         $this->lastActivity = $lastActivity;
+
+        return $this;
+    }
+
+    public function getPasswordRequestedAt(): ?\DateTime
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): static
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+
+        return $this;
+    }
+
+    public function getPasswordResetToken(): ?string
+    {
+        return $this->passwordResetToken;
+    }
+
+    public function setPasswordResetToken(?string $passwordResetToken): static
+    {
+        $this->passwordResetToken = $passwordResetToken;
 
         return $this;
     }

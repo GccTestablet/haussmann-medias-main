@@ -4,4 +4,8 @@
 
 {% block body %}
     <h1>TODO</h1>
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <a href="{{ path('app_user_add') }}">New user</a>
+    {% endif %}
+    <a href="{{ path('app_security_profile_change_password') }}">Change password</a>
 {% endblock %}

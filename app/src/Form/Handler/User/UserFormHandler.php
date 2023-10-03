@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Handler\User;
 
-use App\Event\Mailer\RegistrationEvent;
+use App\Event\Mailer\Security\RegistrationEvent;
 use App\Form\Dto\User\UserFormDto;
 use App\Form\DtoFactory\User\UserFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UserFormHandler extends AbstractFormHandler
 {
@@ -34,7 +35,7 @@ class UserFormHandler extends AbstractFormHandler
 
         $dto = $form->getData();
         if (!$dto instanceof UserFormDto) {
-            throw new \InvalidArgumentException();
+            throw new UnexpectedTypeException($dto, UserFormDto::class);
         }
 
         $user = $dto->getUser();
