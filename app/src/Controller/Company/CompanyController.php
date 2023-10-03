@@ -11,6 +11,7 @@ use App\Form\Dto\Company\CompanyFormDto;
 use App\Form\DtoFactory\Company\CompanyFormDtoFactory;
 use App\Form\Handler\Company\CompanyFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
+use App\Security\Voter\CompanyVoter;
 use App\Service\Company\CompanyManager;
 use App\Service\Security\SecurityManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,10 +71,11 @@ class CompanyController extends AbstractAppController
         ]);
     }
 
-    #[IsGranted(User::ROLE_ADMIN)]
     #[Route('/{id}/update', name: 'app_company_update', requirements: ['id' => '\d+'])]
     public function update(Request $request, Company $company): Response
     {
+        $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
+
         $formHandlerResponse = $this->getFormHandlerResponse($request, $company);
 
         $form = $formHandlerResponse->getForm();

@@ -11,12 +11,15 @@ use App\Entity\UserCompany;
 use App\Form\DtoFactory\Company\CompanyUserFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Company\CompanyUserFormHandler;
+use App\Security\Voter\CompanyVoter;
 use App\Service\Company\CompanyUserManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
+#[IsGranted(User::ROLE_ADMIN)]
 #[Route(path: '/companies/{company}/users', requirements: ['company' => '\d+'])]
 class CompanyUserController extends AbstractAppController
 {
@@ -28,6 +31,8 @@ class CompanyUserController extends AbstractAppController
     #[Route(path: '/add', name: 'app_company_user_add')]
     public function add(Request $request, CompanyUserFormHandler $companyUserFormHandler, Company $company): Response
     {
+        $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
+
         $dto = $this->companyUserFormDtoFactory->create($company);
 
         $formHandlerResponse = $this->formHandlerManager->createAndHandle(
@@ -50,6 +55,8 @@ class CompanyUserController extends AbstractAppController
     #[Route(path: '/{user}/remove', name: 'app_company_user_remove', requirements: ['id' => '\d+'])]
     public function remove(Request $request, RemoveFormHandler $removeFormHandler, Company $company, User $user): Response
     {
+        $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
+
         $userCompany = $this->companyUserManager->findByCompanyAndUser($company, $user);
         if (!$userCompany instanceof UserCompany) {
             throw $this->createNotFoundException(
