@@ -9,14 +9,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class UserFormDto
 {
+    #[Assert\NotBlank]
     private ?string $firstName = null;
 
+    #[Assert\NotBlank]
     private ?string $lastName = null;
 
     #[Assert\Email]
+    #[Assert\NotBlank]
     private ?string $email = null;
 
     #[Assert\Choice(choices: [User::ROLE_SUPER_ADMIN, User::ROLE_ADMIN, User::ROLE_SUPPLIER, User::ROLE_DISTRIBUTOR])]
+    #[Assert\NotBlank]
     private ?string $role = null;
 
     public function __construct(

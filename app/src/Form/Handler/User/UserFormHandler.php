@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Handler\User;
 
-use App\Event\Mailer\RegistrationEvent;
+use App\Event\Mailer\Security\RegistrationEvent;
 use App\Form\Dto\User\UserFormDto;
 use App\Form\DtoFactory\User\UserFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;

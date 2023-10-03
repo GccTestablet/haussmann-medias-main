@@ -23,7 +23,10 @@ class UserVoter extends Voter
             return false;
         }
 
-        return $attribute === self::SAME_USER;
+        return match ($attribute) {
+            self::SAME_USER => true,
+            default => false,
+        };
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool

@@ -9,11 +9,11 @@ use App\Mailer\Shared\MailInterface;
 use App\Mailer\Shared\Mime\Template;
 use Symfony\Component\Mime\Address;
 
-class RegisterMail implements MailInterface
+class ResetPasswordMail implements MailInterface
 {
     public function __construct(
         private readonly User $user,
-        private readonly string $plainPassword
+        private readonly string $confirmationUrl,
     ) {}
 
     public function from(): Address
@@ -23,22 +23,21 @@ class RegisterMail implements MailInterface
 
     public function to(): array
     {
-        return [new Address($this->user->getEmail(), $this->user->getLastName())];
+        return [new Address($this->user->getEmail(), $this->user->getFullName())];
     }
 
     public function subject(): string
     {
-        return 'Création de votre compte';
+        return 'Réinitialisation de votre mot de passe';
     }
 
     public function template(): Template
     {
         return new Template(
-            'mail/security/register.mjml.twig',
+            'mail/security/reset_password.mjml.twig',
             [
                 'user' => $this->user,
-                'plainPassword' => $this->plainPassword,
-                'siteName' => self::SENDER_NAME,
+                'confirmationUrl' => $this->confirmationUrl,
             ]
         );
     }
