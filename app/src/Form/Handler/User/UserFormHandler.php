@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UserFormHandler extends AbstractFormHandler
 {
@@ -34,7 +35,7 @@ class UserFormHandler extends AbstractFormHandler
 
         $dto = $form->getData();
         if (!$dto instanceof UserFormDto) {
-            throw new \InvalidArgumentException();
+            throw new UnexpectedTypeException($dto, UserFormDto::class);
         }
 
         $user = $dto->getUser();

@@ -12,6 +12,7 @@ use App\Service\Security\UserPasswordManager;
 use App\Service\User\UserManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class RequestResetPasswordFormHandler extends AbstractFormHandler
 {
@@ -26,7 +27,7 @@ class RequestResetPasswordFormHandler extends AbstractFormHandler
     {
         $dto = $form->getData();
         if (!$dto instanceof RequestResetPasswordFormDto) {
-            throw new \InvalidArgumentException();
+            throw new UnexpectedTypeException($dto, RequestResetPasswordFormDto::class);
         }
 
         $user = $this->userManager->findByEmail($dto->getEmail());

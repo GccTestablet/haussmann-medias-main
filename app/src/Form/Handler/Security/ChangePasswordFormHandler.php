@@ -13,6 +13,7 @@ use App\Service\Security\UserPasswordManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ChangePasswordFormHandler extends AbstractFormHandler
 {
@@ -28,7 +29,7 @@ class ChangePasswordFormHandler extends AbstractFormHandler
     {
         $dto = $form->getData();
         if (!$dto instanceof ChangePasswordFormDto) {
-            throw new \InvalidArgumentException();
+            throw new UnexpectedTypeException($dto, ChangePasswordFormDto::class);
         }
 
         $user = $this->securityManager->getConnectedUser();

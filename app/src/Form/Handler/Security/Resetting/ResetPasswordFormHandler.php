@@ -12,6 +12,7 @@ use App\Service\Security\UserPasswordManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ResetPasswordFormHandler extends AbstractFormHandler
 {
@@ -26,7 +27,7 @@ class ResetPasswordFormHandler extends AbstractFormHandler
     {
         $dto = $form->getData();
         if (!$dto instanceof ResetPasswordFormDto) {
-            throw new \InvalidArgumentException();
+            throw new UnexpectedTypeException($dto, ResetPasswordFormDto::class);
         }
 
         if (!$dto->getUser()) {
