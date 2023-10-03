@@ -1,0 +1,31 @@
+{% extends 'shared/layout/base_email.mjml.twig' %}
+
+{% block html %}
+    <mj-section>
+        <mj-column>
+            <mj-spacer />
+        </mj-column>
+    </mj-section>
+    <mj-wrapper background-color="#FFFFFF" padding="20px">
+        <mj-section>
+            <mj-column>
+                <mj-text mj-class="h1" color="#000">{{ block('page_title') }}</mj-text>
+            </mj-column>
+        </mj-section>
+        {{ block('page_content') }}
+
+        {% block page_link %}
+            <mj-section>
+                <mj-column>
+                    <mj-button href="https://www.haussmann-medias.com">
+                        Accéder au site
+                    </mj-button>
+                </mj-column>
+            </mj-section>
+        {% endblock %}
+    </mj-wrapper>
+{% endblock %}
+
+{% block plain_text %}
+    {{ block('plain_text_content')|spaceless }}
+{% endblock %}

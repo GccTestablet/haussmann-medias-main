@@ -1,0 +1,7 @@
+{% for type, messages in flashes %}
+    <div class="alert alert-{{ type }}">
+        {% for message in messages %}
+            {{ message|trans|raw }}
+        {% endfor %}
+    </div>
+{% endfor %}
