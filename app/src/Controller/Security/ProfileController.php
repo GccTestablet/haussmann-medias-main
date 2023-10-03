@@ -10,6 +10,7 @@ use App\Service\Security\SecurityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 
 #[Route(path: '/security/profile')]
 class ProfileController extends AbstractAppController
@@ -34,14 +35,12 @@ class ProfileController extends AbstractAppController
             $request
         );
 
-        $success = false;
         if ($formHandlerResponse->isSuccessful()) {
-            $success = true;
+            $this->addFlash(self::FLASH_SUCCESS, new TranslatableMessage('Your password has been changed successfully', [], 'security'));
         }
 
         return $this->render('security/change_password.html.twig', [
             'form' => $formHandlerResponse->getForm(),
-            'success' => $success,
         ]);
     }
 }
