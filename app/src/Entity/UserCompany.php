@@ -43,7 +43,7 @@ class UserCompany
         return $this->permission;
     }
 
-    public function setPermission(UserCompanyPermissionEnum $permission): self
+    public function setPermission(UserCompanyPermissionEnum $permission): static
     {
         $this->permission = $permission;
 

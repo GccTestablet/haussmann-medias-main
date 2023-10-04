@@ -9,6 +9,7 @@ use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Symfony\Set\SymfonySetList;
+use Rector\Symfony\Symfony61\Rector\Class_\MagicClosureTwigExtensionToNativeMethodsRector;
 
 return static function (RectorConfig $rectorConfig): void
 {
@@ -40,6 +41,9 @@ return static function (RectorConfig $rectorConfig): void
     $rectorConfig->importNames();
     $rectorConfig->importShortClasses(false);
 
+    $rectorConfig->skip([
+        MagicClosureTwigExtensionToNativeMethodsRector::class,
+    ]);
     // register a single rule
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
     // define sets of rules

@@ -12,8 +12,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'companies')]
-class Company
+#[ORM\Table(name: 'beneficiaries')]
+class Beneficiary
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -26,18 +26,11 @@ class Company
     #[ORM\Column]
     private string $name;
 
-    /**
-     * @var Collection<UserCompany>
-     */
-    #[ORM\OneToMany(mappedBy: 'company', targetEntity: UserCompany::class, cascade: ['persist'])]
-    private Collection $users;
-
-    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Contract::class)]
+    #[ORM\OneToMany(mappedBy: 'beneficiary', targetEntity: Contract::class)]
     private Collection $contracts;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->contracts = new ArrayCollection();
     }
 
@@ -61,27 +54,6 @@ class Company
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(UserCompany $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function setUsers(Collection $users): static
-    {
-        $this->users = $users;
 
         return $this;
     }

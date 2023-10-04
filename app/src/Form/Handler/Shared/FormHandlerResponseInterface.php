@@ -38,7 +38,7 @@ interface FormHandlerResponseInterface
      */
     public function getForm(): FormInterface;
 
-    public function setForm(FormInterface $form): self;
+    public function setForm(FormInterface $form): static;
 
     /**
      * @return string[]

@@ -1,0 +1,16 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), contract.company) %}
+
+{% block body %}
+    <h1>Contract {{ contract.originalFileName }} of company {{ contract.company.name }}</h1>
+
+    {{ dump(contract) }}
+
+    <a href="{{ path('app_company_show', {'id': contract.company.id}) }}" class="btn btn-dark">Back to company</a>
+
+    {% if isCompanyAdmin %}
+        <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">Update</a>
+        <a href="{{ path('app_company_contract_remove', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-danger">Remove</a>
+    {% endif %}
+{% endblock %}

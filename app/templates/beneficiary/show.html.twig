@@ -1,0 +1,12 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block body %}
+    <h1>Beneficiary: {{ beneficiary.name }}</h1>
+
+    <a href="{{ path('app_beneficiary_index') }}" class="btn btn-primary">List</a>
+
+    {% include 'company/contract/_embedded/_list.html.twig' with {
+        contracts: beneficiary.contracts
+    } %}
+{% endblock %}
+

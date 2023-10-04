@@ -1380,6 +1380,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/vanillajs-datepicker@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@types/vanillajs-datepicker/-/vanillajs-datepicker-1.3.1.tgz#7b213b69e514757b89485259a7a08bd3ef34ca99"
+  integrity sha512-7FWrF1HbOJ68tTew5gnvP2L6gff9WiLdPj7mwzOcrH8L+Gkz7wxLlCFGfxBWqdt5jMBO+B/3ZuLJRCER+t2LBg==
+
 "@types/webpack-env@^1.16.4":
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.18.2.tgz#0264bc30c0c4a073118ce5b26c5ef143da4374df"
@@ -5742,6 +5747,11 @@ valid-data-url@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/valid-data-url/-/valid-data-url-3.0.1.tgz#826c1744e71b5632e847dd15dbd45b9fb38aa34f"
   integrity sha512-jOWVmzVceKlVVdwjNSenT4PbGghU0SBIizAev8ofZVgivk/TVHXSbNL8LP6M3spZvkR9/QolkyJavGSX5Cs0UA==
+
+vanillajs-datepicker@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/vanillajs-datepicker/-/vanillajs-datepicker-1.3.4.tgz#69b42f9106e944c248b7479249889ee1fd8465ef"
+  integrity sha512-waOyp2Ay+K1VA/B5cNlFgSNzFR9efCVKaoyMyNEAhAwmKLzMB9nCJs6Vqmo6HuHWA98VEHXbgz5thZ7hH/uohA==
 
 vary@~1.1.2:
   version "1.1.2"
