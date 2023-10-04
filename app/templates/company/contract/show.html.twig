@@ -1,8 +1,8 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
 {% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), contract.company) %}
 
-{% block body %}
+{% block content %}
     <h1>Contract {{ contract.originalFileName }} of company {{ contract.company.name }}</h1>
 
     {{ dump(contract) }}

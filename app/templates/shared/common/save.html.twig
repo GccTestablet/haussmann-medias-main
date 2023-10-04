@@ -1,7 +1,9 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1 class="h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
+{% block content %}
+<div class="card mb-4">
+    <h1 class="card-header text-center h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
+    <div class="card-body">
 
     {{ form_start(form) }}
     {{ form_rest(form) }}
