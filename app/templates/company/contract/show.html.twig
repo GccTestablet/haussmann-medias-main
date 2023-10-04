@@ -5,7 +5,16 @@
 {% block body %}
     <h1>Contract {{ contract.originalFileName }} of company {{ contract.company.name }}</h1>
 
-    {{ dump(contract) }}
+    <ul>
+        <li>Id: {{ contract.id }}</li>
+        <li>Original file name: {{ contract.originalFileName }}</li>
+        <li>File name: {{ contract.fileName }}</li>
+        <li>Signed at: {{ contract.signedAt|datetime_format }}</li>
+        <li>Starts at: {{ contract.startsAt|datetime_format }}</li>
+        <li>Ends at: {{ contract.endsAt|datetime_format }}</li>
+        <li>Created at: {{ contract.createdAt|datetime_format }}</li>
+        <li>Updated at: {{ contract.updatedAt|datetime_format }}</li>
+    </ul>
 
     <a href="{{ path('app_company_show', {'id': contract.company.id}) }}" class="btn btn-dark">Back to company</a>
 
