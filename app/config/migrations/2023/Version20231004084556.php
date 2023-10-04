@@ -39,6 +39,7 @@ final class Version20231004084556 extends AbstractMigration
                 created_by INT DEFAULT NULL, 
                 updated_by INT DEFAULT NULL, 
                 file_name VARCHAR(255) NOT NULL, 
+                original_file_name VARCHAR(255) NOT NULL, 
                 signed_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
                 starts_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, 
                 ends_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, 
@@ -63,8 +64,6 @@ final class Version20231004084556 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP SEQUENCE beneficiaries_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE contracts_id_seq CASCADE');
         $this->addSql('ALTER TABLE beneficiaries DROP CONSTRAINT FK_62DA72F0DE12AB56');

@@ -3,8 +3,8 @@
 {% block body %}
     <h1>List of beneficiaries</h1>
 
-    <a href="{{ path('app_beneficiary_add') }}">Add new beneficiary</a>
-    <table>
+    <a href="{{ path('app_beneficiary_add') }}" class="btn btn-success">Add new beneficiary</a>
+    <table class="table">
         <thead>
         <tr>
             <th>Name</th>
@@ -18,7 +18,7 @@
                 <td><a href="{{ path('app_beneficiary_show', {'id': beneficiary.id}) }}">{{ beneficiary.name }}</a></td>
                 <td>{{ beneficiary.contracts|length }}</td>
                 <td>
-                    <a href="{{ path('app_beneficiary_update', {'id': beneficiary.id}) }}">Update</a>
+                    <a href="{{ path('app_beneficiary_update', {'id': beneficiary.id}) }}" class="btn btn-warning">Update</a>
                 </td>
             </tr>
         {% endfor %}

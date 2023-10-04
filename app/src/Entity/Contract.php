@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Shared\BlameableEntity;
+use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'contracts')]
-class Contract
+class Contract implements FileInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -31,6 +32,9 @@ class Contract
 
     #[ORM\Column]
     private string $fileName;
+
+    #[ORM\Column]
+    private string $originalFileName;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTime $signedAt;
@@ -92,6 +96,18 @@ class Contract
         return $this;
     }
 
+    public function getOriginalFileName(): string
+    {
+        return $this->originalFileName;
+    }
+
+    public function setOriginalFileName(string $originalFileName): self
+    {
+        $this->originalFileName = $originalFileName;
+
+        return $this;
+    }
+
     public function getSignedAt(): \DateTime
     {
         return $this->signedAt;
@@ -138,5 +154,10 @@ class Contract
         $this->territories = $territories;
 
         return $this;
+    }
+
+    public function getUploadDir(): string
+    {
+        return 'media/contracts';
     }
 }

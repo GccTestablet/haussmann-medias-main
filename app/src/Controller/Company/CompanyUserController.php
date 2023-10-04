@@ -46,7 +46,7 @@ class CompanyUserController extends AbstractAppController
             return $this->redirectToRoute('app_company_show', ['id' => $company->getId()]);
         }
 
-        return $this->render('company/user/add.html.twig', [
+        return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add user to company %name%', ['%name%' => $company->getName()], 'company'),
             'form' => $form,
         ]);

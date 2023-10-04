@@ -1,0 +1,31 @@
+<h4>Contracts</h4>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Contract</th>
+        <th>Company</th>
+        <th>Beneficiary</th>
+        <th>Signed at</th>
+        <th>Starts at</th>
+        <th>Ends at</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for contract in contracts %}
+        <tr>
+            <td><a href="{{ path('app_company_contract_show', {'company': contract.company.id, 'id': contract.id}) }}">{{ contract.originalFileName }}</a></td>
+            <td><a href="{{ path('app_company_show', {'id': contract.company.id}) }}">{{ contract.company.name }}</a></td>
+            <td><a href="{{ path('app_beneficiary_show', {'id': contract.beneficiary.id}) }}">{{ contract.beneficiary.name }}</a></td>
+            <td>{{ contract.signedAt|date }}</td>
+            <td>{{ contract.startsAt|date }}</td>
+            <td>{{ contract.endsAt|date }}</td>
+            <td>
+                <a href="{{ path('app_company_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">Download</a>
+                <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">Update</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
