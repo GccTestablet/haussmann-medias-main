@@ -11,6 +11,7 @@ use App\Form\DtoFactory\User\UserFormDtoFactory;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Handler\User\UserFormHandler;
 use App\Security\Voter\UserVoter;
+use App\Service\User\UserManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +24,19 @@ class UserController extends AbstractAppController
     public function __construct(
         private readonly UserFormDtoFactory $userFormDtoFactory,
         private readonly UserFormHandler $userFormHandler,
+        private readonly UserManager $userManager
     ) {}
+
+    #[IsGranted(User::ROLE_SUPER_ADMIN)]
+    #[Route(name: 'app_user_index')]
+    public function index(): Response
+    {
+        $users = $this->userManager->findAll();
+
+        return $this->render('user/index.html.twig', [
+            'users' => $users,
+        ]);
+    }
 
     #[Route(path: '/{id}', name: 'app_user_show', requirements: ['id' => '\d+'])]
     public function show(User $user): Response
@@ -44,7 +57,7 @@ class UserController extends AbstractAppController
             /** @var UserFormDto $dto */
             $dto = $form->getData();
 
-            return $this->redirect($this->generateUrl('app_user_show', ['id' => $dto->getUser()->getId()]));
+            return $this->redirectToRoute('app_user_show', ['id' => $dto->getUser()->getId()]);
         }
 
         return $this->render('user/save.html.twig', [
@@ -65,7 +78,7 @@ class UserController extends AbstractAppController
             /** @var UserFormDto $dto */
             $dto = $form->getData();
 
-            return $this->redirect($this->generateUrl('app_user_show', ['id' => $dto->getUser()->getId()]));
+            return $this->redirectToRoute('app_user_show', ['id' => $dto->getUser()->getId()]);
         }
 
         return $this->render('user/save.html.twig', [

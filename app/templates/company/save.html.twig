@@ -1,0 +1,13 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block body %}
+    <h1 class="h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Save
+    </button>
+    {{ form_end(form) }}
+{% endblock %}

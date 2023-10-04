@@ -1,0 +1,24 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block body %}
+    <h1>List of users</h1>
+
+    <a href="{{ path('app_user_add') }}">New</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
+                <td><a  class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">Update</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
