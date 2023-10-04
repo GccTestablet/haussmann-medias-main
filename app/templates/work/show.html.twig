@@ -1,0 +1,19 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block body %}
+    <h1>Work: {{ work.name }}</h1>
+
+    <ul>
+        <li>Id: {{ work.id }}</li>
+        <li>Internal ID: {{ work.internalId }}</li>
+        <li>Name: {{ work.name }}</li>
+        <li>Original name: {{ work.originalName }}</li>
+        <li>Year: {{ work.year }}</li>
+        <li>Duration: {{ work.duration }}</li>
+        <li>Nationality: {{ work.nationality }}</li>
+
+    </ul>
+
+    <a href="{{ path('app_work_index') }}" class="btn btn-primary">List</a>
+{% endblock %}
+

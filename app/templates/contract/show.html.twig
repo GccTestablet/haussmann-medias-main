@@ -23,4 +23,6 @@
         <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">Update</a>
         <a href="{{ path('app_company_contract_remove', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-danger">Remove</a>
     {% endif %}
+
+    <a href="{{ path('app_contract_work_add', {'contract': contract.id}) }}" class="btn btn-primary">Add work</a>
 {% endblock %}

@@ -19,7 +19,7 @@
         <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
     {% endif %}
 
-    {% include 'company/contract/_embedded/_list.html.twig' with {
+    {% include 'contract/_embedded/_list.html.twig' with {
         contracts: company.contracts,
     } %}
 
