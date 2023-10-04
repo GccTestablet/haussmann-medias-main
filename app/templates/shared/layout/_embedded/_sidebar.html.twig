@@ -19,7 +19,13 @@
         <li class="menu-item">
             <a href="{{ path('app_dashboard') }}" class="menu-link menu-toggle">
                 <i class="menu-item"></i>
-                <div data-i18n="dashboard">Dashboard</div>
+                <div>Dashboard</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="{{ path('app_company_index') }}" class="menu-link menu-toggle">
+                <i class="menu-item"></i>
+                <div>My Company</div>
             </a>
         </li>
         <!-- Managing my business -->
@@ -27,14 +33,36 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-item"></i>
-                <div data-i18n="artwork">Artwork</div>
+                <div>Artwork</div>
             </a>
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-item"></i>
-                <div data-i18n="contract">Contract</div>
+                <div>Contract</div>
             </a>
         </li>
+        <!-- Settings -->
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Settings</span></li>
+        <li class="menu-item">
+            <a href="{{ path('app_company_index') }}" class="menu-link">
+                <i class="menu-item"></i>
+                <div>Companies</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="{{ path('app_user_index') }}" class="menu-link">
+                <i class="menu-item"></i>
+                <div>Users</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="{{ path('app_beneficiary_index') }}" class="menu-link">
+                <i class="menu-item"></i>
+                <div>Beneficiaries</div>
+            </a>
+        </li>
+        {% endif %}
     </ul>
 </aside>

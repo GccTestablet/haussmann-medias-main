@@ -3,48 +3,56 @@
 {% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), company) %}
 
 {% block content %}
-    <h1>Company {{ company.name }}</h1>
+<div class="card mb-4">
+    <h1 class="card-header text-center">Company {{ company.name }}</h1>
+    <div class="card-body">
+        <hr class="my-0">
+        <ul>
+            <li>Id: {{ company.id }}</li>
+            <li>Name: {{ company.name }}</li>
+            <li>Created at: {{ company.createdAt|datetime_format }}</li>
+            <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
+        </ul>
 
-    <ul>
-        <li>Id: {{ company.id }}</li>
-        <li>Name: {{ company.name }}</li>
-        <li>Created at: {{ company.createdAt|datetime_format }}</li>
-        <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
-    </ul>
+        <div class="justify-content-between align-items-center text-center">
+            <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
+            {% if isCompanyAdmin %}
+                <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">Update</a>
+                <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">Add a user</a>
+                <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
+            {% endif %}
+        </div>
+        <br>
+        <hr class="my-0">
 
-    <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
-    {% if isCompanyAdmin %}
-        <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">Update</a>
-        <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">Add a user</a>
-        <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
-    {% endif %}
-
-    {% include 'company/contract/_embedded/_list.html.twig' with {
-        contracts: company.contracts,
-    } %}
-
-    <h4>Users</h4>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for userCompany in company.users %}
-            {% set user = userCompany.user %}
+        {% include 'company/contract/_embedded/_list.html.twig' with {
+            contracts: company.contracts,
+        } %}
+        <br>
+        <h4>Users</h4>
+        <table class="table">
+            <thead>
             <tr>
-                <td>{{ userCompany.user.fullName }}</td>
-                <td>{{ userCompany.permission.asText }}</td>
-                <td>
-                    {% if isCompanyAdmin %}
-                        <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">Remove</a>
-                    {% endif %}
-                </td>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Action</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for userCompany in company.users %}
+                {% set user = userCompany.user %}
+                <tr>
+                    <td>{{ userCompany.user.fullName }}</td>
+                    <td>{{ userCompany.permission.asText }}</td>
+                    <td>
+                        {% if isCompanyAdmin %}
+                            <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">Remove</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
