@@ -54,7 +54,7 @@ class CompanyContractFormDto
         return $this->file;
     }
 
-    public function setFile(?UploadedFile $file): self
+    public function setFile(?UploadedFile $file): static
     {
         $this->file = $file;
 

@@ -38,7 +38,7 @@ abstract class AbstractFormHandler implements FormHandlerInterface
         return static::$form;
     }
 
-    public function setForm(string $form): self
+    public function setForm(string $form): static
     {
         static::$form = $form;
 

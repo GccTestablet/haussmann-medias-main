@@ -11,6 +11,7 @@ use App\Entity\User;
 use App\Form\DtoFactory\Company\CompanyContractFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Company\CompanyContractFormHandler;
+use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Security\Voter\CompanyVoter;
 use App\Tools\Manager\UploadFileManager;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -43,13 +44,7 @@ class CompanyContractController extends AbstractAppController
     {
         $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
 
-        $dto = $this->companyContractFormDtoFactory->create($company, null);
-
-        $formHandlerResponse = $this->formHandlerManager->createAndHandle(
-            $this->companyContractFormHandler,
-            $request,
-            $dto
-        );
+        $formHandlerResponse = $this->getFormHandlerResponse($request, $company, null);
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
@@ -69,13 +64,7 @@ class CompanyContractController extends AbstractAppController
         $company = $contract->getCompany();
         $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
 
-        $dto = $this->companyContractFormDtoFactory->create($company, $contract);
-
-        $formHandlerResponse = $this->formHandlerManager->createAndHandle(
-            $this->companyContractFormHandler,
-            $request,
-            $dto
-        );
+        $formHandlerResponse = $this->getFormHandlerResponse($request, $company, $contract);
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
@@ -124,5 +113,16 @@ class CompanyContractController extends AbstractAppController
     public function download(Contract $contract): BinaryFileResponse
     {
         return $this->uploadFileManager->download($contract);
+    }
+
+    private function getFormHandlerResponse(Request $request, Company $company, ?Contract $contract): FormHandlerResponseInterface
+    {
+        $dto = $this->companyContractFormDtoFactory->create($company, $contract);
+
+        return $this->formHandlerManager->createAndHandle(
+            $this->companyContractFormHandler,
+            $request,
+            $dto
+        );
     }
 }

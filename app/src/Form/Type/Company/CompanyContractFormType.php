@@ -29,7 +29,6 @@ class CompanyContractFormType extends AbstractType
                 'query_builder' => fn (EntityRepository $entityRepository) => $entityRepository->createQueryBuilder('b')
                         ->orderBy('b.name', 'ASC'),
                 'choice_label' => 'name',
-                'required' => true,
             ])
             ->add('file', FileType::class, [
                 'label' => 'Contract',
@@ -41,17 +40,17 @@ class CompanyContractFormType extends AbstractType
             ])
             ->add('signedAt', DateType::class, [
                 'label' => 'Signed at',
-                'required' => true,
             ])
             ->add('startsAt', DateType::class, [
                 'label' => 'Starts at',
-                'required' => true,
             ])
             ->add('endsAt', DateType::class, [
                 'label' => 'Ends at',
-                'required' => true,
+                'required' => false,
             ])
-            ->add('territories', TextareaType::class)
+            ->add('territories', TextareaType::class, [
+                'required' => false,
+            ])
         ;
     }
 

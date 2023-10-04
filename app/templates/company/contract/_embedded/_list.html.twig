@@ -18,9 +18,9 @@
             <td><a href="{{ path('app_company_contract_show', {'company': contract.company.id, 'id': contract.id}) }}">{{ contract.originalFileName }}</a></td>
             <td><a href="{{ path('app_company_show', {'id': contract.company.id}) }}">{{ contract.company.name }}</a></td>
             <td><a href="{{ path('app_beneficiary_show', {'id': contract.beneficiary.id}) }}">{{ contract.beneficiary.name }}</a></td>
-            <td>{{ contract.signedAt|date }}</td>
-            <td>{{ contract.startsAt|date }}</td>
-            <td>{{ contract.endsAt|date }}</td>
+            <td>{{ contract.signedAt|date_format }}</td>
+            <td>{{ contract.startsAt|date_format }}</td>
+            <td>{{ contract.endsAt|date_format }}</td>
             <td>
                 <a href="{{ path('app_company_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">Download</a>
                 <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">Update</a>
