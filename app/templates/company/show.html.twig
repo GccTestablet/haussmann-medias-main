@@ -8,8 +8,8 @@
     <ul>
         <li>Id: {{ company.id }}</li>
         <li>Name: {{ company.name }}</li>
-        <li>Created at: {{ contract.createdAt|datetime_format }}</li>
-        <li>Updated at: {{ contract.updatedAt|datetime_format }}</li>
+        <li>Created at: {{ company.createdAt|datetime_format }}</li>
+        <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
     </ul>
 
     <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
