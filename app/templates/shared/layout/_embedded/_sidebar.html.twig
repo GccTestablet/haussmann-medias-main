@@ -3,10 +3,6 @@
         <a href="{{ path('app_dashboard') }}" class="app-brand-link text-center">
             <img src="{{ asset('build/images/_logo/rights_flow_black_orange.svg') }}" alt="Rights Flow Logo" class="app-brand-logo demo" style="width: 200px; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">
         </a>
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-            <i class="bx menu-toggle-icon d-none d-xl-block fs-4 align-middle"></i>
-            <i class="bx bx-x d-block d-xl-none bx-sm align-middle"></i>
-        </a>
     </div>
 
     <ul class="menu-inner py-1 ps">
@@ -20,8 +16,8 @@
         </li>
         <!-- Dashboard -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>
-        <li class="menu-item active">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <li class="menu-item">
+            <a href="{{ path('app_dashboard') }}" class="menu-link menu-toggle">
                 <i class="menu-item"></i>
                 <div data-i18n="dashboard">Dashboard</div>
             </a>
