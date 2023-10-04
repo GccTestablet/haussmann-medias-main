@@ -6,32 +6,32 @@
         </div>
     </a>
     <ul class="dropdown-menu dropdown-menu-end">
-        <li>
-            <a class="dropdown-item" href="pages-account-settings-account.html">
-                <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                        <div class="avatar avatar-online">
-                            <img src="../../assets/img/avatars/1.png" alt class="rounded-circle">
-                        </div>
-                    </div>
-                    <div class="flex-grow-1">
-                        <span class="fw-semibold d-block lh-1">John Doe</span>
-                        <small>Admin</small>
+        <li class="dropdown-item">
+            <div class="d-flex">
+                <div class="flex-shrink-0 me-3">
+                    <div class="avatar avatar-online">
+                        <img src="../../assets/img/avatars/1.png" alt class="rounded-circle">
                     </div>
                 </div>
-            </a>
+                <div class="flex-grow-1">
+                    <span class="fw-semibold d-block lh-1">{{ app.user.fullName }}</span>
+                    {% for role in app.user.roles %}
+                        <div class="text-muted fs-tiny">{{ role }}</div>
+                    {% endfor %}
+                </div>
+            </div>
         </li>
         <li>
             <div class="dropdown-divider"></div>
         </li>
         <li>
-            <a class="dropdown-item" href="pages-profile-user.html">
+            <a class="dropdown-item" href="{{ path('app_security_profile_index') }}">
                 <i class="bx bx-user me-2"></i>
                 <span class="align-middle">My Profile</span>
             </a>
         </li>
         <li>
-            <a class="dropdown-item" href="pages-account-settings-account.html">
+            <a class="dropdown-item" href="{{ path('app_security_profile_change_password') }}">
                 <i class="bx bx-cog me-2"></i>
                 <span class="align-middle">Settings</span>
             </a>
@@ -40,13 +40,7 @@
             <div class="dropdown-divider"></div>
         </li>
         <li>
-            <a class="dropdown-item" href="choose-entity-user.html" target="_blank">
-                <i class="bx bx-power-off me-2"></i>
-                <span class="align-middle">Choose Entity</span>
-            </a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+            <a class="dropdown-item" href="{{ path('app_logout') }}">
                 <i class="bx bx-power-off me-2"></i>
                 <span class="align-middle">Log Out</span>
             </a>

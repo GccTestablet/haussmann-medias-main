@@ -12,7 +12,8 @@
     <div class="container-xxl">
         <div class="authentification-wrapper authentification-basic container-p-y">
             <div class="authentification-inner py-4">
-                {{ include('shared/layout/_embedded/_authentification/_card_authentification.html.twig') }}
+                {# { include('shared/layout/_embedded/_authentification/_card_authentification.html.twig') }#}
+                {% block page_content %}{% endblock %}
             </div>
         </div>
     </div>

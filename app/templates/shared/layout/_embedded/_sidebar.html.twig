@@ -4,7 +4,7 @@
             <span class="app-brand-logo demo">
             <svg width="260px" height="260px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <title>icon</title>
-                <i href="../../../../assets/img/_logo/rights_flow_black_orange.svg"></i>
+                <i href="{{ asset('../../../../assets/img/_logo/rights_flow_black_orange.svg') }}"></i>
             </svg>
             </span>
             <span class="app-brand-text demo menu-text fw-bold ms-2">Rights Flow</span>
@@ -16,6 +16,13 @@
     </div>
 
     <ul class="menu-inner py-1 ps">
+        <!-- Choose Company-->
+        <li class="menu-item">
+            <select class="form-control">
+                <option>Haussmann Medias</option>
+                <option>Chrome Film</option>
+            </select>
+        </li>
         <!-- Dashboard -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>
         <li class="menu-item active">

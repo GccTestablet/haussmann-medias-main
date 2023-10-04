@@ -1,27 +1,45 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_authentification.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
-{% block body %}
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Haussmann Medias - Login</h1>
-
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="_remember_me" name="_remember_me" />
-        <label class="form-check-label" for="_remember_me">Se souvenir de moi ?</label>
+{% block page_content %}
+<div class="container-xxl">
+    <div class="authentification-wrapper authentification-basic container-p-y">
+        <div class="authentification-inner py-4">
+            <!-- Logo -->
+            {{ include('shared/layout/_embedded/_logo/_logo_rigthsflow.html.twig') }}
+            <h4 class="mb-2">Welcome to Rights Flow !</h4>
+            <p class="mb-4">Please to sign-in to your account and start your work</p>
+            {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            {{ form_start(form) }}
+            <form id="formAuthentification" class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework" action="index.html" method="post" novalidate="novalidate">
+            <!-- Email -->
+            <div class="mb-3 fv-plugins-icon-container">
+                <label for="password" class="form-label">Email</label>
+                {{ form_row(form.email) }}
+            </div>
+            <!-- Password -->
+            <div class="mb-3 form-password-toggle fv-plugins-icon-container">
+                <div class="d-flex justify-content-between">
+                    <label for="password" class="form-label">Password</label>
+                    <a href="{{ path('app_security_resetting_request') }}">Forgot password?</a>
+                </div>
+                {{ form_row(form.password) }}
+            </div>
+            <!-- Remember me -->
+            <div class="mb-3">
+                <input type="checkbox" class="form-check-input" id="_remember_me" name="_remember_me" />
+                <label class="form-check-label" for="_remember_me">Se souvenir de moi ?</label>
+            </div>
+            <!-- Token -->
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <!-- Button -->
+            <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+            </div>
+            {{ form_end(form) }}
+            </form>
+        </div>
     </div>
-
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-    {{ form_end(form) }}
-
-    <a href="{{ path('app_security_resetting_request') }}">Forgot password?</a>
+</div>
 {% endblock %}
