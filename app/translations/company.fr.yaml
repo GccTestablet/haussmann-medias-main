@@ -1,0 +1,4 @@
+Add company: Ajouter une société
+Update company %name%: Mettre à jour la société %name%
+Add user to company %name%: Ajouter un utilisateur à la société %name%
+Remove user %user% from company %company%?: Supprimer l'utilisateur %user% de la société %company% ?

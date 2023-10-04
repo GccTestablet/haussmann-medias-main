@@ -22,10 +22,9 @@ class SecurityController extends AbstractAppController
         $login = (new LoginFormDto())
             ->setEmail($lastUsername)
         ;
-        $form = $this->createForm(LoginFormType::class, $login);
 
         return $this->render('security/login.html.twig', [
-            'form' => $form,
+            'form' => $this->createForm(LoginFormType::class, $login),
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
