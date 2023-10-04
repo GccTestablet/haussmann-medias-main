@@ -1,0 +1,27 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block body %}
+    <h1>List of beneficiaries</h1>
+
+    <a href="{{ path('app_beneficiary_add') }}">Add new beneficiary</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contract count</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for beneficiary in beneficiaries %}
+            <tr>
+                <td><a href="{{ path('app_beneficiary_show', {'id': beneficiary.id}) }}">{{ beneficiary.name }}</a></td>
+                <td>{{ beneficiary.contracts|length }}</td>
+                <td>
+                    <a href="{{ path('app_beneficiary_update', {'id': beneficiary.id}) }}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

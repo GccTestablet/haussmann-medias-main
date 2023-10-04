@@ -21,11 +21,11 @@ class Contract
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Company::class)]
+    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'contracts')]
     #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: true)]
     private Company $company;
 
-    #[ORM\ManyToOne(targetEntity: Beneficiary::class)]
+    #[ORM\ManyToOne(targetEntity: Beneficiary::class, inversedBy: 'contracts')]
     #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id', nullable: true)]
     private Beneficiary $beneficiary;
 

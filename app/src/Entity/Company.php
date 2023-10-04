@@ -32,9 +32,13 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: UserCompany::class, cascade: ['persist'])]
     private Collection $users;
 
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Contract::class)]
+    private Collection $contracts;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->contracts = new ArrayCollection();
     }
 
     public function getId(): int
@@ -78,6 +82,18 @@ class Company
     public function setUsers(Collection $users): static
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function setContracts(Collection $contracts): static
+    {
+        $this->contracts = $contracts;
 
         return $this;
     }

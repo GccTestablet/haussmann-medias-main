@@ -7,14 +7,11 @@ namespace Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20231004084556 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add beneficiaries and contracts tables';
     }
 
     public function up(Schema $schema): void

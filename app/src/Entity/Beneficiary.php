@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,6 +25,14 @@ class Beneficiary
 
     #[ORM\Column]
     private string $name;
+
+    #[ORM\OneToMany(mappedBy: 'beneficiary', targetEntity: Contract::class)]
+    private Collection $contracts;
+
+    public function __construct()
+    {
+        $this->contracts = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -44,6 +54,18 @@ class Beneficiary
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function setContracts(Collection $contracts): static
+    {
+        $this->contracts = $contracts;
 
         return $this;
     }

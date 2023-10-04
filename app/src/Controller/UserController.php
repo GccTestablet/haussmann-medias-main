@@ -27,8 +27,8 @@ class UserController extends AbstractAppController
         private readonly UserManager $userManager
     ) {}
 
-    #[IsGranted(User::ROLE_SUPER_ADMIN)]
     #[Route(name: 'app_user_index')]
+    #[IsGranted(User::ROLE_SUPER_ADMIN)]
     public function index(): Response
     {
         $users = $this->userManager->findAll();
@@ -46,8 +46,8 @@ class UserController extends AbstractAppController
         ]);
     }
 
-    #[IsGranted(User::ROLE_SUPER_ADMIN)]
     #[Route('/add', name: 'app_user_add')]
+    #[IsGranted(User::ROLE_SUPER_ADMIN)]
     public function add(Request $request): Response
     {
         $formHandlerResponse = $this->getFormHandlerResponse($request, null);
@@ -60,7 +60,7 @@ class UserController extends AbstractAppController
             return $this->redirectToRoute('app_user_show', ['id' => $dto->getUser()->getId()]);
         }
 
-        return $this->render('user/save.html.twig', [
+        return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add user', [], 'user'),
             'form' => $form,
         ]);
@@ -81,7 +81,7 @@ class UserController extends AbstractAppController
             return $this->redirectToRoute('app_user_show', ['id' => $dto->getUser()->getId()]);
         }
 
-        return $this->render('user/save.html.twig', [
+        return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update user %name%', ['%name%' => $user->getFullName()], 'user'),
             'form' => $form,
         ]);
