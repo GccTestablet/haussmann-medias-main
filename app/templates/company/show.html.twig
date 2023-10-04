@@ -5,7 +5,12 @@
 {% block content %}
     <h1>Company {{ company.name }}</h1>
 
-    {{ dump(company) }}
+    <ul>
+        <li>Id: {{ company.id }}</li>
+        <li>Name: {{ company.name }}</li>
+        <li>Created at: {{ company.createdAt|datetime_format }}</li>
+        <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
+    </ul>
 
     <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
     {% if isCompanyAdmin %}

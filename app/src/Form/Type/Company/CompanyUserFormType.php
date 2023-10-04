@@ -24,6 +24,7 @@ class CompanyUserFormType extends AbstractType
         $builder
             ->add('user', EntityType::class, [
                 'class' => User::class,
+                'placeholder' => 'Select user',
                 'query_builder' => fn (UserRepository $userRepository) => $userRepository->findUsersNotInCompanyQueryBuilder($dto->getCompany()),
                 'choice_label' => 'fullName',
             ])
