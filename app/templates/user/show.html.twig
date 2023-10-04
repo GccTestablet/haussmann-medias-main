@@ -1,13 +1,53 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1>Profile {{ user.fullName }}</h1>
-
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="user-profile-header-banner">
+                    <img alt="banner image" class="d-block h-auto ms-0 ms-sm-4 rounded-3 user-profile-img">
+                </div>
+                <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                    <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                        <img src="{#{ app.user.avatar } #}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded-3 user-profile-img">
+                    </div>
+                    <div class="flex-grow-1 mt-3 mt-sm-5">
+                        <div class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                            <div class="user-profile-info">
+                                <h4>{{ app.user.fullName }}</h4>
+                            </div>
+                            <ul class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                                <li class="list-inline-item">
+                                    <i class="list-inline-item fw-semibold">
+                                        Email: {{ app.user.email }}
+                                    </i>
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="list-inline-item fw-semibold">
+                                        Last Login: {{ app.user.lastLogin|date('Y-m-d H:i:s') }}
+                                    </i>
+                                </li>
+                                <li class="list-inline-item">
+                                    {% for role in app.user.roles %}
+                                    <i class="list-inline-item fw-semibold">
+                                        Roles : {{ role }}
+                                    </i>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{ dump(user) }}
-
     {{ dump(is_granted('SAME_USER', user)) }}
-    <a href="{{ path('app_user_update', {'id': user.id}) }}">Update</a>
-    {% if user == app.user %}
-        <a href="{{ path('app_security_profile_change_password') }}">Change password</a>
-    {% endif %}
+
+    <div class="justify-content-between">
+        <a class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">Update</a>
+        {% if user == app.user %}
+            <a class="btn btn-warning" href="{{ path('app_security_profile_change_password') }}">Change password</a>
+        {% endif %}
+    </div>
 {% endblock %}

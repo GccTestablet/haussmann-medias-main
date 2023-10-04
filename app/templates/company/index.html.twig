@@ -1,7 +1,9 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1>List of companies</h1>
+{% block content %}
+<div class="card mb-4">
+    <h1 class="card-header text-center">List of companies</h1>
+    <div class="card-body">
 
     <a href="{{ path('app_company_add') }}">New</a>
 
@@ -21,4 +23,6 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
+</div>
 {% endblock %}

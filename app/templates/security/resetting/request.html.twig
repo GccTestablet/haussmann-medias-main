@@ -1,19 +1,23 @@
 {% extends 'shared/layout/base.html.twig' %}
 
 {% block body %}
-    <div class="page-authentication__form">
-        <p>
-            Veuillez saisir l'adresse email utilisée pour recevoir un lien de réinitialisation de mot de passe.
-        </p>
 
+{{ include('shared/layout/_embedded/_logo/_logo_rigthsflow.html.twig') }}
+<div class="card mb-4">
+    <h2 class="card-header text-center">Please enter the email address used to receive a password reset link.</h2>
+    <div class="card-body">
+        <form id="formAuthentification" class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework" action="index.html" method="post" novalidate="novalidate">
         {{ form_start(form) }}
         {{ form_rest(form) }}
-        <div class="d-grid mt-3">
-            <button type="submit" class="btn btn-primary btn-block">Envoyer la demande</button>
-        </div>
-        <div class="row justify-content-center mt-3">
-            <a href="{{ path('app_login') }}" class="btn btn-sm btn-link">{% trans from 'security' %}Back to authentication{% endtrans %}</a>
+        <div class="justify-content-between">
+            <div class="d-grid mt-3">
+                <button type="submit" class="btn btn-warning">Envoyer la demande</button>
+            </div>
+            <div class="row justify-content-center mt-3">
+                <a href="{{ path('app_login') }}" class="btn btn-sm btn-link">{% trans from 'security' %}Back to authentication{% endtrans %}</a>
+            </div>
         </div>
         {{ form_end(form) }}
     </div>
+</div>
 {% endblock %}

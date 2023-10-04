@@ -1,15 +1,24 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
 {% block title %}Haussmann Medias - User{% endblock %}
 
-{% block body %}
-    <h1 class="h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
+{% block content %}
 
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Save
-    </button>
-    {{ form_end(form) }}
+    <div class="card mb-4">
+        <h2 class="card-header text-center">Mettre à jour l'utilisateur {{ app.user.fullName }}</h2>
+        <div class="card-body">
+            {{ form_start(form) }}
+            <form id="formAuthentification" class="mb-3 fv-plugins-bootstrap5 fv-plugins-framework" action="index.html" method="post" novalidate="novalidate">
+                <!-- Password -->
+                <div class="mb-3 form-password-toggle fv-plugins-icon-container">
+                    {{ form_rest(form) }}
+                </div>
+                <div class="col-12 mt-1">
+                    <button class="btn btn-warning" type="submit">Save changes</button>
+                    <a href="{{ path('app_security_profile_index') }}" class="btn btn-warning" type="reset">Cancel</a>
+                </div>
+            </form>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
