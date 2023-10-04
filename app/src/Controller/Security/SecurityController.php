@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Security;
 
 use App\Controller\Shared\AbstractAppController;
 use App\Form\Dto\Security\LoginFormDto;

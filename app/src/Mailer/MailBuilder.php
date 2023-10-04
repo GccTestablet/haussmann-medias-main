@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mailer;
 
+use App\Mailer\Shared\MailInterface;
 use App\Mailer\Shared\Mime\Template;
 use NotFloran\MjmlBundle\Renderer\RendererInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -14,8 +15,6 @@ use Twig\Environment;
 class MailBuilder
 {
     private ?Email $email = null;
-
-    private ?Address $from = null;
 
     /**
      * @var Address[]
@@ -56,7 +55,7 @@ class MailBuilder
             throw new \LogicException('Email not initialized');
         }
 
-        $this->email->addFrom($this->from->getAddress());
+        $this->email->addFrom(new Address(MailInterface::SENDER_EMAIL, MailInterface::SENDER_NAME));
 
         foreach ($this->to as $address) {
             $this->email->addTo($address->getAddress());
@@ -65,13 +64,6 @@ class MailBuilder
         if (\count($this->email->getTo()) > 0) {
             $this->mailer->send($this->email);
         }
-
-        return $this;
-    }
-
-    public function setFrom(Address $address): self
-    {
-        $this->from = $address;
 
         return $this;
     }

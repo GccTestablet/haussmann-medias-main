@@ -11,6 +11,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class AbstractAppController extends AbstractController
 {
+    final public const FLASH_SUCCESS = 'success';
+
     #[Required]
     public FormHandlerManager $formHandlerManager;
 

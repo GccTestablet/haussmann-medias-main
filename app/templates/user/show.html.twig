@@ -5,5 +5,9 @@
 
     {{ dump(user) }}
 
+    {{ dump(is_granted('SAME_USER', user)) }}
     <a href="{{ path('app_user_update', {'id': user.id}) }}">Update</a>
+    {% if user == app.user %}
+        <a href="{{ path('app_security_profile_change_password') }}">Change password</a>
+    {% endif %}
 {% endblock %}

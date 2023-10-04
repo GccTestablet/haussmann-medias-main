@@ -15,7 +15,6 @@
         <phingcall target="composer" />
         <phingcall target="yarn_init" />
         <phingcall target="yarn_build" />
-        <phingcall target="dump_js_routing" />
         <echo message="Clear cache" />
         <exec command="rm -rf var/cache/*" dir="${project_dir}" passthru="true" checkreturn="true" />
         <exec command="bin/console cache:clear" dir="${project_dir}" passthru="true" checkreturn="true" />
@@ -148,11 +147,6 @@
     </target>
 
     <!-- Misc -->
-    <target name="dump_js_routing">
-        <echo message="Dump JS routing" />
-        <exec command="php ${project_dir}/bin/console fos:js-routing:dump --format=json --target=public/js_routes.json" checkreturn="true" passthru="true" />
-    </target>
-
     <target name="cleanup" description="Run cleanup tools">
         <echo message="PHPCS" />
         <exec command="bin/php-cs-fixer fix --no-interaction --no-ansi" dir="${project_dir}" passthru="true" checkreturn="true" />

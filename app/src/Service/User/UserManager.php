@@ -31,6 +31,11 @@ class UserManager
         return $this->getRepository()->findOneBy(['email' => $email]);
     }
 
+    public function findByPasswordResetToken(string $confirmationToken): ?User
+    {
+        return $this->getRepository()->findOneBy(['passwordResetToken' => $confirmationToken]);
+    }
+
     private function getRepository(): UserRepository|EntityRepository
     {
         return $this->entityManager->getRepository(User::class);
