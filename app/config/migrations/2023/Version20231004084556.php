@@ -36,8 +36,6 @@ final class Version20231004084556 extends AbstractMigration
                 id INT NOT NULL, 
                 company_id INT DEFAULT NULL, 
                 beneficiary_id INT DEFAULT NULL, 
-                created_by INT DEFAULT NULL, 
-                updated_by INT DEFAULT NULL, 
                 file_name VARCHAR(255) NOT NULL, 
                 original_file_name VARCHAR(255) NOT NULL, 
                 signed_at DATE NOT NULL, 
@@ -45,7 +43,9 @@ final class Version20231004084556 extends AbstractMigration
                 ends_at DATE DEFAULT NULL, 
                 territories TEXT DEFAULT NULL, 
                 created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, 
+                created_by INT DEFAULT NULL, 
                 updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, 
+                updated_by INT DEFAULT NULL, 
                 PRIMARY KEY(id)
             )
         ');
