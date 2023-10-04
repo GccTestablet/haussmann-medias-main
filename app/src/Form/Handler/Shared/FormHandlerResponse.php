@@ -49,7 +49,7 @@ class FormHandlerResponse implements FormHandlerResponseInterface
         return $this->form;
     }
 
-    public function setForm(FormInterface $form): FormHandlerResponseInterface
+    public function setForm(FormInterface $form): static
     {
         $this->form = $form;
 

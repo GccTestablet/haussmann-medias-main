@@ -51,8 +51,8 @@ class CompanyController extends AbstractAppController
         ]);
     }
 
-    #[IsGranted(User::ROLE_SUPER_ADMIN)]
     #[Route('/add', name: 'app_company_add')]
+    #[IsGranted(User::ROLE_SUPER_ADMIN)]
     public function add(Request $request): Response
     {
         $formHandlerResponse = $this->getFormHandlerResponse($request, null);
@@ -65,7 +65,7 @@ class CompanyController extends AbstractAppController
             return $this->redirectToRoute('app_company_show', ['id' => $dto->getCompany()->getId()]);
         }
 
-        return $this->render('user/save.html.twig', [
+        return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add company', [], 'company'),
             'form' => $form,
         ]);
@@ -86,7 +86,7 @@ class CompanyController extends AbstractAppController
             return $this->redirectToRoute('app_company_show', ['id' => $dto->getCompany()->getId()]);
         }
 
-        return $this->render('company/save.html.twig', [
+        return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update company %name%', ['%name%' => $company->getName()], 'company'),
             'form' => $form,
         ]);

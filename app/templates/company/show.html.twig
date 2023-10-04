@@ -7,13 +7,18 @@
 
     {{ dump(company) }}
 
-    <a href="{{ path('app_company_index') }}">List</a>
+    <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
     {% if isCompanyAdmin %}
-        <a href="{{ path('app_company_update', {'id': company.id}) }}">Update</a>
-        <a href="{{ path('app_company_user_add', {'company': company.id}) }}">Add a user</a>
+        <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">Update</a>
+        <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">Add a user</a>
+        <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
     {% endif %}
 
-    <h1>Users</h1>
+    {% include 'company/contract/_embedded/_list.html.twig' with {
+        contracts: company.contracts,
+    } %}
+
+    <h4>Users</h4>
     <table class="table">
         <thead>
         <tr>

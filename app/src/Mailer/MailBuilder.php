@@ -27,7 +27,7 @@ class MailBuilder
         private readonly RendererInterface $mjml
     ) {}
 
-    public function init(string $subject, Template $template): self
+    public function init(string $subject, Template $template): static
     {
         $templateWrapper = $this->twig->load($template->getName());
         $html = $templateWrapper->render($template->getArguments() + [
@@ -49,7 +49,7 @@ class MailBuilder
         return $this;
     }
 
-    public function send(): self
+    public function send(): static
     {
         if (!$this->email) {
             throw new \LogicException('Email not initialized');
@@ -71,7 +71,7 @@ class MailBuilder
     /**
      * @param Address[] $addresses
      */
-    public function setTo(array $addresses): self
+    public function setTo(array $addresses): static
     {
         $this->to = $addresses;
 
