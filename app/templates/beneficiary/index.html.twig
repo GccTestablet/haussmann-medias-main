@@ -1,34 +1,35 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
 {% block content %}
-<div class="card mb-4">
-    <div class="card-header">
-        <h1 class="card-title text-center">List of beneficiaries</h1>
-    </div>
-    <div class="card-body">
-
-        <a href="{{ path('app_beneficiary_add') }}" class="btn btn-success">Add beneficiary</a>
-        <a href="{#{ path('app_beneficiaries_remove') }#}" class="btn btn-danger">Delete beneficiary</a>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Contract count</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for beneficiary in beneficiaries %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">List of beneficiaries</h1>
+        {% endblock %}
+        {% block body_content %}
+            <a href="{{ path('app_beneficiary_add') }}" class="btn btn-success">Add beneficiary</a>
+            <a href="{#{ path('app_beneficiaries_remove') }#}" class="btn btn-danger">Delete beneficiary</a>
+            <table class="table">
+                <thead>
                 <tr>
-                    <td><a href="{{ path('app_beneficiary_show', {'id': beneficiary.id}) }}">{{ beneficiary.name }}</a></td>
-                    <td>{{ beneficiary.contracts|length }}</td>
-                    <td>
-                        <a href="{{ path('app_beneficiary_update', {'id': beneficiary.id}) }}" class="btn btn-warning">Update</a>
-                    </td>
+                    <th>Name</th>
+                    <th>Contract count</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+                </thead>
+                <tbody>
+                {% for beneficiary in beneficiaries %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_beneficiary_show', {'id': beneficiary.id}) }}">{{ beneficiary.name }}</a>
+                        </td>
+                        <td>{{ beneficiary.contracts|length }}</td>
+                        <td>
+                            <a href="{{ path('app_beneficiary_update', {'id': beneficiary.id}) }}" class="btn btn-warning">Update</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}

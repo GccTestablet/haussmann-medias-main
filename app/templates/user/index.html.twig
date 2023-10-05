@@ -1,30 +1,30 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
 {% block content %}
-<div class="card mb-4">
-    <div class="card-header">
-        <h1 class="card-title text-center">List of users</h1>
-    </div>
-    <div class="card-body">
-        <a class="btn btn-success" href="{{ path('app_user_add') }}">Add user</a>
-        <a href="{#{ path('app_user_remove') }#}" class="btn btn-danger">Delete user</a>
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">List of users</h1>
+        {% endblock %}
+        {% block body_content %}
+            <a class="btn btn-success" href="{{ path('app_user_add') }}">Add user</a>
+            <a href="{#{ path('app_user_remove') }#}" class="btn btn-danger">Delete user</a>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
+            <table class="table">
+                <thead>
                 <tr>
-                    <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
-                    <td><a  class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">Update</a></td>
+                    <th>Name</th>
+                    <th>Action</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
+                        <td><a  class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">Update</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}
