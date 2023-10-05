@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Service\Work;
 
+use App\Entity\Company;
 use App\Entity\Work;
+use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -22,7 +24,18 @@ class WorkManager
         return $this->getRepository()->findBy([], ['name' => 'ASC']);
     }
 
-    private function getRepository(): EntityRepository
+    /**
+     * @return Work[]
+     */
+    public function findByCompany(Company $company): array
+    {
+        return $this->getRepository()->findByCompany($company);
+    }
+
+    /**
+     * @return WorkRepository|EntityRepository<Work>
+     */
+    private function getRepository(): WorkRepository|EntityRepository
     {
         return $this->entityManager->getRepository(Work::class);
     }

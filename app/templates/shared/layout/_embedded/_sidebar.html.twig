@@ -31,16 +31,16 @@
         <!-- Managing my business -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Managing my business</span></li>
         <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-item"></i>
-                <div>Artwork</div>
-            </a>
+{#            <a href="{{ path('app_company_work_index', {'company': app.user.connectedOn}) }}" class="menu-link">#}
+{#                <i class="menu-item"></i>#}
+{#                <div>{% trans from 'work' %}Works{% endtrans %}</div>#}
+{#            </a>#}
         </li>
         <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-item"></i>
-                <div>Contract</div>
-            </a>
+{#            <a href="{{ path('app_company_contract_index', {'company': app.user.connectedOn}) }}" class="menu-link">#}
+{#                <i class="menu-item"></i>#}
+{#                <div>{% trans from 'contract' %}Contracts{% endtrans %}</div>#}
+{#            </a>#}
         </li>
         <!-- Settings -->
         {% if is_granted('ROLE_SUPER_ADMIN') %}
