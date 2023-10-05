@@ -39,7 +39,7 @@ class BroadcastChannel
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id): static
     {
         $this->id = $id;
 
@@ -51,7 +51,7 @@ class BroadcastChannel
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -63,7 +63,7 @@ class BroadcastChannel
         return $this->broadcastServices;
     }
 
-    public function setBroadcastServices(Collection $broadcastServices): self
+    public function setBroadcastServices(Collection $broadcastServices): static
     {
         $this->broadcastServices = $broadcastServices;
 

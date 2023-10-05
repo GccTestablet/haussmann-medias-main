@@ -1,0 +1,28 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">
+                {% trans with {
+                    '%name%': service.name
+                } from 'broadcast_service' %}Service %name%{% endtrans %}
+            </h1>
+        {% endblock %}
+        {% block body_content %}
+            <div class="justify-content-between mb-2">
+                <a href="{{ path('app_broadcast_channel_service_update', {'channel': service.broadcastChannel.id, 'id': service.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+            </div>
+
+            <ul>
+                <li>Id: {{ service.id }}</li>
+                <li>Name: {{ service.name }}</li>
+                <li>Channel: <a href="{{ path('app_broadcast_channel_show', {'id': service.broadcastChannel.id}) }}">{{ service.broadcastChannel.name }}</a></li>
+                <li>Created at: {{ service.createdAt|datetime_format }}</li>
+                <li>Created by: {{ service.createdBy|user_format }}</li>
+                <li>Updated at: {{ service.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ service.updatedBy|user_format }}</li>
+            </ul>
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}
