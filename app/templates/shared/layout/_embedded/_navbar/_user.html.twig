@@ -1,29 +1,9 @@
 <!-- User -->
-<li class="nav-item navbar-dropdown dropdown-user dropdown border">
-    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" style="position: relative;">
-        <div class="avatar avatar-online">
-{#            <img src="../../assets/img/avatars/1.png" alt class="rounded-circle">#}
-        </div>
+<li class="nav-item navbar-dropdown dropdown-user dropdown">
+    <a class="nav-link dropdown-toggle" href="javascript:void(0);" data-bs-toggle="dropdown" style="position: relative;">
+        {{ app.user.fullName }}
     </a>
     <ul class="dropdown-menu dropdown-menu-end" style="z-index: 2;">
-        <li class="dropdown-item">
-            <div class="d-flex">
-                <div class="flex-shrink-0 me-3">
-                    <div class="avatar avatar-online">
-{#                        <img src="../../assets/img/avatars/1.png" alt class="rounded-circle">#}
-                    </div>
-                </div>
-                <div class="flex-grow-1">
-                    <span class="fw-semibold d-block lh-1">{{ app.user.fullName }}</span>
-                    {% for role in app.user.roles %}
-                        <div class="text-muted fs-tiny">{{ role }}</div>
-                    {% endfor %}
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="dropdown-divider"></div>
-        </li>
         <li>
             <a class="dropdown-item" href="{{ path('app_security_profile_index') }}">
                 <i class="bx bx-user me-2"></i>

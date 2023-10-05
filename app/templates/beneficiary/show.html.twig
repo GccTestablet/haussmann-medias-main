@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="card mb-4">
-    <h1 class="card-header text-center">Beneficiary: {{ beneficiary.name }}</h1>
+    <div class="card-header">
+        <h1 class="card-title text-center">Beneficiary: {{ beneficiary.name }}</h1>
+    </div>
     <hr class="my-0">
     <div class="card-body">
         {% include 'company/contract/_embedded/_list.html.twig' with {

@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="card mb-4">
-    <h2 class="card-header text-center">Profile {{ user.fullName }}</h2>
+    <div class="card-header">
+        <h2 class="card-title text-center">Profile {{ user.fullName }}</h2>
+    </div>
     <hr class="my-0">
     <div class="card-body">
         <ul>

@@ -10,10 +10,12 @@
 
 {% block body %}
     <div class="container-xxl">
-        <div class="authentification-wrapper authentification-basic container-p-y">
-            <div class="authentification-inner py-4">
-                {{ include('shared/layout/_embedded/_authentification/_card_forgot_password.html.twig') }}
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            <div class="authentication-inner py-4">
+                {{ include('shared/layout/_embedded/_logo/_logo_rigthsflow.html.twig') }}
+                {% block content %}{% endblock %}
             </div>
         </div>
+        {{ include('shared/layout/_embedded/_footer.html.twig') }}
     </div>
 {% endblock %}

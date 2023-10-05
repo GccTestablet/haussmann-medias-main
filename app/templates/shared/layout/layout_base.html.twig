@@ -12,28 +12,15 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             {{ include('shared/layout/_embedded/_sidebar.html.twig') }}
-            <div class="content">
+            <div class="layout-page">
                 {{ include('shared/layout/_embedded/_navbar.html.twig') }}
-
-                <div class="container mt-4">
-                    {% block content %}{% endblock %}
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        {% block content %}{% endblock %}
+                    </div>
+                    {{ include('shared/layout/_embedded/_footer.html.twig') }}
                 </div>
             </div>
-            {{ include('shared/layout/_embedded/_footer.html.twig') }}
         </div>
     </div>
-
-    <style>
-        /* Ajoutez ces styles pour ajuster les espaces */
-        .sidebar {
-            width: 250px; /* Ajustez la largeur de la sidebar en fonction de vos besoins */
-            margin-right: 20px; /* Ajustez la marge entre la sidebar et le contenu */
-        }
-
-        .content {
-            flex: 1; /* Le contenu occupera tout l'espace disponible */
-            margin-top: 30px; /* Ajustez l'espacement entre le haut du contenu et la navbar */
-            margin-left: 250px; /* Ajustez l'espacement entre la sidebar et le contenu */
-        }
-    </style>
 {% endblock %}

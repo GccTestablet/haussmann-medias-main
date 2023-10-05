@@ -4,7 +4,9 @@
 
 {% block content %}
 <div class="card mb-4">
-    <h1 class="card-header text-center">Contract {{ contract.originalFileName }} of company {{ contract.company.name }}</h1>
+    <div class="card-header">
+        <h1 class="card-title text-center">Contract {{ contract.originalFileName }} of company {{ contract.company.name }}</h1>
+    </div>
     <div class="card-body">
         <hr class="my-0">
         <ul>

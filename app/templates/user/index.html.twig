@@ -2,7 +2,9 @@
 
 {% block content %}
 <div class="card mb-4">
-    <h1 class="card-header text-center">List of users</h1>
+    <div class="card-header">
+        <h1 class="card-title text-center">List of users</h1>
+    </div>
     <div class="card-body">
         <a class="btn btn-success" href="{{ path('app_user_add') }}">Add user</a>
         <a href="{#{ path('app_user_remove') }#}" class="btn btn-danger">Delete user</a>
