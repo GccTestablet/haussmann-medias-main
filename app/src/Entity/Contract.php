@@ -25,11 +25,11 @@ class Contract implements FileInterface
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'contracts')]
-    #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: true)]
+    #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id')]
     private Company $company;
 
     #[ORM\ManyToOne(targetEntity: Beneficiary::class, inversedBy: 'contracts')]
-    #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id', nullable: true)]
+    #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id')]
     private Beneficiary $beneficiary;
 
     #[ORM\Column]
