@@ -1,4 +1,9 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo d-flex justify-content-center align-items-center" style="height: 120px; overflow: hidden;">
+        <a href="{{ path('app_dashboard') }}" class="app-brand-link text-center">
+            <img src="{{ asset('build/images/_logo/rights_flow_black_orange.svg') }}" alt="Rights Flow Logo" class="app-brand-logo demo" style="width: 200px; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">
+        </a>
+    </div>
     <ul class="menu-inner py-1 ps">
         <!-- Choose Company-->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Choose your company</span></li>
@@ -60,10 +65,4 @@
             </li>
         {% endif %}
     </ul>
-
-    <div class="app-brand demo d-flex justify-content-center align-items-center" style="height: 120px; overflow: hidden;">
-        <a href="{{ path('app_dashboard') }}" class="app-brand-link text-center">
-            <img src="{{ asset('build/images/_logo/rights_flow_black_orange.svg') }}" alt="Rights Flow Logo" class="app-brand-logo demo" style="width: 200px; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">
-        </a>
-    </div>
 </aside>

@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class CompanyVoter extends Voter
 {
     final public const COMPANY_ADMIN = 'company_admin';
-    final public const IN_COMPANY = 'in_company';
+    final public const ALLOWED_TO_SWITCH = 'allowed_to_switch';
 
     public function __construct(
         private readonly SecurityManager $securityManager,
@@ -29,7 +29,7 @@ class CompanyVoter extends Voter
         }
 
         return match ($attribute) {
-            self::COMPANY_ADMIN, self::IN_COMPANY => true,
+            self::COMPANY_ADMIN, self::ALLOWED_TO_SWITCH => true,
             default => false,
         };
     }
@@ -50,7 +50,7 @@ class CompanyVoter extends Voter
 
         return match ($attribute) {
             self::COMPANY_ADMIN => $this->companyUserAccessManager->hasPermission($subject, $currentUser, UserCompanyPermissionEnum::ADMIN) || $isSuperAdmin,
-            self::IN_COMPANY => $this->companyUserAccessManager->getPermission($subject, $currentUser) || $isSuperAdmin,
+            self::ALLOWED_TO_SWITCH => (bool) $this->companyUserAccessManager->getPermission($subject, $currentUser),
             default => false,
         };
     }
