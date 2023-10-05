@@ -9,7 +9,9 @@
         <li>Id: {{ company.id }}</li>
         <li>Name: {{ company.name }}</li>
         <li>Created at: {{ company.createdAt|datetime_format }}</li>
+        <li>Created by: {{ company.createdBy|user_format }}</li>
         <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
+        <li>Updated by: {{ company.updatedBy|user_format }}</li>
     </ul>
 
     <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
@@ -19,11 +21,14 @@
         <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
     {% endif %}
 
+    <h4>Contracts</h4>
+
     {% include 'contract/_embedded/_list.html.twig' with {
         contracts: company.contracts,
     } %}
 
     <h4>Users</h4>
+
     <table class="table">
         <thead>
         <tr>
@@ -36,7 +41,7 @@
         {% for userCompany in company.users %}
             {% set user = userCompany.user %}
             <tr>
-                <td>{{ userCompany.user.fullName }}</td>
+                <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
                 <td>{{ userCompany.permission.asText }}</td>
                 <td>
                     {% if isCompanyAdmin %}
