@@ -41,6 +41,8 @@
                     <div>{% trans from 'contract' %}Contracts{% endtrans %}</div>
                 </a>
             </li>
+            {% else %}
+                <li class="menu-item btn btn-warning align-items-center">No selected company</li>
         {% endif %}
         <!-- Settings -->
         {% if is_granted('ROLE_SUPER_ADMIN') %}
