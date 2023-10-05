@@ -7,7 +7,6 @@ namespace App\Entity;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -40,13 +39,13 @@ class Contract implements FileInterface
     private string $originalFileName;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private DateTime $signedAt;
+    private \DateTime $signedAt;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private DateTime $startsAt;
+    private \DateTime $startsAt;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?DateTime $endsAt = null;
+    private ?\DateTime $endsAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $territories = null;
@@ -119,36 +118,36 @@ class Contract implements FileInterface
         return $this;
     }
 
-    public function getSignedAt(): DateTime
+    public function getSignedAt(): \DateTime
     {
         return $this->signedAt;
     }
 
-    public function setSignedAt(DateTime $signedAt): static
+    public function setSignedAt(\DateTime $signedAt): static
     {
         $this->signedAt = $signedAt;
 
         return $this;
     }
 
-    public function getStartsAt(): DateTime
+    public function getStartsAt(): \DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(DateTime $startsAt): static
+    public function setStartsAt(\DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?DateTime
+    public function getEndsAt(): ?\DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?DateTime $endsAt): static
+    public function setEndsAt(?\DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 

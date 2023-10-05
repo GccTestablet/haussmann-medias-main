@@ -9,7 +9,6 @@ use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Work\OriginWorkEnum;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use function sprintf;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'works')]
@@ -158,6 +157,6 @@ class Work
 
     public function getImdbLink(): string
     {
-        return sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
+        return \sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
     }
 }
