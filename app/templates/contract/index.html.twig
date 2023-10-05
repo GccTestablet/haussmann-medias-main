@@ -3,11 +3,11 @@
 {% block content %}
     {% component card %}
         {% block header_content %}
-            <h1 class="card-title text-center">{% trans from 'work' %}List of works{% endtrans %}</h1>
+            <h1 class="card-title text-center">{% trans from 'contract' %}List of contracts{% endtrans %}</h1>
         {% endblock %}
         {% block body_content %}
-            {% include 'work/_embedded/_list.html.twig' with {
-                works: works,
+            {% include 'contract/_embedded/_list.html.twig' with {
+                contracts: contracts,
             } %}
         {% endblock %}
     {% endcomponent %}

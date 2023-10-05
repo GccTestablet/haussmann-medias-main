@@ -7,10 +7,11 @@ namespace App\Entity;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Work\OriginWorkEnum;
+use App\Repository\WorkRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: WorkRepository::class)]
 #[ORM\Table(name: 'works')]
 class Work
 {
