@@ -3,13 +3,13 @@
 {% block content %}
 <div class="card mb-4">
     <h1 class="card-header text-center">Beneficiary: {{ beneficiary.name }}</h1>
+    <hr class="my-0">
     <div class="card-body">
-        <a class="btn btn-primary" href="{{ path('app_beneficiary_index') }}">List</a>
-
         {% include 'company/contract/_embedded/_list.html.twig' with {
             contracts: beneficiary.contracts
         } %}
+        <br><br><br><br>
+        <a class="btn btn-primary" href="{{ path('app_beneficiary_index') }}">List</a>
     </div>
 </div>
 {% endblock %}
-
