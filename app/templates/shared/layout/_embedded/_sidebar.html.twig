@@ -42,7 +42,11 @@
                 </a>
             </li>
             {% else %}
-                <li class="menu-item btn btn-warning align-items-center">No selected company</li>
+                <li class="menu-item">
+                    <div class="alert alert-warning text-center p-1 fw-bold">
+                        {% trans from 'user' %}No company selected{% endtrans %}
+                    </div>
+                </li>
         {% endif %}
         <!-- Settings -->
         {% if is_granted('ROLE_SUPER_ADMIN') %}
