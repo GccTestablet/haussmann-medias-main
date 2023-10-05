@@ -112,7 +112,7 @@ class Work
         return $this->origin;
     }
 
-    public function setOrigin(OriginWorkEnum $origin): self
+    public function setOrigin(OriginWorkEnum $origin): static
     {
         $this->origin = $origin;
 
