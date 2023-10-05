@@ -15,10 +15,11 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class CompanyVoter extends Voter
 {
     final public const COMPANY_ADMIN = 'company_admin';
+    final public const IN_COMPANY = 'in_company';
 
     public function __construct(
         private readonly SecurityManager $securityManager,
-        private readonly CompanyUserAccessManager $companyUserAccessManager
+        private readonly CompanyUserAccessManager $companyUserAccessManager,
     ) {}
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -27,7 +28,10 @@ class CompanyVoter extends Voter
             return false;
         }
 
-        return $attribute === self::COMPANY_ADMIN;
+        return match ($attribute) {
+            self::COMPANY_ADMIN, self::IN_COMPANY => true,
+            default => false,
+        };
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
@@ -45,7 +49,8 @@ class CompanyVoter extends Voter
         $isSuperAdmin = $this->securityManager->hasRole(User::ROLE_SUPER_ADMIN);
 
         return match ($attribute) {
-            self::COMPANY_ADMIN => $this->companyUserAccessManager->hasAccess($subject, $currentUser, UserCompanyPermissionEnum::ADMIN) || $isSuperAdmin,
+            self::COMPANY_ADMIN => $this->companyUserAccessManager->hasPermission($subject, $currentUser, UserCompanyPermissionEnum::ADMIN) || $isSuperAdmin,
+            self::IN_COMPANY => $this->companyUserAccessManager->getPermission($subject, $currentUser) || $isSuperAdmin,
             default => false,
         };
     }
