@@ -1,35 +1,39 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
 {% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), contract.company) %}
 
-{% block body %}
-    <h1>Contract {{ contract.originalFileName }} of company {{ contract.company.name }}</h1>
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">Contract {{ contract.originalFileName }} of company {{ contract.company.name }} </h1>
+        {% endblock %}
+        {% block body_content %}
+            <ul>
+                <li>Id: {{ contract.id }}</li>
+                <li>Original file name: {{ contract.originalFileName }}</li>
+                <li>File name: {{ contract.fileName }}</li>
+                <li>Signed at: {{ contract.signedAt|date_format }}</li>
+                <li>Starts at: {{ contract.startsAt|date_format }}</li>
+                <li>Ends at: {{ contract.endsAt|date_format }}</li>
+                <li>Created at: {{ contract.createdAt|datetime_format }}</li>
+                <li>Created by: {{ contract.createdBy|user_format }}</li>
+                <li>Updated at: {{ contract.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ contract.updatedBy|user_format }}</li>
+            </ul>
 
-    <ul>
-        <li>Id: {{ contract.id }}</li>
-        <li>Original file name: {{ contract.originalFileName }}</li>
-        <li>File name: {{ contract.fileName }}</li>
-        <li>Signed at: {{ contract.signedAt|date_format }}</li>
-        <li>Starts at: {{ contract.startsAt|date_format }}</li>
-        <li>Ends at: {{ contract.endsAt|date_format }}</li>
-        <li>Created at: {{ contract.createdAt|datetime_format }}</li>
-        <li>Created by: {{ contract.createdBy|user_format }}</li>
-        <li>Updated at: {{ contract.updatedAt|datetime_format }}</li>
-        <li>Updated by: {{ contract.updatedBy|user_format }}</li>
-    </ul>
+            <a href="{{ path('app_company_show', {'id': contract.company.id}) }}" class="btn btn-dark">Back to company</a>
 
-    <a href="{{ path('app_company_show', {'id': contract.company.id}) }}" class="btn btn-dark">Back to company</a>
+            <a href="{{ path('app_company_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">Download</a>
+            {% if isCompanyAdmin %}
+                <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">Update</a>
+                <a href="{{ path('app_company_contract_remove', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-danger">Remove</a>
+            {% endif %}
+            <a href="{{ path('app_contract_work_add', {'contract': contract.id}) }}" class="btn btn-primary">Add work</a>
 
-    <a href="{{ path('app_company_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">Download</a>
-    {% if isCompanyAdmin %}
-        <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">Update</a>
-        <a href="{{ path('app_company_contract_remove', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-danger">Remove</a>
-    {% endif %}
-
-    <a href="{{ path('app_contract_work_add', {'contract': contract.id}) }}" class="btn btn-primary">Add work</a>
-
-    <h4>Works</h4>
-    {% include 'work/_embedded/_list.html.twig' with {
-        works: contract.works,
-    } %}
+            <h4>Works</h4>
+            {% include 'work/_embedded/_list.html.twig' with {
+                works: contract.works,
+            } %}
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}

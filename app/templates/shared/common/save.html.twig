@@ -1,13 +1,17 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1 class="h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
-
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Save
-    </button>
-    {{ form_end(form) }}
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
+        {% endblock %}
+        {% block body_content %}
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button class="btn btn-lg btn-primary" type="submit">
+                Save
+            </button>
+            {{ form_end(form) }}
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}

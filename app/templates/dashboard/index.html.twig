@@ -1,15 +1,5 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
-
-{% block body %}
-    <h1>TODO</h1>
-    {% if is_granted('ROLE_SUPER_ADMIN') %}
-        <a href="{{ path('app_user_index') }}">Users</a><br />
-    {% endif %}
-
-    <a href="{{ path('app_company_index') }}">Companies</a><br />
-    <a href="{{ path('app_beneficiary_index') }}">Beneficiaries</a><br />
-    <a href="{{ path('app_work_index') }}">Works</a><br />
-    <a href="{{ path('app_security_profile_change_password') }}">Change password</a><br />
+{% block content %}
+    <h1>Dashboard</h1>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block css_global %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('assets/css/app') }}
+    {{ encore_entry_link_tags('assets/css/demo') }}
+{% endblock %}
+
+{% block html_class('light-style layout-navbar-fixed layout-menu-fixed') %}
+
+{% block body %}
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            <div class="authentication-inner py-4">
+                {{ include('shared/layout/_embedded/_logo/_logo_rigthsflow.html.twig') }}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        {{ include('shared/layout/_embedded/_footer.html.twig') }}
+    </div>
+{% endblock %}

@@ -25,6 +25,9 @@ Encore
   .addEntry("assets/vendor", "./assets/js/vendor.ts")
 
   .addStyleEntry("assets/css/base", "./assets/scss/base.scss")
+  .addStyleEntry("assets/css/app", "./assets/scss/app.scss")
+  .addStyleEntry("assets/css/demo", "./assets/scss/demo.scss")
+  .addStyleEntry("assets/css/core", "./assets/scss/core.scss")
 
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
   .splitEntryChunks()
@@ -78,6 +81,11 @@ Encore
 
   // uncomment if you're having problems with a jQuery plugin
   //.autoProvidejQuery()
+
+  .copyFiles({
+    from: "./assets/img",
+    to: "images/[path][name].[ext]",
+  })
 
   // Plugins
   .addPlugin(new CompressionPlugin());

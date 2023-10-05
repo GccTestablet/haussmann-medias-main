@@ -1,25 +1,31 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1>Profile {{ user.fullName }}</h1>
-
-    <ul>
-        <li>Full name: {{ user.fullName }}</li>
-        <li>Email: {{ user.email }}</li>
-        <li>Roles: {{ user.roles|join(', ') }}</li>
-        <li>Enabled: {{ user.enabled }}</li>
-        <li>Last login: {{ user.lastLogin|datetime_format }}</li>
-        <li>Last activity: {{ user.lastActivity|datetime_format }}</li>
-        <li>Created at: {{ user.createdAt|datetime_format }}</li>
-        <li>Created by: {{ user.createdBy|user_format }}</li>
-        <li>Updated at: {{ user.updatedAt|datetime_format }}</li>
-        <li>Updated by: {{ user.updatedBy|user_format }}</li>
-    </ul>
-
-    {% if is_granted(constant('App\\Security\\Voter\\UserVoter::SAME_USER'), user) %}
-        <a href="{{ path('app_user_update', {'id': user.id}) }}">Update</a>
-    {% endif %}
-    {% if user == app.user %}
-        <a href="{{ path('app_security_profile_change_password') }}">Change password</a>
-    {% endif %}
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h2 class="card-title text-center">Profile {{ user.fullName }} </h2>
+        {% endblock %}
+        {% block body_content %}
+            <ul>
+                <li>Full name: {{ user.fullName }}</li>
+                <li>Email: {{ user.email }}</li>
+                <li>Roles: {{ user.roles|join(', ') }}</li>
+                <li>Enabled: {{ user.enabled }}</li>
+                <li>Last login: {{ user.lastLogin|datetime_format }}</li>
+                <li>Last activity: {{ user.lastActivity|datetime_format }}</li>
+                <li>Created at: {{ user.createdAt|datetime_format }}</li>
+                <li>Created by: {{ user.createdBy|user_format }}</li>
+                <li>Updated at: {{ user.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ user.updatedBy|user_format }}</li>
+            </ul>
+            <div class="justify-content-between">
+                {% if is_granted(constant('App\\Security\\Voter\\UserVoter::SAME_USER'), user) %}
+                    <a class="btn btn-success" href="{{ path('app_user_update', {'id': user.id}) }}">Update</a>
+                {% endif %}
+                {% if user == app.user %}
+                    <a class="btn btn-warning" href="{{ path('app_security_profile_change_password') }}">Change password</a>
+                {% endif %}
+            </div>
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}
