@@ -1,20 +1,16 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_authentication.html.twig' %}
 
-{% block body %}
-    <div class="page-authentication__form">
-        <div class="row justify-content-center page-authentication__text">
-            <p>
-                Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.
-            </p>
-            <p>
-                Remarque : Vous ne pouvez demander un nouveau mot de passe que toutes les {{ tokenLifetime }} minutes.
-            </p>
-            <p>
-                Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.
-            </p>
-        </div>
-        <div class="row justify-content-center">
-            <a href="{{ path('app_login') }}" class="btn btn-sm btn-link">{% trans from 'security' %}Back to authentication{% endtrans %}</a>
-        </div>
+{% block content %}
+    {% component card %}
+        {% block body_content %}
+            <div class="row justify-content-center page-authentication__text text-center">
+                <span>An email has been sent. It contains a link that you will need to click to reset your password.</span>
+                <span>Note: You can only request a new password every {{ tokenLifetime }} minutes.</span>
+                <span>If you don't receive an email, check your spam folder or try again.</span>
+            </div>
+        {% endblock%}
+    {% endcomponent %}
+    <div class="row justify-content-center mt-2">
+        <a href="{{ path('app_login') }}" class="btn btn-sm btn-link">{% trans from 'security' %}Back to authentication{% endtrans %}</a>
     </div>
 {% endblock %}

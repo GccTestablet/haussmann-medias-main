@@ -1,12 +1,17 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1>Beneficiary: {{ beneficiary.name }}</h1>
-
-    <a href="{{ path('app_beneficiary_index') }}" class="btn btn-primary">List</a>
-
-    {% include 'contract/_embedded/_list.html.twig' with {
-        contracts: beneficiary.contracts
-    } %}
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">Beneficiary: {{ beneficiary.name }}</h1>
+        {% endblock %}
+        {% block body_content %}
+            <h4>Contracts</h4>
+            {% include 'contract/_embedded/_list.html.twig' with {
+                contracts: beneficiary.contracts
+            } %}
+            <br><br><br><br>
+            <a class="btn btn-primary" href="{{ path('app_beneficiary_index') }}">List</a>
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}
-

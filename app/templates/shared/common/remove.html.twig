@@ -1,19 +1,24 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1 class="h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
+        {% endblock %}
+        {% block body_content %}
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
 
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
+            <div class="alert alert-danger">
+                {% trans from 'misc' %}
+                    Are you sure you want to remove this item? This action cannot be undone.
+                {% endtrans %}
+            </div>
 
-    <div class="alert alert-danger">
-        {% trans from 'misc' %}
-            Are you sure you want to remove this item? This action cannot be undone.
-        {% endtrans %}
-    </div>
-
-    <button class="btn btn-lg btn-danger" type="submit">
-        Remove
-    </button>
-    {{ form_end(form) }}
+            <button class="btn btn-lg btn-danger" type="submit">
+                Remove
+            </button>
+            {{ form_end(form) }}
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}

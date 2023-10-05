@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" class="{% block html_class %}{% endblock %}">
 <head>
     <title>
         {% if block('page_title') is defined and block('page_title') is not empty %}
@@ -32,8 +32,7 @@
     {% endblock %}
     <!-- CSS global -->
     {% block css_global %}
-        {{ encore_entry_link_tags('assets/css/base') }}
-        {{ encore_entry_link_tags('assets/app') }} {# TODO: move to layout #}
+        {{ encore_entry_link_tags('assets/css/core') }}
     {% endblock %}
     <!-- CSS page -->
     {% block css_page %}{% endblock %}
@@ -51,9 +50,7 @@
     {{ encore_entry_script_tags('assets/vendor') }}
 {% endblock %}
 <!-- JS global -->
-{% block js_global %}
-    {{ encore_entry_script_tags('assets/app') }} {# TODO: move to layout #}
-{% endblock %}
+{% block js_global %}{% endblock %}
 <!-- JS page -->
 {% block js_page %}{% endblock %}
 </body>

@@ -1,55 +1,68 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
 {% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), company) %}
 
-{% block body %}
-    <h1>Company {{ company.name }}</h1>
+{% block content %}
+    {% component card %}
+        {% block header_content%}
+            <h1 class="card-title text-center">Company {{ company.name }}</h1>
+        {% endblock %}
+        {% block body_content%}
+            <ul>
+                <li>Id: {{ company.id }}</li>
+                <li>Name: {{ company.name }}</li>
+                <li>Created at: {{ company.createdAt|datetime_format }}</li>
+                <li>Created by: {{ company.createdBy|user_format }}</li>
+                <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ company.updatedBy|user_format }}</li>
+            </ul>
 
-    <ul>
-        <li>Id: {{ company.id }}</li>
-        <li>Name: {{ company.name }}</li>
-        <li>Created at: {{ company.createdAt|datetime_format }}</li>
-        <li>Created by: {{ company.createdBy|user_format }}</li>
-        <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
-        <li>Updated by: {{ company.updatedBy|user_format }}</li>
-    </ul>
+            <div class="justify-content-between align-items-center text-center">
+                <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
+                {% if isCompanyAdmin %}
+                    <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">Update</a>
+                    <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">Add a user</a>
+                    <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
+                {% endif %}
+            </div>
 
-    <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
-    {% if isCompanyAdmin %}
-        <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">Update</a>
-        <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">Add a user</a>
-        <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
-    {% endif %}
+            <br>
 
-    <h4>Contracts</h4>
+            <hr class="my-0">
 
-    {% include 'contract/_embedded/_list.html.twig' with {
-        contracts: company.contracts,
-    } %}
+            <h4>Contracts</h4>
 
-    <h4>Users</h4>
+            {% include 'contract/_embedded/_list.html.twig' with {
+                contracts: company.contracts,
+            } %}
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for userCompany in company.users %}
-            {% set user = userCompany.user %}
-            <tr>
-                <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
-                <td>{{ userCompany.permission.asText }}</td>
-                <td>
-                    {% if isCompanyAdmin %}
-                        <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">Remove</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <br>
+
+            <h4>Users</h4>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for userCompany in company.users %}
+                    {% set user = userCompany.user %}
+                    <tr>
+                        <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
+                        <td>{{ userCompany.permission.asText }}</td>
+                        <td>
+                            {% if isCompanyAdmin %}
+                                <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">Remove</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}

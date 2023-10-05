@@ -1,0 +1,30 @@
+<!-- User -->
+<li class="nav-item navbar-dropdown dropdown-user dropdown">
+    <a class="nav-link dropdown-toggle" href="javascript:void(0);" data-bs-toggle="dropdown" style="position: relative;">
+        {{ app.user.fullName }}
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" style="z-index: 2;">
+        <li>
+            <a class="dropdown-item" href="{{ path('app_security_profile_index') }}">
+                <i class="bx bx-user me-2"></i>
+                <span class="align-middle">My Profile</span>
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{{ path('app_security_profile_change_password') }}">
+                <i class="bx bx-cog me-2"></i>
+                <span class="align-middle">Change Password</span>
+            </a>
+        </li>
+        <li>
+            <div class="dropdown-divider"></div>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                <i class="bx bx-power-off me-2"></i>
+                <span class="align-middle">Log Out</span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!--/ User -->

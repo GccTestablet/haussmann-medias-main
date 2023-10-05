@@ -1,0 +1,26 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block css_global %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('assets/css/app') }}
+    {{ encore_entry_link_tags('assets/css/demo') }}
+{% endblock %}
+
+{% block html_class('light-style layout-navbar-fixed layout-menu-fixed') %}
+
+{% block body %}
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            {{ include('shared/layout/_embedded/_sidebar.html.twig') }}
+            <div class="layout-page">
+                {{ include('shared/layout/_embedded/_navbar.html.twig') }}
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        {% block content %}{% endblock %}
+                    </div>
+                    {{ include('shared/layout/_embedded/_footer.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

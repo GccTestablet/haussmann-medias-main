@@ -1,24 +1,31 @@
-{% extends 'shared/layout/base.html.twig' %}
+{% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block body %}
-    <h1>List of companies</h1>
-
-    <a href="{{ path('app_company_add') }}" class="btn btn-success">New</a>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>User count</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for company in companies %}
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">List of companies</h1>
+        {% endblock %}
+        {% block body_content %}
+            <div class="justify-content-between">
+                <a href="{{ path('app_company_add') }}" class="btn btn-success">Add company</a>
+                <a href="{#{ path('app_company_remove') }#}" class="btn btn-danger">Delete company</a>
+            </div>
+            <table class="table">
+                <thead>
                 <tr>
-                    <td><a href="{{ path('app_company_show', {'id': company.id}) }}">{{ company.name }}</a></td>
-                    <td>{{ company.users|length }}</td>
+                    <th>Name</th>
+                    <th>User count</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                {% for company in companies %}
+                    <tr>
+                        <td><a href="{{ path('app_company_show', {'id': company.id}) }}">{{ company.name }}</a></td>
+                        <td>{{ company.users|length }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endcomponent %}
 {% endblock %}
