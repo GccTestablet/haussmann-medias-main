@@ -12,6 +12,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Services</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -19,6 +20,7 @@
                 {% for channel in channels %}
                     <tr>
                         <td><a href="{{ path('app_broadcast_channel_show', {'id': channel.id}) }}">{{ channel.name }}</a></td>
+                        <td>{{ channel.broadcastServices|length }}</td>
                         <td><a class="btn btn-warning" href="{{ path('app_broadcast_channel_update', {'id': channel.id}) }}">Update</a></td>
                     </tr>
                 {% endfor %}
