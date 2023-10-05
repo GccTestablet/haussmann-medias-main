@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\Security;
 
 use App\Controller\Shared\AbstractAppController;
+use App\Entity\Company;
 use App\Form\Handler\Security\ChangePasswordFormHandler;
+use App\Security\Voter\CompanyVoter;
 use App\Service\Security\SecurityManager;
+use App\Service\User\UserUpdater;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +20,8 @@ use Symfony\Component\Translation\TranslatableMessage;
 class ProfileController extends AbstractAppController
 {
     public function __construct(
-        private readonly SecurityManager $securityManager
+        private readonly SecurityManager $securityManager,
+        private readonly UserUpdater $userUpdater
     ) {}
 
     #[Route(name: 'app_security_profile_index')]
@@ -42,5 +47,14 @@ class ProfileController extends AbstractAppController
         return $this->render('security/change_password.html.twig', [
             'form' => $formHandlerResponse->getForm(),
         ]);
+    }
+
+    #[Route('/switch-company/{company}', name: 'app_security_profile_switch_company')]
+    public function switchCompany(Company $company): RedirectResponse
+    {
+        $this->denyAccessUnlessGranted(CompanyVoter::ALLOWED_TO_SWITCH, $company);
+        $this->userUpdater->updateConnectedOn($this->securityManager->getConnectedUser(), $company);
+
+        return $this->redirectToRoute('_welcome');
     }
 }

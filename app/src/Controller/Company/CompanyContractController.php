@@ -30,6 +30,14 @@ class CompanyContractController extends AbstractAppController
         private readonly CompanyContractFormDtoFactory $companyContractFormDtoFactory,
     ) {}
 
+    #[Route(name: 'app_company_contract_index')]
+    public function index(Company $company): Response
+    {
+        return $this->render('contract/index.html.twig', [
+            'contracts' => $company->getContracts(),
+        ]);
+    }
+
     #[Route(path: '/{id}', name: 'app_company_contract_show', requirements: ['id' => '\d+'])]
     public function show(Contract $contract): Response
     {

@@ -6,6 +6,7 @@ namespace App\Service\Company;
 
 use App\Entity\Company;
 use App\Entity\User;
+use App\Repository\CompanyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -24,10 +25,13 @@ class CompanyManager
             return $this->getRepository()->findAll();
         }
 
-        return $this->getRepository()->findBy(['users' => $user]);
+        return $this->getRepository()->findByUser($user);
     }
 
-    private function getRepository(): EntityRepository
+    /**
+     * @return CompanyRepository|EntityRepository<Company>
+     */
+    private function getRepository(): CompanyRepository|EntityRepository
     {
         return $this->entityManager->getRepository(Company::class);
     }
