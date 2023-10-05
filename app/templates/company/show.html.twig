@@ -11,7 +11,9 @@
             <li>Id: {{ company.id }}</li>
             <li>Name: {{ company.name }}</li>
             <li>Created at: {{ company.createdAt|datetime_format }}</li>
+            <li>Created by: {{ company.createdBy|user_format }}</li>
             <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
+            <li>Updated by: {{ company.updatedBy|user_format }}</li>
         </ul>
 
         <div class="justify-content-between align-items-center text-center">
@@ -25,7 +27,9 @@
         <br>
         <hr class="my-0">
 
-        {% include 'company/contract/_embedded/_list.html.twig' with {
+        <h4>Contracts</h4>
+
+        {% include 'contract/_embedded/_list.html.twig' with {
             contracts: company.contracts,
         } %}
         <br>
@@ -42,7 +46,7 @@
             {% for userCompany in company.users %}
                 {% set user = userCompany.user %}
                 <tr>
-                    <td>{{ userCompany.user.fullName }}</td>
+                    <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
                     <td>{{ userCompany.permission.asText }}</td>
                     <td>
                         {% if isCompanyAdmin %}

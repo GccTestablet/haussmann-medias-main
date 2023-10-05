@@ -6,7 +6,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Company;
 use App\Entity\User;
-use App\Enum\UserCompanyPermissionEnum;
+use App\Enum\User\UserCompanyPermissionEnum;
 use App\Service\Company\CompanyUserAccessManager;
 use App\Service\Security\SecurityManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

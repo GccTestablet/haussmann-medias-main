@@ -13,7 +13,9 @@
             <li>Last login: {{ user.lastLogin|datetime_format }}</li>
             <li>Last activity: {{ user.lastActivity|datetime_format }}</li>
             <li>Created at: {{ user.createdAt|datetime_format }}</li>
+            <li>Created by: {{ user.createdBy|user_format }}</li>
             <li>Updated at: {{ user.updatedAt|datetime_format }}</li>
+            <li>Updated by: {{ user.updatedBy|user_format }}</li>
         </ul>
         <div class="justify-content-between">
             {% if is_granted(constant('App\\Security\\Voter\\UserVoter::SAME_USER'), user) %}

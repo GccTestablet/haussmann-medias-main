@@ -1,5 +1,3 @@
-<h4>Contracts</h4>
-
 <table class="table">
     <thead>
     <tr>
@@ -9,6 +7,7 @@
         <th>Signed at</th>
         <th>Starts at</th>
         <th>Ends at</th>
+        <th>Works</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -21,9 +20,11 @@
             <td>{{ contract.signedAt|date_format }}</td>
             <td>{{ contract.startsAt|date_format }}</td>
             <td>{{ contract.endsAt|date_format }}</td>
+            <td>{{ contract.works|length }}</td>
             <td>
                 <a href="{{ path('app_company_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">Download</a>
                 <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">Update</a>
+                <a href="{{ path('app_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">Add work</a>
             </td>
         </tr>
     {% endfor %}

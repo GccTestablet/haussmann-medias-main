@@ -33,7 +33,7 @@ class CompanyContractController extends AbstractAppController
     #[Route(path: '/{id}', name: 'app_company_contract_show', requirements: ['id' => '\d+'])]
     public function show(Contract $contract): Response
     {
-        return $this->render('company/contract/show.html.twig', [
+        return $this->render('contract/show.html.twig', [
             'contract' => $contract,
         ]);
     }

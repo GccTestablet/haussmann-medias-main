@@ -7,12 +7,15 @@ namespace App\Entity;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function array_unique;
+use function sprintf;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
@@ -53,13 +56,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $enabled = true;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $lastLogin = null;
+    private ?DateTime $lastLogin = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $lastActivity = null;
+    private ?DateTime $lastActivity = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $passwordRequestedAt = null;
+    private ?DateTime $passwordRequestedAt = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $passwordResetToken = null;
@@ -87,31 +90,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getFirstName(): ?string
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    public function setFirstName(?string $firstName): static
+    public function setFirstName(string $firstName): static
     {
         $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getLastName(): ?string
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    public function setLastName(?string $lastName): static
+    public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -130,7 +133,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // guarantee every user at least has ROLE_USER
         $roles[] = self::ROLE_USER;
 
-        return \array_unique($roles);
+        return array_unique($roles);
     }
 
     /**
@@ -167,36 +170,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastLogin(): ?\DateTime
+    public function getLastLogin(): ?DateTime
     {
         return $this->lastLogin;
     }
 
-    public function setLastLogin(?\DateTime $lastLogin): static
+    public function setLastLogin(?DateTime $lastLogin): static
     {
         $this->lastLogin = $lastLogin;
 
         return $this;
     }
 
-    public function getLastActivity(): ?\DateTime
+    public function getLastActivity(): ?DateTime
     {
         return $this->lastActivity;
     }
 
-    public function setLastActivity(?\DateTime $lastActivity): static
+    public function setLastActivity(?DateTime $lastActivity): static
     {
         $this->lastActivity = $lastActivity;
 
         return $this;
     }
 
-    public function getPasswordRequestedAt(): ?\DateTime
+    public function getPasswordRequestedAt(): ?DateTime
     {
         return $this->passwordRequestedAt;
     }
 
-    public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt): static
+    public function setPasswordRequestedAt(?DateTime $passwordRequestedAt): static
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
 
@@ -234,7 +237,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getFullName(): string
     {
-        return \sprintf('%s %s', $this->firstName, $this->lastName);
+        return sprintf('%s %s', $this->firstName, $this->lastName);
     }
 
     public function eraseCredentials(): void
