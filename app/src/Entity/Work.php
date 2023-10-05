@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Enum\Work\OriginWorkEnum;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,23 +25,23 @@ class Work
     #[ORM\Column(unique: true)]
     private string $internalId;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $imdbId = null;
+
     #[ORM\Column(unique: true)]
     private string $name;
 
     #[ORM\Column(unique: true)]
     private string $originalName;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $synopsis = null;
+    #[ORM\Column(length: 20, enumType: OriginWorkEnum::class)]
+    private OriginWorkEnum $origin;
 
     #[ORM\Column(type: Types::SMALLINT, length: 4, nullable: true)]
     private ?int $year = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $duration = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?string $nationality = null;
 
     #[ORM\ManyToOne(targetEntity: Contract::class, inversedBy: 'works')]
     #[ORM\JoinColumn(name: 'contract_id', referencedColumnName: 'id')]
@@ -70,6 +71,18 @@ class Work
         return $this;
     }
 
+    public function getImdbId(): ?string
+    {
+        return $this->imdbId;
+    }
+
+    public function setImdbId(?string $imdbId): static
+    {
+        $this->imdbId = $imdbId;
+
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->name;
@@ -94,14 +107,14 @@ class Work
         return $this;
     }
 
-    public function getSynopsis(): ?string
+    public function getOrigin(): OriginWorkEnum
     {
-        return $this->synopsis;
+        return $this->origin;
     }
 
-    public function setSynopsis(?string $synopsis): static
+    public function setOrigin(OriginWorkEnum $origin): self
     {
-        $this->synopsis = $synopsis;
+        $this->origin = $origin;
 
         return $this;
     }
@@ -130,18 +143,6 @@ class Work
         return $this;
     }
 
-    public function getNationality(): ?string
-    {
-        return $this->nationality;
-    }
-
-    public function setNationality(?string $nationality): static
-    {
-        $this->nationality = $nationality;
-
-        return $this;
-    }
-
     public function getContract(): Contract
     {
         return $this->contract;
@@ -152,5 +153,10 @@ class Work
         $this->contract = $contract;
 
         return $this;
+    }
+
+    public function getImdbLink(): string
+    {
+        return \sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
     }
 }

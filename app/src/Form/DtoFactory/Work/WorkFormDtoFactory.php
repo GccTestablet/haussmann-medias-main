@@ -22,12 +22,12 @@ class WorkFormDtoFactory
 
         return (new WorkFormDto($work, true))
             ->setInternalId($work->getInternalId())
+            ->setImdbId($work->getImdbId())
             ->setName($work->getName())
             ->setOriginalName($work->getOriginalName())
-            ->setSynopsis($work->getSynopsis())
             ->setYear($work->getYear())
             ->setDuration($work->getDuration())
-            ->setNationality($work->getNationality())
+            ->setOrigin($work->getOrigin())
         ;
     }
 
@@ -35,12 +35,12 @@ class WorkFormDtoFactory
     {
         $work
             ->setInternalId($dto->getInternalId())
+            ->setImdbId($dto->getImdbId())
             ->setName($dto->getName())
             ->setOriginalName($dto->getOriginalName())
-            ->setSynopsis($dto->getSynopsis())
             ->setYear($dto->getYear())
             ->setDuration($dto->getDuration())
-            ->setNationality($dto->getNationality())
+            ->setOrigin($dto->getOrigin())
         ;
     }
 }

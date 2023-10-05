@@ -7,7 +7,7 @@ namespace Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20231004152618 extends AbstractMigration
+final class Version20231005073841 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,18 +20,18 @@ final class Version20231004152618 extends AbstractMigration
         $this->addSql('
             CREATE TABLE works (
                 id INT NOT NULL, 
-                internal_id VARCHAR(255) NOT NULL, 
                 contract_id INT DEFAULT NULL, 
+                internal_id VARCHAR(255) NOT NULL, 
+                imdb_id VARCHAR(255) DEFAULT NULL, 
                 name VARCHAR(255) NOT NULL, 
                 original_name VARCHAR(255) NOT NULL, 
-                synopsis TEXT DEFAULT NULL, 
+                origin VARCHAR(20) NOT NULL, 
                 year SMALLINT DEFAULT NULL, 
                 duration VARCHAR(255) DEFAULT NULL, 
-                nationality VARCHAR(255) DEFAULT NULL, 
                 created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, 
                 created_by INT DEFAULT NULL, 
                 updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, 
-                updated_by INT DEFAULT NULL, 
+                updated_by INT DEFAULT NULL,
                 PRIMARY KEY(id)
             )
         ');

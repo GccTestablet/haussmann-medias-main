@@ -6,7 +6,7 @@ namespace App\Form\Dto\Company;
 
 use App\Entity\Company;
 use App\Entity\User;
-use App\Enum\UserCompanyPermissionEnum;
+use App\Enum\User\UserCompanyPermissionEnum;
 
 class CompanyUserFormDto
 {

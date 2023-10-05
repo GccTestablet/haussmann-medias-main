@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Type\Company;
 
 use App\Entity\User;
-use App\Enum\UserCompanyPermissionEnum;
+use App\Enum\User\UserCompanyPermissionEnum;
 use App\Form\Dto\Company\CompanyUserFormDto;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

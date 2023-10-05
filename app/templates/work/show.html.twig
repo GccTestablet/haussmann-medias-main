@@ -6,11 +6,12 @@
     <ul>
         <li>Id: {{ work.id }}</li>
         <li>Internal ID: {{ work.internalId }}</li>
+        <li>IMDB: <a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></li>
         <li>Name: {{ work.name }}</li>
         <li>Original name: {{ work.originalName }}</li>
         <li>Year: {{ work.year }}</li>
         <li>Duration: {{ work.duration }}</li>
-        <li>Nationality: {{ work.nationality }}</li>
+        <li>Origin: {{ work.origin.asText }}</li>
 
     </ul>
 

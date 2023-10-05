@@ -5,22 +5,26 @@ declare(strict_types=1);
 namespace App\Form\Dto\Work;
 
 use App\Entity\Work;
+use App\Enum\Work\OriginWorkEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkFormDto
 {
     private ?string $internalId = null;
 
+    #[Assert\Regex('/^tt\d{7}$/')]
+    private ?string $imdbId = null;
+
     private ?string $name = null;
 
     private ?string $originalName = null;
 
-    private ?string $synopsis = null;
-
+    #[Assert\Range(min: 1900, max: 2100)]
     private ?int $year = null;
 
     private ?string $duration = null;
 
-    private ?string $nationality = null;
+    private ?OriginWorkEnum $origin = null;
 
     public function __construct(
         private readonly Work $work,
@@ -49,6 +53,18 @@ class WorkFormDto
         return $this;
     }
 
+    public function getImdbId(): ?string
+    {
+        return $this->imdbId;
+    }
+
+    public function setImdbId(?string $imdbId): static
+    {
+        $this->imdbId = $imdbId;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -69,18 +85,6 @@ class WorkFormDto
     public function setOriginalName(?string $originalName): static
     {
         $this->originalName = $originalName;
-
-        return $this;
-    }
-
-    public function getSynopsis(): ?string
-    {
-        return $this->synopsis;
-    }
-
-    public function setSynopsis(?string $synopsis): static
-    {
-        $this->synopsis = $synopsis;
 
         return $this;
     }
@@ -109,14 +113,14 @@ class WorkFormDto
         return $this;
     }
 
-    public function getNationality(): ?string
+    public function getOrigin(): ?OriginWorkEnum
     {
-        return $this->nationality;
+        return $this->origin;
     }
 
-    public function setNationality(?string $nationality): static
+    public function setOrigin(?OriginWorkEnum $origin): self
     {
-        $this->nationality = $nationality;
+        $this->origin = $origin;
 
         return $this;
     }

@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
-use App\Enum\UserCompanyPermissionEnum;
+use App\Enum\User\UserCompanyPermissionEnum;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
