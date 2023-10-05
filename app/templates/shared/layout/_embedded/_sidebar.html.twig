@@ -3,10 +3,9 @@
         <!-- Choose Company-->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Choose your company</span></li>
         <li class="menu-item">
-            <select class="form-control menu-link menu-toggle">
-                <option>Haussmann Medias</option>
-                <option>Chrome Film</option>
-            </select>
+            {{ component('layout_user_company_selector', {
+                user: app.user
+            })}}
         </li>
         <!-- Dashboard -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>
