@@ -1,0 +1,9 @@
+{% extends 'shared/layout/base.html.twig' %}
+
+{% block body %}
+    <h1>List of works</h1>
+
+    {% include 'work/_embedded/_list.html.twig' with {
+        works: works,
+    } %}
+{% endblock %}

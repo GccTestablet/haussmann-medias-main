@@ -5,7 +5,7 @@
 
     <a href="{{ path('app_beneficiary_index') }}" class="btn btn-primary">List</a>
 
-    {% include 'company/contract/_embedded/_list.html.twig' with {
+    {% include 'contract/_embedded/_list.html.twig' with {
         contracts: beneficiary.contracts
     } %}
 {% endblock %}

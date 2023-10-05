@@ -7,6 +7,8 @@ namespace App\Entity;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -47,6 +49,14 @@ class Contract implements FileInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $territories = null;
+
+    #[ORM\OneToMany(mappedBy: 'contract', targetEntity: Work::class)]
+    private Collection $works;
+
+    public function __construct()
+    {
+        $this->works = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -152,6 +162,18 @@ class Contract implements FileInterface
     public function setTerritories(?string $territories): static
     {
         $this->territories = $territories;
+
+        return $this;
+    }
+
+    public function getWorks(): Collection
+    {
+        return $this->works;
+    }
+
+    public function setWorks(Collection $works): static
+    {
+        $this->works = $works;
 
         return $this;
     }

@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Internal ID</th>
+        <th>IMDB</th>
+        <th>Name</th>
+        <th>Original name</th>
+        <th>Year</th>
+        <th>Duration</th>
+        <th>Contract</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for work in works %}
+        <tr>
+            <td><a href="{{ path('app_work_show', {'id': work.id}) }}">{{ work.internalId }}</a></td>
+            <td><a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></td>
+            <td>{{ work.name }}</td>
+            <td>{{ work.originalName }}</td>
+            <td>{{ work.year }}</td>
+            <td>{{ work.duration }}</td>
+            <td><a href="{{ path('app_contract_show', {'id': work.contract.id}) }}">{{ work.contract.originalFileName }}</a></td>
+            <td><a href="{{ path('app_contract_work_update', {'contract': work.contract.id, 'id': work.id}) }}" class="btn btn-warning">Update</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
