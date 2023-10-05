@@ -1,0 +1,29 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">{% trans from 'broadcast_channel' %}List of broadcast channels{% endtrans %}</h1>
+        {% endblock %}
+        {% block body_content %}
+            <a class="btn btn-success" href="{{ path('app_broadcast_channel_add') }}">{% trans from 'broadcast_channel' %}Add a channel{% endtrans %}</a>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for channel in channels %}
+                    <tr>
+                        <td><a href="{{ path('app_broadcast_channel_show', {'id': channel.id}) }}">{{ channel.name }}</a></td>
+                        <td><a class="btn btn-warning" href="{{ path('app_broadcast_channel_update', {'id': channel.id}) }}">Update</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}

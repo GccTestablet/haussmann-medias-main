@@ -42,7 +42,11 @@
                 </a>
             </li>
             {% else %}
-                <li class="menu-item btn btn-warning align-items-center">No selected company</li>
+                <li class="menu-item">
+                    <div class="alert alert-warning text-center p-1 fw-bold">
+                        {% trans from 'user' %}No company selected{% endtrans %}
+                    </div>
+                </li>
         {% endif %}
         <!-- Settings -->
         {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -63,6 +67,12 @@
                 <a href="{{ path('app_beneficiary_index') }}" class="menu-link">
                     <i class="menu-item"></i>
                     <div>{% trans from 'beneficiary' %}Beneficiaries{% endtrans %}</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path('app_broadcast_channel_index') }}" class="menu-link">
+                    <i class="menu-item"></i>
+                    <div>{% trans from 'broadcast_channel' %}Broadcast channels{% endtrans %}</div>
                 </a>
             </li>
         {% endif %}

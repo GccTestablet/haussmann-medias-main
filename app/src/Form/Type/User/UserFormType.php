@@ -7,6 +7,7 @@ namespace App\Form\Type\User;
 use App\Entity\User;
 use App\Form\Dto\User\UserFormDto;
 use App\Form\Validator\Constraint\EmailExists;
+use App\Service\Security\SecurityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -16,6 +17,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserFormType extends AbstractType
 {
+    public function __construct(
+        private readonly SecurityManager $securityManager
+    ) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var UserFormDto $dto */
@@ -30,6 +35,13 @@ class UserFormType extends AbstractType
                     new EmailExists($dto->isExists() ? $dto->getUser() : null),
                 ],
             ])
+        ;
+
+        if (!$this->securityManager->hasRole(User::ROLE_SUPER_ADMIN)) {
+            return;
+        }
+
+        $builder
             ->add('role', ChoiceType::class, [
                 'placeholder' => 'Select a role',
                 'choices' => [
