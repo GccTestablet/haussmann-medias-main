@@ -34,6 +34,7 @@ class CompanyContractController extends AbstractAppController
     public function index(Company $company): Response
     {
         return $this->render('contract/index.html.twig', [
+            'company' => $company,
             'contracts' => $company->getContracts(),
         ]);
     }
