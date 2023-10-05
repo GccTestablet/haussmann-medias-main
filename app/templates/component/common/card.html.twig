@@ -1,0 +1,17 @@
+<div{{ attributes.defaults({class: 'card'}) }}>
+    {% if block('header_content') is defined or block('title_content') is defined %}
+        {% block header_content %}
+            <div class="card-header">
+                {% block title_content %}{% endblock %}
+            </div>
+        {% endblock %}
+    {% endif %}
+    <div class="card-body">
+        {% block body_content %}{% endblock %}
+    </div>
+    {% if block('footer_content') is defined %}
+        <div class="card-footer">
+            {% block footer_content %}{% endblock %}
+        </div>
+     {% endif %}
+</div>
