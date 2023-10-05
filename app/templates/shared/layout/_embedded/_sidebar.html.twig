@@ -4,63 +4,65 @@
             <img src="{{ asset('build/images/_logo/rights_flow_black_orange.svg') }}" alt="Rights Flow Logo" class="app-brand-logo demo" style="width: 200px; height: auto; max-width: 100%; max-height: 100%; object-fit: contain;">
         </a>
     </div>
-
     <ul class="menu-inner py-1 ps">
         <!-- Choose Company-->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Choose your company</span></li>
         <li class="menu-item">
-            <select class="form-control menu-link menu-toggle">
-                <option>Haussmann Medias</option>
-                <option>Chrome Film</option>
-            </select>
+            {{ component('layout_user_company_selector', {
+                user: app.user
+            })}}
         </li>
         <!-- Dashboard -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>
         <li class="menu-item">
-            <a href="{{ path('app_dashboard') }}" class="menu-link menu-toggle">
+            <a href="{{ path('app_dashboard') }}" class="menu-link">
                 <i class="menu-item"></i>
-                <div>Dashboard</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="{{ path('app_company_index') }}" class="menu-link menu-toggle">
-                <i class="menu-item"></i>
-                <div>My Company</div>
+                <div>{% trans from 'misc' %}Dashboard{% endtrans %}</div>
             </a>
         </li>
         <!-- Managing my business -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Managing my business</span></li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-item"></i>
-                <div>Artwork</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-item"></i>
-                <div>Contract</div>
-            </a>
-        </li>
+        {% if app.user.connectedOn %}
+            <li class="menu-item">
+                <a href="{{ path('app_company_show', {'id': app.user.connectedOn.id}) }}" class="menu-link">
+                    <i class="menu-item"></i>
+                    <div>{% trans from 'company' %}Company{% endtrans %}</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path('app_company_work_index', {'company': app.user.connectedOn.id}) }}" class="menu-link">
+                    <i class="menu-item"></i>
+                    <div>{% trans from 'work' %}Works{% endtrans %}</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path('app_company_contract_index', {'company': app.user.connectedOn.id}) }}" class="menu-link">
+                    <i class="menu-item"></i>
+                    <div>{% trans from 'contract' %}Contracts{% endtrans %}</div>
+                </a>
+            </li>
+            {% else %}
+                <li class="menu-item btn btn-warning align-items-center">No selected company</li>
+        {% endif %}
         <!-- Settings -->
         {% if is_granted('ROLE_SUPER_ADMIN') %}
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Settings</span></li>
             <li class="menu-item">
                 <a href="{{ path('app_company_index') }}" class="menu-link">
                     <i class="menu-item"></i>
-                    <div>Companies</div>
+                    <div>{% trans from 'company' %}Companies{% endtrans %}</div>
                 </a>
             </li>
             <li class="menu-item">
                 <a href="{{ path('app_user_index') }}" class="menu-link">
                     <i class="menu-item"></i>
-                    <div>Users</div>
+                    <div>{% trans from 'user' %}Users{% endtrans %}</div>
                 </a>
             </li>
             <li class="menu-item">
                 <a href="{{ path('app_beneficiary_index') }}" class="menu-link">
                     <i class="menu-item"></i>
-                    <div>Beneficiaries</div>
+                    <div>{% trans from 'beneficiary' %}Beneficiaries{% endtrans %}</div>
                 </a>
             </li>
             <li class="menu-item">

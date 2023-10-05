@@ -64,6 +64,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?string $passwordResetToken = null;
 
+    #[ORM\ManyToOne(targetEntity: Company::class)]
+    #[ORM\JoinColumn(name: 'connected_on', referencedColumnName: 'id', nullable: true)]
+    private ?Company $connectedOn = null;
+
     /**
      * @var Collection<int, Company>
      */
@@ -211,6 +215,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPasswordResetToken(?string $passwordResetToken): static
     {
         $this->passwordResetToken = $passwordResetToken;
+
+        return $this;
+    }
+
+    public function getConnectedOn(): ?Company
+    {
+        return $this->connectedOn;
+    }
+
+    public function setConnectedOn(?Company $connectedOn): static
+    {
+        $this->connectedOn = $connectedOn;
 
         return $this;
     }

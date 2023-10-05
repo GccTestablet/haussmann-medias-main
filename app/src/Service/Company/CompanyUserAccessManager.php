@@ -31,7 +31,7 @@ class CompanyUserAccessManager
         return $userCompany->getPermission();
     }
 
-    public function hasAccess(Company $company, User $user, UserCompanyPermissionEnum $permission): bool
+    public function hasPermission(Company $company, User $user, UserCompanyPermissionEnum $permission): bool
     {
         return $permission === $this->getPermission($company, $user);
     }
