@@ -24,7 +24,7 @@ final class Version20231006122958 extends AbstractMigration
                 channel_id INT NOT NULL, 
                 created_by INT DEFAULT NULL, 
                 updated_by INT DEFAULT NULL, 
-                percentage_reversion DOUBLE PRECISION DEFAULT \'0\' NOT NULL, 
+                percentage_reversion DOUBLE PRECISION DEFAULT 0 NOT NULL, 
                 created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, 
                 updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, 
                 PRIMARY KEY(id)

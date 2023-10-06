@@ -10,6 +10,7 @@
             <a href="{{ path('app_contract_work_update', {'contract': work.contract.id, 'id': work.id}) }}" class="btn btn-warning">Update</a>
             <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-success">Add adaptation</a>
             <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-success">Add reversion</a>
+            <a href="{{ path('app_work_revenue_add', {'work': work.id}) }}" class="btn btn-success">Add revenue</a>
             <ul>
                 <li>Id: {{ work.id }}</li>
                 <li>Internal ID: {{ work.internalId }}</li>
@@ -38,6 +39,13 @@
             {% include 'work/reversion/_embedded/_list.html.twig' with {
                 reversions: work.workReversions
             } %}
+
+            <br />
+            <h4>Revenues</h4>
+            {% include 'work/revenue/_embedded/_list.html.twig' with {
+                revenues: work.workRevenues
+            } %}
+
 
         {% endblock %}
     {% endcomponent %}

@@ -14,13 +14,13 @@ class WorkReversionFormDto
     private ?float $percentageReversion = 0.0;
 
     public function __construct(
-        private readonly WorkReversion $workAdaptation,
+        private readonly WorkReversion $workReversion,
         private readonly bool $exists,
     ) {}
 
     public function getWorkReversion(): WorkReversion
     {
-        return $this->workAdaptation;
+        return $this->workReversion;
     }
 
     public function isExists(): bool
