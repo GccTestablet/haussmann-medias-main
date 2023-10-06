@@ -76,6 +76,7 @@ class WorkFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => WorkFormDto::class,
+            'translation_domain' => 'work',
         ]);
     }
 }

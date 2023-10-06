@@ -1,0 +1,23 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Coût doublage</th>
+        <th>Coût fabrication</th>
+        <th>Coût fichier PAV</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for adaptation in work.workAdaptations %}
+        <tr>
+            <td>{{ adaptation.dubbingCost }}</td>
+            <td>{{ adaptation.manufacturingCost }}</td>
+            <td>{{ adaptation.mediaMatrixFileCost }}</td>
+            <td>
+                <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-primary">Voir</a>
+                <a href="{{ path('app_work_adaptation_update', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-warning">Update</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

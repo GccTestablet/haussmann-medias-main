@@ -1,0 +1,20 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block body_content %}
+            <ul>
+                <li>Id: {{ workReversion.id }}</li>
+                <li>Oeuvre: {{ workReversion.work.name }}</li>
+                <li>Pourcentage reversion: {{ workReversion.percentageReversion }}</li>
+                <li>Created at: {{ workReversion.createdAt|datetime_format }}</li>
+                <li>Created by: {{ workReversion.createdBy|user_format }}</li>
+                <li>Updated at: {{ workReversion.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ workReversion.updatedBy|user_format }}</li>
+            </ul>
+
+            <a href="{{ path('app_work_show', {'id': workReversion.work.id}) }}" class="btn btn-primary">Retour à l'oeuvre</a>
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}
+

@@ -21,9 +21,9 @@ class WorkFormDto
 
     private ?OriginWorkEnum $origin = null;
 
-    private ?int $minimumGuaranteedBeforeReversion = null;
+    private ?float $minimumGuaranteedBeforeReversion = null;
 
-    private ?int $minimumCostOfTheTopBeforeReversion = null;
+    private ?float $minimumCostOfTheTopBeforeReversion = null;
 
     #[Assert\Range(min: 1900, max: 2100)]
     private ?int $year = null;
@@ -105,24 +105,24 @@ class WorkFormDto
         return $this;
     }
 
-    public function getMinimumGuaranteedBeforeReversion(): ?int
+    public function getMinimumGuaranteedBeforeReversion(): ?float
     {
         return $this->minimumGuaranteedBeforeReversion;
     }
 
-    public function setMinimumGuaranteedBeforeReversion(?int $minimumGuaranteedBeforeReversion): static
+    public function setMinimumGuaranteedBeforeReversion(?float $minimumGuaranteedBeforeReversion): static
     {
         $this->minimumGuaranteedBeforeReversion = $minimumGuaranteedBeforeReversion;
 
         return $this;
     }
 
-    public function getMinimumCostOfTheTopBeforeReversion(): ?int
+    public function getMinimumCostOfTheTopBeforeReversion(): ?float
     {
         return $this->minimumCostOfTheTopBeforeReversion;
     }
 
-    public function setMinimumCostOfTheTopBeforeReversion(?int $minimumCostOfTheTopBeforeReversion): static
+    public function setMinimumCostOfTheTopBeforeReversion(?float $minimumCostOfTheTopBeforeReversion): static
     {
         $this->minimumCostOfTheTopBeforeReversion = $minimumCostOfTheTopBeforeReversion;
 
