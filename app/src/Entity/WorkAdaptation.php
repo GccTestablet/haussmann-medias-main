@@ -26,13 +26,13 @@ class WorkAdaptation
     private Work $work;
 
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
-    private float $dubbingCost;
+    private ?float $dubbingCost = null;
 
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
-    private float $manufacturingCost;
+    private ?float $manufacturingCost = null;
 
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
-    private float $mediaMatrixFileCost;
+    private ?float $mediaMatrixFileCost = null;
 
     public function getId(): int
     {
@@ -58,36 +58,36 @@ class WorkAdaptation
         return $this;
     }
 
-    public function getDubbingCost(): float
+    public function getDubbingCost(): ?float
     {
         return $this->dubbingCost;
     }
 
-    public function setDubbingCost(float $dubbingCost): static
+    public function setDubbingCost(?float $dubbingCost): self
     {
         $this->dubbingCost = $dubbingCost;
 
         return $this;
     }
 
-    public function getManufacturingCost(): float
+    public function getManufacturingCost(): ?float
     {
         return $this->manufacturingCost;
     }
 
-    public function setManufacturingCost(float $manufacturingCost): static
+    public function setManufacturingCost(?float $manufacturingCost): self
     {
         $this->manufacturingCost = $manufacturingCost;
 
         return $this;
     }
 
-    public function getMediaMatrixFileCost(): float
+    public function getMediaMatrixFileCost(): ?float
     {
         return $this->mediaMatrixFileCost;
     }
 
-    public function setMediaMatrixFileCost(float $mediaMatrixFileCost): static
+    public function setMediaMatrixFileCost(?float $mediaMatrixFileCost): self
     {
         $this->mediaMatrixFileCost = $mediaMatrixFileCost;
 

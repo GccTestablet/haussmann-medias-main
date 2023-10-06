@@ -6,6 +6,8 @@
             <h1>Work: {{ work.name }}</h1>
         {% endblock %}
         {% block body_content %}
+            <a href="{{ path('app_work_index') }}" class="btn btn-primary">List</a>
+            <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-success">Add adaptation</a>
             <ul>
                 <li>Id: {{ work.id }}</li>
                 <li>Internal ID: {{ work.internalId }}</li>
@@ -15,10 +17,37 @@
                 <li>Year: {{ work.year }}</li>
                 <li>Duration: {{ work.duration }}</li>
                 <li>Origin: {{ work.origin.asText }}</li>
-
+                <li>Created at: {{ work.createdAt|datetime_format }}</li>
+                <li>Created by: {{ work.createdBy|user_format }}</li>
+                <li>Updated at: {{ work.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ work.updatedBy|user_format }}</li>
             </ul>
 
-            <a href="{{ path('app_work_index') }}" class="btn btn-primary">List</a>
+            <h4>Adaptations</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Coût doublage</th>
+                    <th>Coût fabrication</th>
+                    <th>Coût fichier PAV</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for adaptation in work.workAdaptations %}
+                    <tr>
+                        <td>{{ adaptation.dubbingCost }}</td>
+                        <td>{{ adaptation.manufacturingCost }}</td>
+                        <td>{{ adaptation.mediaMatrixFileCost }}</td>
+                        <td>
+                            <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-primary">Voir</a>
+                            <a href="{{ path('app_work_adaptation_update', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-warning">Update</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
         {% endblock %}
     {% endcomponent %}
 {% endblock %}
