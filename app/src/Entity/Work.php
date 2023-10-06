@@ -40,6 +40,12 @@ class Work
     #[ORM\Column(length: 20, enumType: OriginWorkEnum::class)]
     private OriginWorkEnum $origin;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?float $minimumGuaranteedBeforeReversion = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?float $minimumCostOfTheTopBeforeReversion = null;
+
     #[ORM\Column(type: Types::SMALLINT, length: 4, nullable: true)]
     private ?int $year = null;
 
@@ -56,9 +62,16 @@ class Work
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkAdaptation::class)]
     private Collection $workAdaptations;
 
+    /**
+     * @var Collection<WorkReversion>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkReversion::class, cascade: ['persist'])]
+    private Collection $workReversions;
+
     public function __construct()
     {
         $this->workAdaptations = new ArrayCollection();
+        $this->workReversions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -133,6 +146,30 @@ class Work
         return $this;
     }
 
+    public function getMinimumGuaranteedBeforeReversion(): ?float
+    {
+        return $this->minimumGuaranteedBeforeReversion;
+    }
+
+    public function setMinimumGuaranteedBeforeReversion(?float $minimumGuaranteedBeforeReversion): static
+    {
+        $this->minimumGuaranteedBeforeReversion = $minimumGuaranteedBeforeReversion;
+
+        return $this;
+    }
+
+    public function getMinimumCostOfTheTopBeforeReversion(): ?float
+    {
+        return $this->minimumCostOfTheTopBeforeReversion;
+    }
+
+    public function setMinimumCostOfTheTopBeforeReversion(?float $minimumCostOfTheTopBeforeReversion): static
+    {
+        $this->minimumCostOfTheTopBeforeReversion = $minimumCostOfTheTopBeforeReversion;
+
+        return $this;
+    }
+
     public function getYear(): ?int
     {
         return $this->year;
@@ -177,6 +214,18 @@ class Work
     public function setWorkAdaptations(Collection $workAdaptations): static
     {
         $this->workAdaptations = $workAdaptations;
+
+        return $this;
+    }
+
+    public function getWorkReversions(): Collection
+    {
+        return $this->workReversions;
+    }
+
+    public function setWorkReversions(Collection $workReversions): static
+    {
+        $this->workReversions = $workReversions;
 
         return $this;
     }

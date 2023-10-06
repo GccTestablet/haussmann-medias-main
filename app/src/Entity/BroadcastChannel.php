@@ -32,9 +32,16 @@ class BroadcastChannel
     #[ORM\OneToMany(mappedBy: 'broadcastChannel', targetEntity: BroadcastService::class)]
     private Collection $broadcastServices;
 
+    /**
+     * @var Collection<WorkReversion>
+     */
+    #[ORM\OneToMany(mappedBy: 'channel', targetEntity: WorkReversion::class, cascade: ['persist'])]
+    private Collection $workReversions;
+
     public function __construct()
     {
         $this->broadcastServices = new ArrayCollection();
+        $this->workReversions = new ArrayCollection();
     }
 
     public function getId(): int
@@ -69,6 +76,18 @@ class BroadcastChannel
     public function setBroadcastServices(Collection $broadcastServices): static
     {
         $this->broadcastServices = $broadcastServices;
+
+        return $this;
+    }
+
+    public function getWorkReversions(): Collection
+    {
+        return $this->workReversions;
+    }
+
+    public function setWorkReversions(Collection $workReversions): static
+    {
+        $this->workReversions = $workReversions;
 
         return $this;
     }

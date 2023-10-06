@@ -15,9 +15,15 @@ class WorkAdaptationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dubbingCost', NumberType::class)
-            ->add('manufacturingCost', NumberType::class)
-            ->add('mediaMatrixFileCost', NumberType::class)
+            ->add('dubbingCost', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('manufacturingCost', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('mediaMatrixFileCost', NumberType::class, [
+                'required' => false,
+            ])
         ;
     }
 
