@@ -6,6 +6,7 @@
             <ul>
                 <li>Id: {{ workReversion.id }}</li>
                 <li>Oeuvre: {{ workReversion.work.name }}</li>
+                <li>Channel: {{ workReversion.channel.name }}</li>
                 <li>Pourcentage reversion: {{ workReversion.percentageReversion }}</li>
                 <li>Created at: {{ workReversion.createdAt|datetime_format }}</li>
                 <li>Created by: {{ workReversion.createdBy|user_format }}</li>

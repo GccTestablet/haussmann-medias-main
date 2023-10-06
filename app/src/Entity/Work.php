@@ -68,10 +68,17 @@ class Work
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkReversion::class, cascade: ['persist'])]
     private Collection $workReversions;
 
+    /**
+     * @var Collection<WorkRevenue>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkRevenue::class, cascade: ['persist'])]
+    private Collection $workRevenues;
+
     public function __construct()
     {
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
+        $this->workRevenues = new ArrayCollection();
     }
 
     public function getId(): int
@@ -226,6 +233,18 @@ class Work
     public function setWorkReversions(Collection $workReversions): static
     {
         $this->workReversions = $workReversions;
+
+        return $this;
+    }
+
+    public function getWorkRevenues(): Collection
+    {
+        return $this->workRevenues;
+    }
+
+    public function setWorkRevenues(Collection $workRevenues): static
+    {
+        $this->workRevenues = $workRevenues;
 
         return $this;
     }
