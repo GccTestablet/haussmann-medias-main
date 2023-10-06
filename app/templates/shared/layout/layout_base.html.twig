@@ -2,8 +2,13 @@
 
 {% block css_global %}
     {{ parent() }}
+    {{ encore_entry_link_tags('assets/app') }}
     {{ encore_entry_link_tags('assets/css/app') }}
     {{ encore_entry_link_tags('assets/css/demo') }}
+{% endblock %}
+
+{% block js_global %}
+    {{ encore_entry_script_tags('assets/app') }}
 {% endblock %}
 
 {% block html_class('light-style layout-navbar-fixed layout-menu-fixed') %}
