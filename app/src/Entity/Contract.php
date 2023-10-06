@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
+use App\Enum\Common\FrequencyEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -28,9 +29,9 @@ class Contract implements FileInterface
     #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: false)]
     private Company $company;
 
-    #[ORM\ManyToOne(targetEntity: Beneficiary::class, inversedBy: 'contracts')]
+    #[ORM\ManyToOne(targetEntity: Company::class)]
     #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id', nullable: false)]
-    private Beneficiary $beneficiary;
+    private Company $beneficiary;
 
     #[ORM\Column]
     private string $fileName;
@@ -49,6 +50,9 @@ class Contract implements FileInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $territories = null;
+
+    #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
+    private ?FrequencyEnum $reportFrequency = null;
 
     /**
      * @var Collection<Work>
@@ -85,12 +89,12 @@ class Contract implements FileInterface
         return $this;
     }
 
-    public function getBeneficiary(): Beneficiary
+    public function getBeneficiary(): Company
     {
         return $this->beneficiary;
     }
 
-    public function setBeneficiary(Beneficiary $beneficiary): static
+    public function setBeneficiary(Company $beneficiary): static
     {
         $this->beneficiary = $beneficiary;
 
@@ -165,6 +169,18 @@ class Contract implements FileInterface
     public function setTerritories(?string $territories): static
     {
         $this->territories = $territories;
+
+        return $this;
+    }
+
+    public function getReportFrequency(): ?FrequencyEnum
+    {
+        return $this->reportFrequency;
+    }
+
+    public function setReportFrequency(?FrequencyEnum $reportFrequency): static
+    {
+        $this->reportFrequency = $reportFrequency;
 
         return $this;
     }

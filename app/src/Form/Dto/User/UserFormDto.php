@@ -19,7 +19,7 @@ class UserFormDto
     #[Assert\NotBlank]
     private ?string $email = null;
 
-    #[Assert\Choice(choices: [User::ROLE_SUPER_ADMIN, User::ROLE_ADMIN, User::ROLE_SUPPLIER, User::ROLE_DISTRIBUTOR])]
+    #[Assert\Choice(choices: [User::ROLE_SUPER_ADMIN, User::ROLE_ADMIN])]
     #[Assert\NotBlank]
     private ?string $role = null;
 

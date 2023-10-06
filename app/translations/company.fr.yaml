@@ -7,3 +7,12 @@ Remove user %user% from company %company%?: Supprimer l'utilisateur %user% de la
 Add contract to company %name%: Ajouter un contrat à la société %name%
 Update contract %contract% from company %company%: Mettre à jour le contrat %contract% de la société %company%
 Remove contract %contract% from company %company%?: Supprimer le contrat %contract% de la société %company% ?
+
+# Types
+Select company type: Sélectionner le type de société
+International seller: Vendeur international
+Local seller: Vendeur local
+Distributor: Distributeur
+
+# Form
+Name: Raison sociale
