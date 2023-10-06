@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Beneficiary;
 
+use App\Entity\Beneficiary;
 use App\Form\Dto\Beneficiary\BeneficiaryFormDto;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use Symfony\Component\Form\AbstractType;
@@ -21,7 +22,7 @@ class BeneficiaryFormType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'constraints' => new UniqueEntityField(
-                    entityClass: BeneficiaryFormDto::class,
+                    entityClass: Beneficiary::class,
                     field: 'name',
                     origin: $dto->isExists() ? $dto->getBeneficiary() : null
                 ),
