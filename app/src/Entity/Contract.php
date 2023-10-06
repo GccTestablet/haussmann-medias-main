@@ -25,11 +25,11 @@ class Contract implements FileInterface
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'contracts')]
-    #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: false)]
     private Company $company;
 
     #[ORM\ManyToOne(targetEntity: Beneficiary::class, inversedBy: 'contracts')]
-    #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id', nullable: false)]
     private Beneficiary $beneficiary;
 
     #[ORM\Column]
@@ -50,6 +50,9 @@ class Contract implements FileInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $territories = null;
 
+    /**
+     * @var Collection<Work>
+     */
     #[ORM\OneToMany(mappedBy: 'contract', targetEntity: Work::class)]
     private Collection $works;
 

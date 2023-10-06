@@ -26,6 +26,9 @@ class Beneficiary
     #[ORM\Column]
     private string $name;
 
+    /**
+     * @var Collection<Contract>
+     */
     #[ORM\OneToMany(mappedBy: 'beneficiary', targetEntity: Contract::class)]
     private Collection $contracts;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Work;
 
 use App\Controller\Shared\AbstractAppController;
 use App\Entity\Work;
