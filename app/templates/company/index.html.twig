@@ -13,6 +13,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Type</th>
                     <th>User count</th>
                 </tr>
                 </thead>
@@ -20,6 +21,7 @@
                 {% for company in companies %}
                     <tr>
                         <td><a href="{{ path('app_company_show', {'id': company.id}) }}">{{ company.name }}</a></td>
+                        <td>{{ company.type.asText|trans({}, 'company') }}</td>
                         <td>{{ company.users|length }}</td>
                     </tr>
                 {% endfor %}

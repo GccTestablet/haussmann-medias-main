@@ -11,6 +11,7 @@
             <ul>
                 <li>Id: {{ company.id }}</li>
                 <li>Name: {{ company.name }}</li>
+                <li>Type: {{ company.type.asText|trans({}, 'company') }}</li>
                 <li>Created at: {{ company.createdAt|datetime_format }}</li>
                 <li>Created by: {{ company.createdBy|user_format }}</li>
                 <li>Updated at: {{ company.updatedAt|datetime_format }}</li>

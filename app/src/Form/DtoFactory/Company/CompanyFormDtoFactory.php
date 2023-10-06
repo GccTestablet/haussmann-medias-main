@@ -17,6 +17,7 @@ class CompanyFormDtoFactory
 
         return (new CompanyFormDto($company, true))
             ->setName($company->getName())
+            ->setType($company->getType())
         ;
     }
 
@@ -24,6 +25,7 @@ class CompanyFormDtoFactory
     {
         $company
             ->setName($dto->getName())
+            ->setType($dto->getType())
         ;
     }
 }

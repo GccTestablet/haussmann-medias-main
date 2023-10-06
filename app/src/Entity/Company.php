@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Enum\Company\CompanyTypeEnum;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,6 +27,9 @@ class Company
 
     #[ORM\Column(unique: true)]
     private string $name;
+
+    #[ORM\Column(length: 20, enumType: CompanyTypeEnum::class)]
+    private CompanyTypeEnum $type;
 
     /**
      * @var Collection<UserCompany>
@@ -65,6 +69,18 @@ class Company
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): CompanyTypeEnum
+    {
+        return $this->type;
+    }
+
+    public function setType(CompanyTypeEnum $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
