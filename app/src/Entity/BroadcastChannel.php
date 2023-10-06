@@ -26,6 +26,9 @@ class BroadcastChannel
     #[ORM\Column(unique: true)]
     private string $name;
 
+    /**
+     * @var Collection<BroadcastService>
+     */
     #[ORM\OneToMany(mappedBy: 'broadcastChannel', targetEntity: BroadcastService::class)]
     private Collection $broadcastServices;
 

@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Company $connectedOn = null;
 
     /**
-     * @var Collection<int, Company>
+     * @var Collection<Company>
      */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserCompany::class, cascade: ['persist'])]
     private Collection $companies;

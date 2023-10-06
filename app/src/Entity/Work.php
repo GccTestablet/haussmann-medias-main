@@ -8,6 +8,8 @@ use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Work\OriginWorkEnum;
 use App\Repository\WorkRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -47,6 +49,17 @@ class Work
     #[ORM\ManyToOne(targetEntity: Contract::class, inversedBy: 'works')]
     #[ORM\JoinColumn(name: 'contract_id', referencedColumnName: 'id')]
     private Contract $contract;
+
+    /**
+     * @var Collection<WorkAdaptation>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkAdaptation::class)]
+    private Collection $workAdaptations;
+
+    public function __construct()
+    {
+        $this->workAdaptations = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -152,6 +165,18 @@ class Work
     public function setContract(Contract $contract): static
     {
         $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getWorkAdaptations(): Collection
+    {
+        return $this->workAdaptations;
+    }
+
+    public function setWorkAdaptations(Collection $workAdaptations): static
+    {
+        $this->workAdaptations = $workAdaptations;
 
         return $this;
     }
