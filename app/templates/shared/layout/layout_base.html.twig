@@ -21,6 +21,10 @@
                 {{ include('shared/layout/_embedded/_navbar.html.twig') }}
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
+                        {{ component('flash', {
+                            flashes: app.flashes
+                        }) }}
+
                         {% block content %}{% endblock %}
                     </div>
                     {{ include('shared/layout/_embedded/_footer.html.twig') }}

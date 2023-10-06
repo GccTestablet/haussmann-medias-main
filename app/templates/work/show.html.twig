@@ -7,13 +7,17 @@
         {% endblock %}
         {% block body_content %}
             <a href="{{ path('app_work_index') }}" class="btn btn-primary">List</a>
+            <a href="{{ path('app_contract_work_update', {'contract': work.contract.id, 'id': work.id}) }}" class="btn btn-warning">Update</a>
             <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-success">Add adaptation</a>
+            <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-success">Add reversion</a>
             <ul>
                 <li>Id: {{ work.id }}</li>
                 <li>Internal ID: {{ work.internalId }}</li>
                 <li>IMDB: <a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></li>
                 <li>Name: {{ work.name }}</li>
                 <li>Original name: {{ work.originalName }}</li>
+                <li>{% trans from 'work' %}Minimum guaranteed before reversion{% endtrans %}: {{ work.minimumGuaranteedBeforeReversion }}</li>
+                <li>{% trans from 'work' %}Minimum cost of the top before reversion{% endtrans %}: {{ work.minimumCostOfTheTopBeforeReversion }}</li>
                 <li>Year: {{ work.year }}</li>
                 <li>Duration: {{ work.duration }}</li>
                 <li>Origin: {{ work.origin.asText }}</li>
@@ -23,30 +27,17 @@
                 <li>Updated by: {{ work.updatedBy|user_format }}</li>
             </ul>
 
+            <br />
             <h4>Adaptations</h4>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Coût doublage</th>
-                    <th>Coût fabrication</th>
-                    <th>Coût fichier PAV</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for adaptation in work.workAdaptations %}
-                    <tr>
-                        <td>{{ adaptation.dubbingCost }}</td>
-                        <td>{{ adaptation.manufacturingCost }}</td>
-                        <td>{{ adaptation.mediaMatrixFileCost }}</td>
-                        <td>
-                            <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-primary">Voir</a>
-                            <a href="{{ path('app_work_adaptation_update', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-warning">Update</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            {% include 'work/adaptation/_embedded/_list.html.twig' with {
+                adaptations: work.workAdaptations
+            } %}
+
+            <br />
+            <h4>Reversions</h4>
+            {% include 'work/reversion/_embedded/_list.html.twig' with {
+                reversions: work.workReversions
+            } %}
 
         {% endblock %}
     {% endcomponent %}

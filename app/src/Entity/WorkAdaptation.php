@@ -25,13 +25,13 @@ class WorkAdaptation
     #[ORM\JoinColumn(name: 'work_id', referencedColumnName: 'id', nullable: false)]
     private Work $work;
 
-    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, nullable: true)]
     private ?float $dubbingCost = null;
 
-    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, nullable: true)]
     private ?float $manufacturingCost = null;
 
-    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, nullable: true)]
     private ?float $mediaMatrixFileCost = null;
 
     public function getId(): int

@@ -54,15 +54,20 @@ class WorkFormType extends AbstractType
                     ),
                 ],
             ])
+            ->add('origin', EnumType::class, [
+                'class' => OriginWorkEnum::class,
+            ])
+            ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('minimumCostOfTheTopBeforeReversion', NumberType::class, [
+                'required' => false,
+            ])
             ->add('year', NumberType::class, [
                 'required' => false,
-                'help' => 'Year of release.',
             ])
             ->add('duration', TextType::class, [
                 'required' => false,
-            ])
-            ->add('origin', EnumType::class, [
-                'class' => OriginWorkEnum::class,
             ])
         ;
     }
@@ -71,6 +76,7 @@ class WorkFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => WorkFormDto::class,
+            'translation_domain' => 'work',
         ]);
     }
 }

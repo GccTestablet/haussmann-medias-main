@@ -39,10 +39,6 @@
     {% block css_page %}{% endblock %}
 </head>
 <body>
-{# TODO: Move this to layout #}
-{{ component('flash', {
-    flashes: app.flashes
-}) }}
 {% block body %}{% endblock %}
 <!-- JS tracking -->
 {% block js_tracking %}{% endblock %}

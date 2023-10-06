@@ -25,9 +25,11 @@ class WorkFormDtoFactory
             ->setImdbId($work->getImdbId())
             ->setName($work->getName())
             ->setOriginalName($work->getOriginalName())
+            ->setOrigin($work->getOrigin())
+            ->setMinimumGuaranteedBeforeReversion($work->getMinimumGuaranteedBeforeReversion())
+            ->setMinimumCostOfTheTopBeforeReversion($work->getMinimumCostOfTheTopBeforeReversion())
             ->setYear($work->getYear())
             ->setDuration($work->getDuration())
-            ->setOrigin($work->getOrigin())
         ;
     }
 
@@ -38,9 +40,11 @@ class WorkFormDtoFactory
             ->setImdbId($dto->getImdbId())
             ->setName($dto->getName())
             ->setOriginalName($dto->getOriginalName())
+            ->setOrigin($dto->getOrigin())
+            ->setMinimumGuaranteedBeforeReversion($dto->getMinimumGuaranteedBeforeReversion())
+            ->setMinimumCostOfTheTopBeforeReversion($dto->getMinimumCostOfTheTopBeforeReversion())
             ->setYear($dto->getYear())
             ->setDuration($dto->getDuration())
-            ->setOrigin($dto->getOrigin())
         ;
     }
 }

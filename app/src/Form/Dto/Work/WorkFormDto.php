@@ -19,12 +19,16 @@ class WorkFormDto
 
     private ?string $originalName = null;
 
+    private ?OriginWorkEnum $origin = null;
+
+    private ?float $minimumGuaranteedBeforeReversion = null;
+
+    private ?float $minimumCostOfTheTopBeforeReversion = null;
+
     #[Assert\Range(min: 1900, max: 2100)]
     private ?int $year = null;
 
     private ?string $duration = null;
-
-    private ?OriginWorkEnum $origin = null;
 
     public function __construct(
         private readonly Work $work,
@@ -89,6 +93,42 @@ class WorkFormDto
         return $this;
     }
 
+    public function getOrigin(): ?OriginWorkEnum
+    {
+        return $this->origin;
+    }
+
+    public function setOrigin(?OriginWorkEnum $origin): static
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    public function getMinimumGuaranteedBeforeReversion(): ?float
+    {
+        return $this->minimumGuaranteedBeforeReversion;
+    }
+
+    public function setMinimumGuaranteedBeforeReversion(?float $minimumGuaranteedBeforeReversion): static
+    {
+        $this->minimumGuaranteedBeforeReversion = $minimumGuaranteedBeforeReversion;
+
+        return $this;
+    }
+
+    public function getMinimumCostOfTheTopBeforeReversion(): ?float
+    {
+        return $this->minimumCostOfTheTopBeforeReversion;
+    }
+
+    public function setMinimumCostOfTheTopBeforeReversion(?float $minimumCostOfTheTopBeforeReversion): static
+    {
+        $this->minimumCostOfTheTopBeforeReversion = $minimumCostOfTheTopBeforeReversion;
+
+        return $this;
+    }
+
     public function getYear(): ?int
     {
         return $this->year;
@@ -109,18 +149,6 @@ class WorkFormDto
     public function setDuration(?string $duration): static
     {
         $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getOrigin(): ?OriginWorkEnum
-    {
-        return $this->origin;
-    }
-
-    public function setOrigin(?OriginWorkEnum $origin): static
-    {
-        $this->origin = $origin;
 
         return $this;
     }
