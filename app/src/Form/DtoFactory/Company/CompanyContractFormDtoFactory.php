@@ -40,6 +40,7 @@ class CompanyContractFormDtoFactory
             ->setStartsAt($contract->getStartsAt())
             ->setEndsAt($contract->getEndsAt())
             ->setTerritories($contract->getTerritories())
+            ->setReportFrequency($contract->getReportFrequency())
         ;
     }
 
@@ -58,6 +59,7 @@ class CompanyContractFormDtoFactory
             ->setStartsAt($dto->getStartsAt())
             ->setEndsAt($dto->getEndsAt())
             ->setTerritories($dto->getTerritories())
+            ->setReportFrequency($dto->getReportFrequency())
         ;
     }
 }

@@ -47,13 +47,13 @@ class UserFormType extends AbstractType
 
         $builder
             ->add('role', ChoiceType::class, [
-                'placeholder' => 'Select a role',
+                'placeholder' => 'Select if you want to assign a specific role to the user',
+                'required' => false,
                 'choices' => [
                     'Super administrator' => User::ROLE_SUPER_ADMIN,
                     'Administrator' => User::ROLE_ADMIN,
-                    'Supplier' => User::ROLE_SUPPLIER,
-                    'Distributor' => User::ROLE_DISTRIBUTOR,
                 ],
+                'help' => 'By default, the user will be assigned the role of "User"',
             ])
         ;
     }

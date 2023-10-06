@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Company;
 
-use App\Entity\Beneficiary;
+use App\Entity\Company;
 use App\Entity\Contract;
+use App\Enum\Common\FrequencyEnum;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CompanyContractFormDto
 {
-    private ?Beneficiary $beneficiary = null;
+    private ?Company $beneficiary = null;
 
     private ?UploadedFile $file = null;
 
@@ -21,6 +22,8 @@ class CompanyContractFormDto
     private ?\DateTime $endsAt = null;
 
     private ?string $territories = null;
+
+    private ?FrequencyEnum $reportFrequency = null;
 
     public function __construct(
         private readonly Contract $contract,
@@ -37,12 +40,12 @@ class CompanyContractFormDto
         return $this->exists;
     }
 
-    public function getBeneficiary(): ?Beneficiary
+    public function getBeneficiary(): ?Company
     {
         return $this->beneficiary;
     }
 
-    public function setBeneficiary(?Beneficiary $beneficiary): static
+    public function setBeneficiary(?Company $beneficiary): static
     {
         $this->beneficiary = $beneficiary;
 
@@ -105,6 +108,18 @@ class CompanyContractFormDto
     public function setTerritories(?string $territories): static
     {
         $this->territories = $territories;
+
+        return $this;
+    }
+
+    public function getReportFrequency(): ?FrequencyEnum
+    {
+        return $this->reportFrequency;
+    }
+
+    public function setReportFrequency(?FrequencyEnum $reportFrequency): static
+    {
+        $this->reportFrequency = $reportFrequency;
 
         return $this;
     }

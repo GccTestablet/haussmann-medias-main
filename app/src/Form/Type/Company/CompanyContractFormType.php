@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Company;
 
-use App\Entity\Beneficiary;
+use App\Entity\Company;
+use App\Enum\Common\FrequencyEnum;
+use App\Enum\Company\CompanyTypeEnum;
 use App\Form\Dto\Company\CompanyContractFormDto;
 use App\Form\Type\Shared\DateType;
-use Doctrine\ORM\EntityRepository;
+use App\Repository\CompanyRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,11 +27,11 @@ class CompanyContractFormType extends AbstractType
 
         $builder
             ->add('beneficiary', EntityType::class, [
-                'class' => Beneficiary::class,
-                'placeholder' => 'Select beneficiary',
-                'query_builder' => fn (EntityRepository $entityRepository) => $entityRepository->createQueryBuilder('b')
-                        ->orderBy('b.name', 'ASC'),
+                'class' => Company::class,
+                'placeholder' => 'Select a beneficiary',
+                'query_builder' => fn (CompanyRepository $repository) => $repository->getByTypeQueryBuilder(CompanyTypeEnum::INTERNATIONAL_SELLER),
                 'choice_label' => 'name',
+                'help' => 'International Seller companies only',
             ])
             ->add('file', FileType::class, [
                 'label' => 'Contract',
@@ -51,6 +54,13 @@ class CompanyContractFormType extends AbstractType
             ->add('territories', TextareaType::class, [
                 'required' => false,
             ])
+            ->add('reportFrequency', EnumType::class, [
+                'placeholder' => 'Select report frequency',
+                'class' => FrequencyEnum::class,
+                'choice_label' => fn (FrequencyEnum $frequencyEnum) => $frequencyEnum->getAsText(),
+                'choice_translation_domain' => 'misc',
+                'required' => false,
+            ])
         ;
     }
 
@@ -58,6 +68,7 @@ class CompanyContractFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CompanyContractFormDto::class,
+            'translation_domain' => 'contract',
         ]);
     }
 }

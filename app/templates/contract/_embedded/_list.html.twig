@@ -16,7 +16,7 @@
         <tr>
             <td><a href="{{ path('app_company_contract_show', {'company': contract.company.id, 'id': contract.id}) }}">{{ contract.originalFileName }}</a></td>
             <td><a href="{{ path('app_company_show', {'id': contract.company.id}) }}">{{ contract.company.name }}</a></td>
-            <td><a href="{{ path('app_beneficiary_show', {'id': contract.beneficiary.id}) }}">{{ contract.beneficiary.name }}</a></td>
+            <td><a href="{{ path('app_company_show', {'id': contract.beneficiary.id}) }}">{{ contract.beneficiary.name }}</a></td>
             <td>{{ contract.signedAt|date_format }}</td>
             <td>{{ contract.startsAt|date_format }}</td>
             <td>{{ contract.endsAt|date_format }}</td>

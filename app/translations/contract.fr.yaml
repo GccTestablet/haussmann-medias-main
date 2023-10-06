@@ -1,2 +1,14 @@
+Contract: Contrat
 Contracts: Contrats
 List of contracts: Liste des contrats
+
+Signed at: Date de signature
+Starts at: Date de début
+Ends at: Date de fin
+Territories: Territoires
+Report frequency: Fréquence des rapports
+
+# Form
+Select a beneficiary: Sélectionner un ayant droit
+International Seller companies only: Sociétés de vendeurs internationaux uniquement
+Select report frequency: Sélectionner la fréquence des rapports
