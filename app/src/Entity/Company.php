@@ -24,7 +24,7 @@ class Company
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\Column]
+    #[ORM\Column(unique: true)]
     private string $name;
 
     /**
@@ -33,6 +33,9 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: UserCompany::class, cascade: ['persist'])]
     private Collection $users;
 
+    /**
+     * @var Collection<Contract>
+     */
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: Contract::class)]
     private Collection $contracts;
 

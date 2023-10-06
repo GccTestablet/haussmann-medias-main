@@ -6,7 +6,7 @@ namespace App\Form\Type\User;
 
 use App\Entity\User;
 use App\Form\Dto\User\UserFormDto;
-use App\Form\Validator\Constraint\EmailExists;
+use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Service\Security\SecurityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,7 +32,11 @@ class UserFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => true,
                 'constraints' => [
-                    new EmailExists($dto->isExists() ? $dto->getUser() : null),
+                    new UniqueEntityField(
+                        entityClass: User::class,
+                        field: 'email',
+                        origin: $dto->isExists() ? $dto->getUser() : null
+                    ),
                 ],
             ])
         ;
