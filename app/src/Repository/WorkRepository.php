@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Company;
 use App\Entity\Work;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 class WorkRepository extends EntityRepository
 {
@@ -23,6 +24,24 @@ class WorkRepository extends EntityRepository
             ->orderBy('w.name', 'ASC')
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function getQueryBuilderBySearchQuery(string $query, int $limit): QueryBuilder
+    {
+        $orX = $this->getEntityManager()->getExpressionBuilder()->orX();
+
+        $fields = ['w.name', 'w.originalName', 'w.internalId', 'w.imdbId'];
+        foreach ($fields as $field) {
+            $orX->add(\sprintf('LOWER(%s) LIKE LOWER(:query)', $field));
+        }
+
+        return $this->createQueryBuilder('w')
+            ->where($orX)
+            ->setParameter('query', \sprintf('%%%s%%', $query))
+            ->orderBy('w.name', 'ASC')
+            ->setFirstResult(0)
+            ->setMaxResults($limit)
         ;
     }
 }
