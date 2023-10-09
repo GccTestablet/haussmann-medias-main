@@ -29,6 +29,7 @@
     <!-- CSS plugin -->
     {% block css_plugin %}
         {{ encore_entry_link_tags('assets/vendor') }}
+        {{ encore_entry_link_tags('assets/app') }}
         {{ encore_entry_link_tags('assets/css/base') }}
     {% endblock %}
     <!-- CSS global -->
@@ -45,6 +46,7 @@
 <!-- JS plugin -->
 {% block js_plugin %}
     {{ encore_entry_script_tags('assets/vendor') }}
+    {{ encore_entry_script_tags('assets/app') }}
 {% endblock %}
 <!-- JS global -->
 {% block js_global %}{% endblock %}
