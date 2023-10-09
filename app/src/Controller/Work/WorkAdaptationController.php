@@ -8,6 +8,7 @@ use App\Controller\Shared\AbstractAppController;
 use App\Entity\Work;
 use App\Entity\WorkAdaptation;
 use App\Form\DtoFactory\Work\WorkAdaptationFormDtoFactory;
+use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Handler\Work\WorkAdaptationFormHandler;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,6 +62,28 @@ class WorkAdaptationController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update adaptation from work %work%', [
+                '%work%' => $workAdaptation->getWork()->getName(),
+            ], 'work'),
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/remove', name: 'app_work_adaptation_remove', requirements: ['id' => '\d+'])]
+    public function remove(Request $request, RemoveFormHandler $removeFormHandler, WorkAdaptation $workAdaptation): Response
+    {
+        $formHandlerResponse = $this->formHandlerManager->createAndHandle(
+            $removeFormHandler,
+            $request,
+            $workAdaptation
+        );
+
+        $form = $formHandlerResponse->getForm();
+        if ($formHandlerResponse->isSuccessful()) {
+            return $this->redirectToRoute('app_work_show', ['id' => $workAdaptation->getWork()->getId()]);
+        }
+
+        return $this->render('shared/common/remove.html.twig', [
+            'title' => new TranslatableMessage('Remove adaptation from work %work%', [
                 '%work%' => $workAdaptation->getWork()->getName(),
             ], 'work'),
             'form' => $form,

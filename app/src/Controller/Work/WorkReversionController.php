@@ -8,6 +8,7 @@ use App\Controller\Shared\AbstractAppController;
 use App\Entity\Work;
 use App\Entity\WorkReversion;
 use App\Form\DtoFactory\Work\WorkReversionFormDtoFactory;
+use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Handler\Work\WorkReversionFormHandler;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,6 +62,28 @@ class WorkReversionController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update reversion from work %work%', [
+                '%work%' => $workReversion->getWork()->getName(),
+            ], 'work'),
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/remove', name: 'app_work_reversion_remove', requirements: ['id' => '\d+'])]
+    public function remove(Request $request, RemoveFormHandler $removeFormHandler, WorkReversion $workReversion): Response
+    {
+        $formHandlerResponse = $this->formHandlerManager->createAndHandle(
+            $removeFormHandler,
+            $request,
+            $workReversion
+        );
+
+        $form = $formHandlerResponse->getForm();
+        if ($formHandlerResponse->isSuccessful()) {
+            return $this->redirectToRoute('app_work_show', ['id' => $workReversion->getWork()->getId()]);
+        }
+
+        return $this->render('shared/common/remove.html.twig', [
+            'title' => new TranslatableMessage('Remove reversion from work %work%', [
                 '%work%' => $workReversion->getWork()->getName(),
             ], 'work'),
             'form' => $form,
