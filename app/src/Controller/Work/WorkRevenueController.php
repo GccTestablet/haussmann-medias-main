@@ -8,6 +8,7 @@ use App\Controller\Shared\AbstractAppController;
 use App\Entity\Work;
 use App\Entity\WorkRevenue;
 use App\Form\DtoFactory\Work\WorkRevenueFormDtoFactory;
+use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Handler\Work\WorkRevenueFormHandler;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,6 +62,28 @@ class WorkRevenueController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update revenue from work %work%', [
+                '%work%' => $workRevenue->getWork()->getName(),
+            ], 'work'),
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/remove', name: 'app_work_revenue_remove', requirements: ['id' => '\d+'])]
+    public function remove(Request $request, RemoveFormHandler $removeFormHandler, WorkRevenue $workRevenue): Response
+    {
+        $formHandlerResponse = $this->formHandlerManager->createAndHandle(
+            $removeFormHandler,
+            $request,
+            $workRevenue
+        );
+
+        $form = $formHandlerResponse->getForm();
+        if ($formHandlerResponse->isSuccessful()) {
+            return $this->redirectToRoute('app_work_show', ['id' => $workRevenue->getWork()->getId()]);
+        }
+
+        return $this->render('shared/common/remove.html.twig', [
+            'title' => new TranslatableMessage('Remove revenue from work %work%', [
                 '%work%' => $workRevenue->getWork()->getName(),
             ], 'work'),
             'form' => $form,
