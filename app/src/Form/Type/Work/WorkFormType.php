@@ -34,7 +34,7 @@ class WorkFormType extends AbstractType
             ])
             ->add('imdbId', TextType::class, [
                 'required' => false,
-                'help' => 'IMDB ID is a 7 digit number prefixed with "tt".',
+                'help' => 'IMDB Id starts with "tt" followed by numbers.',
             ])
             ->add('name', TextType::class, [
                 'constraints' => [
@@ -56,6 +56,8 @@ class WorkFormType extends AbstractType
             ])
             ->add('origin', EnumType::class, [
                 'class' => OriginWorkEnum::class,
+                'choice_label' => fn (OriginWorkEnum $enum) => $enum->getAsText(),
+                'choice_translation_domain' => 'work',
             ])
             ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
                 'required' => false,

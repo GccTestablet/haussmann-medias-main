@@ -1,6 +1,7 @@
 Works: Oeuvres
 Work: Oeuvre
 Add work: Ajouter une oeuvre
+Update work %name%: Mettre à jour l'oeuvre %name%
 Add adaptation: Ajouter une adaptation
 Add reversion: Ajouter une réversion
 Add revenue: Ajouter un revenu
@@ -16,7 +17,10 @@ Internal Id: Id interne
 Imdb: Imdb
 Original name: Nom original
 Year: Année
+Duration: Durée
 Contract: Contrat
+Origin: Provenance
+IMDB Id starts with "tt" followed by numbers.: L'identifiant IMDB commence par "tt" suivit chiffres.
 
 # Revenue
 Distributor: Distributeur
@@ -28,3 +32,8 @@ Revenue: Revenu
 Dubbing cost: Coût du doublage
 Manufacturing cost: Coût de fabrication
 Media matrix file cost: Coût du fichier PAV
+
+# Origin
+France: France
+European: Européen
+International: International
