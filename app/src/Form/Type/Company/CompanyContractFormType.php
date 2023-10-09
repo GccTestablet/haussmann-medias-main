@@ -29,7 +29,7 @@ class CompanyContractFormType extends AbstractType
             ->add('beneficiary', EntityType::class, [
                 'class' => Company::class,
                 'placeholder' => 'Select a beneficiary',
-                'query_builder' => fn (CompanyRepository $repository) => $repository->getByTypeQueryBuilder(CompanyTypeEnum::INTERNATIONAL_SELLER),
+                'query_builder' => fn (CompanyRepository $repository) => $repository->createQueryBuilder('b')->orderBy('b.name'),
                 'choice_label' => 'name',
                 'help' => 'International Seller companies only',
             ])
