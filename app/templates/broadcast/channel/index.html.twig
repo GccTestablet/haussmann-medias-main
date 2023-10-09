@@ -21,7 +21,7 @@
                     <tr>
                         <td><a href="{{ path('app_broadcast_channel_show', {'id': channel.id}) }}">{{ channel.name }}</a></td>
                         <td>{{ channel.broadcastServices|length }}</td>
-                        <td><a class="btn btn-warning" href="{{ path('app_broadcast_channel_update', {'id': channel.id}) }}">Update</a></td>
+                        <td><a class="btn btn-warning" href="{{ path('app_broadcast_channel_update', {'id': channel.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

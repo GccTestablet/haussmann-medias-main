@@ -31,6 +31,7 @@ class WorkAdaptationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => WorkAdaptationFormDto::class,
+            'translation_domain' => 'work',
         ]);
     }
 }

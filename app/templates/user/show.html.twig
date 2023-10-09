@@ -20,10 +20,7 @@
             </ul>
             <div class="justify-content-between">
                 {% if is_granted(constant('App\\Security\\Voter\\UserVoter::SAME_USER'), user) %}
-                    <a class="btn btn-success" href="{{ path('app_user_update', {'id': user.id}) }}">Update</a>
-                {% endif %}
-                {% if user == app.user %}
-                    <a class="btn btn-warning" href="{{ path('app_security_profile_change_password') }}">Change password</a>
+                    <a class="btn btn-success" href="{{ path('app_user_update', {'id': user.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a>
                 {% endif %}
             </div>
         {% endblock %}

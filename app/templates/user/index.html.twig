@@ -6,7 +6,7 @@
             <h1 class="card-title text-center">List of users</h1>
         {% endblock %}
         {% block body_content %}
-            <a class="btn btn-success" href="{{ path('app_user_add') }}">Add user</a>
+            <a class="btn btn-success" href="{{ path('app_user_add') }}">{% trans from 'user' %}Add user{% endtrans %}</a>
 
             <table class="table">
                 <thead>
@@ -19,7 +19,7 @@
                 {% for user in users %}
                     <tr>
                         <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
-                        <td><a  class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">Update</a></td>
+                        <td><a  class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
