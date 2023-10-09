@@ -3,7 +3,7 @@
 {% block content %}
     {% component card %}
         {% block header_content %}
-            <h1 class="card-title text-center">List of users</h1>
+            <h1 class="card-title text-center">{% trans from 'user' %}List of users{% endtrans %}</h1>
         {% endblock %}
         {% block body_content %}
             <a class="btn btn-success" href="{{ path('app_user_add') }}">{% trans from 'user' %}Add user{% endtrans %}</a>
