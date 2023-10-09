@@ -25,6 +25,17 @@ class FormatExtensionRuntime implements RuntimeExtensionInterface
         return $dateTime?->format(DateParser::FR_DATETIME_FORMAT);
     }
 
+    public function formatInitial(string $text): ?string
+    {
+        $words = \explode(' ', $text);
+
+        if (\count($words) === 1) {
+            return \mb_substr($words[0], 0, 1);
+        }
+
+        return \mb_substr($words[0], 0, 1).\mb_substr($words[1], 0, 1);
+    }
+
     public function formatUser(?User $user): ?string
     {
         if (!$user) {

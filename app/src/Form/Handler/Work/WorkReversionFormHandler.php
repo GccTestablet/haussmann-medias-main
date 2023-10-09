@@ -2,42 +2,42 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Handler\Beneficiary;
+namespace App\Form\Handler\Work;
 
-use App\Form\Dto\Beneficiary\BeneficiaryFormDto;
-use App\Form\DtoFactory\Beneficiary\BeneficiaryFormDtoFactory;
+use App\Form\Dto\Work\WorkReversionFormDto;
+use App\Form\DtoFactory\Work\WorkReversionFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
-use App\Form\Type\Beneficiary\BeneficiaryFormType;
+use App\Form\Type\Work\WorkReversionFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class BeneficiaryFormHandler extends AbstractFormHandler
+class WorkReversionFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly BeneficiaryFormDtoFactory $beneficiaryFormDtoFactory,
+        private readonly WorkReversionFormDtoFactory $workReversionFormDtoFactory,
     ) {}
 
-    protected static string $form = BeneficiaryFormType::class;
+    protected static string $form = WorkReversionFormType::class;
 
     protected function onFormSubmitAndValid(Request $request, FormInterface $form, array $options = []): FormHandlerResponseInterface
     {
         $dto = $form->getData();
-        if (!$dto instanceof BeneficiaryFormDto) {
-            throw new UnexpectedTypeException($dto, BeneficiaryFormDto::class);
+        if (!$dto instanceof WorkReversionFormDto) {
+            throw new UnexpectedTypeException($dto, WorkReversionFormDto::class);
         }
 
-        $beneficiary = $dto->getBeneficiary();
+        $workReversion = $dto->getWorkReversion();
         if ($dto->isExists()) {
-            $this->entityManager->refresh($beneficiary);
+            $this->entityManager->refresh($workReversion);
         }
 
-        $this->beneficiaryFormDtoFactory->updateEntity($dto, $beneficiary);
+        $this->workReversionFormDtoFactory->updateEntity($dto, $workReversion);
 
-        $this->entityManager->persist($beneficiary);
+        $this->entityManager->persist($workReversion);
         $this->entityManager->flush();
 
         return parent::onFormSubmitAndValid($request, $form, $options);

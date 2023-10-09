@@ -2,8 +2,13 @@
 
 {% block css_global %}
     {{ parent() }}
+    {{ encore_entry_link_tags('assets/app') }}
     {{ encore_entry_link_tags('assets/css/app') }}
     {{ encore_entry_link_tags('assets/css/demo') }}
+{% endblock %}
+
+{% block js_global %}
+    {{ encore_entry_script_tags('assets/app') }}
 {% endblock %}
 
 {% block html_class('light-style layout-navbar-fixed layout-menu-fixed') %}
@@ -16,6 +21,10 @@
                 {{ include('shared/layout/_embedded/_navbar.html.twig') }}
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
+                        {{ component('flash', {
+                            flashes: app.flashes
+                        }) }}
+
                         {% block content %}{% endblock %}
                     </div>
                     {{ include('shared/layout/_embedded/_footer.html.twig') }}

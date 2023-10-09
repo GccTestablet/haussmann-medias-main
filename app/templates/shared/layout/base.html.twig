@@ -29,6 +29,7 @@
     <!-- CSS plugin -->
     {% block css_plugin %}
         {{ encore_entry_link_tags('assets/vendor') }}
+        {{ encore_entry_link_tags('assets/css/base') }}
     {% endblock %}
     <!-- CSS global -->
     {% block css_global %}
@@ -38,10 +39,6 @@
     {% block css_page %}{% endblock %}
 </head>
 <body>
-{# TODO: Move this to layout #}
-{{ component('flash', {
-    flashes: app.flashes
-}) }}
 {% block body %}{% endblock %}
 <!-- JS tracking -->
 {% block js_tracking %}{% endblock %}

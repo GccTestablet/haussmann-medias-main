@@ -23,8 +23,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     final public const ROLE_USER = 'ROLE_USER';
     final public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
     final public const ROLE_ADMIN = 'ROLE_ADMIN';
-    final public const ROLE_SUPPLIER = 'ROLE_SUPPLIER';
-    final public const ROLE_DISTRIBUTOR = 'ROLE_DISTRIBUTOR';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -69,7 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Company $connectedOn = null;
 
     /**
-     * @var Collection<int, Company>
+     * @var Collection<Company>
      */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserCompany::class, cascade: ['persist'])]
     private Collection $companies;

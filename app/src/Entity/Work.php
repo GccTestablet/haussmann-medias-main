@@ -8,6 +8,8 @@ use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Work\OriginWorkEnum;
 use App\Repository\WorkRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,6 +40,12 @@ class Work
     #[ORM\Column(length: 20, enumType: OriginWorkEnum::class)]
     private OriginWorkEnum $origin;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?float $minimumGuaranteedBeforeReversion = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?float $minimumCostOfTheTopBeforeReversion = null;
+
     #[ORM\Column(type: Types::SMALLINT, length: 4, nullable: true)]
     private ?int $year = null;
 
@@ -47,6 +55,31 @@ class Work
     #[ORM\ManyToOne(targetEntity: Contract::class, inversedBy: 'works')]
     #[ORM\JoinColumn(name: 'contract_id', referencedColumnName: 'id')]
     private Contract $contract;
+
+    /**
+     * @var Collection<WorkAdaptation>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkAdaptation::class)]
+    private Collection $workAdaptations;
+
+    /**
+     * @var Collection<WorkReversion>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkReversion::class, cascade: ['persist'])]
+    private Collection $workReversions;
+
+    /**
+     * @var Collection<WorkRevenue>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkRevenue::class, cascade: ['persist'])]
+    private Collection $workRevenues;
+
+    public function __construct()
+    {
+        $this->workAdaptations = new ArrayCollection();
+        $this->workReversions = new ArrayCollection();
+        $this->workRevenues = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -120,6 +153,30 @@ class Work
         return $this;
     }
 
+    public function getMinimumGuaranteedBeforeReversion(): ?float
+    {
+        return $this->minimumGuaranteedBeforeReversion;
+    }
+
+    public function setMinimumGuaranteedBeforeReversion(?float $minimumGuaranteedBeforeReversion): static
+    {
+        $this->minimumGuaranteedBeforeReversion = $minimumGuaranteedBeforeReversion;
+
+        return $this;
+    }
+
+    public function getMinimumCostOfTheTopBeforeReversion(): ?float
+    {
+        return $this->minimumCostOfTheTopBeforeReversion;
+    }
+
+    public function setMinimumCostOfTheTopBeforeReversion(?float $minimumCostOfTheTopBeforeReversion): static
+    {
+        $this->minimumCostOfTheTopBeforeReversion = $minimumCostOfTheTopBeforeReversion;
+
+        return $this;
+    }
+
     public function getYear(): ?int
     {
         return $this->year;
@@ -152,6 +209,42 @@ class Work
     public function setContract(Contract $contract): static
     {
         $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getWorkAdaptations(): Collection
+    {
+        return $this->workAdaptations;
+    }
+
+    public function setWorkAdaptations(Collection $workAdaptations): static
+    {
+        $this->workAdaptations = $workAdaptations;
+
+        return $this;
+    }
+
+    public function getWorkReversions(): Collection
+    {
+        return $this->workReversions;
+    }
+
+    public function setWorkReversions(Collection $workReversions): static
+    {
+        $this->workReversions = $workReversions;
+
+        return $this;
+    }
+
+    public function getWorkRevenues(): Collection
+    {
+        return $this->workRevenues;
+    }
+
+    public function setWorkRevenues(Collection $workRevenues): static
+    {
+        $this->workRevenues = $workRevenues;
 
         return $this;
     }

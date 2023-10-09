@@ -6,19 +6,47 @@
             <h1>Work: {{ work.name }}</h1>
         {% endblock %}
         {% block body_content %}
+            <a href="{{ path('app_work_index') }}" class="btn btn-primary">List</a>
+            <a href="{{ path('app_contract_work_update', {'contract': work.contract.id, 'id': work.id}) }}" class="btn btn-warning">Update</a>
+            <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-success">Add adaptation</a>
+            <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-success">Add reversion</a>
+            <a href="{{ path('app_work_revenue_add', {'work': work.id}) }}" class="btn btn-success">Add revenue</a>
             <ul>
                 <li>Id: {{ work.id }}</li>
                 <li>Internal ID: {{ work.internalId }}</li>
                 <li>IMDB: <a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></li>
                 <li>Name: {{ work.name }}</li>
                 <li>Original name: {{ work.originalName }}</li>
+                <li>{% trans from 'work' %}Minimum guaranteed before reversion{% endtrans %}: {{ work.minimumGuaranteedBeforeReversion }}</li>
+                <li>{% trans from 'work' %}Minimum cost of the top before reversion{% endtrans %}: {{ work.minimumCostOfTheTopBeforeReversion }}</li>
                 <li>Year: {{ work.year }}</li>
                 <li>Duration: {{ work.duration }}</li>
                 <li>Origin: {{ work.origin.asText }}</li>
-
+                <li>Created at: {{ work.createdAt|datetime_format }}</li>
+                <li>Created by: {{ work.createdBy|user_format }}</li>
+                <li>Updated at: {{ work.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ work.updatedBy|user_format }}</li>
             </ul>
 
-            <a href="{{ path('app_work_index') }}" class="btn btn-primary">List</a>
+            <br />
+            <h4>Adaptations</h4>
+            {% include 'work/adaptation/_embedded/_list.html.twig' with {
+                adaptations: work.workAdaptations
+            } %}
+
+            <br />
+            <h4>Reversions</h4>
+            {% include 'work/reversion/_embedded/_list.html.twig' with {
+                reversions: work.workReversions
+            } %}
+
+            <br />
+            <h4>Revenues</h4>
+            {% include 'work/revenue/_embedded/_list.html.twig' with {
+                revenues: work.workRevenues
+            } %}
+
+
         {% endblock %}
     {% endcomponent %}
 {% endblock %}

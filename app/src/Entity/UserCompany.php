@@ -22,9 +22,11 @@ class UserCompany
     public function __construct(
         #[ORM\Id]
         #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'companies')]
+        #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false)]
         private readonly User $user,
         #[ORM\Id]
         #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'users')]
+        #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: false)]
         private readonly Company $company
     ) {}
 
