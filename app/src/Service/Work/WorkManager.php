@@ -9,6 +9,7 @@ use App\Entity\Work;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class WorkManager
 {
@@ -30,6 +31,13 @@ class WorkManager
     public function findByCompany(Company $company): array
     {
         return $this->getRepository()->findByCompany($company);
+    }
+
+    public function findBySearchQuery(string $query, int $limit = 5): Paginator
+    {
+        $queryBuilder = $this->getRepository()->getQueryBuilderBySearchQuery($query, $limit);
+
+        return new Paginator($queryBuilder);
     }
 
     /**

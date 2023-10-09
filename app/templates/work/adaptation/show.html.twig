@@ -3,16 +3,39 @@
 {% block content %}
     {% component card %}
         {% block body_content %}
-            <ul>
-                <li>Id: {{ workAdaptation.id }}</li>
-                <li>Oeuvre: {{ workAdaptation.work.name }}</li>
-                <li>Coût doublage: {{ workAdaptation.dubbingCost }}</li>
-                <li>Coût fabrication: {{ workAdaptation.manufacturingCost }}</li>
-                <li>Coût fichier PAV: {{ workAdaptation.mediaMatrixFileCost }}</li>
-                <li>Created at: {{ workAdaptation.createdAt|datetime_format }}</li>
-                <li>Created by: {{ workAdaptation.createdBy|user_format }}</li>
-                <li>Updated at: {{ workAdaptation.updatedAt|datetime_format }}</li>
-                <li>Updated by: {{ workAdaptation.updatedBy|user_format }}</li>
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'work'%}Work{% endtrans%}</span>
+                    <span>{{ workAdaptation.work.name }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'work'%}Dubbing cost{% endtrans%}</span>
+                    <span>{{ workAdaptation.dubbingCost }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'work'%}Manufacturing cost{% endtrans%}</span>
+                    <span>{{ workAdaptation.manufacturingCost }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'work'%}Media matrix file cost{% endtrans%}</span>
+                    <span>{{ workAdaptation.mediaMatrixFileCost }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc'%}Created at{% endtrans%}</span>
+                    <span>{{ workAdaptation.createdAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc'%}Created by{% endtrans%}</span>
+                    <span>{{ workAdaptation.createdBy|user_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc'%}Updated at{% endtrans%}</span>
+                    <span>{{ workAdaptation.updatedAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc'%}Updated by{% endtrans%}</span>
+                    <span>{{ workAdaptation.updatedBy|user_format }}</span>
+                </li>
             </ul>
 
             <a href="{{ path('app_work_show', {'id': workAdaptation.work.id}) }}" class="btn btn-primary">Retour à l'oeuvre</a>

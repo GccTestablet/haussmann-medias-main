@@ -5,27 +5,44 @@
 {% block content %}
     {% component card %}
         {% block header_content%}
-            <h1 class="card-title text-center">Company {{ company.name }}</h1>
+            <h1 class="card-title text-center">{{ company.name }}</h1>
         {% endblock %}
         {% block body_content%}
-            <ul>
-                <li>Id: {{ company.id }}</li>
-                <li>Name: {{ company.name }}</li>
-                <li>Type: {{ company.type.asText|trans({}, 'company') }}</li>
-                <li>Created at: {{ company.createdAt|datetime_format }}</li>
-                <li>Created by: {{ company.createdBy|user_format }}</li>
-                <li>Updated at: {{ company.updatedAt|datetime_format }}</li>
-                <li>Updated by: {{ company.updatedBy|user_format }}</li>
-            </ul>
-
             <div class="justify-content-between align-items-center text-center">
-                <a href="{{ path('app_company_index') }}" class="btn btn-primary">List</a>
+                <a href="{{ path('app_company_index') }}" class="btn btn-primary">{% trans from "misc" %}List{% endtrans %}</a>
                 {% if isCompanyAdmin %}
-                    <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">Update</a>
-                    <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">Add a user</a>
-                    <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">Add a contract</a>
+                    <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
+                    <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "user" %}Add user{% endtrans %}</a>
+                    <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "contract" %}Add contract{% endtrans %}</a>
                 {% endif %}
             </div>
+
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'company' %}Name{% endtrans %}:</span>
+                    <span>{{ company.name }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'company' %}Type{% endtrans %}:</span>
+                    <span>{{ company.type.asText|trans({}, 'company') }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
+                    <span>{{ company.createdAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Created by{% endtrans %}:</span>
+                    <span>{{ company.createdBy|user_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated at{% endtrans %}:</span>
+                    <span>{{ company.updatedAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated by{% endtrans %}:</span>
+                    <span>{{ company.updatedBy|user_format }}</span>
+                </li>
+            </ul>
 
             <br>
 
@@ -57,7 +74,7 @@
                         <td>{{ userCompany.permission.asText }}</td>
                         <td>
                             {% if isCompanyAdmin %}
-                                <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">Remove</a>
+                                <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">{% trans from 'misc' %}Remove{% endtrans %}</a>
                             {% endif %}
                         </td>
                     </tr>

@@ -12,7 +12,7 @@ class WorkFormDto
 {
     private ?string $internalId = null;
 
-    #[Assert\Regex('/^tt\d{7}$/')]
+    #[Assert\Regex('/^tt[0-9]*$/')]
     private ?string $imdbId = null;
 
     private ?string $name = null;

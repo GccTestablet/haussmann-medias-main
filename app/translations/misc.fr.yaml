@@ -1,12 +1,22 @@
 Dashboard: Tableau de bord
 Are you sure you want to remove this item? This action cannot be undone.: Êtes-vous sûr de vouloir supprimer cet élément? Cette action ne peut pas être annulée.
+Show: Accéder
+Save: Enregistrer
 Update: Modifier
+Remove: Supprimer
 Download: Télécharger
+List: Liste
 
 Name: Nom
+Actions: Actions
 
 Daily: Quotidien
 Weekly: Hebdomadaire
 Monthly: Mensuel
 Quarterly: Trimestriel
 Yearly: Annuel
+
+Created at: Crée le
+Created by: Crée par
+Updated at: Mis à jour le
+Updated by: Mis à jour par

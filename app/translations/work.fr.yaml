@@ -1,8 +1,46 @@
 Works: Oeuvres
-Add a work: Ajouter une oeuvre
+Work: Oeuvre
+Add work: Ajouter une oeuvre
+Update work %name%: Mettre à jour l'oeuvre %name%
+Add adaptation: Ajouter une adaptation
+Add reversion: Ajouter une réversion
+Add revenue: Ajouter un revenu
+
 List of works: Liste des oeuvres
 Add adaptation to work %work%: Ajouter une adaptation à l'oeuvre %work%
 Update adaptation from work %work%: Mettre à jour l'adaptation de l'oeuvre %work%
+Remove adaptation from work %work%: Supprimer l'adapation de l'oeuvre %work%
+Add reversion to work %work%: Ajouter une réversion à l'oeuvre %work%
+Update reversion from work %work%: Mettre à jour la réversion de l'oeuvre %work%
+Remove reversion from work %work%: Supprimer la réversion de l'oeuvre %work%
+Add revenue to work %work%: Ajouter un revenu à l'oeuvre %work%
+Update revenue from work %work%: Mettre à jour le revenu de l'oeuvre %work%
+Remove revenue from work %work%: Supprimer le revenu de l'oeuvre %work%
 
 Minimum guaranteed before reversion: Garantie minimum avant réversion
 Minimum cost of the top before reversion: COTT minimum avant réversion
+
+Internal Id: Id interne
+Imdb: Imdb
+Original name: Nom original
+Year: Année
+Duration: Durée
+Contract: Contrat
+Origin: Provenance
+IMDB Id starts with "tt" followed by numbers.: L'identifiant IMDB commence par "tt" suivit chiffres.
+
+# Revenue
+Distributor: Distributeur
+Starts at: Débute le
+Ends at: Fini le
+Revenue: Revenu
+
+# Adaptation
+Dubbing cost: Coût du doublage
+Manufacturing cost: Coût de fabrication
+Media matrix file cost: Coût du fichier PAV
+
+# Origin
+France: France
+European: Européen
+International: International

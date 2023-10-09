@@ -1,12 +1,12 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Distributor</th>
-        <th>Canal</th>
-        <th>Starts at</th>
-        <th>Ends at</th>
-        <th>Revenue</th>
-        <th>Action</th>
+        <th>{% trans from 'work' %}Distributor{% endtrans %}</th>
+        <th>{% trans from 'work' %}Canal{% endtrans %}</th>
+        <th>{% trans from 'work' %}Starts at{% endtrans %}</th>
+        <th>{% trans from 'work' %}Ends at{% endtrans %}</th>
+        <th>{% trans from 'work' %}Revenue{% endtrans %}</th>
+        <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
     </tr>
     </thead>
     <tbody>
@@ -18,8 +18,9 @@
             <td>{{ revenue.endsAt|date_format }}</td>
             <td>{{ revenue.revenue }}</td>
             <td>
-                <a href="{{ path('app_work_revenue_show', {'work': work.id, 'id': revenue.id}) }}" class="btn btn-primary">Voir</a>
-                <a href="{{ path('app_work_revenue_update', {'work': work.id, 'id': revenue.id}) }}" class="btn btn-warning">Update</a>
+                <a href="{{ path('app_work_revenue_show', {'work': work.id, 'id': revenue.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Show{% endtrans %}</a>
+                <a href="{{ path('app_work_revenue_update', {'work': work.id, 'id': revenue.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+                <a href="{{ path('app_work_revenue_remove', {'work': work.id, 'id': revenue.id}) }}" class="btn btn-danger">{% trans from 'misc' %}Remove{% endtrans %}</a>
             </td>
         </tr>
     {% endfor %}
