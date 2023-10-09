@@ -3,18 +3,18 @@
 {% block content %}
     {% component card %}
         {% block header_content %}
-            <h1 class="card-title text-center">List of companies</h1>
+            <h1 class="card-title text-center">{% trans from 'company' %}List of companies{% endtrans %}</h1>
         {% endblock %}
         {% block body_content %}
             <div class="justify-content-between">
-                <a href="{{ path('app_company_add') }}" class="btn btn-success">Add company</a>
+                <a href="{{ path('app_company_add') }}" class="btn btn-success">{% trans from 'company' %}Add company{% endtrans %}</a>
             </div>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>User count</th>
+                    <th>{% trans from 'company' %}Name{% endtrans %}</th>
+                    <th>{% trans from 'company' %}Type{% endtrans %}</th>
+                    <th>{% trans from 'company' %}User count{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>

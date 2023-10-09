@@ -6,7 +6,7 @@
             <h1 class="card-title text-center">{% trans from 'contract' %}List of contracts{% endtrans %}</h1>
         {% endblock %}
         {% block body_content %}
-            <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">{% trans from 'contract' %}Add a contract{% endtrans %}</a>
+            <a href="{{ path('app_company_contract_add', {'company': company.id}) }}" class="btn btn-success">{% trans from 'contract' %}Add contract{% endtrans %}</a>
 
             {% include 'contract/_embedded/_list.html.twig' with {
                 contracts: contracts,
