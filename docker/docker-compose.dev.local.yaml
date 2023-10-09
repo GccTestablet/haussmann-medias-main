@@ -34,5 +34,5 @@ services:
 
 volumes:
   source_sync:
-    name: app_sync
+    name: app_haussmann_medias_sync
     external: true
