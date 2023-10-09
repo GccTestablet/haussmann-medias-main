@@ -35,6 +35,9 @@ class UniqueEntityFieldValidator extends ConstraintValidator
 
         $repository = $this->getRepository($entityClass);
         $entity = $repository->findOneBy([$constraint->getField() => $value]);
+        if (!$entity) {
+            return;
+        }
 
         if ($entity === $origin) {
             return;
