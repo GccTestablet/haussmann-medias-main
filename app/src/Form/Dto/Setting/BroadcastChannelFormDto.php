@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Setting;
 
-use App\Entity\Setting\Territory;
+use App\Entity\Setting\BroadcastChannel;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class TerritoryFormDto
+class BroadcastChannelFormDto
 {
+    #[Assert\NotBlank]
     private ?string $name = null;
 
-    private ?string $description = null;
-
     public function __construct(
-        private readonly Territory $territory,
+        private readonly BroadcastChannel $channel,
         private readonly bool $exists,
     ) {}
 
-    public function getTerritory(): Territory
+    public function getChannel(): BroadcastChannel
     {
-        return $this->territory;
+        return $this->channel;
     }
 
     public function isExists(): bool
@@ -35,18 +35,6 @@ class TerritoryFormDto
     public function setName(?string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): static
-    {
-        $this->description = $description;
 
         return $this;
     }

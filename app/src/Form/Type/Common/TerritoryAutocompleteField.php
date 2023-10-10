@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Common;
 
-use App\Entity\Territory;
+use App\Entity\Setting\Territory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;

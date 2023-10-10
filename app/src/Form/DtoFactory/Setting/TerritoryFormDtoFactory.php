@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\DtoFactory\Setting;
 
-use App\Entity\Territory;
+use App\Entity\Setting\Territory;
 use App\Form\Dto\Setting\TerritoryFormDto;
 
 class TerritoryFormDtoFactory

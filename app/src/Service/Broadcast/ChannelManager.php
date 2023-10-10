@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Broadcast;
 
-use App\Entity\BroadcastChannel;
+use App\Entity\Setting\BroadcastChannel;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 

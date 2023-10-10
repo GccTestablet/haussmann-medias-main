@@ -21,18 +21,16 @@ class WorkAdaptationFormDtoFactory
         }
 
         return (new WorkAdaptationFormDto($workAdaptation, true))
-            ->setDubbingCost($workAdaptation->getDubbingCost())
-            ->setManufacturingCost($workAdaptation->getManufacturingCost())
-            ->setMediaMatrixFileCost($workAdaptation->getMediaMatrixFileCost())
+            ->setType($workAdaptation->getType())
+            ->setCost($workAdaptation->getCost())
         ;
     }
 
     public function updateEntity(WorkAdaptationFormDto $dto, WorkAdaptation $workAdaptation): void
     {
         $workAdaptation
-            ->setDubbingCost($dto->getDubbingCost())
-            ->setManufacturingCost($dto->getManufacturingCost())
-            ->setMediaMatrixFileCost($dto->getMediaMatrixFileCost())
+            ->setType($dto->getType())
+            ->setCost($dto->getCost())
         ;
     }
 }

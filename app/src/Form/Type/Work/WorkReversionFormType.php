@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Work;
 
-use App\Entity\BroadcastChannel;
+use App\Entity\Setting\BroadcastChannel;
 use App\Form\Dto\Work\WorkReversionFormDto;
 use App\Repository\Broadcast\BroadcastChannelRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
