@@ -11,7 +11,7 @@ class SearchBarCategoryResult
     private array $results = [];
 
     public function __construct(
-        private string $category
+        private readonly string $category
     ) {}
 
     public function getCategory(): string

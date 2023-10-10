@@ -8,7 +8,7 @@ namespace App\Model\Layout;
 class SearchBarResult
 {
     public function __construct(
-        private string $label,
+        private readonly string $label,
         private string $url
     ) {}
 
