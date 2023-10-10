@@ -1,0 +1,29 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">{% trans from 'setting' %}List of territories{% endtrans %}</h1>
+        {% endblock %}
+        {% block body_content %}
+            <a class="btn btn-success" href="{{ path('app_setting_territory_add') }}">{% trans from 'setting' %}Add territory{% endtrans %}</a>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for territory in territories %}
+                    <tr>
+                        <td><a href="{{ path('app_setting_territory_show', {'id': territory.id}) }}">{{ territory.name }}</a></td>
+                        <td><a class="btn btn-warning" href="{{ path('app_setting_territory_update', {'id': territory.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}

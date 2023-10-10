@@ -1,0 +1,24 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">{{ territory.name }}</h1>
+        {% endblock %}
+        {% block body_content %}
+            <div class="justify-content-between mb-2">
+                <a href="{{ path('app_setting_territory_update', {'id': territory.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+            </div>
+
+            <ul>
+                <li>Id: {{ territory.id }}</li>
+                <li>Name: {{ territory.name }}</li>
+                <li>Description: {{ territory.description }}</li>
+                <li>Created at: {{ territory.createdAt|datetime_format }}</li>
+                <li>Created by: {{ territory.createdBy|user_format }}</li>
+                <li>Updated at: {{ territory.updatedAt|datetime_format }}</li>
+                <li>Updated by: {{ territory.updatedBy|user_format }}</li>
+            </ul>
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}
