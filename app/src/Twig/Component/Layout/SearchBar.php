@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Twig\Component\Layout;
 
 use App\Entity\Work;
+use App\Model\Layout\SearchBarResult\SearchBarCategoryResult;
+use App\Model\Layout\SearchBarResult\SearchBarResult;
+use App\Service\Contract\ContractManager;
+use App\Service\Work\WorkManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -19,31 +23,28 @@ class SearchBar
     public ?string $query = null;
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private readonly WorkManager $workManager,
+        private readonly ContractManager $contractManager
     ) {}
 
     public function getResults(): array
     {
-        \dump($this->query);
-
         if (empty($this->query)) {
             return [];
         }
 
-        return $this->entityManager->getRepository(Work::class)->createQueryBuilder('w')
-            ->where('w.name LIKE :query OR w.originalName LIKE :query OR w.internalId LIKE :query OR w.imdbId LIKE :query')
-            ->setParameter('query', '%'.$this->query.'%')
-            ->getQuery()
-            ->getResult()
-        ;
+        $results = [];
 
-        //        $formattedPackages = [];
-        //        foreach ($packages as $package) {
-        //            $formattedPackages[] = [
-        //                'name' => $package->getName(),
-        //                'description' => $package->getDescription(),
-        //            ];
-        //        }
-        //        return $formattedPackages;
+        foreach ($this->workManager->findBySearchQuery($this->query) as $work) {
+            $results['Work'][] = $work->getName();
+        }
+
+        $categoryResult = new SearchBarCategoryResult('Contract');
+        foreach ($this->contractManager->findBySearchQuery($this->query) as $contract) {
+            $categoryResult->addResult(new SearchBarResult($contract->getOriginalFileName()));
+            $results['Contract'][] = $contract->getOriginalFileName();
+        }
+
+        return $results;
     }
 }

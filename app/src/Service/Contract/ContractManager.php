@@ -16,11 +16,14 @@ class ContractManager
         private readonly EntityManagerInterface $entityManager,
     ) {}
 
-    public function findBySearchQuery(string $query, int $limit = 5): Paginator
+    /**
+     * @return Contract[]
+     */
+    public function findBySearchQuery(string $query, int $limit = 5): array
     {
         $queryBuilder = $this->getRepository()->getQueryBuilderBySearchQuery($query, $limit);
 
-        return new Paginator($queryBuilder);
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /**
