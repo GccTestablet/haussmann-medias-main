@@ -49,8 +49,12 @@ class Contract implements FileInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $endsAt = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $territories = null;
+    /**
+     * @var Collection<Territory>
+     */
+    #[ORM\ManyToMany(targetEntity: Territory::class, inversedBy: 'acquisitionContracts')]
+    #[ORM\JoinTable(name: 'acquisition_contracts_territories')]
+    private Collection $territories;
 
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
@@ -63,6 +67,7 @@ class Contract implements FileInterface
 
     public function __construct()
     {
+        $this->territories = new ArrayCollection();
         $this->works = new ArrayCollection();
     }
 
@@ -162,12 +167,12 @@ class Contract implements FileInterface
         return $this;
     }
 
-    public function getTerritories(): ?string
+    public function getTerritories(): Collection
     {
         return $this->territories;
     }
 
-    public function setTerritories(?string $territories): static
+    public function setTerritories(Collection $territories): static
     {
         $this->territories = $territories;
 

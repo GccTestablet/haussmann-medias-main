@@ -28,12 +28,24 @@
                     <span>{{ contract.signedAt|date_format }}</span>
                 </li>
                 <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'contract' %}Starts at{% endtrans %}:</span>
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights starts at{% endtrans %}:</span>
                     <span>{{ contract.startsAt|date_format }}</span>
                 </li>
                 <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'contract' %}Ends at{% endtrans %}:</span>
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights ends at{% endtrans %}:</span>
                     <span>{{ contract.endsAt|date_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Territories{% endtrans %}:</span>
+                    <span>
+                        {% for territory in contract.territories %}
+                            {{ territory.name }}<br />
+                        {% endfor %}
+                    </span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency{% endtrans %}:</span>
+                    <span>{{ contract.reportFrequency.asText|trans({}, 'misc') }}</span>
                 </li>
                 <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
