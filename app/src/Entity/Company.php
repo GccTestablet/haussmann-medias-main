@@ -43,10 +43,17 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: AcquisitionContract::class)]
     private Collection $acquisitionContracts;
 
+    /**
+     * @var Collection<DistributionContract>
+     */
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: DistributionContract::class)]
+    private Collection $distributionContracts;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->acquisitionContracts = new ArrayCollection();
+        $this->distributionContracts = new ArrayCollection();
     }
 
     public function getId(): int
@@ -111,9 +118,21 @@ class Company
         return $this->acquisitionContracts;
     }
 
-    public function setAcquisitionContracts(Collection $acquisitionContracts): self
+    public function setAcquisitionContracts(Collection $acquisitionContracts): static
     {
         $this->acquisitionContracts = $acquisitionContracts;
+
+        return $this;
+    }
+
+    public function getDistributionContracts(): Collection
+    {
+        return $this->distributionContracts;
+    }
+
+    public function setDistributionContracts(Collection $distributionContracts): static
+    {
+        $this->distributionContracts = $distributionContracts;
 
         return $this;
     }

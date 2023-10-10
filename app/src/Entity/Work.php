@@ -81,12 +81,19 @@ class Work
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkRevenue::class, cascade: ['persist'])]
     private Collection $workRevenues;
 
+    /**
+     * @var Collection<DistributionContractWork>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
+    private Collection $distributionContracts;
+
     public function __construct()
     {
         $this->broadcastChannels = new ArrayCollection();
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
         $this->workRevenues = new ArrayCollection();
+        $this->distributionContracts = new ArrayCollection();
     }
 
     public function getId(): int
@@ -268,6 +275,18 @@ class Work
     public function setWorkRevenues(Collection $workRevenues): static
     {
         $this->workRevenues = $workRevenues;
+
+        return $this;
+    }
+
+    public function getDistributionContracts(): Collection
+    {
+        return $this->distributionContracts;
+    }
+
+    public function setDistributionContracts(Collection $distributionContracts): static
+    {
+        $this->distributionContracts = $distributionContracts;
 
         return $this;
     }

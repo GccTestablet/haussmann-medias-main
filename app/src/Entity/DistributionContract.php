@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Common\FrequencyEnum;
-use App\Repository\AcquisitionContractRepository;
+use App\Enum\Contract\DistributionContractTypeEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AcquisitionContractRepository::class)]
-#[ORM\Table(name: 'acquisition_contracts')]
-class AcquisitionContract implements FileInterface
+#[ORM\Entity()]
+#[ORM\Table(name: 'distribution_contracts')]
+class DistributionContract implements FileInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -27,22 +26,22 @@ class AcquisitionContract implements FileInterface
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'acquisitionContracts')]
+    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'distributionContracts')]
     #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: false)]
     private Company $company;
 
     #[ORM\ManyToOne(targetEntity: Company::class)]
-    #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id', nullable: false)]
-    private Company $beneficiary;
+    #[ORM\JoinColumn(name: 'distributor_id', referencedColumnName: 'id', nullable: false)]
+    private Company $distributor;
 
-    #[ORM\Column(unique: true)]
-    private string $fileName;
+    #[ORM\Column(length: 20, enumType: DistributionContractTypeEnum::class)]
+    private DistributionContractTypeEnum $type;
 
-    #[ORM\Column]
-    private string $originalFileName;
+    #[ORM\Column(unique: true, nullable: true)]
+    private ?string $fileName = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private \DateTime $signedAt;
+    #[ORM\Column(nullable: true)]
+    private ?string $originalFileName = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTime $startsAt;
@@ -50,25 +49,23 @@ class AcquisitionContract implements FileInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $endsAt = null;
 
-    /**
-     * @var Collection<Territory>
-     */
-    #[ORM\ManyToMany(targetEntity: Territory::class, inversedBy: 'acquisitionContracts')]
-    #[ORM\JoinTable(name: 'acquisition_contracts_territories')]
-    private Collection $territories;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $exclusivity = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?float $amount = null;
 
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
 
     /**
-     * @var Collection<Work>
+     * @var Collection<DistributionContractWork>
      */
-    #[ORM\OneToMany(mappedBy: 'acquisitionContract', targetEntity: Work::class)]
+    #[ORM\OneToMany(mappedBy: 'distributionContract', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
     private Collection $works;
 
     public function __construct()
     {
-        $this->territories = new ArrayCollection();
         $this->works = new ArrayCollection();
     }
 
@@ -96,19 +93,31 @@ class AcquisitionContract implements FileInterface
         return $this;
     }
 
-    public function getBeneficiary(): Company
+    public function getDistributor(): Company
     {
-        return $this->beneficiary;
+        return $this->distributor;
     }
 
-    public function setBeneficiary(Company $beneficiary): static
+    public function setDistributor(Company $distributor): static
     {
-        $this->beneficiary = $beneficiary;
+        $this->distributor = $distributor;
 
         return $this;
     }
 
-    public function getFileName(): string
+    public function getType(): DistributionContractTypeEnum
+    {
+        return $this->type;
+    }
+
+    public function setType(DistributionContractTypeEnum $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getFileName(): ?string
     {
         return $this->fileName;
     }
@@ -120,7 +129,7 @@ class AcquisitionContract implements FileInterface
         return $this;
     }
 
-    public function getOriginalFileName(): string
+    public function getOriginalFileName(): ?string
     {
         return $this->originalFileName;
     }
@@ -128,18 +137,6 @@ class AcquisitionContract implements FileInterface
     public function setOriginalFileName(string $originalFileName): static
     {
         $this->originalFileName = $originalFileName;
-
-        return $this;
-    }
-
-    public function getSignedAt(): \DateTime
-    {
-        return $this->signedAt;
-    }
-
-    public function setSignedAt(\DateTime $signedAt): static
-    {
-        $this->signedAt = $signedAt;
 
         return $this;
     }
@@ -168,14 +165,26 @@ class AcquisitionContract implements FileInterface
         return $this;
     }
 
-    public function getTerritories(): Collection
+    public function getExclusivity(): ?string
     {
-        return $this->territories;
+        return $this->exclusivity;
     }
 
-    public function setTerritories(Collection $territories): static
+    public function setExclusivity(?string $exclusivity): static
     {
-        $this->territories = $territories;
+        $this->exclusivity = $exclusivity;
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?float $amount): static
+    {
+        $this->amount = $amount;
 
         return $this;
     }
@@ -185,7 +194,7 @@ class AcquisitionContract implements FileInterface
         return $this->reportFrequency;
     }
 
-    public function setReportFrequency(?FrequencyEnum $reportFrequency): static
+    public function setReportFrequency(?FrequencyEnum $reportFrequency): self
     {
         $this->reportFrequency = $reportFrequency;
 
@@ -206,6 +215,6 @@ class AcquisitionContract implements FileInterface
 
     public function getUploadDir(): string
     {
-        return 'media/acquisition-contracts';
+        return 'media/distribution-contracts';
     }
 }
