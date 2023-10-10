@@ -1,0 +1,13 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: true
+
+  App\Tests\:
+    resource: "../tests/*"
+    exclude: "../tests/{bootstrap.php}"
+
+  App\Tools\Parser\ArrayParser: ~
+  App\Tools\Parser\ObjectParser: ~

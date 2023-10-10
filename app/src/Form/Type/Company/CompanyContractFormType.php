@@ -6,7 +6,6 @@ namespace App\Form\Type\Company;
 
 use App\Entity\Company;
 use App\Enum\Common\FrequencyEnum;
-use App\Enum\Company\CompanyTypeEnum;
 use App\Form\Dto\Company\CompanyContractFormDto;
 use App\Form\Type\Shared\DateType;
 use App\Repository\CompanyRepository;
@@ -45,10 +44,10 @@ class CompanyContractFormType extends AbstractType
                 'label' => 'Signed at',
             ])
             ->add('startsAt', DateType::class, [
-                'label' => 'Starts at',
+                'label' => 'Rights starts at',
             ])
             ->add('endsAt', DateType::class, [
-                'label' => 'Ends at',
+                'label' => 'Rights ends at',
                 'required' => false,
             ])
             ->add('territories', TextareaType::class, [
