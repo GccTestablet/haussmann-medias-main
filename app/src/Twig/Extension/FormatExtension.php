@@ -16,6 +16,7 @@ class FormatExtension extends AbstractExtension
             new TwigFilter('date_format', [FormatExtensionRuntime::class, 'formatDate']),
             new TwigFilter('datetime_format', [FormatExtensionRuntime::class, 'formatDateTime']),
             new TwigFilter('initial_format', [FormatExtensionRuntime::class, 'formatInitial']),
+            new TwigFilter('country_format', [FormatExtensionRuntime::class, 'formatCountry']),
             new TwigFilter('user_format', [FormatExtensionRuntime::class, 'formatUser'], [
                 'is_safe' => ['html'],
             ]),

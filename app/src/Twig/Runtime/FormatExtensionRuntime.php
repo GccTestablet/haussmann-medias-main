@@ -6,6 +6,7 @@ namespace App\Twig\Runtime;
 
 use App\Entity\User;
 use App\Tools\Parser\DateParser;
+use Symfony\Component\Intl\Countries;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\RuntimeExtensionInterface;
 
@@ -47,5 +48,14 @@ class FormatExtensionRuntime implements RuntimeExtensionInterface
             $this->urlGenerator->generate('app_user_show', ['id' => $user->getId()]),
             $user->getFullName()
         );
+    }
+
+    public function formatCountry(?string $countryCode): ?string
+    {
+        if (!$countryCode) {
+            return null;
+        }
+
+        return Countries::getName($countryCode);
     }
 }

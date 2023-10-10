@@ -20,14 +20,18 @@ Remove revenue from work %work%: Supprimer le revenu de l'oeuvre %work%
 Minimum guaranteed before reversion: Garantie minimum avant réversion
 Minimum cost of the top before reversion: COTT minimum avant réversion
 
-Internal Id: Id interne
+Internal id: Id interne
 Imdb: Imdb
+Imdb id: Id IMDB
+Name: Nom
 Original name: Nom original
 Year: Année
 Duration: Durée
 Contract: Contrat
 Origin: Provenance
-IMDB Id starts with "tt" followed by numbers.: L'identifiant IMDB commence par "tt" suivit chiffres.
+IMDB Id starts with "tt" followed by numbers.: L'identifiant IMDB commence par "tt" suivit de chiffres.
+Country: Pays d'origine
+Broadcast channels: Canaux de diffusion
 
 # Revenue
 Distributor: Distributeur

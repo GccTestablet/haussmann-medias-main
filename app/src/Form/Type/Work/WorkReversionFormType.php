@@ -6,7 +6,7 @@ namespace App\Form\Type\Work;
 
 use App\Entity\BroadcastChannel;
 use App\Form\Dto\Work\WorkReversionFormDto;
-use Doctrine\ORM\EntityRepository;
+use App\Repository\Broadcast\BroadcastChannelRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -17,12 +17,15 @@ class WorkReversionFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var WorkReversionFormDto $dto */
+        $dto = $builder->getData();
+
         $builder
             ->add('channel', EntityType::class, [
                 'placeholder' => 'Select a channel',
                 'required' => true,
                 'class' => BroadcastChannel::class,
-                'query_builder' => fn (EntityRepository $er) => $er->createQueryBuilder('bc')->orderBy('bc.name', 'ASC'),
+                'query_builder' => fn (BroadcastChannelRepository $repository) => $repository->getAvailableChannelByWorkQueryBuilder($dto->getWorkReversion()->getWork()),
                 'choice_label' => 'name',
             ])
             ->add('percentageReversion', NumberType::class, [
