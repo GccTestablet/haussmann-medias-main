@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Form\Type\Work;
 
 use App\Entity\Work;
-use App\Enum\Work\OriginWorkEnum;
 use App\Form\Dto\Work\WorkFormDto;
+use App\Form\Type\Common\BroadcastChannelAutocompleteField;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +24,7 @@ class WorkFormType extends AbstractType
 
         $builder
             ->add('internalId', TextType::class, [
+                'disabled' => true,
                 'constraints' => [
                     new UniqueEntityField(
                         entityClass: Work::class,
@@ -54,10 +55,8 @@ class WorkFormType extends AbstractType
                     ),
                 ],
             ])
-            ->add('origin', EnumType::class, [
-                'class' => OriginWorkEnum::class,
-                'choice_label' => fn (OriginWorkEnum $enum) => $enum->getAsText(),
-                'choice_translation_domain' => 'work',
+            ->add('country', CountryType::class, [
+                'autocomplete' => true,
             ])
             ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
                 'required' => false,
@@ -70,6 +69,9 @@ class WorkFormType extends AbstractType
             ])
             ->add('duration', TextType::class, [
                 'required' => false,
+            ])
+            ->add('broadcastChannels', BroadcastChannelAutocompleteField::class, [
+                'multiple' => true,
             ])
         ;
     }

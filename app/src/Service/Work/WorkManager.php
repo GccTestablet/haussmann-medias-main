@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Work;
 
 use App\Entity\Company;
+use App\Entity\Contract;
 use App\Entity\Work;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,20 @@ class WorkManager
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
     ) {}
+
+    public function findNextInternalId(Contract $contract): string
+    {
+        $prefix = \strtoupper(\substr($contract->getCompany()->getName(), 0, 3));
+
+        $previousInternalId = $this->getRepository()->findLastInternalId($prefix);
+        if (!$previousInternalId) {
+            return \sprintf('%s%06d', $prefix, 1);
+        }
+
+        $previousId = (int) \str_replace($prefix, '', $previousInternalId);
+
+        return \sprintf('%s%06d', $prefix, $previousId + 1);
+    }
 
     /**
      * @return Work[]

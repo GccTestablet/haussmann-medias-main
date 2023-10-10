@@ -48,8 +48,16 @@
                     <span>{{ work.duration }}</span>
                 </li>
                 <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Origin{% endtrans %}</span>
-                    <span>{{ work.origin.asText }}</span>
+                    <span class="fw-bold me-2">{% trans from 'work' %}Country{% endtrans %}</span>
+                    <span>{{ work.country|country_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'work' %}Broadcast channels{% endtrans %}</span>
+                    <span>
+                        {% for channel in work.broadcastChannels %}
+                            {{ channel.name }}<br />
+                        {% endfor %}
+                    </span>
                 </li>
                 <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
