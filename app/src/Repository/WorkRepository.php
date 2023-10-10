@@ -30,8 +30,8 @@ class WorkRepository extends EntityRepository
     {
         return $this->createQueryBuilder('w')
             ->select('w')
-            ->innerJoin('w.contract', 'ct')
-            ->where('ct.company = :company')
+            ->innerJoin('w.acquisitionContract', 'ac')
+            ->where('ac.company = :company')
             ->setParameter('company', $company)
             ->orderBy('w.name', 'ASC')
             ->getQuery()

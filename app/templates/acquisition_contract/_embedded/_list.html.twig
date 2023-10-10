@@ -14,7 +14,7 @@
     <tbody>
     {% for contract in contracts %}
         <tr>
-            <td><a href="{{ path('app_company_contract_show', {'company': contract.company.id, 'id': contract.id}) }}">{{ contract.originalFileName }}</a></td>
+            <td><a href="{{ path('app_company_acquisition_contract_show', {'company': contract.company.id, 'id': contract.id}) }}">{{ contract.originalFileName }}</a></td>
             <td><a href="{{ path('app_company_show', {'id': contract.company.id}) }}">{{ contract.company.name }}</a></td>
             <td><a href="{{ path('app_company_show', {'id': contract.beneficiary.id}) }}">{{ contract.beneficiary.name }}</a></td>
             <td>{{ contract.signedAt|date_format }}</td>
@@ -22,13 +22,13 @@
             <td>{{ contract.endsAt|date_format }}</td>
             <td>{{ contract.works|length }}</td>
             <td>
-                <a href="{{ path('app_company_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">
+                <a href="{{ path('app_company_acquisition_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">
                     {% trans from 'misc' %}Download{% endtrans %}
                 </a>
-                <a href="{{ path('app_company_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">
+                <a href="{{ path('app_company_acquisition_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">
                     {% trans from 'misc' %}Update{% endtrans %}
                 </a>
-                <a href="{{ path('app_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">
+                <a href="{{ path('app_acquisition_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">
                     {% trans from 'work' %}Add work{% endtrans %}
                 </a>
             </td>

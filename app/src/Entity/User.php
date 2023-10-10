@@ -62,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?string $passwordResetToken = null;
 
-    #[ORM\ManyToOne(targetEntity: Company::class, fetch: 'EAGER')]
+    #[ORM\ManyToOne(targetEntity: Company::class)]
     #[ORM\JoinColumn(name: 'connected_on', referencedColumnName: 'id', nullable: true)]
     private ?Company $connectedOn = null;
 
