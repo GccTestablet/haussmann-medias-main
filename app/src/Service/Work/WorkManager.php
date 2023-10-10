@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Work;
 
+use App\Entity\AcquisitionContract;
 use App\Entity\Company;
-use App\Entity\Contract;
 use App\Entity\Work;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +18,7 @@ class WorkManager
         private readonly EntityManagerInterface $entityManager,
     ) {}
 
-    public function findNextInternalId(Contract $contract): string
+    public function findNextInternalId(AcquisitionContract $contract): string
     {
         $prefix = \strtoupper(\substr($contract->getCompany()->getName(), 0, 3));
 

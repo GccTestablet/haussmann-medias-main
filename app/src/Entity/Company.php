@@ -38,15 +38,15 @@ class Company
     private Collection $users;
 
     /**
-     * @var Collection<Contract>
+     * @var Collection<AcquisitionContract>
      */
-    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Contract::class)]
-    private Collection $contracts;
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: AcquisitionContract::class)]
+    private Collection $acquisitionContracts;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->contracts = new ArrayCollection();
+        $this->acquisitionContracts = new ArrayCollection();
     }
 
     public function getId(): int
@@ -106,14 +106,14 @@ class Company
         return $this;
     }
 
-    public function getContracts(): Collection
+    public function getAcquisitionContracts(): Collection
     {
-        return $this->contracts;
+        return $this->acquisitionContracts;
     }
 
-    public function setContracts(Collection $contracts): static
+    public function setAcquisitionContracts(Collection $acquisitionContracts): self
     {
-        $this->contracts = $contracts;
+        $this->acquisitionContracts = $acquisitionContracts;
 
         return $this;
     }

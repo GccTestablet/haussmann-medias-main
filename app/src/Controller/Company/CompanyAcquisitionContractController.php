@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Company;
 
 use App\Controller\Shared\AbstractAppController;
+use App\Entity\AcquisitionContract;
 use App\Entity\Company;
-use App\Entity\Contract;
 use App\Entity\User;
 use App\Form\DtoFactory\Company\CompanyContractFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
@@ -21,8 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Translation\TranslatableMessage;
 
-#[Route('/companies/{company}/contracts')]
-class CompanyContractController extends AbstractAppController
+#[Route('/companies/{company}/acquisition-contracts')]
+class CompanyAcquisitionContractController extends AbstractAppController
 {
     public function __construct(
         private readonly UploadFileManager $uploadFileManager,
@@ -30,24 +30,24 @@ class CompanyContractController extends AbstractAppController
         private readonly CompanyContractFormDtoFactory $companyContractFormDtoFactory,
     ) {}
 
-    #[Route(name: 'app_company_contract_index')]
+    #[Route(name: 'app_company_acquisition_contract_index')]
     public function index(Company $company): Response
     {
-        return $this->render('contract/index.html.twig', [
+        return $this->render('acquisition_contract/index.html.twig', [
             'company' => $company,
-            'contracts' => $company->getContracts(),
+            'contracts' => $company->getAcquisitionContracts(),
         ]);
     }
 
-    #[Route(path: '/{id}', name: 'app_company_contract_show', requirements: ['id' => '\d+'])]
-    public function show(Contract $contract): Response
+    #[Route(path: '/{id}', name: 'app_company_acquisition_contract_show', requirements: ['id' => '\d+'])]
+    public function show(AcquisitionContract $contract): Response
     {
-        return $this->render('contract/show.html.twig', [
+        return $this->render('acquisition_contract/show.html.twig', [
             'contract' => $contract,
         ]);
     }
 
-    #[Route(path: '/add', name: 'app_company_contract_add')]
+    #[Route(path: '/add', name: 'app_company_acquisition_contract_add')]
     #[IsGranted(User::ROLE_ADMIN)]
     public function add(Request $request, Company $company): Response
     {
@@ -66,9 +66,9 @@ class CompanyContractController extends AbstractAppController
         ]);
     }
 
-    #[Route(path: '/{id}/update', name: 'app_company_contract_update', requirements: ['id' => '\d+'])]
+    #[Route(path: '/{id}/update', name: 'app_company_acquisition_contract_update', requirements: ['id' => '\d+'])]
     #[IsGranted(User::ROLE_ADMIN)]
-    public function update(Request $request, Contract $contract): Response
+    public function update(Request $request, AcquisitionContract $contract): Response
     {
         $company = $contract->getCompany();
         $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
@@ -89,9 +89,9 @@ class CompanyContractController extends AbstractAppController
         ]);
     }
 
-    #[Route(path: '/{id}/remove', name: 'app_company_contract_remove', requirements: ['id' => '\d+'])]
+    #[Route(path: '/{id}/remove', name: 'app_company_acquisition_contract_remove', requirements: ['id' => '\d+'])]
     #[IsGranted(User::ROLE_ADMIN)]
-    public function remove(Request $request, RemoveFormHandler $removeFormHandler, Contract $contract): Response
+    public function remove(Request $request, RemoveFormHandler $removeFormHandler, AcquisitionContract $contract): Response
     {
         $company = $contract->getCompany();
         $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
@@ -118,13 +118,13 @@ class CompanyContractController extends AbstractAppController
         ]);
     }
 
-    #[Route(path: '/{id}/download', name: 'app_company_contract_download', requirements: ['id' => '\d+'])]
-    public function download(Contract $contract): BinaryFileResponse
+    #[Route(path: '/{id}/download', name: 'app_company_acquisition_contract_download', requirements: ['id' => '\d+'])]
+    public function download(AcquisitionContract $contract): BinaryFileResponse
     {
         return $this->uploadFileManager->download($contract);
     }
 
-    private function getFormHandlerResponse(Request $request, Company $company, ?Contract $contract): FormHandlerResponseInterface
+    private function getFormHandlerResponse(Request $request, Company $company, ?AcquisitionContract $contract): FormHandlerResponseInterface
     {
         $dto = $this->companyContractFormDtoFactory->create($company, $contract);
 

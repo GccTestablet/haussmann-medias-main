@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\DtoFactory\Work;
 
-use App\Entity\Contract;
+use App\Entity\AcquisitionContract;
 use App\Entity\Work;
 use App\Form\Dto\Work\WorkFormDto;
 use App\Service\Work\WorkManager;
@@ -15,12 +15,12 @@ class WorkFormDtoFactory
         private readonly WorkManager $workManager
     ) {}
 
-    public function create(?Work $work, Contract $contract): WorkFormDto
+    public function create(?Work $work, AcquisitionContract $contract): WorkFormDto
     {
         if (!$work) {
             $internalId = $this->workManager->findNextInternalId($contract);
             $work = (new Work())
-                ->setContract($contract)
+                ->setAcquisitionContract($contract)
                 ->setInternalId($internalId)
             ;
 
@@ -46,7 +46,7 @@ class WorkFormDtoFactory
     public function updateEntity(WorkFormDto $dto, Work $work): void
     {
         if (!$dto->isExists()) {
-            $internalId = $this->workManager->findNextInternalId($work->getContract());
+            $internalId = $this->workManager->findNextInternalId($work->getAcquisitionContract());
             $work->setInternalId($internalId);
         }
         $work
