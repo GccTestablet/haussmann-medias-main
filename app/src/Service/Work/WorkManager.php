@@ -9,8 +9,6 @@ use App\Entity\Work;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class WorkManager
 {

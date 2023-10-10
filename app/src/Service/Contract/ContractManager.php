@@ -8,7 +8,6 @@ use App\Entity\Contract;
 use App\Repository\ContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ContractManager
 {

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Twig\Component\Layout;
 
-use App\Entity\Work;
-use App\Model\Layout\SearchBarResult\SearchBarCategoryResult;
-use App\Model\Layout\SearchBarResult\SearchBarResult;
+use App\Model\Layout\SearchBarCategoryResult;
+use App\Model\Layout\SearchBarResult;
 use App\Service\Contract\ContractManager;
 use App\Service\Work\WorkManager;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
@@ -24,7 +23,8 @@ class SearchBar
 
     public function __construct(
         private readonly WorkManager $workManager,
-        private readonly ContractManager $contractManager
+        private readonly ContractManager $contractManager,
+        private readonly UrlGeneratorInterface $urlGenerator
     ) {}
 
     public function getResults(): array
@@ -35,15 +35,27 @@ class SearchBar
 
         $results = [];
 
+        $workResult = new SearchBarCategoryResult('Work');
         foreach ($this->workManager->findBySearchQuery($this->query) as $work) {
-            $results['Work'][] = $work->getName();
+            $resultDTO = new SearchBarResult(
+                $work->getOriginalName(),
+                $this->urlGenerator->generate('app_work_show', ['id' => $work->getId()])
+            );
+
+            $workResult->addResult($resultDTO);
         }
+        $results[] = $workResult;
 
         $categoryResult = new SearchBarCategoryResult('Contract');
         foreach ($this->contractManager->findBySearchQuery($this->query) as $contract) {
-            $categoryResult->addResult(new SearchBarResult($contract->getOriginalFileName()));
-            $results['Contract'][] = $contract->getOriginalFileName();
+            $resultDTO = new SearchBarResult(
+                $contract->getOriginalFileName(),
+                $this->urlGenerator->generate('app_contract_show', ['id' => $contract->getId()])
+            );
+
+            $categoryResult->addResult($resultDTO);
         }
+        $results[] = $categoryResult;
 
         return $results;
     }

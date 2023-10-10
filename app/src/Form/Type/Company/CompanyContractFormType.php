@@ -6,7 +6,6 @@ namespace App\Form\Type\Company;
 
 use App\Entity\Company;
 use App\Enum\Common\FrequencyEnum;
-use App\Enum\Company\CompanyTypeEnum;
 use App\Form\Dto\Company\CompanyContractFormDto;
 use App\Form\Type\Shared\DateType;
 use App\Repository\CompanyRepository;
