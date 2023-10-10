@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Service\Setting;
 
-use App\Entity\Setting\Territory;
+use App\Entity\Setting\AdaptationCostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
-class TerritoryManager
+class AdaptationCostTypeManager
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager
     ) {}
 
     /**
-     * @return Territory[]
+     * @return AdaptationCostType[]
      */
     public function findAll(): array
     {
@@ -24,6 +24,6 @@ class TerritoryManager
 
     private function getRepository(): EntityRepository
     {
-        return $this->entityManager->getRepository(Territory::class);
+        return $this->entityManager->getRepository(AdaptationCostType::class);
     }
 }

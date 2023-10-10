@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Setting;
 
 use App\Controller\Shared\AbstractAppController;
-use App\Entity\Territory;
+use App\Entity\Setting\Territory;
 use App\Form\Dto\Setting\TerritoryFormDto;
 use App\Form\DtoFactory\Setting\TerritoryFormDtoFactory;
 use App\Form\Handler\Setting\TerritoryFormHandler;

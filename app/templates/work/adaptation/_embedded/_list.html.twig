@@ -1,18 +1,16 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Coût doublage</th>
-        <th>Coût fabrication</th>
-        <th>Coût fichier PAV</th>
+        <th>Type</th>
+        <th>Coût</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
     {% for adaptation in adaptations %}
         <tr>
-            <td>{{ adaptation.dubbingCost }}</td>
-            <td>{{ adaptation.manufacturingCost }}</td>
-            <td>{{ adaptation.mediaMatrixFileCost }}</td>
+            <td>{{ adaptation.type.name }}</td>
+            <td>{{ adaptation.cost }}</td>
             <td>
                 <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Show{% endtrans %}</a>
                 <a href="{{ path('app_work_adaptation_update', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>

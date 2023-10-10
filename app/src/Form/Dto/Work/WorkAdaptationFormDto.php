@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Work;
 
+use App\Entity\Setting\AdaptationCostType;
 use App\Entity\WorkAdaptation;
 
 class WorkAdaptationFormDto
 {
-    private ?float $dubbingCost = null;
+    private ?AdaptationCostType $type = null;
 
-    private ?float $manufacturingCost = null;
-
-    private ?float $mediaMatrixFileCost = null;
+    private ?float $cost = null;
 
     public function __construct(
         private readonly WorkAdaptation $workAdaptation,
@@ -29,38 +28,26 @@ class WorkAdaptationFormDto
         return $this->exists;
     }
 
-    public function getDubbingCost(): ?float
+    public function getType(): ?AdaptationCostType
     {
-        return $this->dubbingCost;
+        return $this->type;
     }
 
-    public function setDubbingCost(?float $dubbingCost): self
+    public function setType(?AdaptationCostType $type): static
     {
-        $this->dubbingCost = $dubbingCost;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getManufacturingCost(): ?float
+    public function getCost(): ?float
     {
-        return $this->manufacturingCost;
+        return $this->cost;
     }
 
-    public function setManufacturingCost(?float $manufacturingCost): self
+    public function setCost(?float $cost): static
     {
-        $this->manufacturingCost = $manufacturingCost;
-
-        return $this;
-    }
-
-    public function getMediaMatrixFileCost(): ?float
-    {
-        return $this->mediaMatrixFileCost;
-    }
-
-    public function setMediaMatrixFileCost(?float $mediaMatrixFileCost): self
-    {
-        $this->mediaMatrixFileCost = $mediaMatrixFileCost;
+        $this->cost = $cost;
 
         return $this;
     }

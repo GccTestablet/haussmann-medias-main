@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Work;
 
-use App\Entity\BroadcastChannel;
 use App\Entity\Company;
+use App\Entity\Setting\BroadcastChannel;
 use App\Enum\Company\CompanyTypeEnum;
 use App\Form\Dto\Work\WorkRevenueFormDto;
 use App\Form\Type\Shared\DateType;

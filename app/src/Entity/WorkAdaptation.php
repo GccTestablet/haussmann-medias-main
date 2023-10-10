@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Setting\AdaptationCostType;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use Doctrine\DBAL\Types\Types;
@@ -25,14 +26,12 @@ class WorkAdaptation
     #[ORM\JoinColumn(name: 'work_id', referencedColumnName: 'id', nullable: false)]
     private Work $work;
 
-    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, nullable: true)]
-    private ?float $dubbingCost = null;
+    #[ORM\ManyToOne(targetEntity: AdaptationCostType::class)]
+    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', nullable: false)]
+    private AdaptationCostType $type;
 
-    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, nullable: true)]
-    private ?float $manufacturingCost = null;
-
-    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, nullable: true)]
-    private ?float $mediaMatrixFileCost = null;
+    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, options: ['default' => 0.0])]
+    private float $cost = 0.0;
 
     public function getId(): int
     {
@@ -58,38 +57,26 @@ class WorkAdaptation
         return $this;
     }
 
-    public function getDubbingCost(): ?float
+    public function getType(): AdaptationCostType
     {
-        return $this->dubbingCost;
+        return $this->type;
     }
 
-    public function setDubbingCost(?float $dubbingCost): self
+    public function setType(AdaptationCostType $type): static
     {
-        $this->dubbingCost = $dubbingCost;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getManufacturingCost(): ?float
+    public function getCost(): float
     {
-        return $this->manufacturingCost;
+        return $this->cost;
     }
 
-    public function setManufacturingCost(?float $manufacturingCost): self
+    public function setCost(float $cost): static
     {
-        $this->manufacturingCost = $manufacturingCost;
-
-        return $this;
-    }
-
-    public function getMediaMatrixFileCost(): ?float
-    {
-        return $this->mediaMatrixFileCost;
-    }
-
-    public function setMediaMatrixFileCost(?float $mediaMatrixFileCost): self
-    {
-        $this->mediaMatrixFileCost = $mediaMatrixFileCost;
+        $this->cost = $cost;
 
         return $this;
     }
