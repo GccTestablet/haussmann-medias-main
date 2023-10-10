@@ -9,15 +9,15 @@ use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Common\FrequencyEnum;
-use App\Repository\ContractRepository;
+use App\Repository\AcquisitionContractRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ContractRepository::class)]
-#[ORM\Table(name: 'contracts')]
-class Contract implements FileInterface
+#[ORM\Entity(repositoryClass: AcquisitionContractRepository::class)]
+#[ORM\Table(name: 'acquisition_contracts')]
+class AcquisitionContract implements FileInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -27,7 +27,7 @@ class Contract implements FileInterface
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'contracts')]
+    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'acquisitionContracts')]
     #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: false)]
     private Company $company;
 
@@ -63,7 +63,7 @@ class Contract implements FileInterface
     /**
      * @var Collection<Work>
      */
-    #[ORM\OneToMany(mappedBy: 'contract', targetEntity: Work::class)]
+    #[ORM\OneToMany(mappedBy: 'acquisitionContract', targetEntity: Work::class)]
     private Collection $works;
 
     public function __construct()

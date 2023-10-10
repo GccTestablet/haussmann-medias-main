@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Setting;
 
-use App\Entity\Contract;
+use App\Entity\AcquisitionContract;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,9 +31,9 @@ class Territory
     private ?string $description = null;
 
     /**
-     * @var Collection<Contract>
+     * @var Collection<AcquisitionContract>
      */
-    #[ORM\ManyToMany(targetEntity: Contract::class, mappedBy: 'territories')]
+    #[ORM\ManyToMany(targetEntity: AcquisitionContract::class, mappedBy: 'territories')]
     private Collection $acquisitionContracts;
 
     public function __construct()
@@ -82,7 +82,7 @@ class Territory
         return $this->acquisitionContracts;
     }
 
-    public function setAcquisitionContracts(Collection $acquisitionContracts): self
+    public function setAcquisitionContracts(Collection $acquisitionContracts): static
     {
         $this->acquisitionContracts = $acquisitionContracts;
 

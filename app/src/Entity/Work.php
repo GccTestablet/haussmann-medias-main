@@ -59,9 +59,9 @@ class Work
     #[ORM\JoinTable(name: 'works_broadcast_channels')]
     private Collection $broadcastChannels;
 
-    #[ORM\ManyToOne(targetEntity: Contract::class, inversedBy: 'works')]
-    #[ORM\JoinColumn(name: 'contract_id', referencedColumnName: 'id')]
-    private Contract $contract;
+    #[ORM\ManyToOne(targetEntity: AcquisitionContract::class, inversedBy: 'works')]
+    #[ORM\JoinColumn(name: 'acquisition_contract_id', referencedColumnName: 'id')]
+    private AcquisitionContract $acquisitionContract;
 
     /**
      * @var Collection<WorkAdaptation>
@@ -221,14 +221,14 @@ class Work
         return $this;
     }
 
-    public function getContract(): Contract
+    public function getAcquisitionContract(): AcquisitionContract
     {
-        return $this->contract;
+        return $this->acquisitionContract;
     }
 
-    public function setContract(Contract $contract): static
+    public function setAcquisitionContract(AcquisitionContract $acquisitionContract): static
     {
-        $this->contract = $contract;
+        $this->acquisitionContract = $acquisitionContract;
 
         return $this;
     }

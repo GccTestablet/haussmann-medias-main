@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\DtoFactory\Company;
 
+use App\Entity\AcquisitionContract;
 use App\Entity\Company;
-use App\Entity\Contract;
 use App\Form\Dto\Company\CompanyContractFormDto;
 use App\Tools\Generator\FileNameGenerator;
 use App\Tools\Manager\UploadFileManager;
@@ -17,10 +17,10 @@ class CompanyContractFormDtoFactory
         private readonly UploadFileManager $uploadFileManager
     ) {}
 
-    public function create(Company $company, ?Contract $contract): CompanyContractFormDto
+    public function create(Company $company, ?AcquisitionContract $contract): CompanyContractFormDto
     {
         if (!$contract) {
-            $contract = (new Contract())
+            $contract = (new AcquisitionContract())
                 ->setCompany($company)
             ;
 
@@ -44,7 +44,7 @@ class CompanyContractFormDtoFactory
         ;
     }
 
-    public function updateEntity(CompanyContractFormDto $dto, Contract $contract): void
+    public function updateEntity(CompanyContractFormDto $dto, AcquisitionContract $contract): void
     {
         if ($dto->getFile()) {
             $contract

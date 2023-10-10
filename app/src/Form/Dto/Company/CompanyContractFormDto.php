@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Company;
 
+use App\Entity\AcquisitionContract;
 use App\Entity\Company;
-use App\Entity\Contract;
 use App\Enum\Common\FrequencyEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,13 +28,13 @@ class CompanyContractFormDto
     private ?FrequencyEnum $reportFrequency = null;
 
     public function __construct(
-        private readonly Contract $contract,
+        private readonly AcquisitionContract $contract,
         private readonly bool $exists,
     ) {
         $this->territories = new ArrayCollection();
     }
 
-    public function getContract(): Contract
+    public function getContract(): AcquisitionContract
     {
         return $this->contract;
     }
