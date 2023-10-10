@@ -18,6 +18,7 @@ class SearchBarCategoryResult
     {
         return $this->category;
     }
+
     public function getResults(): array
     {
         return $this->results;
