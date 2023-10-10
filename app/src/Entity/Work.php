@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
-use App\Enum\Work\OriginWorkEnum;
 use App\Repository\WorkRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -37,8 +37,8 @@ class Work
     #[ORM\Column(unique: true)]
     private string $originalName;
 
-    #[ORM\Column(length: 20, enumType: OriginWorkEnum::class)]
-    private OriginWorkEnum $origin;
+    #[ORM\Column(length: 2)]
+    private string $country;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?float $minimumGuaranteedBeforeReversion = null;
@@ -52,9 +52,16 @@ class Work
     #[ORM\Column(nullable: true)]
     private ?string $duration = null;
 
-    #[ORM\ManyToOne(targetEntity: Contract::class, inversedBy: 'works')]
-    #[ORM\JoinColumn(name: 'contract_id', referencedColumnName: 'id')]
-    private Contract $contract;
+    /**
+     * @var Collection<BroadcastChannel>
+     */
+    #[ORM\ManyToMany(targetEntity: BroadcastChannel::class, inversedBy: 'works')]
+    #[ORM\JoinTable(name: 'works_broadcast_channels')]
+    private Collection $broadcastChannels;
+
+    #[ORM\ManyToOne(targetEntity: AcquisitionContract::class, inversedBy: 'works')]
+    #[ORM\JoinColumn(name: 'acquisition_contract_id', referencedColumnName: 'id')]
+    private AcquisitionContract $acquisitionContract;
 
     /**
      * @var Collection<WorkAdaptation>
@@ -76,6 +83,7 @@ class Work
 
     public function __construct()
     {
+        $this->broadcastChannels = new ArrayCollection();
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
         $this->workRevenues = new ArrayCollection();
@@ -141,14 +149,14 @@ class Work
         return $this;
     }
 
-    public function getOrigin(): OriginWorkEnum
+    public function getCountry(): string
     {
-        return $this->origin;
+        return $this->country;
     }
 
-    public function setOrigin(OriginWorkEnum $origin): static
+    public function setCountry(string $country): self
     {
-        $this->origin = $origin;
+        $this->country = $country;
 
         return $this;
     }
@@ -201,14 +209,26 @@ class Work
         return $this;
     }
 
-    public function getContract(): Contract
+    public function getBroadcastChannels(): Collection
     {
-        return $this->contract;
+        return $this->broadcastChannels;
     }
 
-    public function setContract(Contract $contract): static
+    public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        $this->contract = $contract;
+        $this->broadcastChannels = $broadcastChannels;
+
+        return $this;
+    }
+
+    public function getAcquisitionContract(): AcquisitionContract
+    {
+        return $this->acquisitionContract;
+    }
+
+    public function setAcquisitionContract(AcquisitionContract $acquisitionContract): static
+    {
+        $this->acquisitionContract = $acquisitionContract;
 
         return $this;
     }
@@ -225,6 +245,9 @@ class Work
         return $this;
     }
 
+    /**
+     * @return Collection<WorkReversion>
+     */
     public function getWorkReversions(): Collection
     {
         return $this->workReversions;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Contract;
 
-use App\Entity\Contract;
-use App\Repository\ContractRepository;
+use App\Entity\AcquisitionContract;
+use App\Repository\AcquisitionContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -26,10 +26,10 @@ class ContractManager
     }
 
     /**
-     * @return ContractRepository|EntityRepository<Contract>
+     * @return AcquisitionContractRepository|EntityRepository<AcquisitionContract>
      */
-    private function getRepository(): ContractRepository|EntityRepository
+    private function getRepository(): AcquisitionContractRepository|EntityRepository
     {
-        return $this->entityManager->getRepository(Contract::class);
+        return $this->entityManager->getRepository(AcquisitionContract::class);
     }
 }

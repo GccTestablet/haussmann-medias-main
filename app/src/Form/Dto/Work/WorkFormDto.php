@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Form\Dto\Work;
 
 use App\Entity\Work;
-use App\Enum\Work\OriginWorkEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkFormDto
@@ -19,7 +20,7 @@ class WorkFormDto
 
     private ?string $originalName = null;
 
-    private ?OriginWorkEnum $origin = null;
+    private ?string $country = null;
 
     private ?float $minimumGuaranteedBeforeReversion = null;
 
@@ -30,10 +31,14 @@ class WorkFormDto
 
     private ?string $duration = null;
 
+    private Collection $broadcastChannels;
+
     public function __construct(
         private readonly Work $work,
         private readonly bool $exists,
-    ) {}
+    ) {
+        $this->broadcastChannels = new ArrayCollection();
+    }
 
     public function getWork(): Work
     {
@@ -93,14 +98,14 @@ class WorkFormDto
         return $this;
     }
 
-    public function getOrigin(): ?OriginWorkEnum
+    public function getCountry(): ?string
     {
-        return $this->origin;
+        return $this->country;
     }
 
-    public function setOrigin(?OriginWorkEnum $origin): static
+    public function setCountry(?string $country): static
     {
-        $this->origin = $origin;
+        $this->country = $country;
 
         return $this;
     }
@@ -149,6 +154,18 @@ class WorkFormDto
     public function setDuration(?string $duration): static
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getBroadcastChannels(): Collection
+    {
+        return $this->broadcastChannels;
+    }
+
+    public function setBroadcastChannels(Collection $broadcastChannels): static
+    {
+        $this->broadcastChannels = $broadcastChannels;
 
         return $this;
     }

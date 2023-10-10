@@ -16,8 +16,8 @@
             <td><a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></td>
             <td>{{ work.originalName }}</td>
             <td>{{ work.year }}</td>
-            <td><a href="{{ path('app_contract_show', {'id': work.contract.id}) }}">{{ work.contract.originalFileName }}</a></td>
-            <td><a href="{{ path('app_contract_work_update', {'contract': work.contract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+            <td><a href="{{ path('app_acquisition_contract_show', {'id': work.acquisitionContract.id}) }}">{{ work.acquisitionContract.originalFileName }}</a></td>
+            <td><a href="{{ path('app_acquisition_contract_work_update', {'contract': work.acquisitionContract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a></td>
         </tr>
     {% endfor %}
     </tbody>

@@ -7,13 +7,13 @@ namespace App\Form\Type\Company;
 use App\Entity\Company;
 use App\Enum\Common\FrequencyEnum;
 use App\Form\Dto\Company\CompanyContractFormDto;
+use App\Form\Type\Common\TerritoryAutocompleteField;
 use App\Form\Type\Shared\DateType;
 use App\Repository\CompanyRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,7 +30,6 @@ class CompanyContractFormType extends AbstractType
                 'placeholder' => 'Select a beneficiary',
                 'query_builder' => fn (CompanyRepository $repository) => $repository->createQueryBuilder('b')->orderBy('b.name'),
                 'choice_label' => 'name',
-                'help' => 'International Seller companies only',
             ])
             ->add('file', FileType::class, [
                 'label' => 'Contract',
@@ -44,14 +43,15 @@ class CompanyContractFormType extends AbstractType
                 'label' => 'Signed at',
             ])
             ->add('startsAt', DateType::class, [
-                'label' => 'Starts at',
+                'label' => 'Rights starts at',
             ])
             ->add('endsAt', DateType::class, [
-                'label' => 'Ends at',
+                'label' => 'Rights ends at',
                 'required' => false,
             ])
-            ->add('territories', TextareaType::class, [
-                'required' => false,
+            ->add('territories', TerritoryAutocompleteField::class, [
+                'required' => true,
+                'multiple' => true,
             ])
             ->add('reportFrequency', EnumType::class, [
                 'placeholder' => 'Select report frequency',

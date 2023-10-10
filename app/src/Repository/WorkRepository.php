@@ -11,6 +11,18 @@ use Doctrine\ORM\QueryBuilder;
 
 class WorkRepository extends EntityRepository
 {
+    public function findLastInternalId(string $prefix): ?string
+    {
+        return $this->createQueryBuilder('w')
+            ->select('MAX(w.internalId)')
+            ->where('w.internalId LIKE :prefix')
+            ->setParameter('prefix', \sprintf('%s%%', $prefix))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
     /**
      * @return Work[]
      */
@@ -18,8 +30,8 @@ class WorkRepository extends EntityRepository
     {
         return $this->createQueryBuilder('w')
             ->select('w')
-            ->innerJoin('w.contract', 'ct')
-            ->where('ct.company = :company')
+            ->innerJoin('w.acquisitionContract', 'ac')
+            ->where('ac.company = :company')
             ->setParameter('company', $company)
             ->orderBy('w.name', 'ASC')
             ->getQuery()

@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ path('app_security_profile_contracts') }}" class="menu-link">
+                <a href="{{ path('app_security_profile_acquisition_contracts') }}" class="menu-link">
                     <i class="menu-item"></i>
                     <div>{% trans from 'contract' %}Contracts{% endtrans %}</div>
                 </a>
@@ -64,9 +64,21 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ path('app_broadcast_channel_index') }}" class="menu-link">
+                <a href="{{ path('app_setting_broadcast_channel_index') }}" class="menu-link">
                     <i class="menu-item"></i>
-                    <div>{% trans from 'broadcast_channel' %}Broadcast channels{% endtrans %}</div>
+                    <div>{% trans from 'setting' %}Broadcast channels{% endtrans %}</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path('app_setting_territory_index') }}" class="menu-link">
+                    <i class="menu-item"></i>
+                    <div>{% trans from 'setting' %}Territories{% endtrans %}</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ path('app_setting_adaptation_cost_type_index') }}" class="menu-link">
+                    <i class="menu-item"></i>
+                    <div>{% trans from 'setting' %}Adaptation cost types{% endtrans %}</div>
                 </a>
             </li>
         {% endif %}

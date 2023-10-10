@@ -1,0 +1,21 @@
+Territories: Territoires
+List of territories: Liste des territoires
+Add territory: Ajouter un territoire
+Update territory %name%: Modifier le territoire %name%
+
+Adaptation cost types: Types de coût d'adaptation
+List of adaptation cost types: Liste des types de coût d'adaptation
+Add adaptation cost type: Ajouter un type de coût d'adaptation
+Update adaptation cost type %name%: Modifier le type de coût d'adaptation %name%
+
+List of broadcast services: Liste des services de diffusion
+Add a service: Ajouter un service
+Add broadcast service to channel %channel%: Ajouter un service de diffusion au canal %channel%
+Update broadcast service %service% from %channel%: Mettre à jour le service de diffusion %service% du canal %channel%
+
+Broadcast channels: Canaux de diffusion
+Channel %name%: Canal de diffusion %name%
+Add broadcast channel: Ajouter une canal de diffusion
+Update broadcast channel %name%: Mettre à jour le canal de diffusion %name%
+List of broadcast channels: Liste des canaux de diffusion
+Add a channel: Ajouter un canal de diffusion

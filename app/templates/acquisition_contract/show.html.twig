@@ -1,0 +1,74 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), contract.company) %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">Contract {{ contract.originalFileName }} of company {{ contract.company.name }} </h1>
+        {% endblock %}
+        {% block body_content %}
+            <div class="justify-content-between align-items-center text-center">
+                <a href="{{ path('app_company_show', {'id': contract.company.id}) }}" class="btn btn-dark">{% trans from 'company' %}Back to company{% endtrans %}</a>
+
+                <a href="{{ path('app_company_acquisition_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Download{% endtrans %}</a>
+                {% if isCompanyAdmin %}
+                    <a href="{{ path('app_company_acquisition_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+                {% endif %}
+                <a href="{{ path('app_acquisition_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
+            </div>
+
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}File name{% endtrans %}:</span>
+                    <span>{{ contract.originalFileName }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Signed at{% endtrans %}:</span>
+                    <span>{{ contract.signedAt|date_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights starts at{% endtrans %}:</span>
+                    <span>{{ contract.startsAt|date_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights ends at{% endtrans %}:</span>
+                    <span>{{ contract.endsAt|date_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Territories{% endtrans %}:</span>
+                    <span>
+                        {% for territory in contract.territories %}
+                            {{ territory.name }}<br />
+                        {% endfor %}
+                    </span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency{% endtrans %}:</span>
+                    <span>{{ contract.reportFrequency.asText|trans({}, 'misc') }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
+                    <span>{{ contract.createdAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Created by{% endtrans %}:</span>
+                    <span>{{ contract.createdBy|user_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated at{% endtrans %}:</span>
+                    <span>{{ contract.updatedAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated by{% endtrans %}:</span>
+                    <span>{{ contract.updatedBy|user_format }}</span>
+                </li>
+            </ul>
+
+            <h4>Works</h4>
+            {% include 'work/_embedded/_list.html.twig' with {
+                works: contract.works,
+            } %}
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}

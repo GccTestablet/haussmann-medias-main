@@ -1,0 +1,16 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">{% trans from 'contract' %}List of acquisition contracts{% endtrans %}</h1>
+        {% endblock %}
+        {% block body_content %}
+            <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-success">{% trans from 'contract' %}Add acquisition contract{% endtrans %}</a>
+
+            {% include 'acquisition_contract/_embedded/_list.html.twig' with {
+                contracts: contracts,
+            } %}
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}
