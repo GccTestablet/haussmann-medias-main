@@ -17,6 +17,20 @@ class UploadFileManager
         private readonly ParameterBagInterface $parameterBag
     ) {}
 
+    public function createTempFile(string $fileName): string
+    {
+        $fileName = \sprintf(
+            '%s/public/tmp/%s',
+            $this->parameterBag->get('kernel.project_dir'),
+            $fileName
+        );
+
+        $fileSystem = new Filesystem();
+        $fileSystem->touch($fileName);
+
+        return $fileName;
+    }
+
     public function path(string $directory, string $filename): string
     {
         return \sprintf(
@@ -32,16 +46,18 @@ class UploadFileManager
         $file->move($directory, $filename);
     }
 
-    public function remove(FileInterface $file): void
+    public function remove(FileInterface|string $file): void
     {
         $fileSystem = new Filesystem();
-        $path = $this->path($file->getUploadDir(), $file->getFileName());
+        if ($file instanceof FileInterface) {
+            $file = $this->path($file->getUploadDir(), $file->getFileName());
+        }
 
-        if (!$fileSystem->exists($path)) {
+        if (!$fileSystem->exists($file)) {
             return;
         }
 
-        $fileSystem->remove($path);
+        $fileSystem->remove($file);
     }
 
     public function download(FileInterface $file): BinaryFileResponse

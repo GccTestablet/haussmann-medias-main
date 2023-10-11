@@ -8,6 +8,7 @@ use App\Controller\Shared\AbstractAppController;
 use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\User;
+use App\Form\Dto\Contract\DistributionContractFormDto;
 use App\Form\DtoFactory\Contract\DistributionContractFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Contract\DistributionContractFormHandler;
@@ -57,7 +58,10 @@ class CompanyDistributionContractController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_company_show', ['id' => $company->getId()]);
+            /** @var DistributionContractFormDto $dto */
+            $dto = $form->getData();
+
+            return $this->redirectToRoute('app_distribution_contract_show', ['id' => $dto->getContract()->getId()]);
         }
 
         return $this->render('shared/common/save.html.twig', [
@@ -77,7 +81,7 @@ class CompanyDistributionContractController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_company_show', ['id' => $company->getId()]);
+            return $this->redirectToRoute('app_distribution_contract_show', ['id' => $contract->getId()]);
         }
 
         return $this->render('shared/common/save.html.twig', [

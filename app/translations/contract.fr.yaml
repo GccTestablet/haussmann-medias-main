@@ -6,9 +6,11 @@ Add acquisition contract: Ajouter un contrat d'acquisition
 Distribution contract: Contrat de distribution
 Distribution contracts: Contrats  de distribution
 List of distribution contracts: Liste des contrats de distribution
+Distribution contract of distributor %name%: Contrat de distribution du distributeur %name%
 Add distribution contract: Ajouter un contrat de distribution
 Add new work for distribution contract: Ajouter une nouvelle oeuvre au contrat de distribution
 Update work %name% for distribution contract: Modifier l'oeuvre %name% du contrat de distribution
+Download CSV template: Télécharger le modèle CSV
 
 Signed at: Date de signature
 Starts at: Date de début

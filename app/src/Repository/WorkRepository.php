@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Company;
+use App\Entity\Contract\DistributionContract;
 use App\Entity\Work;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -33,6 +34,21 @@ class WorkRepository extends EntityRepository
             ->where('ac.company = :company')
             ->setParameter('company', $company)
             ->orderBy('w.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Work[]
+     */
+    public function findByDistributionContract(DistributionContract $distributionContract): array
+    {
+        return $this->createQueryBuilder('w')
+            ->innerJoin('w.distributionContracts', 'dcw')
+            ->where('dcw.distributionContract = :contract')
+            ->setParameter('contract', $distributionContract)
+            ->orderBy('w.internalId', 'ASC')
             ->getQuery()
             ->getResult()
         ;

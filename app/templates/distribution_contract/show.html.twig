@@ -5,7 +5,11 @@
 {% block content %}
     {% component card %}
         {% block header_content %}
-            <h1 class="card-title text-center">Contract {{ contract.originalFileName }} of company {{ contract.company.name }} </h1>
+            <h1 class="card-title text-center">
+                {% trans with {
+                    '%name%': contract.distributor.name
+                } from 'contract' %}Distribution contract of distributor %name%{% endtrans %}
+            </h1>
         {% endblock %}
         {% block body_content %}
             <div class="justify-content-between align-items-center text-center">
@@ -18,6 +22,7 @@
                     <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
                 {% endif %}
                 <a href="{{ path('app_distribution_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
+                <a href="{{ path('app_distribution_contract_generate_template', {'id': contract.id}) }}" class="btn btn-primary">{% trans from 'contract' %}Download CSV template{% endtrans %}</a>
             </div>
 
             <ul class="list-unstyled">

@@ -14,6 +14,7 @@
     "doctrine/orm": "^2.15",
     "gedmo/doctrine-extensions": "^3.13",
     "knplabs/knp-paginator-bundle": "^6.2",
+    "league/csv": "^9.11",
     "notfloran/mjml-bundle": "^3.7",
     "phing/phing": "^2.17",
     "phpdocumentor/reflection-docblock": "^5.3",
@@ -52,7 +53,8 @@
     "symfony/webpack-encore-bundle": "^2.1",
     "symfony/yaml": "6.3.*",
     "twig/extra-bundle": "^2.12|^3.0",
-    "twig/twig": "^2.12|^3.0"
+    "twig/twig": "^2.12|^3.0",
+    "ext-fileinfo": "*"
   },
   "config": {
     "bin-dir": "bin",

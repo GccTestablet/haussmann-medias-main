@@ -6,6 +6,7 @@ namespace App\Service\Work;
 
 use App\Entity\AcquisitionContract;
 use App\Entity\Company;
+use App\Entity\Contract\DistributionContract;
 use App\Entity\Work;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,6 +47,14 @@ class WorkManager
     public function findByCompany(Company $company): array
     {
         return $this->getRepository()->findByCompany($company);
+    }
+
+    /**
+     * @return Work[]
+     */
+    public function findByDistributionContract(DistributionContract $distributionContract): array
+    {
+        return $this->getRepository()->findByDistributionContract($distributionContract);
     }
 
     public function findBySearchQuery(string $query, int $limit = 5): Paginator
