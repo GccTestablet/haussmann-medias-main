@@ -29,7 +29,6 @@ class WorkRepository extends EntityRepository
     public function findByCompany(Company $company): array
     {
         return $this->createQueryBuilder('w')
-            ->select('w')
             ->innerJoin('w.acquisitionContract', 'ac')
             ->where('ac.company = :company')
             ->setParameter('company', $company)

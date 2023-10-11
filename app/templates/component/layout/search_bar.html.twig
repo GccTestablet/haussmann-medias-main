@@ -1,0 +1,44 @@
+<div {{ attributes }} class="position-relative">
+    <input
+            type="text"
+            data-model="debounce(500)|query"
+            placeholder="Search an artwork, contract, beneficiary ..."
+            class="form-control"
+    >
+
+    {% if this.results|length > 0 %}
+        <div data-loading="addClass(opacity-50)" class="position-absolute d-flex flex-row">
+            {% for categoryResult in this.results|filter(categoryResult => categoryResult.results|length > 0) %}
+                <div class="card tt-menu">
+                    <div class="card-header text-center">
+                        <h6 class="card-title mb-3">
+                            {{ categoryResult.category }}
+                        </h6>
+                    </div>
+                    <div class="card-body mt-n4">
+                        {% for result in categoryResult.results %}
+                            <a href="{{ result.url }}">· {{ result.label }}</a>
+                            <br>
+                        {% endfor %}
+                    </div>
+                    {% if categoryResult.totalResults > 5 %}
+                    <div class="card-footer text-center mt-n4">
+                        <a href="#">Show more</a>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% elseif this.results|length == 0 and query is not empty %}
+        <div data-loading="addClass(opacity-50)" class="mt-1 position-absolute">
+            <div class="card tt-menu mb-1">
+                <div class="card-header">
+                    <h6>Oh! No result found matching : </h6>
+                </div>
+                <div class="card-body">
+                    <h6>{{ query }}</h6>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
