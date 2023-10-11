@@ -9,7 +9,7 @@ use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Common\FrequencyEnum;
-use App\Repository\AcquisitionContractRepository;
+use App\Repository\Contract\AcquisitionContractRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;

@@ -10,6 +10,7 @@ enum FrequencyEnum: string
     case WEEKLY = 'weekly';
     case MONTHLY = 'monthly';
     case QUARTERLY = 'quarterly';
+    case HALF_YEARLY = 'half-yearly';
     case YEARLY = 'yearly';
 
     public function getAsText(): string
@@ -19,6 +20,7 @@ enum FrequencyEnum: string
             self::WEEKLY => 'Weekly',
             self::MONTHLY => 'Monthly',
             self::QUARTERLY => 'Quarterly',
+            self::HALF_YEARLY => 'Half-yearly',
             self::YEARLY => 'Yearly',
         };
     }

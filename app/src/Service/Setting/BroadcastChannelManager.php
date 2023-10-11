@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Broadcast;
+namespace App\Service\Setting;
 
 use App\Entity\Setting\BroadcastChannel;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
-class ChannelManager
+class BroadcastChannelManager
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager

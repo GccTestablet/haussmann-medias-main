@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Contract;
 
 use App\Entity\AcquisitionContract;
-use App\Repository\AcquisitionContractRepository;
+use App\Repository\Contract\AcquisitionContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;

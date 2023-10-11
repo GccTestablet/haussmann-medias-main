@@ -10,7 +10,7 @@ use App\Form\Dto\Setting\BroadcastChannelFormDto;
 use App\Form\DtoFactory\Setting\BroadcastChannelFormDtoFactory;
 use App\Form\Handler\Setting\BroadcastChannelFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
-use App\Service\Broadcast\ChannelManager;
+use App\Service\Setting\BroadcastChannelManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,14 +22,14 @@ class BroadcastChannelController extends AbstractAppController
     public function __construct(
         private readonly BroadcastChannelFormDtoFactory $channelFormDtoFactory,
         private readonly BroadcastChannelFormHandler $channelFormHandler,
-        private readonly ChannelManager $channelManager
+        private readonly BroadcastChannelManager $broadcastChannelManager
     ) {}
 
     #[Route(name: 'app_setting_broadcast_channel_index')]
     public function index(): Response
     {
         return $this->render('setting/broadcast/channel/index.html.twig', [
-            'channels' => $this->channelManager->findAll(),
+            'channels' => $this->broadcastChannelManager->findAll(),
         ]);
     }
 
