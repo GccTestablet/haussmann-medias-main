@@ -3,16 +3,35 @@ Acquisition contracts: Contrats  d'acquisition
 List of acquisition contracts: Liste des contrats d'acquisition
 Add acquisition contract: Ajouter un contrat d'acquisition
 
+Distribution contract: Contrat de distribution
+Distribution contracts: Contrats  de distribution
+List of distribution contracts: Liste des contrats de distribution
+Add distribution contract: Ajouter un contrat de distribution
+Add new work for distribution contract: Ajouter une nouvelle oeuvre au contrat de distribution
+Update work %name% for distribution contract: Modifier l'oeuvre %name% du contrat de distribution
+
 Signed at: Date de signature
 Starts at: Date de début
 Ends at: Date de fin
 Territories: Territoires
+Exclusivity: Exclusivité
+Amount: Montant
 Report frequency: Fréquence des rapports
 
 # Form
 Beneficiary: Ayant droit
+Distributor: Distributeur
 Select a beneficiary: Sélectionner un ayant droit
-International Seller companies only: Sociétés de vendeurs internationaux uniquement
+Select a distributor: Sélectionner un distributeur
 Select report frequency: Sélectionner la fréquence des rapports
 Rights starts at: Droits à partir de
 Rights ends at: Droits jusqu'à
+Select a broadcast channel: Sélectionner un canal de diffusion
+Select a broadcast service: Sélectionner un service de diffusion
+Broadcast channels: Canaux de diffusion
+Broadcast services: Services de diffusion
+
+# Contract types
+Select a contract type: Sélectionner un type de contrat
+One-off: Contrat à paiment unique
+Recurring: Contrat à paiement récurrent

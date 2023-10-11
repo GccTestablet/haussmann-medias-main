@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Contract;
 
+use App\Entity\Company;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;

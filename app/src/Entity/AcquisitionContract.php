@@ -173,9 +173,19 @@ class AcquisitionContract implements FileInterface
         return $this->territories;
     }
 
+    /**
+     * TODO: Change this method to use EntityParser
+     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
+     */
     public function setTerritories(Collection $territories): static
     {
-        $this->territories = $territories;
+        foreach ($this->territories as $territory) {
+            $this->territories->removeElement($territory);
+        }
+
+        foreach ($territories as $territory) {
+            $this->territories->add($territory);
+        }
 
         return $this;
     }

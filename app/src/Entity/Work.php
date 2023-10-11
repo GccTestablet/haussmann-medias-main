@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
@@ -221,9 +222,19 @@ class Work
         return $this->broadcastChannels;
     }
 
+    /**
+     * TODO: Change this method to use EntityParser
+     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
+     */
     public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        $this->broadcastChannels = $broadcastChannels;
+        foreach ($this->broadcastChannels as $channel) {
+            $this->broadcastChannels->removeElement($channel);
+        }
+
+        foreach ($broadcastChannels as $channel) {
+            $this->broadcastChannels->add($channel);
+        }
 
         return $this;
     }
