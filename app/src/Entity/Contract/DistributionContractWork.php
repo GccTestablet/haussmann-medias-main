@@ -57,11 +57,15 @@ class DistributionContractWork
     #[ORM\JoinTable(name: 'distribution_contract_work_broadcast_services')]
     private Collection $broadcastServices;
 
+    #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkRevenue::class)]
+    private Collection $revenues;
+
     public function __construct(
     ) {
         $this->territories = new ArrayCollection();
         $this->broadcastChannels = new ArrayCollection();
         $this->broadcastServices = new ArrayCollection();
+        $this->revenues = new ArrayCollection();
     }
 
     public function getId(): int
@@ -162,6 +166,18 @@ class DistributionContractWork
         foreach ($broadcastServices as $service) {
             $this->broadcastServices->add($service);
         }
+
+        return $this;
+    }
+
+    public function getRevenues(): Collection
+    {
+        return $this->revenues;
+    }
+
+    public function setRevenues(Collection $revenues): self
+    {
+        $this->revenues = $revenues;
 
         return $this;
     }
