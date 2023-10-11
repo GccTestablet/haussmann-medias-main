@@ -1,6 +1,5 @@
 <?php
 
-// src/Model/Layout/SearchBarResult.php
 declare(strict_types=1);
 
 namespace App\Model\Layout;

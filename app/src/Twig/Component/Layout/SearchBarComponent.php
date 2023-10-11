@@ -23,9 +23,9 @@ class SearchBarComponent
     public ?string $query = null;
 
     public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator,
         private readonly WorkManager $workManager,
         private readonly ContractManager $contractManager,
-        private readonly UrlGeneratorInterface $urlGenerator
     ) {}
 
     /**

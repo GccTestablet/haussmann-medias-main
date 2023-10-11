@@ -31,7 +31,7 @@
         </div>
     {% endif %}
 
-    {% if this.results|length == 0 and query is not empty %}
+    {% elseif this.results|length == 0 and query is not empty %}
         <div data-loading="addClass(opacity-50)" class="mt-1 position-absolute">
             <div class="card tt-menu mb-1">
                 <div class="card-header">
