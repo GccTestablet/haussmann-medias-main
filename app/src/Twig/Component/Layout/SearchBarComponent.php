@@ -15,7 +15,7 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
 #[AsLiveComponent(name: 'layout_search_bar', template: 'component/layout/search_bar.html.twig')]
-class SearchBar
+class SearchBarComponent
 {
     use DefaultActionTrait;
 
@@ -28,6 +28,9 @@ class SearchBar
         private readonly UrlGeneratorInterface $urlGenerator
     ) {}
 
+    /**
+     * @return SearchBarCategoryResult[]
+     */
     public function getResults(): array
     {
         if (empty($this->query)) {
@@ -37,7 +40,7 @@ class SearchBar
         $results = [];
 
         $paginator = $this->workManager->findBySearchQuery($this->query);
-        $workResult = new SearchBarCategoryResult(new TranslatableMessage('Works',[], 'work'), $paginator->count());
+        $workResult = new SearchBarCategoryResult(new TranslatableMessage('Works', [], 'work'), $paginator->count());
         foreach ($paginator->getIterator() as $work) {
             $resultDTO = new SearchBarResult(
                 $work->getOriginalName(),
@@ -49,7 +52,7 @@ class SearchBar
         $results[] = $workResult;
 
         $paginator = $this->contractManager->findBySearchQuery($this->query);
-        $categoryResult = new SearchBarCategoryResult(new TranslatableMessage('Acquisition contracts',[], 'contract'), $paginator->count());
+        $categoryResult = new SearchBarCategoryResult(new TranslatableMessage('Acquisition contracts', [], 'contract'), $paginator->count());
         foreach ($paginator->getIterator() as $contract) {
             $resultDTO = new SearchBarResult(
                 $contract->getOriginalFileName(),

@@ -10,6 +10,9 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 class SearchBarCategoryResult
 {
+    /**
+     * @var SearchBarResult[]
+     */
     private array $results = [];
 
     public function __construct(
@@ -27,6 +30,9 @@ class SearchBarCategoryResult
         return $this->totalResults;
     }
 
+    /**
+     * @return SearchBarResult[]
+     */
     public function getResults(): array
     {
         return $this->results;
