@@ -9,12 +9,12 @@ interface FileInterface
     /**
      * Generated filename
      */
-    public function getFileName(): string;
+    public function getFileName(): ?string;
 
     /**
      * Original filename
      */
-    public function getOriginalFileName(): string;
+    public function getOriginalFileName(): ?string;
 
     /**
      * Relative path from public directory to upload directory

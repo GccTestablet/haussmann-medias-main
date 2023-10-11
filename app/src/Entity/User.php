@@ -20,6 +20,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
+
     final public const ROLE_USER = 'ROLE_USER';
     final public const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
     final public const ROLE_ADMIN = 'ROLE_ADMIN';

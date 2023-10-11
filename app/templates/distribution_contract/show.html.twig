@@ -1,0 +1,105 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), contract.company) %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="card-title text-center">Contract {{ contract.originalFileName }} of company {{ contract.company.name }} </h1>
+        {% endblock %}
+        {% block body_content %}
+            <div class="justify-content-between align-items-center text-center">
+                <a href="{{ path('app_company_show', {'id': contract.company.id}) }}" class="btn btn-dark">{% trans from 'company' %}Back to company{% endtrans %}</a>
+
+                {% if contract.fileName %}
+                    <a href="{{ path('app_company_distribution_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Download{% endtrans %}</a>
+                {% endif %}
+                {% if isCompanyAdmin %}
+                    <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+                {% endif %}
+                <a href="{{ path('app_distribution_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
+            </div>
+
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}File name{% endtrans %}:</span>
+                    <span>{{ contract.originalFileName }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights starts at{% endtrans %}:</span>
+                    <span>{{ contract.startsAt|date_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights ends at{% endtrans %}:</span>
+                    <span>{{ contract.endsAt|date_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Exclusivity{% endtrans %}:</span>
+                    <span>{{ contract.exclusivity }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Amount{% endtrans %}:</span>
+                    <span>{{ contract.amount }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency{% endtrans %}:</span>
+                    <span>{{ contract.reportFrequency ? contract.reportFrequency.asText|trans({}, 'misc') }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
+                    <span>{{ contract.createdAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Created by{% endtrans %}:</span>
+                    <span>{{ contract.createdBy|user_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated at{% endtrans %}:</span>
+                    <span>{{ contract.updatedAt|datetime_format }}</span>
+                </li>
+                <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated by{% endtrans %}:</span>
+                    <span>{{ contract.updatedBy|user_format }}</span>
+                </li>
+            </ul>
+
+            <h4>{% trans from 'work' %}Works{% endtrans %}</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>{% trans from 'work' %}Work{% endtrans %}</th>
+                    <th>{% trans from 'setting' %}Territories{% endtrans %}</th>
+                    <th>{% trans from 'setting' %}Broadcast channels{% endtrans %}</th>
+                    <th>{% trans from 'setting' %}Broadcast services{% endtrans %}</th>
+                    <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for work in contract.works %}
+                    <tr>
+                        <td>{{ work.work.name }}</td>
+                        <td>
+                            {% for territory in work.territories %}
+                                {{ territory.name }},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for channel in work.broadcastChannels %}
+                                {{ channel.name }},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for service in work.broadcastServices %}
+                                {{ service.name }},
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_distribution_contract_work_update', {'contract': contract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}

@@ -1,7 +1,3 @@
-_welcome:
-  path: /
-  defaults: { _controller: 'App\Controller\DashboardController::index' }
-
 controllers:
   resource:
     path: ../src/Controller/

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Setting;
 
+use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work;
@@ -47,11 +48,15 @@ class BroadcastChannel
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: WorkReversion::class, cascade: ['persist'])]
     private Collection $workReversions;
 
+    #[ORM\ManyToMany(targetEntity: DistributionContractWork::class, mappedBy: 'broadcastChannels', cascade: ['ALL'])]
+    private Collection $distributionContractWorks;
+
     public function __construct()
     {
         $this->broadcastServices = new ArrayCollection();
         $this->works = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
+        $this->distributionContractWorks = new ArrayCollection();
     }
 
     public function getId(): int
@@ -110,6 +115,18 @@ class BroadcastChannel
     public function setWorkReversions(Collection $workReversions): static
     {
         $this->workReversions = $workReversions;
+
+        return $this;
+    }
+
+    public function getDistributionContractWorks(): Collection
+    {
+        return $this->distributionContractWorks;
+    }
+
+    public function setDistributionContractWorks(Collection $distributionContractWorks): self
+    {
+        $this->distributionContractWorks = $distributionContractWorks;
 
         return $this;
     }

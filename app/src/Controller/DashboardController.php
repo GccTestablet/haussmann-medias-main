@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractAppController
 {
+    #[Route('/', name: '_welcome')]
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(): Response
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
@@ -81,12 +82,19 @@ class Work
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkRevenue::class, cascade: ['persist'])]
     private Collection $workRevenues;
 
+    /**
+     * @var Collection<DistributionContractWork>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
+    private Collection $distributionContracts;
+
     public function __construct()
     {
         $this->broadcastChannels = new ArrayCollection();
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
         $this->workRevenues = new ArrayCollection();
+        $this->distributionContracts = new ArrayCollection();
     }
 
     public function getId(): int
@@ -214,9 +222,19 @@ class Work
         return $this->broadcastChannels;
     }
 
+    /**
+     * TODO: Change this method to use EntityParser
+     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
+     */
     public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        $this->broadcastChannels = $broadcastChannels;
+        foreach ($this->broadcastChannels as $channel) {
+            $this->broadcastChannels->removeElement($channel);
+        }
+
+        foreach ($broadcastChannels as $channel) {
+            $this->broadcastChannels->add($channel);
+        }
 
         return $this;
     }
@@ -268,6 +286,18 @@ class Work
     public function setWorkRevenues(Collection $workRevenues): static
     {
         $this->workRevenues = $workRevenues;
+
+        return $this;
+    }
+
+    public function getDistributionContracts(): Collection
+    {
+        return $this->distributionContracts;
+    }
+
+    public function setDistributionContracts(Collection $distributionContracts): static
+    {
+        $this->distributionContracts = $distributionContracts;
 
         return $this;
     }
