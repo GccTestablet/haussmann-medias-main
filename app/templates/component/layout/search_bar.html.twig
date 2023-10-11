@@ -21,6 +21,11 @@
                             <br>
                         {% endfor %}
                     </div>
+                    {% if categoryResult.totalResults > 5 %}
+                    <div class="card-footer text-center mt-n4">
+                        <a href="#">Show more</a>
+                    </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

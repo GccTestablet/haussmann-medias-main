@@ -8,6 +8,7 @@ use App\Entity\AcquisitionContract;
 use App\Repository\AcquisitionContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ContractManager
 {
@@ -15,14 +16,11 @@ class ContractManager
         private readonly EntityManagerInterface $entityManager,
     ) {}
 
-    /**
-     * @return Contract[]
-     */
-    public function findBySearchQuery(string $query, int $limit = 5): array
+    public function findBySearchQuery(string $query, int $limit = 5): Paginator
     {
         $queryBuilder = $this->getRepository()->getQueryBuilderBySearchQuery($query, $limit);
 
-        return $queryBuilder->getQuery()->getResult();
+        return new Paginator($queryBuilder);
     }
 
     /**
