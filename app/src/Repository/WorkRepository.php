@@ -8,7 +8,6 @@ use App\Entity\Company;
 use App\Entity\Work;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use function sprintf;
 
 class WorkRepository extends EntityRepository
 {
@@ -17,7 +16,7 @@ class WorkRepository extends EntityRepository
         return $this->createQueryBuilder('w')
             ->select('MAX(w.internalId)')
             ->where('w.internalId LIKE :prefix')
-            ->setParameter('prefix', sprintf('%s%%', $prefix))
+            ->setParameter('prefix', \sprintf('%s%%', $prefix))
             ->setMaxResults(1)
             ->getQuery()
             ->getSingleScalarResult()
@@ -45,12 +44,12 @@ class WorkRepository extends EntityRepository
 
         $fields = ['w.name', 'w.originalName', 'w.internalId', 'w.imdbId'];
         foreach ($fields as $field) {
-            $orX->add(sprintf('LOWER(%s) LIKE LOWER(:query)', $field));
+            $orX->add(\sprintf('LOWER(%s) LIKE LOWER(:query)', $field));
         }
 
         return $this->createQueryBuilder('w')
             ->where($orX)
-            ->setParameter('query', sprintf('%%%s%%', $query))
+            ->setParameter('query', \sprintf('%%%s%%', $query))
             ->orderBy('w.name', 'ASC')
             ->setFirstResult(0)
             ->setMaxResults($limit)
