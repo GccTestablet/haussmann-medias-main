@@ -125,8 +125,8 @@
                     <tr>
                         <td>{{ contractWork.work.name }}</td>
                         <td>{{ revenue.broadcastChannel.name }}</td>
-                        <td>{{ revenue.startsAt|date }}</td>
-                        <td>{{ revenue.endsAt|date }}</td>
+                        <td>{{ revenue.startsAt|date_format }}</td>
+                        <td>{{ revenue.endsAt|date_format }}</td>
                         <td>{{ revenue.amount }}</td>
                         <td></td>
                     </tr>
