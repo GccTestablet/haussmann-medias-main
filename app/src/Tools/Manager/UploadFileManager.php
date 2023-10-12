@@ -25,6 +25,8 @@ class UploadFileManager
             $fileName
         );
 
+        $this->remove($fileName);
+
         $fileSystem = new Filesystem();
         $fileSystem->touch($fileName);
 

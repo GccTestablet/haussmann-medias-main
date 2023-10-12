@@ -9,14 +9,15 @@ use App\Model\Importer\Contract\DistributionContractWorkRevenueImporterModel;
 use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
 use App\Tools\Parser\CsvParser;
+use App\Tools\Parser\StringParser;
 use League\Csv\Reader;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class DistributionContractWorkRevenueImporter
 {
-    private const INTERNAL_ID = 'Internal Id';
-    private const NAME = 'Name';
+    private const INTERNAL_ID = 'ID';
+    private const NAME = 'NAME';
 
     /**
      * @var string[]
@@ -33,6 +34,7 @@ class DistributionContractWorkRevenueImporter
 
     public function __construct(
         private readonly CsvParser $csvParser,
+        private readonly StringParser $stringParser,
         private readonly BroadcastChannelManager $broadcastChannelManager,
         private readonly WorkManager $workManager,
     ) {}
@@ -72,7 +74,11 @@ class DistributionContractWorkRevenueImporter
                     continue;
                 }
 
-                $model->addChannel($header, (int) $record[$header]);
+                if ('' === $record[$header]) {
+                    continue;
+                }
+
+                $model->addChannel($header, (float) $record[$header]);
             }
 
             $records[] = $model;
@@ -91,7 +97,7 @@ class DistributionContractWorkRevenueImporter
     private function addHeaders(): void
     {
         foreach ($this->broadcastChannelManager->findAll() as $channel) {
-            $this->headers[] = $channel->getName();
+            $this->headers[] = \strtoupper($this->stringParser->slugify($channel->getName()));
         }
     }
 
