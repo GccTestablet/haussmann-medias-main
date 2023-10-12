@@ -6,7 +6,8 @@ namespace App\Controller\Contract;
 
 use App\Controller\Shared\AbstractAppController;
 use App\Entity\Contract\DistributionContract;
-use App\Service\Contract\DistributionContractTemplateGenerator;
+use App\Service\Contract\DistributionContractWorkManager;
+use App\Service\Contract\DistributionContractWorkRevenueImporter;
 use App\Tools\Manager\UploadFileManager;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,8 @@ class DistributionContractController extends AbstractAppController
 {
     public function __construct(
         private readonly UploadFileManager $uploadFileManager,
-        private readonly DistributionContractTemplateGenerator $distributionContractTemplateGenerator
+        private readonly DistributionContractWorkRevenueImporter $distributionContractTemplateGenerator,
+        private readonly DistributionContractWorkManager $distributionContractWorkManager
     ) {}
 
     #[Route(path: '/{id}', name: 'app_distribution_contract_show', requirements: ['id' => '\d+'])]
@@ -25,6 +27,7 @@ class DistributionContractController extends AbstractAppController
     {
         return $this->render('distribution_contract/show.html.twig', [
             'contract' => $contract,
+            'contractWorks' => $this->distributionContractWorkManager->findByDistributionContract($contract),
         ]);
     }
 
@@ -32,7 +35,8 @@ class DistributionContractController extends AbstractAppController
     public function generateTemplate(DistributionContract $contract): BinaryFileResponse
     {
         $fileName = $this->uploadFileManager->createTempFile(\sprintf('template-%s.csv', $contract->getId()));
-        $this->distributionContractTemplateGenerator->generate($contract, $fileName);
+        $this->distributionContractTemplateGenerator->build(['contract' => $contract]);
+        $this->distributionContractTemplateGenerator->generateTemplate($fileName);
 
         $response = new BinaryFileResponse($fileName, Response::HTTP_OK, [
             'Cache-Control' => 'private',

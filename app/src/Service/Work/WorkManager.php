@@ -41,6 +41,11 @@ class WorkManager
         return $this->getRepository()->findBy([], ['name' => 'ASC']);
     }
 
+    public function findOneByInternalId(string $internalId): ?Work
+    {
+        return $this->getRepository()->findOneBy(['internalId' => $internalId]);
+    }
+
     /**
      * @return Work[]
      */

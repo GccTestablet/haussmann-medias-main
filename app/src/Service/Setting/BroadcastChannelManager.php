@@ -22,6 +22,11 @@ class BroadcastChannelManager
         return $this->getRepository()->findBy([], ['name' => 'ASC']);
     }
 
+    public function findOnByName(string $name): ?BroadcastChannel
+    {
+        return $this->getRepository()->findOneBy(['name' => $name]);
+    }
+
     private function getRepository(): EntityRepository
     {
         return $this->entityManager->getRepository(BroadcastChannel::class);
