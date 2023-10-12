@@ -6,9 +6,14 @@ namespace App\Form\DtoFactory\Setting;
 
 use App\Entity\Setting\BroadcastChannel;
 use App\Form\Dto\Setting\BroadcastChannelFormDto;
+use App\Tools\Parser\StringParser;
 
 class BroadcastChannelFormDtoFactory
 {
+    public function __construct(
+        private readonly StringParser $stringParser
+    ) {}
+
     public function create(?BroadcastChannel $channel): BroadcastChannelFormDto
     {
         if (!$channel) {
@@ -24,6 +29,7 @@ class BroadcastChannelFormDtoFactory
     {
         $channel
             ->setName($dto->getName())
+            ->setSlug($this->stringParser->slugify($dto->getName()))
         ;
     }
 }

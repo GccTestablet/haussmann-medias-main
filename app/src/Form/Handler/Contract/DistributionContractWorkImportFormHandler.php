@@ -13,6 +13,7 @@ use App\Service\Contract\DistributionContractWorkManager;
 use App\Service\Contract\DistributionContractWorkRevenueImporter;
 use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
+use App\Tools\Parser\StringParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly StringParser $stringParser,
         private readonly DistributionContractWorkRevenueImporter $contractWorkRevenueImporter,
         private readonly DistributionContractWorkManager $distributionContractWorkManager,
         private readonly WorkManager $workManager,
@@ -48,7 +50,8 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             );
 
             foreach ($record->getChannels() as $channelName => $revenue) {
-                $channel = $this->broadcastChannelManager->findOnByName($channelName);
+                $slug = $this->stringParser->slugify($channelName);
+                $channel = $this->broadcastChannelManager->findOneBySlug($slug);
 
                 $revenue = (new DistributionContractWorkRevenue())
                     ->setContractWork($contractWork)
