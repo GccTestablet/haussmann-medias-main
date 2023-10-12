@@ -14,6 +14,7 @@ use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Contract\DistributionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Security\Voter\CompanyVoter;
+use App\Service\Contract\DistributionContractWorkManager;
 use App\Tools\Manager\UploadFileManager;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,7 @@ class CompanyDistributionContractController extends AbstractAppController
         private readonly UploadFileManager $uploadFileManager,
         private readonly DistributionContractFormHandler $distributionContractFormHandler,
         private readonly DistributionContractFormDtoFactory $distributionContractFormDtoFactory,
+        private readonly DistributionContractWorkManager $distributionContractWorkManager
     ) {}
 
     #[Route(name: 'app_company_distribution_contract_index')]
@@ -45,6 +47,7 @@ class CompanyDistributionContractController extends AbstractAppController
     {
         return $this->render('distribution_contract/show.html.twig', [
             'contract' => $contract,
+            'contractWorks' => $this->distributionContractWorkManager->findByDistributionContract($contract),
         ]);
     }
 
