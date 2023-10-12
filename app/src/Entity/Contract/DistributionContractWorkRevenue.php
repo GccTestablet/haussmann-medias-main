@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Contract;
 
+use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use Doctrine\DBAL\Types\Types;
@@ -24,6 +25,10 @@ class DistributionContractWorkRevenue
     #[ORM\ManyToOne(targetEntity: DistributionContractWork::class, inversedBy: 'revenues')]
     #[ORM\JoinColumn(name: 'distribution_contract_work_id', referencedColumnName: 'id', nullable: false)]
     private DistributionContractWork $contractWork;
+
+    #[ORM\ManyToOne(targetEntity: BroadcastChannel::class)]
+    #[ORM\JoinColumn(name: 'broadcast_channel_id', referencedColumnName: 'id', nullable: false)]
+    private BroadcastChannel $broadcastChannel;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTime $startsAt;
@@ -54,6 +59,18 @@ class DistributionContractWorkRevenue
     public function setContractWork(DistributionContractWork $contractWork): static
     {
         $this->contractWork = $contractWork;
+
+        return $this;
+    }
+
+    public function getBroadcastChannel(): BroadcastChannel
+    {
+        return $this->broadcastChannel;
+    }
+
+    public function setBroadcastChannel(BroadcastChannel $broadcastChannel): static
+    {
+        $this->broadcastChannel = $broadcastChannel;
 
         return $this;
     }

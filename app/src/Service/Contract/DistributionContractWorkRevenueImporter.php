@@ -1,0 +1,107 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Service\Contract;
+
+use App\Entity\Contract\DistributionContract;
+use App\Model\Importer\Contract\DistributionContractWorkRevenueImporterModel;
+use App\Service\Setting\BroadcastChannelManager;
+use App\Service\Work\WorkManager;
+use App\Tools\Parser\CsvParser;
+use League\Csv\Reader;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+
+class DistributionContractWorkRevenueImporter
+{
+    private const INTERNAL_ID = 'Internal Id';
+    private const NAME = 'Name';
+
+    /**
+     * @var string[]
+     */
+    private array $headers = [
+        self::INTERNAL_ID,
+        self::NAME,
+    ];
+
+    /**
+     * @var array<string, string>
+     */
+    private array $rows = [];
+
+    public function __construct(
+        private readonly CsvParser $csvParser,
+        private readonly BroadcastChannelManager $broadcastChannelManager,
+        private readonly WorkManager $workManager,
+    ) {}
+
+    /**
+     * @param array<string, mixed> $options
+     */
+    public function build(array $options = []): void
+    {
+        $distributionContract = $options['contract'];
+        if (!$distributionContract instanceof DistributionContract) {
+            throw new UnexpectedTypeException($distributionContract, DistributionContract::class);
+        }
+
+        $this->addHeaders();
+        $this->addRows($distributionContract);
+    }
+
+    /**
+     * @return DistributionContractWorkRevenueImporterModel[]
+     */
+    public function getRecords(UploadedFile $file): array
+    {
+        $csvReader = Reader::createFromPath($file->getRealPath());
+        $csvReader->setHeaderOffset(0);
+
+        $header = $csvReader->getHeader();
+        if ($header !== $this->headers) {
+            throw new \Exception(\sprintf('Headers in file are different from template. Expected: "%s", got: "%s"', \implode(', ', $this->headers), \implode(', ', $header)), 1);
+        }
+
+        $records = [];
+        foreach ($csvReader->getRecords() as $record) {
+            $model = new DistributionContractWorkRevenueImporterModel($record[self::INTERNAL_ID], $record[self::NAME]);
+            foreach ($this->headers as $header) {
+                if (\in_array($header, [self::INTERNAL_ID, self::NAME], true)) {
+                    continue;
+                }
+
+                $model->addChannel($header, (int) $record[$header]);
+            }
+
+            $records[] = $model;
+        }
+
+        return $records;
+    }
+
+    public function generateTemplate(string $fileName): void
+    {
+        $csvWriter = $this->csvParser->write($fileName);
+        $csvWriter->insertOne($this->headers);
+        $csvWriter->insertAll($this->rows);
+    }
+
+    private function addHeaders(): void
+    {
+        foreach ($this->broadcastChannelManager->findAll() as $channel) {
+            $this->headers[] = $channel->getName();
+        }
+    }
+
+    private function addRows(DistributionContract $contract): void
+    {
+        foreach ($this->workManager->findByDistributionContract($contract) as $work) {
+            $this->rows[] = [
+                self::INTERNAL_ID => $work->getInternalId(),
+                self::NAME => $work->getName(),
+            ];
+        }
+    }
+}

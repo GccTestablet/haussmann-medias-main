@@ -25,9 +25,13 @@ class DistributionContractWorkRevenueImportFormType extends AbstractType
             ])
             ->add('file', FileType::class, [
                 'required' => true,
-                'constraints' => new File(mimeTypes: ['text/csv']),
+                'constraints' => new File(
+                    mimeTypes: [
+                        'text/csv', 'text/plain', 'application/csv', 'application/x-csv',
+                        'text/comma-separated-values', 'text/x-comma-separated-values', 'text/tab-separated-values',
+                    ]),
                 'attr' => [
-                    'accept' => 'text/csv',
+                    'accept' => '.csv',
                 ],
             ])
         ;
