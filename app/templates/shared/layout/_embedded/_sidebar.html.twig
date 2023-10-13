@@ -12,14 +12,14 @@
                 user: app.user
             })}}
         </li>
-        <!-- Dashboard -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>
-        <li class="menu-item">
-            <a href="{{ path('app_dashboard') }}" class="menu-link">
-                <i class="menu-item"></i>
-                <div>{% trans from 'misc' %}Dashboard{% endtrans %}</div>
-            </a>
-        </li>
+{#        <!-- Dashboard -->#}
+{#        <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>#}
+{#        <li class="menu-item">#}
+{#            <a href="{{ path('app_dashboard') }}" class="menu-link">#}
+{#                <i class="menu-item"></i>#}
+{#                <div>{% trans from 'misc' %}Dashboard{% endtrans %}</div>#}
+{#            </a>#}
+{#        </li>#}
         <!-- Managing my business -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Managing my business</span></li>
         {% if app.user.connectedOn %}
