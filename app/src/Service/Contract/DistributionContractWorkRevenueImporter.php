@@ -10,7 +10,6 @@ use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
 use App\Tools\Parser\CsvParser;
 use App\Tools\Parser\StringParser;
-use League\Csv\Reader;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -58,12 +57,15 @@ class DistributionContractWorkRevenueImporter
      */
     public function getRecords(UploadedFile $file): array
     {
-        $csvReader = Reader::createFromPath($file->getRealPath());
-        $csvReader->setHeaderOffset(0);
+        $csvReader = $this->csvParser->read($file->getRealPath());
 
         $header = $csvReader->getHeader();
         if ($header !== $this->headers) {
-            throw new \Exception(\sprintf('Headers in file are different from template. Expected: "%s", got: "%s"', \implode(', ', $this->headers), \implode(', ', $header)), 1);
+            throw new \Exception(\sprintf(
+                'Headers in file are different from template. Expected: "%s", got: "%s"',
+                \implode(',', $this->headers),
+                \implode(',', $header)
+            ));
         }
 
         $records = [];
