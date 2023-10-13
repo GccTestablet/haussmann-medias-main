@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Company;
 
-use App\Entity\AcquisitionContract;
 use App\Entity\Company;
+use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class CompanyContractFormDto
 {
     private ?Company $beneficiary = null;
+
+    private ?string $name = null;
 
     private ?UploadedFile $file = null;
 
@@ -52,6 +54,18 @@ class CompanyContractFormDto
     public function setBeneficiary(?Company $beneficiary): static
     {
         $this->beneficiary = $beneficiary;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

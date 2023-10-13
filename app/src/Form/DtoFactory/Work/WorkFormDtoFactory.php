@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\DtoFactory\Work;
 
-use App\Entity\AcquisitionContract;
+use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Work;
 use App\Form\Dto\Work\WorkFormDto;
 use App\Service\Work\WorkManager;

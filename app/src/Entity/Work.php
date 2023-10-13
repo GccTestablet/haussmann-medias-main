@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
@@ -77,12 +78,6 @@ class Work
     private Collection $workReversions;
 
     /**
-     * @var Collection<WorkRevenue>
-     */
-    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkRevenue::class, cascade: ['persist'])]
-    private Collection $workRevenues;
-
-    /**
      * @var Collection<DistributionContractWork>
      */
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
@@ -93,7 +88,6 @@ class Work
         $this->broadcastChannels = new ArrayCollection();
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
-        $this->workRevenues = new ArrayCollection();
         $this->distributionContracts = new ArrayCollection();
     }
 
@@ -274,18 +268,6 @@ class Work
     public function setWorkReversions(Collection $workReversions): static
     {
         $this->workReversions = $workReversions;
-
-        return $this;
-    }
-
-    public function getWorkRevenues(): Collection
-    {
-        return $this->workRevenues;
-    }
-
-    public function setWorkRevenues(Collection $workRevenues): static
-    {
-        $this->workRevenues = $workRevenues;
 
         return $this;
     }

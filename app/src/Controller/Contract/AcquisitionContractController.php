@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Contract;
 
 use App\Controller\Shared\AbstractAppController;
-use App\Entity\AcquisitionContract;
+use App\Entity\Contract\AcquisitionContract;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

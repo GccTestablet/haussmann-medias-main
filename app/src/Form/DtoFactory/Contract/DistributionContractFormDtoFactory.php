@@ -38,12 +38,14 @@ class DistributionContractFormDtoFactory
 
         return (new DistributionContractFormDto($contract, true))
             ->setDistributor($contract->getDistributor())
+            ->setName($contract->getName())
             ->setType($contract->getType())
             ->setFile($file)
             ->setStartsAt($contract->getStartsAt())
             ->setEndsAt($contract->getEndsAt())
             ->setExclusivity($contract->getExclusivity())
             ->setAmount($contract->getAmount())
+            ->setCurrency($contract->getCurrency())
             ->setReportFrequency($contract->getReportFrequency())
         ;
     }
@@ -59,11 +61,13 @@ class DistributionContractFormDtoFactory
 
         $contract
             ->setDistributor($dto->getDistributor())
+            ->setName($dto->getName())
             ->setType($dto->getType())
             ->setStartsAt($dto->getStartsAt())
             ->setEndsAt($dto->getEndsAt())
             ->setExclusivity($dto->getExclusivity())
             ->setAmount($dto->getAmount())
+            ->setCurrency($dto->getCurrency())
             ->setReportFrequency($dto->getReportFrequency())
         ;
     }

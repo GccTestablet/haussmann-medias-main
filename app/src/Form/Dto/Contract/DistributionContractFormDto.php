@@ -14,6 +14,8 @@ class DistributionContractFormDto
 {
     private ?Company $distributor = null;
 
+    private ?string $name = null;
+
     private ?DistributionContractTypeEnum $type = null;
 
     private ?UploadedFile $file = null;
@@ -25,6 +27,8 @@ class DistributionContractFormDto
     private ?string $exclusivity = null;
 
     private ?float $amount = null;
+
+    private string $currency = 'EUR';
 
     private ?FrequencyEnum $reportFrequency = null;
 
@@ -51,6 +55,18 @@ class DistributionContractFormDto
     public function setDistributor(?Company $distributor): static
     {
         $this->distributor = $distributor;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -123,6 +139,18 @@ class DistributionContractFormDto
     public function setAmount(?float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }

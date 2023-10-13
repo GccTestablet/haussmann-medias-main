@@ -22,7 +22,8 @@ class WorkAdaptationFormDtoFactory
 
         return (new WorkAdaptationFormDto($workAdaptation, true))
             ->setType($workAdaptation->getType())
-            ->setCost($workAdaptation->getCost())
+            ->setAmount($workAdaptation->getAmount())
+            ->setCurrency($workAdaptation->getCurrency())
         ;
     }
 
@@ -30,7 +31,8 @@ class WorkAdaptationFormDtoFactory
     {
         $workAdaptation
             ->setType($dto->getType())
-            ->setCost($dto->getCost())
+            ->setAmount($dto->getAmount())
+            ->setCurrency($dto->getCurrency())
         ;
     }
 }

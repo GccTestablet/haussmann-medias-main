@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace App\Form\Type\Company;
 
 use App\Entity\Company;
+use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Form\Dto\Company\CompanyContractFormDto;
 use App\Form\Type\Common\TerritoryAutocompleteField;
 use App\Form\Type\Shared\DateType;
+use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,6 +33,13 @@ class CompanyContractFormType extends AbstractType
                 'placeholder' => 'Select a beneficiary',
                 'query_builder' => fn (CompanyRepository $repository) => $repository->createQueryBuilder('b')->orderBy('b.name'),
                 'choice_label' => 'name',
+            ])
+            ->add('name', TextType::class, [
+                'constraints' => new UniqueEntityField(
+                    entityClass: AcquisitionContract::class,
+                    field: 'name',
+                    origin: $dto->isExists() ? $dto->getContract() : null
+                ),
             ])
             ->add('file', FileType::class, [
                 'label' => 'Contract',

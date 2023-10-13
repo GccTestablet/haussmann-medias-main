@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Contract;
 
+use App\Entity\Company;
 use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
+use App\Entity\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Repository\Contract\AcquisitionContractRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,6 +36,9 @@ class AcquisitionContract implements FileInterface
     #[ORM\ManyToOne(targetEntity: Company::class)]
     #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id', nullable: false)]
     private Company $beneficiary;
+
+    #[ORM\Column(unique: true)]
+    private string $name;
 
     #[ORM\Column(unique: true)]
     private string $fileName;
@@ -104,6 +109,18 @@ class AcquisitionContract implements FileInterface
     public function setBeneficiary(Company $beneficiary): static
     {
         $this->beneficiary = $beneficiary;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
