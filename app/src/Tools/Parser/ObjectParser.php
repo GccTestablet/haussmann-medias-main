@@ -30,9 +30,13 @@ class ObjectParser
         return $propertyInfo->getProperties($this->getClassName($object)) ?? [];
     }
 
-    public function mergeFromObject(object $source, object $target): void
+    /**
+     * @param string[] $excludeProperties
+     */
+    public function mergeFromObject(object $source, object $target, array $excludeProperties = []): void
     {
         $properties = \array_intersect($this->getProperties($source), $this->getProperties($target));
+        $properties = \array_diff($properties, $excludeProperties);
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
         foreach ($properties as $property) {
