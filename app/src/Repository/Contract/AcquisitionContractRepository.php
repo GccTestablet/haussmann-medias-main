@@ -13,7 +13,7 @@ class AcquisitionContractRepository extends EntityRepository
     {
         $orX = $this->getEntityManager()->getExpressionBuilder()->orX();
 
-        $fields = ['ac.originalFileName', 'b.name', 'cm.name'];
+        $fields = ['ac.name', 'ac.originalFileName', 'b.name', 'cm.name'];
         foreach ($fields as $field) {
             $orX->add(\sprintf('LOWER(%s) LIKE LOWER(:query)', $field));
         }
@@ -23,7 +23,7 @@ class AcquisitionContractRepository extends EntityRepository
             ->innerJoin('ac.company', 'cm')
             ->where($orX)
             ->setParameter('query', \sprintf('%%%s%%', $query))
-            ->orderBy('ac.originalFileName', 'ASC')
+            ->orderBy('ac.name', 'ASC')
             ->setFirstResult(0)
             ->setMaxResults($limit)
         ;
