@@ -7,11 +7,13 @@ namespace App\Form\DtoFactory\User;
 use App\Entity\User;
 use App\Form\Dto\User\UserFormDto;
 use App\Service\Security\SecurityManager;
+use App\Tools\Parser\ObjectParser;
 
 class UserFormDtoFactory
 {
     public function __construct(
-        private readonly SecurityManager $securityManager
+        private readonly SecurityManager $securityManager,
+        private readonly ObjectParser $objectParser
     ) {}
 
     public function create(?User $user): UserFormDto
@@ -21,22 +23,17 @@ class UserFormDtoFactory
         }
 
         $role = $this->securityManager->getUserRole($user);
-
-        return (new UserFormDto($user, true))
-            ->setFirstName($user->getFirstName())
-            ->setLastName($user->getLastName())
-            ->setEmail($user->getEmail())
+        $dto = (new UserFormDto($user, true))
             ->setRole($role)
         ;
+
+        $this->objectParser->mergeFromObject($user, $dto);
+
+        return $dto;
     }
 
     public function updateUser(UserFormDto $dto, User $user): void
     {
-        $user
-            ->setFirstName($dto->getFirstName())
-            ->setLastName($dto->getLastName())
-            ->setEmail($dto->getEmail())
-            ->setRoles([$dto->getRole()])
-        ;
+        $this->objectParser->mergeFromObject($dto, $user);
     }
 }

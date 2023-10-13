@@ -217,14 +217,11 @@ class Work
     }
 
     /**
-     * TODO: Change this method to use EntityParser
      * We use add/remove to avoid a bug with ManyToMany in form type and DTO
      */
     public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        foreach ($this->broadcastChannels as $channel) {
-            $this->broadcastChannels->removeElement($channel);
-        }
+        $this->broadcastChannels->clear();
 
         foreach ($broadcastChannels as $channel) {
             $this->broadcastChannels->add($channel);

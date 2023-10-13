@@ -6,12 +6,14 @@ namespace App\Form\DtoFactory\Setting;
 
 use App\Entity\Setting\BroadcastChannel;
 use App\Form\Dto\Setting\BroadcastChannelFormDto;
+use App\Tools\Parser\ObjectParser;
 use App\Tools\Parser\StringParser;
 
 class BroadcastChannelFormDtoFactory
 {
     public function __construct(
-        private readonly StringParser $stringParser
+        private readonly StringParser $stringParser,
+        private readonly ObjectParser $objectParser
     ) {}
 
     public function create(?BroadcastChannel $channel): BroadcastChannelFormDto
@@ -20,16 +22,16 @@ class BroadcastChannelFormDtoFactory
             return new BroadcastChannelFormDto(new BroadcastChannel(), false);
         }
 
-        return (new BroadcastChannelFormDto($channel, true))
-            ->setName($channel->getName())
-        ;
+        $dto = new BroadcastChannelFormDto($channel, true);
+        $this->objectParser->mergeFromObject($channel, $dto);
+
+        return $dto;
     }
 
     public function updateEntity(BroadcastChannelFormDto $dto, BroadcastChannel $channel): void
     {
-        $channel
-            ->setName($dto->getName())
-            ->setSlug($this->stringParser->slugify($dto->getName()))
-        ;
+        $this->objectParser->mergeFromObject($dto, $channel);
+
+        $channel->setSlug($this->stringParser->slugify($dto->getName()));
     }
 }

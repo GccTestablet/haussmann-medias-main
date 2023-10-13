@@ -9,12 +9,14 @@ use App\Entity\Contract\DistributionContract;
 use App\Form\Dto\Contract\DistributionContractFormDto;
 use App\Tools\Generator\FileNameGenerator;
 use App\Tools\Manager\UploadFileManager;
+use App\Tools\Parser\ObjectParser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistributionContractFormDtoFactory
 {
     public function __construct(
-        private readonly UploadFileManager $uploadFileManager
+        private readonly UploadFileManager $uploadFileManager,
+        private readonly ObjectParser $objectParser
     ) {}
 
     public function create(Company $company, ?DistributionContract $contract): DistributionContractFormDto
@@ -36,18 +38,12 @@ class DistributionContractFormDtoFactory
             );
         }
 
-        return (new DistributionContractFormDto($contract, true))
-            ->setDistributor($contract->getDistributor())
-            ->setName($contract->getName())
-            ->setType($contract->getType())
+        $dto = (new DistributionContractFormDto($contract, true))
             ->setFile($file)
-            ->setStartsAt($contract->getStartsAt())
-            ->setEndsAt($contract->getEndsAt())
-            ->setExclusivity($contract->getExclusivity())
-            ->setAmount($contract->getAmount())
-            ->setCurrency($contract->getCurrency())
-            ->setReportFrequency($contract->getReportFrequency())
         ;
+        $this->objectParser->mergeFromObject($contract, $dto);
+
+        return $dto;
     }
 
     public function updateEntity(DistributionContractFormDto $dto, DistributionContract $contract): void
@@ -59,16 +55,6 @@ class DistributionContractFormDtoFactory
             ;
         }
 
-        $contract
-            ->setDistributor($dto->getDistributor())
-            ->setName($dto->getName())
-            ->setType($dto->getType())
-            ->setStartsAt($dto->getStartsAt())
-            ->setEndsAt($dto->getEndsAt())
-            ->setExclusivity($dto->getExclusivity())
-            ->setAmount($dto->getAmount())
-            ->setCurrency($dto->getCurrency())
-            ->setReportFrequency($dto->getReportFrequency())
-        ;
+        $this->objectParser->mergeFromObject($dto, $contract);
     }
 }

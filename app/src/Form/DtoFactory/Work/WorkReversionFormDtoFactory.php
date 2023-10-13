@@ -7,9 +7,14 @@ namespace App\Form\DtoFactory\Work;
 use App\Entity\Work;
 use App\Entity\WorkReversion;
 use App\Form\Dto\Work\WorkReversionFormDto;
+use App\Tools\Parser\ObjectParser;
 
 class WorkReversionFormDtoFactory
 {
+    public function __construct(
+        private readonly ObjectParser $objectParser
+    ) {}
+
     public function create(Work $work, ?WorkReversion $workReversion): WorkReversionFormDto
     {
         if (!$workReversion) {
@@ -20,17 +25,14 @@ class WorkReversionFormDtoFactory
             return new WorkReversionFormDto($workReversion, false);
         }
 
-        return (new WorkReversionFormDto($workReversion, true))
-            ->setChannel($workReversion->getChannel())
-            ->setPercentageReversion($workReversion->getPercentageReversion())
-        ;
+        $dto = new WorkReversionFormDto($workReversion, true);
+        $this->objectParser->mergeFromObject($workReversion, $dto);
+
+        return $dto;
     }
 
     public function updateEntity(WorkReversionFormDto $dto, WorkReversion $workReversion): void
     {
-        $workReversion
-            ->setChannel($dto->getChannel())
-            ->setPercentageReversion($dto->getPercentageReversion())
-        ;
+        $this->objectParser->mergeFromObject($dto, $workReversion);
     }
 }

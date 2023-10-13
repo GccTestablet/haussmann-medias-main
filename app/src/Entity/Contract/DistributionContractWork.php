@@ -110,14 +110,11 @@ class DistributionContractWork
     }
 
     /**
-     * TODO: Change this method to use EntityParser
      * We use add/remove to avoid a bug with ManyToMany in form type and DTO
      */
     public function setTerritories(Collection $territories): static
     {
-        foreach ($this->territories as $territory) {
-            $this->territories->removeElement($territory);
-        }
+        $this->territories->clear();
 
         foreach ($territories as $territory) {
             $this->territories->add($territory);
@@ -132,14 +129,11 @@ class DistributionContractWork
     }
 
     /**
-     * TODO: Change this method to use EntityParser
      * We use add/remove to avoid a bug with ManyToMany in form type and DTO
      */
     public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        foreach ($this->broadcastChannels as $channel) {
-            $this->broadcastChannels->removeElement($channel);
-        }
+        $this->broadcastChannels->clear();
 
         foreach ($broadcastChannels as $channel) {
             $this->broadcastChannels->add($channel);
@@ -154,14 +148,11 @@ class DistributionContractWork
     }
 
     /**
-     * TODO: Change this method to use EntityParser
      * We use add/remove to avoid a bug with ManyToMany in form type and DTO
      */
     public function setBroadcastServices(Collection $broadcastServices): static
     {
-        foreach ($this->broadcastServices as $service) {
-            $this->broadcastServices->removeElement($service);
-        }
+        $this->broadcastServices->clear();
 
         foreach ($broadcastServices as $service) {
             $this->broadcastServices->add($service);

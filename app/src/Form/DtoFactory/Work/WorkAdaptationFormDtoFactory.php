@@ -7,9 +7,14 @@ namespace App\Form\DtoFactory\Work;
 use App\Entity\Work;
 use App\Entity\WorkAdaptation;
 use App\Form\Dto\Work\WorkAdaptationFormDto;
+use App\Tools\Parser\ObjectParser;
 
 class WorkAdaptationFormDtoFactory
 {
+    public function __construct(
+        private readonly ObjectParser $objectParser
+    ) {}
+
     public function create(Work $work, ?WorkAdaptation $workAdaptation): WorkAdaptationFormDto
     {
         if (!$workAdaptation) {
@@ -20,19 +25,14 @@ class WorkAdaptationFormDtoFactory
             return new WorkAdaptationFormDto($workAdaptation, false);
         }
 
-        return (new WorkAdaptationFormDto($workAdaptation, true))
-            ->setType($workAdaptation->getType())
-            ->setAmount($workAdaptation->getAmount())
-            ->setCurrency($workAdaptation->getCurrency())
-        ;
+        $dto = new WorkAdaptationFormDto($workAdaptation, true);
+        $this->objectParser->mergeFromObject($workAdaptation, $dto);
+
+        return $dto;
     }
 
     public function updateEntity(WorkAdaptationFormDto $dto, WorkAdaptation $workAdaptation): void
     {
-        $workAdaptation
-            ->setType($dto->getType())
-            ->setAmount($dto->getAmount())
-            ->setCurrency($dto->getCurrency())
-        ;
+        $this->objectParser->mergeFromObject($dto, $workAdaptation);
     }
 }

@@ -8,11 +8,13 @@ use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Work;
 use App\Form\Dto\Work\WorkFormDto;
 use App\Service\Work\WorkManager;
+use App\Tools\Parser\ObjectParser;
 
 class WorkFormDtoFactory
 {
     public function __construct(
-        private readonly WorkManager $workManager
+        private readonly WorkManager $workManager,
+        private readonly ObjectParser $objectParser
     ) {}
 
     public function create(?Work $work, AcquisitionContract $contract): WorkFormDto
@@ -29,18 +31,10 @@ class WorkFormDtoFactory
             ;
         }
 
-        return (new WorkFormDto($work, true))
-            ->setInternalId($work->getInternalId())
-            ->setImdbId($work->getImdbId())
-            ->setName($work->getName())
-            ->setOriginalName($work->getOriginalName())
-            ->setCountry($work->getCountry())
-            ->setMinimumGuaranteedBeforeReversion($work->getMinimumGuaranteedBeforeReversion())
-            ->setMinimumCostOfTheTopBeforeReversion($work->getMinimumCostOfTheTopBeforeReversion())
-            ->setYear($work->getYear())
-            ->setDuration($work->getDuration())
-            ->setBroadcastChannels($work->getBroadcastChannels())
-        ;
+        $dto = new WorkFormDto($work, true);
+        $this->objectParser->mergeFromObject($work, $dto);
+
+        return $dto;
     }
 
     public function updateEntity(WorkFormDto $dto, Work $work): void
@@ -49,16 +43,7 @@ class WorkFormDtoFactory
             $internalId = $this->workManager->findNextInternalId($work->getAcquisitionContract());
             $work->setInternalId($internalId);
         }
-        $work
-            ->setImdbId($dto->getImdbId())
-            ->setName($dto->getName())
-            ->setOriginalName($dto->getOriginalName())
-            ->setCountry($dto->getCountry())
-            ->setMinimumGuaranteedBeforeReversion($dto->getMinimumGuaranteedBeforeReversion())
-            ->setMinimumCostOfTheTopBeforeReversion($dto->getMinimumCostOfTheTopBeforeReversion())
-            ->setYear($dto->getYear())
-            ->setDuration($dto->getDuration())
-            ->setBroadcastChannels($dto->getBroadcastChannels())
-        ;
+
+        $this->objectParser->mergeFromObject($dto, $work);
     }
 }
