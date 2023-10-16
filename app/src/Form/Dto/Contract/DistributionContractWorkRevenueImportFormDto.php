@@ -26,7 +26,7 @@ class DistributionContractWorkRevenueImportFormDto
     )]
     private ?UploadedFile $file = null;
 
-    private ?string $currency = null;
+    private ?string $currency = 'EUR';
 
     public function __construct(
         private readonly DistributionContract $distributionContract,
