@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\DtoFactory\Company;
 
-use App\Entity\AcquisitionContract;
 use App\Entity\Company;
+use App\Entity\Contract\AcquisitionContract;
 use App\Form\Dto\Company\CompanyContractFormDto;
 use App\Tools\Generator\FileNameGenerator;
 use App\Tools\Manager\UploadFileManager;
@@ -35,6 +35,7 @@ class CompanyContractFormDtoFactory
 
         return (new CompanyContractFormDto($contract, true))
             ->setBeneficiary($contract->getBeneficiary())
+            ->setName($contract->getName())
             ->setFile($file)
             ->setSignedAt($contract->getSignedAt())
             ->setStartsAt($contract->getStartsAt())
@@ -55,6 +56,7 @@ class CompanyContractFormDtoFactory
 
         $contract
             ->setBeneficiary($dto->getBeneficiary())
+            ->setName($dto->getName())
             ->setSignedAt($dto->getSignedAt())
             ->setStartsAt($dto->getStartsAt())
             ->setEndsAt($dto->getEndsAt())

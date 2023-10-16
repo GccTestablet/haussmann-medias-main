@@ -56,6 +56,7 @@ class WorkFormType extends AbstractType
                 ],
             ])
             ->add('country', CountryType::class, [
+                'preferred_choices' => ['FR', 'US'],
                 'autocomplete' => true,
             ])
             ->add('minimumGuaranteedBeforeReversion', NumberType::class, [

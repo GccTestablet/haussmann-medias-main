@@ -89,7 +89,7 @@ class CompanyDistributionContractController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update contract %contract% from company %company%', [
-                '%contract%' => $contract->getOriginalFileName(),
+                '%contract%' => $contract->getName(),
                 '%company%' => $company->getName(),
             ], 'company'),
             'form' => $form,
@@ -118,7 +118,7 @@ class CompanyDistributionContractController extends AbstractAppController
 
         return $this->render('shared/common/remove.html.twig', [
             'title' => new TranslatableMessage('Remove contract %contract% from company %company%?', [
-                '%contract%' => $contract->getOriginalFileName(),
+                '%contract%' => $contract->getName(),
                 '%company%' => $company->getName(),
             ], 'company'),
             'form' => $form,

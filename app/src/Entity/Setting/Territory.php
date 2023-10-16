@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Setting;
 
-use App\Entity\AcquisitionContract;
+use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;

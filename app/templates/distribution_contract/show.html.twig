@@ -28,6 +28,10 @@
 
             <ul class="list-unstyled">
                 <li class="mb-3">
+                    <span class="fw-bold me-2">{% trans from 'misc' %}Name{% endtrans %}:</span>
+                    <span>{{ contract.name }}</span>
+                </li>
+                <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'contract' %}File name{% endtrans %}:</span>
                     <span>{{ contract.originalFileName }}</span>
                 </li>
@@ -45,7 +49,7 @@
                 </li>
                 <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'contract' %}Amount{% endtrans %}:</span>
-                    <span>{{ contract.amount }}</span>
+                    <span>{{ contract.amount ? contract.amount|format_currency(contract.currency) }}</span>
                 </li>
                 <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency{% endtrans %}:</span>
@@ -127,7 +131,7 @@
                         <td>{{ revenue.broadcastChannel.name }}</td>
                         <td>{{ revenue.startsAt|date_format }}</td>
                         <td>{{ revenue.endsAt|date_format }}</td>
-                        <td>{{ revenue.amount }}</td>
+                        <td>{{ revenue.amount|format_currency(revenue.currency) }}</td>
                         <td></td>
                     </tr>
                     {% endfor %}

@@ -10,7 +10,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class DistributionContractWorkRevenueImportFormType extends AbstractType
 {
@@ -25,11 +24,6 @@ class DistributionContractWorkRevenueImportFormType extends AbstractType
             ])
             ->add('file', FileType::class, [
                 'required' => true,
-                'constraints' => new File(
-                    mimeTypes: [
-                        'text/csv', 'text/plain', 'application/csv', 'application/x-csv',
-                        'text/comma-separated-values', 'text/x-comma-separated-values', 'text/tab-separated-values',
-                    ]),
                 'attr' => [
                     'accept' => '.csv',
                 ],

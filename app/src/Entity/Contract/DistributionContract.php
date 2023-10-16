@@ -35,6 +35,9 @@ class DistributionContract implements FileInterface
     #[ORM\JoinColumn(name: 'distributor_id', referencedColumnName: 'id', nullable: false)]
     private Company $distributor;
 
+    #[ORM\Column(unique: true)]
+    private string $name;
+
     #[ORM\Column(length: 20, enumType: DistributionContractTypeEnum::class)]
     private DistributionContractTypeEnum $type;
 
@@ -55,6 +58,9 @@ class DistributionContract implements FileInterface
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?float $amount = null;
+
+    #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
+    private string $currency = 'EUR';
 
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
@@ -102,6 +108,18 @@ class DistributionContract implements FileInterface
     public function setDistributor(Company $distributor): static
     {
         $this->distributor = $distributor;
+
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -186,6 +204,18 @@ class DistributionContract implements FileInterface
     public function setAmount(?float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }

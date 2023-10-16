@@ -31,7 +31,10 @@ class WorkAdaptation
     private AdaptationCostType $type;
 
     #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, options: ['default' => 0.0])]
-    private float $cost = 0.0;
+    private float $amount = 0.0;
+
+    #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
+    private string $currency = 'EUR';
 
     public function getId(): int
     {
@@ -69,14 +72,26 @@ class WorkAdaptation
         return $this;
     }
 
-    public function getCost(): float
+    public function getAmount(): float
     {
-        return $this->cost;
+        return $this->amount;
     }
 
-    public function setCost(float $cost): static
+    public function setAmount(float $amount): static
     {
-        $this->cost = $cost;
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }

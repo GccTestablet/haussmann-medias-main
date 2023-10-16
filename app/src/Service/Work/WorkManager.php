@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\Work;
 
-use App\Entity\AcquisitionContract;
 use App\Entity\Company;
+use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\Work;
 use App\Repository\WorkRepository;

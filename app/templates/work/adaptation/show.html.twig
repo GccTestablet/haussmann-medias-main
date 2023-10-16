@@ -14,7 +14,7 @@
                 </li>
                 <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'work'%}Cost{% endtrans%}</span>
-                    <span>{{ workAdaptation.cost }}</span>
+                    <span>{{ workAdaptation.amount|format_currency(workAdaptation.currency) }}</span>
                 </li>
                 <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'misc'%}Created at{% endtrans%}</span>

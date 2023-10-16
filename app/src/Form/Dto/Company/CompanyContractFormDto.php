@@ -4,23 +4,31 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Company;
 
-use App\Entity\AcquisitionContract;
 use App\Entity\Company;
+use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyContractFormDto
 {
     private ?Company $beneficiary = null;
 
+    #[Assert\NotBlank()]
+    private ?string $name = null;
+
+    #[Assert\NotBlank()]
     private ?UploadedFile $file = null;
 
+    #[Assert\NotBlank()]
     private ?\DateTime $signedAt = null;
 
+    #[Assert\NotBlank()]
     private ?\DateTime $startsAt = null;
 
+    #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
     private ?\DateTime $endsAt = null;
 
     private Collection $territories;
@@ -52,6 +60,18 @@ class CompanyContractFormDto
     public function setBeneficiary(?Company $beneficiary): static
     {
         $this->beneficiary = $beneficiary;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

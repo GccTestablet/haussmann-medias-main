@@ -99,7 +99,7 @@ class DistributionContractWorkRevenueImporter
     private function addHeaders(): void
     {
         foreach ($this->broadcastChannelManager->findAll() as $channel) {
-            $this->headers[] = \strtoupper($this->stringParser->slugify($channel->getName()));
+            $this->headers[] = \strtoupper($this->stringParser->slugify($channel->getName(), '_'));
         }
     }
 

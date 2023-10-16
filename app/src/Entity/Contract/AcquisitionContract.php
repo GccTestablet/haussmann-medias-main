@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Contract;
 
+use App\Entity\Company;
 use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
+use App\Entity\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Repository\Contract\AcquisitionContractRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,6 +36,9 @@ class AcquisitionContract implements FileInterface
     #[ORM\ManyToOne(targetEntity: Company::class)]
     #[ORM\JoinColumn(name: 'beneficiary_id', referencedColumnName: 'id', nullable: false)]
     private Company $beneficiary;
+
+    #[ORM\Column(unique: true)]
+    private string $name;
 
     #[ORM\Column(unique: true)]
     private string $fileName;
@@ -108,6 +113,18 @@ class AcquisitionContract implements FileInterface
         return $this;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getFileName(): string
     {
         return $this->fileName;
@@ -174,14 +191,11 @@ class AcquisitionContract implements FileInterface
     }
 
     /**
-     * TODO: Change this method to use EntityParser
      * We use add/remove to avoid a bug with ManyToMany in form type and DTO
      */
     public function setTerritories(Collection $territories): static
     {
-        foreach ($this->territories as $territory) {
-            $this->territories->removeElement($territory);
-        }
+        $this->territories->clear();
 
         foreach ($territories as $territory) {
             $this->territories->add($territory);

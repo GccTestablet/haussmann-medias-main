@@ -6,9 +6,11 @@ namespace App\Form\Dto\Company;
 
 use App\Entity\Company;
 use App\Enum\Company\CompanyTypeEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyFormDto
 {
+    #[Assert\NotBlank]
     private ?string $name = null;
 
     private ?CompanyTypeEnum $type = null;
