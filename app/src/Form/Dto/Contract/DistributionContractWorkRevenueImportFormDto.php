@@ -26,6 +26,8 @@ class DistributionContractWorkRevenueImportFormDto
     )]
     private ?UploadedFile $file = null;
 
+    private ?string $currency = null;
+
     public function __construct(
         private readonly DistributionContract $distributionContract,
     ) {}
@@ -69,5 +71,15 @@ class DistributionContractWorkRevenueImportFormDto
         $this->file = $file;
 
         return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): void
+    {
+        $this->currency = $currency;
     }
 }
