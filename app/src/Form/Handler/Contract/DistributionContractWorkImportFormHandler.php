@@ -59,6 +59,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
                     ->setEndsAt($dto->getEndsAt())
                     ->setBroadcastChannel($channel)
                     ->setAmount($revenue)
+                    ->setCurrency($dto->getCurrency())
                 ;
 
                 $this->entityManager->persist($revenue);

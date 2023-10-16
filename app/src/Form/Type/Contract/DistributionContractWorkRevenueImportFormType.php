@@ -6,6 +6,7 @@ namespace App\Form\Type\Contract;
 
 use App\Form\Dto\Contract\DistributionContractWorkRevenueImportFormDto;
 use App\Form\Type\Shared\DateType;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,7 +35,9 @@ class DistributionContractWorkRevenueImportFormType extends AbstractType
                     'accept' => '.csv',
                 ],
             ])
-        ;
+            ->add('currency', TextType::class, [
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
