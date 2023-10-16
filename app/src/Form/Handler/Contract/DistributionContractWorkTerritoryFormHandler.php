@@ -4,30 +4,30 @@ declare(strict_types=1);
 
 namespace App\Form\Handler\Contract;
 
-use App\Form\Dto\Contract\DistributionContractWorkFormDto;
-use App\Form\DtoFactory\Contract\DistributionContractWorkFormDtoFactory;
+use App\Form\Dto\Contract\DistributionContractWorkTerritoryFormDto;
+use App\Form\DtoFactory\Contract\DistributionContractWorkTerritoryFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
-use App\Form\Type\Contract\DistributionContractWorkFormType;
+use App\Form\Type\Contract\DistributionContractWorkTerritoryCollectionFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class DistributionContractWorkFormHandler extends AbstractFormHandler
+class DistributionContractWorkTerritoryFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly DistributionContractWorkFormDtoFactory $distributionContractWorkFormDtoFactory,
+        private readonly DistributionContractWorkTerritoryFormDtoFactory $formDtoFactory,
     ) {}
 
-    protected static string $form = DistributionContractWorkFormType::class;
+    protected static string $form = DistributionContractWorkTerritoryCollectionFormType::class;
 
     protected function onFormSubmitAndValid(Request $request, FormInterface $form, array $options = []): FormHandlerResponseInterface
     {
         $dto = $form->getData();
-        if (!$dto instanceof DistributionContractWorkFormDto) {
-            throw new UnexpectedTypeException($dto, DistributionContractWorkFormDto::class);
+        if (!$dto instanceof DistributionContractWorkTerritoryFormDto) {
+            throw new UnexpectedTypeException($dto, DistributionContractWorkTerritoryFormDto::class);
         }
 
         $contractWork = $dto->getDistributionContractWork();
@@ -35,7 +35,7 @@ class DistributionContractWorkFormHandler extends AbstractFormHandler
             $this->entityManager->refresh($contractWork);
         }
 
-        $this->distributionContractWorkFormDtoFactory->updateEntity($dto, $contractWork);
+        $this->formDtoFactory->updateEntity($dto, $contractWork);
 
         $this->entityManager->persist($contractWork);
         $this->entityManager->flush();

@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace App\Form\Dto\Contract;
 
 use App\Entity\Contract\DistributionContractWork;
-use App\Entity\Work;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class DistributionContractWorkFormDto
+class DistributionContractWorkTerritoryCollectionFormDto
 {
-    private ?Work $work = null;
-
     private Collection $territories;
 
     public function __construct(
@@ -30,18 +27,6 @@ class DistributionContractWorkFormDto
     public function isExists(): bool
     {
         return $this->exists;
-    }
-
-    public function getWork(): ?Work
-    {
-        return $this->work;
-    }
-
-    public function setWork(?Work $work): self
-    {
-        $this->work = $work;
-
-        return $this;
     }
 
     public function getTerritories(): Collection

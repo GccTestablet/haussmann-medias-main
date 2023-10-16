@@ -68,7 +68,7 @@ class DistributionContract implements FileInterface
     /**
      * @var Collection<DistributionContractWork>
      */
-    #[ORM\OneToMany(mappedBy: 'distributionContract', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'distributionContract', targetEntity: DistributionContractWork::class, cascade: ['persist', 'remove'])]
     private Collection $works;
 
     public function __construct()
@@ -235,6 +235,25 @@ class DistributionContract implements FileInterface
     public function getWorks(): Collection
     {
         return $this->works;
+    }
+
+    public function addWork(DistributionContractWork $work): static
+    {
+        if (!$this->works->contains($work)) {
+            $this->works->add($work);
+            $work->setDistributionContract($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWork(DistributionContractWork $work): static
+    {
+        if ($this->works->contains($work)) {
+            $this->works->removeElement($work);
+        }
+
+        return $this;
     }
 
     public function setWorks(Collection $works): static

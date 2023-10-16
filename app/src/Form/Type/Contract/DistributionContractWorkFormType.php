@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Contract;
 
-use App\Entity\Setting\BroadcastService;
+use App\Entity\Work;
 use App\Form\Dto\Contract\DistributionContractWorkFormDto;
-use App\Form\Type\Common\BroadcastChannelAutocompleteField;
-use App\Form\Type\Common\TerritoryAutocompleteField;
-use App\Form\Type\Common\WorkAutocompleteField;
+use App\Repository\WorkRepository;
+use App\Service\Work\WorkManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,26 +15,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DistributionContractWorkFormType extends AbstractType
 {
+    public function __construct(
+        private readonly WorkManager $workManager
+    ) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var DistributionContractWorkFormDto $dto */
+        $dto = $builder->getData();
+        $distributionContract = $dto->getDistributionContractWork()->getDistributionContract();
+        $works = $this->workManager->findByDistributionContract($distributionContract);
+
         $builder
-            ->add('work', WorkAutocompleteField::class)
-            ->add('territories', TerritoryAutocompleteField::class, [
-                'required' => false,
-                'multiple' => true,
-            ])
-            ->add('broadcastChannels', BroadcastChannelAutocompleteField::class, [
-                'required' => false,
-                'multiple' => true,
-            ])
-            ->add('broadcastServices', EntityType::class, [
-                'placeholder' => 'Select a broadcast service',
-                'class' => BroadcastService::class,
-                'choice_label' => fn (BroadcastService $service): string => $service->getName(),
-                'group_by' => fn (BroadcastService $service): string => $service->getBroadcastChannel()->getName(),
-                'multiple' => true,
+            ->add('work', EntityType::class, [
+                'placeholder' => 'Select a work',
+                'class' => Work::class,
+                'choice_label' => 'name',
                 'autocomplete' => true,
-                'required' => false,
+                'query_builder' => fn (WorkRepository $workRepository) => $workRepository->createQueryBuilder('w')
+//                    ->where('w.id NOT IN (:works)')
+//                    ->setParameter('works', $works)
+                    ->orderBy('w.name', 'ASC'),
             ])
         ;
     }

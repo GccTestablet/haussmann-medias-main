@@ -16,6 +16,19 @@ class DistributionContractWorkManager
         private readonly EntityManagerInterface $entityManager
     ) {}
 
+    public function findOrCreateByDistributionContractAndWork(DistributionContract $distributionContract, Work $work): DistributionContractWork
+    {
+        $contractWork = $this->findOneByDistributionContractAndWork($distributionContract, $work);
+        if ($contractWork) {
+            return $contractWork;
+        }
+
+        return (new DistributionContractWork())
+            ->setDistributionContract($distributionContract)
+            ->setWork($work)
+        ;
+    }
+
     public function findOneByDistributionContractAndWork(DistributionContract $distributionContract, Work $work): ?DistributionContractWork
     {
         return $this->getRepository()->findOneBy([

@@ -78,9 +78,8 @@
                 <thead>
                 <tr>
                     <th>{% trans from 'work' %}Work{% endtrans %}</th>
-                    <th>{% trans from 'setting' %}Territories{% endtrans %}</th>
+                    <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
                     <th>{% trans from 'setting' %}Broadcast channels{% endtrans %}</th>
-                    <th>{% trans from 'setting' %}Broadcast services{% endtrans %}</th>
                     <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
                 </tr>
                 </thead>
@@ -88,23 +87,16 @@
                 {% for work in contract.works %}
                     <tr>
                         <td>{{ work.work.name }}</td>
+                        {% for territory in work.territories %}
+                            <td>{{ territory.territory.name }}</td>
+                            <td>
+                                {% for channel in territory.broadcastChannels %}
+                                    {{ channel.name }}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
                         <td>
-                            {% for territory in work.territories %}
-                                {{ territory.name }},
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% for channel in work.broadcastChannels %}
-                                {{ channel.name }},
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% for service in work.broadcastServices %}
-                                {{ service.name }},
-                            {% endfor %}
-                        </td>
-                        <td>
-                            <a href="{{ path('app_distribution_contract_work_update', {'contract': contract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+{#                            <a href="{{ path('app_distribution_contract_work_update', {'contract': contract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>#}
                         </td>
                     </tr>
                 {% endfor %}

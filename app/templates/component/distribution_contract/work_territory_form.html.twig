@@ -1,0 +1,25 @@
+<div {{ attributes }}>
+    {{ form_start(form) }}
+
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th>Territory</th>
+            <th>Channels</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, itemForm in form.territories %}
+            <tr>
+                <td>{{ form_widget(itemForm.territory) }}</td>
+                <td>{{ form_widget(itemForm.broadcastChannels) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ form_widget(form.territories.vars.button_add, { label: '+ Add Item', attr: { class: 'btn btn-outline-primary' } }) }}
+
+    <button type="submit" class="btn btn-success" formnovalidate>Save</button>
+    {{ form_end(form) }}
+</div>

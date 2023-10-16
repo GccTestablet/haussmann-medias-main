@@ -8,6 +8,8 @@ use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistributionContractFormDto
@@ -32,10 +34,14 @@ class DistributionContractFormDto
 
     private ?FrequencyEnum $reportFrequency = null;
 
+    private Collection $works;
+
     public function __construct(
         private readonly DistributionContract $contract,
         private readonly bool $exists,
-    ) {}
+    ) {
+        $this->works = new ArrayCollection();
+    }
 
     public function getContract(): DistributionContract
     {
@@ -163,6 +169,18 @@ class DistributionContractFormDto
     public function setReportFrequency(?FrequencyEnum $reportFrequency): static
     {
         $this->reportFrequency = $reportFrequency;
+
+        return $this;
+    }
+
+    public function getWorks(): Collection
+    {
+        return $this->works;
+    }
+
+    public function setWorks(Collection $works): static
+    {
+        $this->works = $works;
 
         return $this;
     }

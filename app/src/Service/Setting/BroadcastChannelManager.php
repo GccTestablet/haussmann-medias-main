@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Setting;
 
 use App\Entity\Setting\BroadcastChannel;
+use App\Entity\Work;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -20,6 +21,13 @@ class BroadcastChannelManager
     public function findAll(): array
     {
         return $this->getRepository()->findBy([], ['name' => 'ASC']);
+    }
+
+    public function findByWork(Work $work): array
+    {
+        return $this->getRepository()->findBy([
+            'works' => $work,
+        ]);
     }
 
     public function findOneByName(string $name): ?BroadcastChannel

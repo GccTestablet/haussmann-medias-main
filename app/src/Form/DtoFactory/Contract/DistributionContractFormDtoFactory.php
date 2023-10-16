@@ -16,7 +16,7 @@ class DistributionContractFormDtoFactory
 {
     public function __construct(
         private readonly UploadFileManager $uploadFileManager,
-        private readonly ObjectParser $objectParser
+        private readonly ObjectParser $objectParser,
     ) {}
 
     public function create(Company $company, ?DistributionContract $contract): DistributionContractFormDto
@@ -41,6 +41,7 @@ class DistributionContractFormDtoFactory
         $dto = (new DistributionContractFormDto($contract, true))
             ->setFile($file)
         ;
+
         $this->objectParser->mergeFromObject($contract, $dto);
 
         return $dto;

@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Contract;
 
-use App\Entity\Setting\BroadcastChannel;
-use App\Entity\Setting\BroadcastService;
-use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work;
@@ -37,25 +34,10 @@ class DistributionContractWork
     private Work $work;
 
     /**
-     * @var Collection<Territory>
+     * @var Collection<DistributionContractWorkTerritory>
      */
-    #[ORM\ManyToMany(targetEntity: Territory::class, inversedBy: 'distributionContractWorks')]
-    #[ORM\JoinTable(name: 'distribution_contract_work_territories')]
+    #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkTerritory::class, cascade: ['persist', 'remove'])]
     private Collection $territories;
-
-    /**
-     * @var Collection<BroadcastChannel>
-     */
-    #[ORM\ManyToMany(targetEntity: BroadcastChannel::class, inversedBy: 'distributionContractWorks')]
-    #[ORM\JoinTable(name: 'distribution_contract_work_broadcast_channels')]
-    private Collection $broadcastChannels;
-
-    /**
-     * @var Collection<BroadcastService>
-     */
-    #[ORM\ManyToMany(targetEntity: BroadcastService::class, inversedBy: 'distributionContractWorks')]
-    #[ORM\JoinTable(name: 'distribution_contract_work_broadcast_services')]
-    private Collection $broadcastServices;
 
     #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkRevenue::class)]
     private Collection $revenues;
@@ -63,8 +45,6 @@ class DistributionContractWork
     public function __construct(
     ) {
         $this->territories = new ArrayCollection();
-        $this->broadcastChannels = new ArrayCollection();
-        $this->broadcastServices = new ArrayCollection();
         $this->revenues = new ArrayCollection();
     }
 
@@ -109,8 +89,28 @@ class DistributionContractWork
         return $this->territories;
     }
 
+    //    public function addTerritory(DistributionContractWorkTerritory $territory): static
+    //    {
+    //        if (!$this->territories->contains($territory)) {
+    //            $this->territories->add($territory);
+    //            $territory->setContractWork($this);
+    //        }
+    //
+    //        return $this;
+    //    }
+    //
+    //    public function removeTerritory(DistributionContractWorkTerritory $territory): static
+    //    {
+    //        if ($this->territories->contains($territory)) {
+    //            $this->territories->removeElement($territory);
+    //            $territory->setContractWork(null);
+    //        }
+    //
+    //        return $this;
+    //    }
+
     /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
+     * @param Collection<DistributionContractWorkTerritory> $territories
      */
     public function setTerritories(Collection $territories): static
     {
@@ -118,44 +118,7 @@ class DistributionContractWork
 
         foreach ($territories as $territory) {
             $this->territories->add($territory);
-        }
-
-        return $this;
-    }
-
-    public function getBroadcastChannels(): Collection
-    {
-        return $this->broadcastChannels;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setBroadcastChannels(Collection $broadcastChannels): static
-    {
-        $this->broadcastChannels->clear();
-
-        foreach ($broadcastChannels as $channel) {
-            $this->broadcastChannels->add($channel);
-        }
-
-        return $this;
-    }
-
-    public function getBroadcastServices(): Collection
-    {
-        return $this->broadcastServices;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setBroadcastServices(Collection $broadcastServices): static
-    {
-        $this->broadcastServices->clear();
-
-        foreach ($broadcastServices as $service) {
-            $this->broadcastServices->add($service);
+            $territory->setContractWork($this);
         }
 
         return $this;
