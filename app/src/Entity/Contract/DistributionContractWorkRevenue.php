@@ -43,7 +43,6 @@ class DistributionContractWorkRevenue
     #[ORM\Column(type: Types::STRING, length: 3, nullable: true)]
     private ?string $currency = null;
 
-
     public function getCurrency(): ?string
     {
         return $this->currency;
