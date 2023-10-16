@@ -7,9 +7,14 @@ namespace App\Form\DtoFactory\Contract;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\Contract\DistributionContractWork;
 use App\Form\Dto\Contract\DistributionContractWorkFormDto;
+use App\Tools\Parser\ObjectParser;
 
 class DistributionContractWorkFormDtoFactory
 {
+    public function __construct(
+        private readonly ObjectParser $objectParser
+    ) {}
+
     public function create(DistributionContract $distributionContract, ?DistributionContractWork $distributionContractWork): DistributionContractWorkFormDto
     {
         if (!$distributionContractWork) {
@@ -20,21 +25,14 @@ class DistributionContractWorkFormDtoFactory
             return new DistributionContractWorkFormDto($distributionContractWork, false);
         }
 
-        return (new DistributionContractWorkFormDto($distributionContractWork, true))
-            ->setWork($distributionContractWork->getWork())
-            ->setTerritories($distributionContractWork->getTerritories())
-            ->setBroadcastChannels($distributionContractWork->getBroadcastChannels())
-            ->setBroadcastServices($distributionContractWork->getBroadcastServices())
-        ;
+        $dto = new DistributionContractWorkFormDto($distributionContractWork, true);
+        $this->objectParser->mergeFromObject($distributionContractWork, $dto);
+
+        return $dto;
     }
 
     public function updateEntity(DistributionContractWorkFormDto $dto, DistributionContractWork $distributionContractWork): void
     {
-        $distributionContractWork
-            ->setWork($dto->getWork())
-            ->setTerritories($dto->getTerritories())
-            ->setBroadcastChannels($dto->getBroadcastChannels())
-            ->setBroadcastServices($dto->getBroadcastServices())
-        ;
+        $this->objectParser->mergeFromObject($dto, $distributionContractWork);
     }
 }

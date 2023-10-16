@@ -4,24 +4,33 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Company;
 
-use App\Entity\AcquisitionContract;
 use App\Entity\Company;
+use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyContractFormDto
 {
     private ?Company $beneficiary = null;
 
+    #[Assert\NotBlank()]
+    private ?string $name = null;
+
+    #[Assert\NotBlank()]
     private ?UploadedFile $file = null;
 
-    private ?\DateTime $signedAt = null;
+    #[Assert\NotBlank()]
+    private ?DateTime $signedAt = null;
 
-    private ?\DateTime $startsAt = null;
+    #[Assert\NotBlank()]
+    private ?DateTime $startsAt = null;
 
-    private ?\DateTime $endsAt = null;
+    #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
+    private ?DateTime $endsAt = null;
 
     private Collection $territories;
 
@@ -56,6 +65,18 @@ class CompanyContractFormDto
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getFile(): ?UploadedFile
     {
         return $this->file;
@@ -68,36 +89,36 @@ class CompanyContractFormDto
         return $this;
     }
 
-    public function getSignedAt(): ?\DateTime
+    public function getSignedAt(): ?DateTime
     {
         return $this->signedAt;
     }
 
-    public function setSignedAt(?\DateTime $signedAt): static
+    public function setSignedAt(?DateTime $signedAt): static
     {
         $this->signedAt = $signedAt;
 
         return $this;
     }
 
-    public function getStartsAt(): ?\DateTime
+    public function getStartsAt(): ?DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(?\DateTime $startsAt): static
+    public function setStartsAt(?DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?\DateTime
+    public function getEndsAt(): ?DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?\DateTime $endsAt): static
+    public function setEndsAt(?DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 

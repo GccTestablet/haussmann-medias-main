@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
@@ -13,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function sprintf;
 
 #[ORM\Entity(repositoryClass: WorkRepository::class)]
 #[ORM\Table(name: 'works')]
@@ -77,12 +79,6 @@ class Work
     private Collection $workReversions;
 
     /**
-     * @var Collection<WorkRevenue>
-     */
-    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkRevenue::class, cascade: ['persist'])]
-    private Collection $workRevenues;
-
-    /**
      * @var Collection<DistributionContractWork>
      */
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
@@ -93,7 +89,6 @@ class Work
         $this->broadcastChannels = new ArrayCollection();
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
-        $this->workRevenues = new ArrayCollection();
         $this->distributionContracts = new ArrayCollection();
     }
 
@@ -223,14 +218,11 @@ class Work
     }
 
     /**
-     * TODO: Change this method to use EntityParser
      * We use add/remove to avoid a bug with ManyToMany in form type and DTO
      */
     public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        foreach ($this->broadcastChannels as $channel) {
-            $this->broadcastChannels->removeElement($channel);
-        }
+        $this->broadcastChannels->clear();
 
         foreach ($broadcastChannels as $channel) {
             $this->broadcastChannels->add($channel);
@@ -278,18 +270,6 @@ class Work
         return $this;
     }
 
-    public function getWorkRevenues(): Collection
-    {
-        return $this->workRevenues;
-    }
-
-    public function setWorkRevenues(Collection $workRevenues): static
-    {
-        $this->workRevenues = $workRevenues;
-
-        return $this;
-    }
-
     public function getDistributionContracts(): Collection
     {
         return $this->distributionContracts;
@@ -304,6 +284,6 @@ class Work
 
     public function getImdbLink(): string
     {
-        return \sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
+        return sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
     }
 }

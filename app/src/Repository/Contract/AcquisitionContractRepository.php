@@ -6,6 +6,7 @@ namespace App\Repository\Contract;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use function sprintf;
 
 class AcquisitionContractRepository extends EntityRepository
 {
@@ -13,17 +14,17 @@ class AcquisitionContractRepository extends EntityRepository
     {
         $orX = $this->getEntityManager()->getExpressionBuilder()->orX();
 
-        $fields = ['ac.originalFileName', 'b.name', 'cm.name'];
+        $fields = ['ac.name', 'ac.originalFileName', 'b.name', 'cm.name'];
         foreach ($fields as $field) {
-            $orX->add(\sprintf('LOWER(%s) LIKE LOWER(:query)', $field));
+            $orX->add(sprintf('LOWER(%s) LIKE LOWER(:query)', $field));
         }
 
         return $this->createQueryBuilder('ac')
             ->innerJoin('ac.beneficiary', 'b')
             ->innerJoin('ac.company', 'cm')
             ->where($orX)
-            ->setParameter('query', \sprintf('%%%s%%', $query))
-            ->orderBy('ac.originalFileName', 'ASC')
+            ->setParameter('query', sprintf('%%%s%%', $query))
+            ->orderBy('ac.name', 'ASC')
             ->setFirstResult(0)
             ->setMaxResults($limit)
         ;

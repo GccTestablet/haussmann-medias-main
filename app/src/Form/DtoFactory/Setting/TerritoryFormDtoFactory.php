@@ -6,26 +6,28 @@ namespace App\Form\DtoFactory\Setting;
 
 use App\Entity\Setting\Territory;
 use App\Form\Dto\Setting\TerritoryFormDto;
+use App\Tools\Parser\ObjectParser;
 
 class TerritoryFormDtoFactory
 {
+    public function __construct(
+        private readonly ObjectParser $objectParser
+    ) {}
+
     public function create(?Territory $territory): TerritoryFormDto
     {
         if (!$territory) {
             return new TerritoryFormDto(new Territory(), false);
         }
 
-        return (new TerritoryFormDto($territory, true))
-            ->setName($territory->getName())
-            ->setDescription($territory->getDescription())
-        ;
+        $dto = new TerritoryFormDto($territory, true);
+        $this->objectParser->mergeFromObject($territory, $dto);
+
+        return $dto;
     }
 
     public function updateEntity(TerritoryFormDto $dto, Territory $territory): void
     {
-        $territory
-            ->setName($dto->getName())
-            ->setDescription($dto->getDescription())
-        ;
+        $this->objectParser->mergeFromObject($dto, $territory);
     }
 }

@@ -15,9 +15,13 @@ use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
 use App\Tools\Parser\StringParser;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function count;
+use function sprintf;
 
 class DistributionContractWorkImportFormHandler extends AbstractFormHandler
 {
@@ -39,19 +43,42 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             throw new UnexpectedTypeException($dto, DistributionContractWorkRevenueImportFormDto::class);
         }
 
-        $this->contractWorkRevenueImporter->build(['contract' => $dto->getDistributionContract()]);
-        $records = $this->contractWorkRevenueImporter->getRecords($dto->getFile());
+        try {
+            $this->contractWorkRevenueImporter->build(['contract' => $dto->getDistributionContract()]);
+            $records = $this->contractWorkRevenueImporter->getRecords($dto->getFile());
+        } catch (Exception $exception) {
+            $form->addError(new FormError($exception->getMessage()));
+
+            return parent::onFormNotSubmitAndValid($request, $form, $options);
+        }
 
         foreach ($records as $record) {
             $work = $this->workManager->findOneByInternalId($record->getInternalId());
+            if (!$work) {
+                $form->addError(new FormError(sprintf('Work with internal id "%s" does not exist', $record->getInternalId())));
+
+                continue;
+            }
+
             $contractWork = $this->distributionContractWorkManager->findOneByDistributionContractAndWork(
                 $dto->getDistributionContract(),
                 $work
             );
 
+            if (!$contractWork) {
+                $form->addError(new FormError(sprintf('Work "%s" not found in contract %s', $work->getName(), $dto->getDistributionContract()->getName())));
+
+                continue;
+            }
+
             foreach ($record->getChannels() as $channelName => $revenue) {
                 $slug = $this->stringParser->slugify($channelName);
                 $channel = $this->broadcastChannelManager->findOneBySlug($slug);
+                if (!$channel) {
+                    $form->addError(new FormError(sprintf('Broadcast channel with slug "%s" does not exist', $slug)));
+
+                    continue;
+                }
 
                 $revenue = (new DistributionContractWorkRevenue())
                     ->setContractWork($contractWork)
@@ -64,6 +91,10 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
 
                 $this->entityManager->persist($revenue);
             }
+        }
+
+        if (count($form->getErrors()) > 0) {
+            return parent::onFormNotSubmitAndValid($request, $form, $options);
         }
 
         $this->entityManager->flush();

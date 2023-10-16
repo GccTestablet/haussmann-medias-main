@@ -7,13 +7,24 @@ namespace App\Form\Dto\Contract;
 use App\Entity\Contract\DistributionContract;
 use DateTime;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class DistributionContractWorkRevenueImportFormDto
 {
+    #[Assert\NotBlank]
     private ?DateTime $startsAt = null;
 
     private ?DateTime $endsAt = null;
+    #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
 
+    #[Assert\NotBlank]
+    #[Assert\File(
+        mimeTypes: [
+            'text/csv', 'text/plain', 'application/csv', 'application/x-csv',
+            'text/comma-separated-values', 'text/x-comma-separated-values', 'text/tab-separated-values',
+        ]
+    )]
     private ?UploadedFile $file = null;
 
     private ?string $currency = null;
@@ -22,12 +33,12 @@ class DistributionContractWorkRevenueImportFormDto
         private readonly DistributionContract $distributionContract,
     ) {}
 
-    public function getCurrency(): ?string
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    public function setCurrency(?string $currency): void
+    public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
     }

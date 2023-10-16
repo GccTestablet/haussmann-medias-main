@@ -6,26 +6,28 @@ namespace App\Form\DtoFactory\Company;
 
 use App\Entity\Company;
 use App\Form\Dto\Company\CompanyFormDto;
+use App\Tools\Parser\ObjectParser;
 
 class CompanyFormDtoFactory
 {
+    public function __construct(
+        private readonly ObjectParser $objectParser
+    ) {}
+
     public function create(?Company $company): CompanyFormDto
     {
         if (!$company) {
             return new CompanyFormDto(new Company(), false);
         }
 
-        return (new CompanyFormDto($company, true))
-            ->setName($company->getName())
-            ->setType($company->getType())
-        ;
+        $dto = new CompanyFormDto($company, true);
+        $this->objectParser->mergeFromObject($company, $dto);
+
+        return $dto;
     }
 
     public function updateCompany(CompanyFormDto $dto, Company $company): void
     {
-        $company
-            ->setName($dto->getName())
-            ->setType($dto->getType())
-        ;
+        $this->objectParser->mergeFromObject($dto, $company);
     }
 }

@@ -10,8 +10,13 @@ use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
 use App\Tools\Parser\CsvParser;
 use App\Tools\Parser\StringParser;
+use Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function implode;
+use function in_array;
+use function sprintf;
+use function strtoupper;
 
 class DistributionContractWorkRevenueImporter
 {
@@ -61,10 +66,10 @@ class DistributionContractWorkRevenueImporter
 
         $header = $csvReader->getHeader();
         if ($header !== $this->headers) {
-            throw new \Exception(\sprintf(
+            throw new Exception(sprintf(
                 'Headers in file are different from template. Expected: "%s", got: "%s"',
-                \implode(',', $this->headers),
-                \implode(',', $header)
+                implode(',', $this->headers),
+                implode(',', $header)
             ));
         }
 
@@ -72,7 +77,7 @@ class DistributionContractWorkRevenueImporter
         foreach ($csvReader->getRecords() as $record) {
             $model = new DistributionContractWorkRevenueImporterModel($record[self::INTERNAL_ID], $record[self::NAME]);
             foreach ($this->headers as $header) {
-                if (\in_array($header, [self::INTERNAL_ID, self::NAME], true)) {
+                if (in_array($header, [self::INTERNAL_ID, self::NAME], true)) {
                     continue;
                 }
 
@@ -99,7 +104,7 @@ class DistributionContractWorkRevenueImporter
     private function addHeaders(): void
     {
         foreach ($this->broadcastChannelManager->findAll() as $channel) {
-            $this->headers[] = \strtoupper($this->stringParser->slugify($channel->getName()));
+            $this->headers[] = strtoupper($this->stringParser->slugify($channel->getName(), '_'));
         }
     }
 

@@ -55,7 +55,7 @@ class SearchBarComponent
         $categoryResult = new SearchBarCategoryResult(new TranslatableMessage('Acquisition contracts', [], 'contract'), $paginator->count());
         foreach ($paginator->getIterator() as $contract) {
             $resultDTO = new SearchBarResult(
-                $contract->getOriginalFileName(),
+                $contract->getName(),
                 $this->urlGenerator->generate('app_acquisition_contract_show', ['id' => $contract->getId()])
             );
 

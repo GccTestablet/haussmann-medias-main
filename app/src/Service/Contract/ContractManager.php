@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Contract;
 
-use App\Entity\AcquisitionContract;
+use App\Entity\Contract\AcquisitionContract;
 use App\Repository\Contract\AcquisitionContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;

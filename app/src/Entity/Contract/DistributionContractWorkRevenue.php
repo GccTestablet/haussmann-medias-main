@@ -37,23 +37,14 @@ class DistributionContractWorkRevenue
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private DateTime $endsAt;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['DEFAULT' => 0.0])]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => 0.0])]
     private float $amount = 0.0;
 
     #[ORM\Column(type: Types::STRING, length: 3, nullable: true)]
     private ?string $currency = null;
 
-    public function getCurrency(): ?string
-    {
-        return $this->currency;
-    }
-
-    public function setCurrency(?string $currency): static
-    {
-        $this->currency = $currency;
-
-        return $this;
-    }
+    #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
+    private string $currency = 'EUR';
 
     public function getId(): int
     {
@@ -123,6 +114,18 @@ class DistributionContractWorkRevenue
     public function setAmount(float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }

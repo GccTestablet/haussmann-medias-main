@@ -6,6 +6,7 @@ namespace App\Form\Type\Work;
 
 use App\Entity\Setting\AdaptationCostType;
 use App\Form\Dto\Work\WorkAdaptationFormDto;
+use App\Form\Type\Shared\CurrencyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -24,7 +25,10 @@ class WorkAdaptationFormType extends AbstractType
                 'required' => true,
                 'autocomplete' => true,
             ])
-            ->add('cost', NumberType::class, [
+            ->add('amount', NumberType::class, [
+                'required' => true,
+            ])
+            ->add('currency', CurrencyType::class, [
                 'required' => true,
             ])
         ;

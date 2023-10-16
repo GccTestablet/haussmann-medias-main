@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Company;
 
 use App\Controller\Shared\AbstractAppController;
-use App\Entity\AcquisitionContract;
 use App\Entity\Company;
+use App\Entity\Contract\AcquisitionContract;
 use App\Entity\User;
+use App\Form\Dto\Company\CompanyContractFormDto;
 use App\Form\DtoFactory\Company\CompanyContractFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Company\CompanyContractFormHandler;
@@ -57,7 +58,13 @@ class CompanyAcquisitionContractController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_company_show', ['id' => $company->getId()]);
+            /** @var CompanyContractFormDto $dto */
+            $dto = $form->getData();
+
+            return $this->redirectToRoute('app_company_acquisition_contract_show', [
+                'company' => $company->getId(),
+                'id' => $dto->getContract()->getId(),
+            ]);
         }
 
         return $this->render('shared/common/save.html.twig', [
@@ -77,12 +84,15 @@ class CompanyAcquisitionContractController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_company_show', ['id' => $company->getId()]);
+            return $this->redirectToRoute('app_company_acquisition_contract_show', [
+                'company' => $company->getId(),
+                'id' => $contract->getId(),
+            ]);
         }
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update contract %contract% from company %company%', [
-                '%contract%' => $contract->getOriginalFileName(),
+                '%contract%' => $contract->getName(),
                 '%company%' => $company->getName(),
             ], 'company'),
             'form' => $form,
@@ -111,7 +121,7 @@ class CompanyAcquisitionContractController extends AbstractAppController
 
         return $this->render('shared/common/remove.html.twig', [
             'title' => new TranslatableMessage('Remove contract %contract% from company %company%?', [
-                '%contract%' => $contract->getOriginalFileName(),
+                '%contract%' => $contract->getName(),
                 '%company%' => $company->getName(),
             ], 'company'),
             'form' => $form,

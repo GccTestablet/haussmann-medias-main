@@ -11,7 +11,9 @@ class WorkAdaptationFormDto
 {
     private ?AdaptationCostType $type = null;
 
-    private ?float $cost = null;
+    private ?float $amount = null;
+
+    private ?string $currency = 'EUR';
 
     public function __construct(
         private readonly WorkAdaptation $workAdaptation,
@@ -40,14 +42,26 @@ class WorkAdaptationFormDto
         return $this;
     }
 
-    public function getCost(): ?float
+    public function getAmount(): ?float
     {
-        return $this->cost;
+        return $this->amount;
     }
 
-    public function setCost(?float $cost): static
+    public function setAmount(?float $amount): static
     {
-        $this->cost = $cost;
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }

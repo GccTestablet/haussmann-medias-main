@@ -8,23 +8,28 @@ use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
+use DateTime;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistributionContractFormDto
 {
     private ?Company $distributor = null;
 
+    private ?string $name = null;
+
     private ?DistributionContractTypeEnum $type = null;
 
     private ?UploadedFile $file = null;
 
-    private ?\DateTime $startsAt = null;
+    private ?DateTime $startsAt = null;
 
-    private ?\DateTime $endsAt = null;
+    private ?DateTime $endsAt = null;
 
     private ?string $exclusivity = null;
 
     private ?float $amount = null;
+
+    private string $currency = 'EUR';
 
     private ?FrequencyEnum $reportFrequency = null;
 
@@ -55,6 +60,18 @@ class DistributionContractFormDto
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getType(): ?DistributionContractTypeEnum
     {
         return $this->type;
@@ -79,24 +96,24 @@ class DistributionContractFormDto
         return $this;
     }
 
-    public function getStartsAt(): ?\DateTime
+    public function getStartsAt(): ?DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(?\DateTime $startsAt): static
+    public function setStartsAt(?DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?\DateTime
+    public function getEndsAt(): ?DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?\DateTime $endsAt): static
+    public function setEndsAt(?DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 
@@ -123,6 +140,18 @@ class DistributionContractFormDto
     public function setAmount(?float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }

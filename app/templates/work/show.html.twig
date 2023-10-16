@@ -11,7 +11,6 @@
                 <a href="{{ path('app_acquisition_contract_work_update', {'contract': work.acquisitionContract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
                 <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-success">{% trans from 'work' %}Add adaptation{% endtrans %}</a>
                 <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-success">{% trans from 'work' %}Add reversion{% endtrans %}</a>
-                <a href="{{ path('app_work_revenue_add', {'work': work.id}) }}" class="btn btn-success">{% trans from 'work' %}Add revenue{% endtrans %}</a>
             </div>
 
             <ul class="list-unstyled">
@@ -88,14 +87,6 @@
             {% include 'work/reversion/_embedded/_list.html.twig' with {
                 reversions: work.workReversions
             } %}
-
-            <br />
-            <h4>Revenues</h4>
-            {% include 'work/revenue/_embedded/_list.html.twig' with {
-                revenues: work.workRevenues
-            } %}
-
-
         {% endblock %}
     {% endcomponent %}
 {% endblock %}

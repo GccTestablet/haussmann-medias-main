@@ -10,6 +10,7 @@ use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -35,6 +36,9 @@ class DistributionContract implements FileInterface
     #[ORM\JoinColumn(name: 'distributor_id', referencedColumnName: 'id', nullable: false)]
     private Company $distributor;
 
+    #[ORM\Column(unique: true)]
+    private string $name;
+
     #[ORM\Column(length: 20, enumType: DistributionContractTypeEnum::class)]
     private DistributionContractTypeEnum $type;
 
@@ -45,16 +49,19 @@ class DistributionContract implements FileInterface
     private ?string $originalFileName = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private \DateTime $startsAt;
+    private DateTime $startsAt;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTime $endsAt = null;
+    private ?DateTime $endsAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $exclusivity = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?float $amount = null;
+
+    #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
+    private string $currency = 'EUR';
 
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
@@ -106,6 +113,18 @@ class DistributionContract implements FileInterface
         return $this;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getType(): DistributionContractTypeEnum
     {
         return $this->type;
@@ -142,24 +161,24 @@ class DistributionContract implements FileInterface
         return $this;
     }
 
-    public function getStartsAt(): \DateTime
+    public function getStartsAt(): DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(\DateTime $startsAt): static
+    public function setStartsAt(DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?\DateTime
+    public function getEndsAt(): ?DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?\DateTime $endsAt): static
+    public function setEndsAt(?DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 
@@ -186,6 +205,18 @@ class DistributionContract implements FileInterface
     public function setAmount(?float $amount): static
     {
         $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }
