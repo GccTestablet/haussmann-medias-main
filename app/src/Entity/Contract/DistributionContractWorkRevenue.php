@@ -40,9 +40,6 @@ class DistributionContractWorkRevenue
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => 0.0])]
     private float $amount = 0.0;
 
-    #[ORM\Column(type: Types::STRING, length: 3, nullable: true)]
-    private ?string $currency = null;
-
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
 
