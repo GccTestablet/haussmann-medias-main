@@ -83,12 +83,30 @@ class WorkTerritory
         return $this->broadcastChannels;
     }
 
+    public function addBroadcastChannel(BroadcastChannel $channel): static
+    {
+        if (!$this->broadcastChannels->contains($channel)) {
+            $this->broadcastChannels->add($channel);
+        }
+
+        return $this;
+    }
+
+    public function removeBroadcastChannel(BroadcastChannel $channel): static
+    {
+        if ($this->broadcastChannels->contains($channel)) {
+            $this->broadcastChannels->removeElement($channel);
+        }
+
+        return $this;
+    }
+
     public function setBroadcastChannels(Collection $broadcastChannels): self
     {
         $this->broadcastChannels->clear();
 
         foreach ($broadcastChannels as $channel) {
-            $this->broadcastChannels->add($channel);
+            $this->addBroadcastChannel($channel);
         }
 
         return $this;

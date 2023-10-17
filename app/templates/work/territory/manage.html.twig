@@ -1,0 +1,37 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1>Manage territory from work {{ work.name }}</h1>
+        {% endblock %}
+        {% block body_content %}
+            {{ form_start(form) }}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Territory</th>
+                    {% for channel in broadcastChannels %}
+                        <th>{{ channel.name }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                    {% for territory in territories %}
+                        <tr>
+                            <td>{{ territory.name }}</td>
+                            {% for channel in broadcastChannels %}
+                                {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory, channel) %}
+                                <td class="text-center">{{ form_widget(form.children[formName]) }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button class="btn btn-warning mt-3" type="submit">
+                {% trans from 'misc' %}Save{% endtrans %}
+            </button>
+            {{ form_end(form) }}
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}

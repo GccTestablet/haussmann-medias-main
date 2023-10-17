@@ -70,6 +70,7 @@
 
             <br />
             <h4>Territories</h4>
+            <a href="{{ path('app_work_territory_manage', {'work': work.id}) }}" class="btn btn-warning">Manage</a>
             {% include 'work/territory/_embedded/_list.html.twig' with {
                 workTerritories: work.workTerritories
             } %}
