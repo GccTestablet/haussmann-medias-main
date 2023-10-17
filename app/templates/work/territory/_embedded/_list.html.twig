@@ -1,15 +1,15 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Type</th>
-        <th>Coût</th>
+        <th>Territory</th>
+        <th>Channels</th>
     </tr>
     </thead>
     <tbody>
     {% for workTerritory in workTerritories %}
         <tr>
             <td>{{ workTerritory.territory.name }}</td>
-{#            <td>{{ workTerritory }}</td>#}
+            <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
         </tr>
     {% endfor %}
     </tbody>

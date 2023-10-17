@@ -6,6 +6,7 @@ namespace App\Entity\Work;
 
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContractWork;
+use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Repository\WorkRepository;
@@ -85,6 +86,7 @@ class Work
     {
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
+        $this->workTerritories = new ArrayCollection();
         $this->distributionContracts = new ArrayCollection();
     }
 
@@ -247,14 +249,45 @@ class Work
         return $this;
     }
 
+    /**
+     * @return Collection<WorkTerritory>
+     */
     public function getWorkTerritories(): Collection
     {
         return $this->workTerritories;
     }
 
+    public function getWorkTerritory(Territory $territory): ?WorkTerritory
+    {
+        foreach ($this->workTerritories as $workTerritory) {
+            if ($workTerritory->getTerritory() === $territory) {
+                return $workTerritory;
+            }
+        }
+
+        return null;
+    }
+
+    public function addWorkTerritory(WorkTerritory $workTerritory): static
+    {
+        if (!$this->workTerritories->contains($workTerritory)) {
+            $this->workTerritories->add($workTerritory);
+            $workTerritory->setWork($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Collection<WorkTerritory> $workTerritories
+     */
     public function setWorkTerritories(Collection $workTerritories): static
     {
-        $this->workTerritories = $workTerritories;
+        $this->workTerritories->clear();
+
+        foreach ($workTerritories as $workTerritory) {
+            $this->addWorkTerritory($workTerritory);
+        }
 
         return $this;
     }
