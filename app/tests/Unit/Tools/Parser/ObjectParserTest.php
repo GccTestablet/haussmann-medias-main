@@ -53,7 +53,6 @@ class ObjectParserTest extends AbstractTestCase
         $this->assertSame([
             'id',
             'name',
-            'type',
             'users',
             'acquisitionContracts',
             'distributionContracts',
