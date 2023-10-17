@@ -33,16 +33,6 @@ class DistributionContractWorkRevenueImportFormDto
         private readonly DistributionContract $distributionContract,
     ) {}
 
-    public function getCurrency(): string
-    {
-        return $this->currency;
-    }
-
-    public function setCurrency(string $currency): void
-    {
-        $this->currency = $currency;
-    }
-
     public function getDistributionContract(): DistributionContract
     {
         return $this->distributionContract;
