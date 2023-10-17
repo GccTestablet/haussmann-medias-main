@@ -6,6 +6,7 @@ namespace App\Form\Type\Contract;
 
 use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
+use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
 use App\Form\Dto\Contract\DistributionContractFormDto;
@@ -79,6 +80,12 @@ class DistributionContractFormType extends AbstractType
                 'choice_label' => fn (FrequencyEnum $frequencyEnum) => $frequencyEnum->getAsText(),
                 'choice_translation_domain' => 'misc',
                 'required' => false,
+            ])
+            ->add('works', EntityType::class, [
+                'class' => Work::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'autocomplete' => true,
             ])
         ;
     }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Contract;
 
-use App\Entity\Setting\BroadcastChannel;
-use App\Entity\Setting\BroadcastService;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
@@ -27,7 +25,7 @@ class DistributionContractWork
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: DistributionContract::class, inversedBy: 'works')]
+    #[ORM\ManyToOne(targetEntity: DistributionContract::class, inversedBy: 'contractWorks')]
     #[ORM\JoinColumn(name: 'distribution_contract_id', referencedColumnName: 'id', nullable: false)]
     private DistributionContract $distributionContract;
 
@@ -35,27 +33,11 @@ class DistributionContractWork
     #[ORM\JoinColumn(name: 'work_id', referencedColumnName: 'id', nullable: false)]
     private Work $work;
 
-    /**
-     * @var Collection<BroadcastChannel>
-     */
-    #[ORM\ManyToMany(targetEntity: BroadcastChannel::class, inversedBy: 'distributionContractWorks')]
-    #[ORM\JoinTable(name: 'distribution_contract_work_broadcast_channels')]
-    private Collection $broadcastChannels;
-
-    /**
-     * @var Collection<BroadcastService>
-     */
-    #[ORM\ManyToMany(targetEntity: BroadcastService::class, inversedBy: 'distributionContractWorks')]
-    #[ORM\JoinTable(name: 'distribution_contract_work_broadcast_services')]
-    private Collection $broadcastServices;
-
     #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkRevenue::class)]
     private Collection $revenues;
 
     public function __construct(
     ) {
-        $this->broadcastChannels = new ArrayCollection();
-        $this->broadcastServices = new ArrayCollection();
         $this->revenues = new ArrayCollection();
     }
 
@@ -91,44 +73,6 @@ class DistributionContractWork
     public function setWork(Work $work): static
     {
         $this->work = $work;
-
-        return $this;
-    }
-
-    public function getBroadcastChannels(): Collection
-    {
-        return $this->broadcastChannels;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setBroadcastChannels(Collection $broadcastChannels): static
-    {
-        $this->broadcastChannels->clear();
-
-        foreach ($broadcastChannels as $channel) {
-            $this->broadcastChannels->add($channel);
-        }
-
-        return $this;
-    }
-
-    public function getBroadcastServices(): Collection
-    {
-        return $this->broadcastServices;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setBroadcastServices(Collection $broadcastServices): static
-    {
-        $this->broadcastServices->clear();
-
-        foreach ($broadcastServices as $service) {
-            $this->broadcastServices->add($service);
-        }
 
         return $this;
     }

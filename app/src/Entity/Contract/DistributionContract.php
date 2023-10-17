@@ -8,6 +8,7 @@ use App\Entity\Company;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
+use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -69,11 +70,11 @@ class DistributionContract implements FileInterface
      * @var Collection<DistributionContractWork>
      */
     #[ORM\OneToMany(mappedBy: 'distributionContract', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
-    private Collection $works;
+    private Collection $contractWorks;
 
     public function __construct()
     {
-        $this->works = new ArrayCollection();
+        $this->contractWorks = new ArrayCollection();
     }
 
     public function getId(): int
@@ -232,14 +233,43 @@ class DistributionContract implements FileInterface
         return $this;
     }
 
-    public function getWorks(): Collection
+    public function getContractWorks(): Collection
     {
-        return $this->works;
+        return $this->contractWorks;
     }
 
-    public function setWorks(Collection $works): static
+    public function getContractWork(Work $work): ?DistributionContractWork
     {
-        $this->works = $works;
+        foreach ($this->contractWorks as $contractWork) {
+            if ($contractWork->getWork() === $work) {
+                return $contractWork;
+            }
+        }
+
+        return null;
+    }
+
+    public function addContractWork(DistributionContractWork $contractWork): static
+    {
+        if (!$this->contractWorks->contains($contractWork)) {
+            $this->contractWorks->add($contractWork);
+        }
+
+        return $this;
+    }
+
+    public function removeContractWork(DistributionContractWork $contractWork): static
+    {
+        if ($this->contractWorks->contains($contractWork)) {
+            $this->contractWorks->removeElement($contractWork);
+        }
+
+        return $this;
+    }
+
+    public function setContractWorks(Collection $contractWorks): static
+    {
+        $this->contractWorks = $contractWorks;
 
         return $this;
     }
