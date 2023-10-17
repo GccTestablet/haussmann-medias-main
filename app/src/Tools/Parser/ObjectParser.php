@@ -7,12 +7,15 @@ namespace App\Tools\Parser;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
+use function array_diff;
+use function array_intersect;
+use function is_string;
 
 class ObjectParser
 {
     public function getClassName(string|object $classOrObject): string
     {
-        if (\is_string($classOrObject)) {
+        if (is_string($classOrObject)) {
             return $classOrObject;
         }
 
@@ -35,8 +38,8 @@ class ObjectParser
      */
     public function mergeFromObject(object $source, object $target, array $excludeProperties = []): void
     {
-        $properties = \array_intersect($this->getProperties($source), $this->getProperties($target));
-        $properties = \array_diff($properties, $excludeProperties);
+        $properties = array_intersect($this->getProperties($source), $this->getProperties($target));
+        $properties = array_diff($properties, $excludeProperties);
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
         foreach ($properties as $property) {

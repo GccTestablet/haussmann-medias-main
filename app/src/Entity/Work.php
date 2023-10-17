@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function sprintf;
 
 #[ORM\Entity(repositoryClass: WorkRepository::class)]
 #[ORM\Table(name: 'works')]
@@ -283,6 +284,6 @@ class Work
 
     public function getImdbLink(): string
     {
-        return \sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
+        return sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
     }
 }
