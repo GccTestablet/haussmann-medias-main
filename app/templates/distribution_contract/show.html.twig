@@ -21,7 +21,6 @@
                 {% if isCompanyAdmin %}
                     <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
                 {% endif %}
-{#                <a href="{{ path('app_distribution_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>#}
                 <a href="{{ path('app_distribution_contract_generate_template', {'id': contract.id}) }}" class="btn btn-primary">{% trans from 'contract' %}Download CSV template{% endtrans %}</a>
                 <a href="{{ path('app_distribution_contract_work_revenue_import', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'contract' %}Import revenues{% endtrans %}</a>
             </div>
