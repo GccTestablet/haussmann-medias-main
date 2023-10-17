@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Work;
 
 use App\Controller\Shared\AbstractAppController;
-use App\Entity\Work;
-use App\Entity\WorkReversion;
+use App\Entity\Work\Work;
+use App\Entity\Work\WorkReversion;
 use App\Form\DtoFactory\Work\WorkReversionFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;

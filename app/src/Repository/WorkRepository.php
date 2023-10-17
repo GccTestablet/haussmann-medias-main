@@ -6,7 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 

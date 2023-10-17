@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Coût</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for workTerritory in workTerritories %}
+        <tr>
+            <td>{{ workTerritory.territory.name }}</td>
+{#            <td>{{ workTerritory }}</td>#}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

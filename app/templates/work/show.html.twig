@@ -51,14 +51,6 @@
                     <span>{{ work.country|country_format }}</span>
                 </li>
                 <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Broadcast channels{% endtrans %}</span>
-                    <span>
-                        {% for channel in work.broadcastChannels %}
-                            {{ channel.name }}<br />
-                        {% endfor %}
-                    </span>
-                </li>
-                <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
                     <span>{{ work.createdAt|datetime_format }}</span>
                 </li>
@@ -75,6 +67,12 @@
                     <span>{{ work.updatedBy|user_format }}</span>
                 </li>
             </ul>
+
+            <br />
+            <h4>Territories</h4>
+            {% include 'work/territory/_embedded/_list.html.twig' with {
+                workTerritories: work.workTerritories
+            } %}
 
             <br />
             <h4>Adaptations</h4>

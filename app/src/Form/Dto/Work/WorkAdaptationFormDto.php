@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Dto\Work;
 
 use App\Entity\Setting\AdaptationCostType;
-use App\Entity\WorkAdaptation;
+use App\Entity\Work\WorkAdaptation;
 
 class WorkAdaptationFormDto
 {
