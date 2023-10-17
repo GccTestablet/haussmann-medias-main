@@ -17,7 +17,6 @@ class DistributionContractWorkRevenueImportFormDto
     private ?DateTime $endsAt = null;
     #[Assert\NotBlank]
     #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
-
     #[Assert\NotBlank]
     #[Assert\File(
         mimeTypes: [
