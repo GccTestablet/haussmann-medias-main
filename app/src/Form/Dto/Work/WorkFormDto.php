@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Form\Dto\Work;
 
 use App\Entity\Work\Work;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkFormDto
@@ -31,14 +29,10 @@ class WorkFormDto
 
     private ?string $duration = null;
 
-    private Collection $broadcastChannels;
-
     public function __construct(
         private readonly Work $work,
         private readonly bool $exists,
-    ) {
-        $this->broadcastChannels = new ArrayCollection();
-    }
+    ) {}
 
     public function getWork(): Work
     {
@@ -154,18 +148,6 @@ class WorkFormDto
     public function setDuration(?string $duration): static
     {
         $this->duration = $duration;
-
-        return $this;
-    }
-
-    public function getBroadcastChannels(): Collection
-    {
-        return $this->broadcastChannels;
-    }
-
-    public function setBroadcastChannels(Collection $broadcastChannels): static
-    {
-        $this->broadcastChannels = $broadcastChannels;
 
         return $this;
     }

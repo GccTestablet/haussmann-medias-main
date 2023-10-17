@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Dto\Company;
+namespace App\Form\Dto\Contract;
 
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
@@ -10,7 +10,7 @@ use App\Enum\Common\FrequencyEnum;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CompanyContractFormDto
+class AcquisitionContractFormDto
 {
     private ?Company $beneficiary = null;
 
