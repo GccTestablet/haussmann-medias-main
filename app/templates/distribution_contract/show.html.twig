@@ -21,7 +21,6 @@
                 {% if isCompanyAdmin %}
                     <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
                 {% endif %}
-                <a href="{{ path('app_distribution_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
                 <a href="{{ path('app_distribution_contract_generate_template', {'id': contract.id}) }}" class="btn btn-primary">{% trans from 'contract' %}Download CSV template{% endtrans %}</a>
                 <a href="{{ path('app_distribution_contract_work_revenue_import', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'contract' %}Import revenues{% endtrans %}</a>
             </div>
@@ -78,33 +77,15 @@
                 <thead>
                 <tr>
                     <th>{% trans from 'work' %}Work{% endtrans %}</th>
-                    <th>{% trans from 'setting' %}Territories{% endtrans %}</th>
-                    <th>{% trans from 'setting' %}Broadcast channels{% endtrans %}</th>
-                    <th>{% trans from 'setting' %}Broadcast services{% endtrans %}</th>
                     <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for work in contract.works %}
+                {% for contractWork in contract.contractWorks %}
                     <tr>
-                        <td>{{ work.work.name }}</td>
+                        <td>{{ contractWork.work.name }}</td>
                         <td>
-                            {% for territory in work.territories %}
-                                {{ territory.name }},
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% for channel in work.broadcastChannels %}
-                                {{ channel.name }},
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% for service in work.broadcastServices %}
-                                {{ service.name }},
-                            {% endfor %}
-                        </td>
-                        <td>
-                            <a href="{{ path('app_distribution_contract_work_update', {'contract': contract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+                            <a href="#" class="btn btn-warning">{% trans from 'misc' %}Manage territories{% endtrans %}</a>
                         </td>
                     </tr>
                 {% endfor %}
