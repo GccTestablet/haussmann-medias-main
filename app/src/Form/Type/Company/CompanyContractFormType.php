@@ -8,7 +8,6 @@ use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Form\Dto\Company\CompanyContractFormDto;
-use App\Form\Type\Common\TerritoryAutocompleteField;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
@@ -58,10 +57,6 @@ class CompanyContractFormType extends AbstractType
             ->add('endsAt', DateType::class, [
                 'label' => 'Rights ends at',
                 'required' => false,
-            ])
-            ->add('territories', TerritoryAutocompleteField::class, [
-                'required' => true,
-                'multiple' => true,
             ])
             ->add('reportFrequency', EnumType::class, [
                 'placeholder' => 'Select report frequency',

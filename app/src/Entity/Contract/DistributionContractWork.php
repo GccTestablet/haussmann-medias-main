@@ -6,10 +6,9 @@ namespace App\Entity\Contract;
 
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Setting\BroadcastService;
-use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -37,13 +36,6 @@ class DistributionContractWork
     private Work $work;
 
     /**
-     * @var Collection<Territory>
-     */
-    #[ORM\ManyToMany(targetEntity: Territory::class, inversedBy: 'distributionContractWorks')]
-    #[ORM\JoinTable(name: 'distribution_contract_work_territories')]
-    private Collection $territories;
-
-    /**
      * @var Collection<BroadcastChannel>
      */
     #[ORM\ManyToMany(targetEntity: BroadcastChannel::class, inversedBy: 'distributionContractWorks')]
@@ -62,7 +54,6 @@ class DistributionContractWork
 
     public function __construct(
     ) {
-        $this->territories = new ArrayCollection();
         $this->broadcastChannels = new ArrayCollection();
         $this->broadcastServices = new ArrayCollection();
         $this->revenues = new ArrayCollection();
@@ -100,25 +91,6 @@ class DistributionContractWork
     public function setWork(Work $work): static
     {
         $this->work = $work;
-
-        return $this;
-    }
-
-    public function getTerritories(): Collection
-    {
-        return $this->territories;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setTerritories(Collection $territories): static
-    {
-        $this->territories->clear();
-
-        foreach ($territories as $territory) {
-            $this->territories->add($territory);
-        }
 
         return $this;
     }

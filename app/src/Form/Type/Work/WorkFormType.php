@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Work;
 
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use App\Form\Dto\Work\WorkFormDto;
 use App\Form\Type\Common\BroadcastChannelAutocompleteField;
 use App\Form\Validator\Constraint\UniqueEntityField;

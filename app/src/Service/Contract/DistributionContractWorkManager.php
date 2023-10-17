@@ -6,7 +6,7 @@ namespace App\Service\Contract;
 
 use App\Entity\Contract\DistributionContract;
 use App\Entity\Contract\DistributionContractWork;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 

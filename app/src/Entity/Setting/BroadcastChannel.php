@@ -7,8 +7,7 @@ namespace App\Entity\Setting;
 use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
-use App\Entity\Work;
-use App\Entity\WorkReversion;
+use App\Entity\Work\WorkReversion;
 use App\Repository\Broadcast\BroadcastChannelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -40,12 +39,6 @@ class BroadcastChannel
     private Collection $broadcastServices;
 
     /**
-     * @var Collection<Work>
-     */
-    #[ORM\ManyToMany(targetEntity: Work::class, mappedBy: 'broadcastChannels')]
-    private Collection $works;
-
-    /**
      * @var Collection<WorkReversion>
      */
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: WorkReversion::class, cascade: ['persist'])]
@@ -57,7 +50,6 @@ class BroadcastChannel
     public function __construct()
     {
         $this->broadcastServices = new ArrayCollection();
-        $this->works = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
         $this->distributionContractWorks = new ArrayCollection();
     }
@@ -106,18 +98,6 @@ class BroadcastChannel
     public function setBroadcastServices(Collection $broadcastServices): static
     {
         $this->broadcastServices = $broadcastServices;
-
-        return $this;
-    }
-
-    public function getWorks(): Collection
-    {
-        return $this->works;
-    }
-
-    public function setWorks(Collection $works): static
-    {
-        $this->works = $works;
 
         return $this;
     }

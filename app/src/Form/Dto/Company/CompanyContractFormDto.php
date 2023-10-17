@@ -7,8 +7,6 @@ namespace App\Form\Dto\Company;
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,16 +29,12 @@ class CompanyContractFormDto
     #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
     private ?\DateTime $endsAt = null;
 
-    private Collection $territories;
-
     private ?FrequencyEnum $reportFrequency = null;
 
     public function __construct(
         private readonly AcquisitionContract $contract,
         private readonly bool $exists,
-    ) {
-        $this->territories = new ArrayCollection();
-    }
+    ) {}
 
     public function getContract(): AcquisitionContract
     {
@@ -120,18 +114,6 @@ class CompanyContractFormDto
     public function setEndsAt(?\DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
-
-        return $this;
-    }
-
-    public function getTerritories(): ?Collection
-    {
-        return $this->territories;
-    }
-
-    public function setTerritories(?Collection $territories): static
-    {
-        $this->territories = $territories;
 
         return $this;
     }

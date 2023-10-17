@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Work;
 
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContractWork;
-use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Repository\WorkRepository;
@@ -54,13 +53,6 @@ class Work
     #[ORM\Column(nullable: true)]
     private ?string $duration = null;
 
-    /**
-     * @var Collection<BroadcastChannel>
-     */
-    #[ORM\ManyToMany(targetEntity: BroadcastChannel::class, inversedBy: 'works')]
-    #[ORM\JoinTable(name: 'works_broadcast_channels')]
-    private Collection $broadcastChannels;
-
     #[ORM\ManyToOne(targetEntity: AcquisitionContract::class, inversedBy: 'works')]
     #[ORM\JoinColumn(name: 'acquisition_contract_id', referencedColumnName: 'id')]
     private AcquisitionContract $acquisitionContract;
@@ -78,6 +70,12 @@ class Work
     private Collection $workReversions;
 
     /**
+     * @var Collection<WorkTerritory>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkTerritory::class, cascade: ['persist'])]
+    private Collection $workTerritories;
+
+    /**
      * @var Collection<DistributionContractWork>
      */
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
@@ -85,7 +83,6 @@ class Work
 
     public function __construct()
     {
-        $this->broadcastChannels = new ArrayCollection();
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
         $this->distributionContracts = new ArrayCollection();
@@ -211,25 +208,6 @@ class Work
         return $this;
     }
 
-    public function getBroadcastChannels(): Collection
-    {
-        return $this->broadcastChannels;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setBroadcastChannels(Collection $broadcastChannels): static
-    {
-        $this->broadcastChannels->clear();
-
-        foreach ($broadcastChannels as $channel) {
-            $this->broadcastChannels->add($channel);
-        }
-
-        return $this;
-    }
-
     public function getAcquisitionContract(): AcquisitionContract
     {
         return $this->acquisitionContract;
@@ -265,6 +243,18 @@ class Work
     public function setWorkReversions(Collection $workReversions): static
     {
         $this->workReversions = $workReversions;
+
+        return $this;
+    }
+
+    public function getWorkTerritories(): Collection
+    {
+        return $this->workTerritories;
+    }
+
+    public function setWorkTerritories(Collection $workTerritories): static
+    {
+        $this->workTerritories = $workTerritories;
 
         return $this;
     }

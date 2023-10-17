@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\DtoFactory\Work;
 
-use App\Entity\Work;
-use App\Entity\WorkAdaptation;
+use App\Entity\Work\Work;
+use App\Entity\Work\WorkAdaptation;
 use App\Form\Dto\Work\WorkAdaptationFormDto;
 use App\Tools\Parser\ObjectParser;
 

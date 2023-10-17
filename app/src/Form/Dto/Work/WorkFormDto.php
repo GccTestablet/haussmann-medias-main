@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Dto\Work;
 
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;

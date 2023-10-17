@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Work;
 
 use App\Entity\Setting\AdaptationCostType;
 use App\Entity\Shared\BlameableEntity;

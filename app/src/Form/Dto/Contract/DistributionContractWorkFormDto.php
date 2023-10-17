@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Dto\Contract;
 
 use App\Entity\Contract\DistributionContractWork;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
