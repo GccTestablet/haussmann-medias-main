@@ -1,15 +1,14 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {{ service.name }}
+{% endblock %}
+{% block content_action %}
+    <a href="{{ path('app_setting_broadcast_channel_service_update', {'channel': service.broadcastChannel.id, 'id': service.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center">{{ service.name }}</h1>
-        {% endblock %}
         {% block body_content %}
-            <div class="justify-content-between mb-2">
-                <a href="{{ path('app_setting_broadcast_channel_service_update', {'channel': service.broadcastChannel.id, 'id': service.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
-            </div>
-
             <ul>
                 <li>Id: {{ service.id }}</li>
                 <li>Name: {{ service.name }}</li>

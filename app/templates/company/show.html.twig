@@ -2,21 +2,20 @@
 
 {% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), company) %}
 
+{% block content_title %}
+    {{ company.name }}
+{% endblock %}
+{% block content_action %}
+    <a href="{{ path('app_company_index') }}" class="btn btn-primary">{% trans from "misc" %}List{% endtrans %}</a>
+    {% if isCompanyAdmin %}
+        <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
+        <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "user" %}Add user{% endtrans %}</a>
+        <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "contract" %}Add acquisition contract{% endtrans %}</a>
+    {% endif %}
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content%}
-            <h1 class="card-title text-center">{{ company.name }}</h1>
-        {% endblock %}
-        {% block body_content%}
-            <div class="justify-content-between align-items-center text-center">
-                <a href="{{ path('app_company_index') }}" class="btn btn-primary">{% trans from "misc" %}List{% endtrans %}</a>
-                {% if isCompanyAdmin %}
-                    <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
-                    <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "user" %}Add user{% endtrans %}</a>
-                    <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "contract" %}Add acquisition contract{% endtrans %}</a>
-                {% endif %}
-            </div>
-
+        {% block body_content %}
             <ul class="list-unstyled">
                 <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'company' %}Name{% endtrans %}:</span>
@@ -45,8 +44,6 @@
             </ul>
 
             <br>
-
-            <hr class="my-0">
 
             <h4>{% trans from 'contract' %}Acquisition contracts{% endtrans %}</h4>
 

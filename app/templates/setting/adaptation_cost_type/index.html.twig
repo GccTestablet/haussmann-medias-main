@@ -1,13 +1,14 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {% trans from 'setting' %}List of adaptation cost types{% endtrans %}
+{% endblock %}
+{% block content_action %}
+    <a class="btn btn-success" href="{{ path('app_setting_adaptation_cost_type_add') }}">{% trans from 'setting' %}Add adaptation cost type{% endtrans %}</a>
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center">{% trans from 'setting' %}List of adaptation cost types{% endtrans %}</h1>
-        {% endblock %}
         {% block body_content %}
-            <a class="btn btn-success" href="{{ path('app_setting_adaptation_cost_type_add') }}">{% trans from 'setting' %}Add adaptation cost type{% endtrans %}</a>
-
             <table class="table">
                 <thead>
                 <tr>

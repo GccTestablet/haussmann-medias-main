@@ -1,10 +1,33 @@
-<!-- Nav -->
-<nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme py-3 px-3 border shadow-sm" id="layout-navbar">
-    <div class="container-fluid">
-        {{ include('shared/layout/_embedded/_navbar/_search.html.twig') }} <!-- search-->
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
-            {{ include('shared/layout/_embedded/_navbar/_user.html.twig') }} <!-- user-->
-        </ul>
+<header id="page-header">
+    <div class="content-header">
+        <div class="d-flex align-items-center">
+            <!-- Toggle Sidebar -->
+            <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
+            <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-lg-none" data-toggle="layout" data-action="sidebar_toggle">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+            <!-- END Toggle Sidebar -->
+
+            <!-- Open Search Section (visible on smaller screens) -->
+            <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+            <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout" data-action="header_search_on">
+                <i class="fa fa-fw fa-search"></i>
+            </button>
+            <!-- END Open Search Section -->
+
+            <!-- Search Form (visible on larger screens) -->
+            <form class="d-none d-md-inline-block" action="be_pages_generic_search.html" method="POST">
+                {{ include('shared/layout/_embedded/_navbar/_search.html.twig') }}
+            </form>
+            <!-- END Search Form -->
+        </div>
+        <!-- END Left Section -->
+
+        <!-- Right Section -->
+        <div class="d-flex align-items-center">
+            {{ include('shared/layout/_embedded/_navbar/_user.html.twig') }}
+        </div>
+        <!-- END Right Section -->
     </div>
-</nav>
-<!--/ Nav -->
+    <!-- END Header Content -->
+</header>

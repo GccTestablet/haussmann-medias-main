@@ -1,14 +1,14 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {% trans from 'company' %}List of companies{% endtrans %}
+{% endblock %}
+{% block content_action %}
+    <a href="{{ path('app_company_add') }}" class="btn btn-success">{% trans from 'company' %}Add company{% endtrans %}</a>
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center">{% trans from 'company' %}List of companies{% endtrans %}</h1>
-        {% endblock %}
         {% block body_content %}
-            <div class="justify-content-between">
-                <a href="{{ path('app_company_add') }}" class="btn btn-success">{% trans from 'company' %}Add company{% endtrans %}</a>
-            </div>
             <table class="table">
                 <thead>
                 <tr>
