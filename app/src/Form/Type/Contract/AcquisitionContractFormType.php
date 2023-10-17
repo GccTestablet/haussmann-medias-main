@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Type\Company;
+namespace App\Form\Type\Contract;
 
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
-use App\Form\Dto\Company\CompanyContractFormDto;
-use App\Form\Type\Common\TerritoryAutocompleteField;
+use App\Form\Dto\Contract\AcquisitionContractFormDto;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
@@ -20,11 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CompanyContractFormType extends AbstractType
+class AcquisitionContractFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var CompanyContractFormDto $dto */
+        /** @var AcquisitionContractFormDto $dto */
         $dto = $builder->getData();
 
         $builder
@@ -59,10 +58,6 @@ class CompanyContractFormType extends AbstractType
                 'label' => 'Rights ends at',
                 'required' => false,
             ])
-            ->add('territories', TerritoryAutocompleteField::class, [
-                'required' => true,
-                'multiple' => true,
-            ])
             ->add('reportFrequency', EnumType::class, [
                 'placeholder' => 'Select report frequency',
                 'class' => FrequencyEnum::class,
@@ -76,7 +71,7 @@ class CompanyContractFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CompanyContractFormDto::class,
+            'data_class' => AcquisitionContractFormDto::class,
             'translation_domain' => 'contract',
         ]);
     }

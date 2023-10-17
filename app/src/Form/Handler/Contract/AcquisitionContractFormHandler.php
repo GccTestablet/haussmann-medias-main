@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Handler\Company;
+namespace App\Form\Handler\Contract;
 
-use App\Form\Dto\Company\CompanyContractFormDto;
-use App\Form\DtoFactory\Company\CompanyContractFormDtoFactory;
+use App\Form\Dto\Contract\AcquisitionContractFormDto;
+use App\Form\DtoFactory\Contract\AcquisitionContractFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
-use App\Form\Type\Company\CompanyContractFormType;
+use App\Form\Type\Contract\AcquisitionContractFormType;
 use App\Tools\Manager\UploadFileManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class CompanyContractFormHandler extends AbstractFormHandler
+class AcquisitionContractFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UploadFileManager $uploadFileManager,
-        private readonly CompanyContractFormDtoFactory $companyContractFormDtoFactory,
+        private readonly AcquisitionContractFormDtoFactory $companyContractFormDtoFactory,
     ) {}
 
-    protected static string $form = CompanyContractFormType::class;
+    protected static string $form = AcquisitionContractFormType::class;
 
     protected function onFormSubmitAndValid(Request $request, FormInterface $form, array $options = []): FormHandlerResponseInterface
     {
         $dto = $form->getData();
-        if (!$dto instanceof CompanyContractFormDto) {
-            throw new UnexpectedTypeException($dto, CompanyContractFormDto::class);
+        if (!$dto instanceof AcquisitionContractFormDto) {
+            throw new UnexpectedTypeException($dto, AcquisitionContractFormDto::class);
         }
 
         $contract = $dto->getContract();

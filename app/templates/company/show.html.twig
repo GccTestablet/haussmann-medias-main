@@ -22,10 +22,6 @@
                     <span>{{ company.name }}</span>
                 </li>
                 <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'company' %}Type{% endtrans %}:</span>
-                    <span>{{ company.type.asText|trans({}, 'company') }}</span>
-                </li>
-                <li class="mb-3">
                     <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
                     <span>{{ company.createdAt|datetime_format }}</span>
                 </li>

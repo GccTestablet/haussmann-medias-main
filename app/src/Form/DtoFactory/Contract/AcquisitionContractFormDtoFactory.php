@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace App\Form\DtoFactory\Company;
+namespace App\Form\DtoFactory\Contract;
 
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
-use App\Form\Dto\Company\CompanyContractFormDto;
+use App\Form\Dto\Contract\AcquisitionContractFormDto;
 use App\Tools\Generator\FileNameGenerator;
 use App\Tools\Manager\UploadFileManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class CompanyContractFormDtoFactory
+class AcquisitionContractFormDtoFactory
 {
     public function __construct(
         private readonly UploadFileManager $uploadFileManager
     ) {}
 
-    public function create(Company $company, ?AcquisitionContract $contract): CompanyContractFormDto
+    public function create(Company $company, ?AcquisitionContract $contract): AcquisitionContractFormDto
     {
         if (!$contract) {
             $contract = (new AcquisitionContract())
                 ->setCompany($company)
             ;
 
-            return new CompanyContractFormDto($contract, false);
+            return new AcquisitionContractFormDto($contract, false);
         }
 
         $filePath = $this->uploadFileManager->path($contract->getUploadDir(), $contract->getFileName());
@@ -33,19 +33,18 @@ class CompanyContractFormDtoFactory
             $contract->getOriginalFileName()
         );
 
-        return (new CompanyContractFormDto($contract, true))
+        return (new AcquisitionContractFormDto($contract, true))
             ->setBeneficiary($contract->getBeneficiary())
             ->setName($contract->getName())
             ->setFile($file)
             ->setSignedAt($contract->getSignedAt())
             ->setStartsAt($contract->getStartsAt())
             ->setEndsAt($contract->getEndsAt())
-            ->setTerritories($contract->getTerritories())
             ->setReportFrequency($contract->getReportFrequency())
         ;
     }
 
-    public function updateEntity(CompanyContractFormDto $dto, AcquisitionContract $contract): void
+    public function updateEntity(AcquisitionContractFormDto $dto, AcquisitionContract $contract): void
     {
         if ($dto->getFile()) {
             $contract
@@ -60,7 +59,6 @@ class CompanyContractFormDtoFactory
             ->setSignedAt($dto->getSignedAt())
             ->setStartsAt($dto->getStartsAt())
             ->setEndsAt($dto->getEndsAt())
-            ->setTerritories($dto->getTerritories())
             ->setReportFrequency($dto->getReportFrequency())
         ;
     }

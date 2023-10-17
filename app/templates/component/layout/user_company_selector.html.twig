@@ -5,10 +5,8 @@
     <ul class="dropdown-menu w-100">
         {% for company in computed.companies|filter(company => company != app.user.connectedOn) %}
             <li>
-                {% set companyType = company.type.asText|trans({}, 'company') %}
-                <a class="dropdown-item" href="{{ path('app_security_profile_switch_company', {'company': company.id}) }}" title="{{ companyType }}">
+                <a class="dropdown-item" href="{{ path('app_security_profile_switch_company', {'company': company.id}) }}">
                     {{ company.name }}
-                    ({{ companyType|initial_format|upper }})
                 </a>
             </li>
         {% endfor %}

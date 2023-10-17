@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace App\Form\Dto\Company;
 
 use App\Entity\Company;
-use App\Enum\Company\CompanyTypeEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CompanyFormDto
 {
     #[Assert\NotBlank]
     private ?string $name = null;
-
-    private ?CompanyTypeEnum $type = null;
 
     public function __construct(
         private readonly Company $company,
@@ -38,18 +35,6 @@ class CompanyFormDto
     public function setName(?string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getType(): ?CompanyTypeEnum
-    {
-        return $this->type;
-    }
-
-    public function setType(?CompanyTypeEnum $type): static
-    {
-        $this->type = $type;
 
         return $this;
     }

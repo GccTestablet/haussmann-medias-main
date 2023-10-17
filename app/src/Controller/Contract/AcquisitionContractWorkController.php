@@ -6,7 +6,7 @@ namespace App\Controller\Contract;
 
 use App\Controller\Shared\AbstractAppController;
 use App\Entity\Contract\AcquisitionContract;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use App\Form\Dto\Work\WorkFormDto;
 use App\Form\DtoFactory\Work\WorkFormDtoFactory;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;

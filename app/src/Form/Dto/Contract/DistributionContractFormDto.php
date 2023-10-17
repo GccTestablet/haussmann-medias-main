@@ -8,6 +8,8 @@ use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
+use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistributionContractFormDto
@@ -20,9 +22,9 @@ class DistributionContractFormDto
 
     private ?UploadedFile $file = null;
 
-    private ?\DateTime $startsAt = null;
+    private ?DateTime $startsAt = null;
 
-    private ?\DateTime $endsAt = null;
+    private ?DateTime $endsAt = null;
 
     private ?string $exclusivity = null;
 
@@ -31,6 +33,8 @@ class DistributionContractFormDto
     private string $currency = 'EUR';
 
     private ?FrequencyEnum $reportFrequency = null;
+
+    private Collection $works;
 
     public function __construct(
         private readonly DistributionContract $contract,
@@ -95,24 +99,24 @@ class DistributionContractFormDto
         return $this;
     }
 
-    public function getStartsAt(): ?\DateTime
+    public function getStartsAt(): ?DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(?\DateTime $startsAt): static
+    public function setStartsAt(?DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?\DateTime
+    public function getEndsAt(): ?DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?\DateTime $endsAt): static
+    public function setEndsAt(?DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 
@@ -163,6 +167,18 @@ class DistributionContractFormDto
     public function setReportFrequency(?FrequencyEnum $reportFrequency): static
     {
         $this->reportFrequency = $reportFrequency;
+
+        return $this;
+    }
+
+    public function getWorks(): Collection
+    {
+        return $this->works;
+    }
+
+    public function setWorks(Collection $works): static
+    {
+        $this->works = $works;
 
         return $this;
     }
