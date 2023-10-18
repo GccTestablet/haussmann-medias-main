@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{ territory.name }}</td>
                         {% for channel in broadcastChannels %}
-                            {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory, channel) %}
+                            {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory, channel) %}
                             {% set formView = form.territories[formName] ?? null %}
                             <td class="text-center">{{ formView ? form_widget(formView) }}</td>
                         {% endfor %}
