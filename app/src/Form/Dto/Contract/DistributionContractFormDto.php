@@ -8,6 +8,7 @@ use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -19,7 +20,10 @@ class DistributionContractFormDto
 
     private ?DistributionContractTypeEnum $type = null;
 
-    private ?UploadedFile $file = null;
+    /**
+     * @var UploadedFile[]
+     */
+    private array $files = [];
 
     private ?\DateTime $startsAt = null;
 
@@ -38,7 +42,9 @@ class DistributionContractFormDto
     public function __construct(
         private readonly DistributionContract $contract,
         private readonly bool $exists,
-    ) {}
+    ) {
+        $this->works = new ArrayCollection();
+    }
 
     public function getContract(): DistributionContract
     {
@@ -86,14 +92,20 @@ class DistributionContractFormDto
         return $this;
     }
 
-    public function getFile(): ?UploadedFile
+    /**
+     * @return UploadedFile[]
+     */
+    public function getFiles(): array
     {
-        return $this->file;
+        return $this->files;
     }
 
-    public function setFile(?UploadedFile $file): static
+    /**
+     * @param UploadedFile[] $files
+     */
+    public function setFiles(array $files): static
     {
-        $this->file = $file;
+        $this->files = $files;
 
         return $this;
     }

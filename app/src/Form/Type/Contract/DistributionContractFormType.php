@@ -14,6 +14,7 @@ use App\Form\Type\Shared\CurrencyType;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
+use App\Service\Contract\DistributionContractFileHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -26,6 +27,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DistributionContractFormType extends AbstractType
 {
+    public function __construct(
+        private readonly DistributionContractFileHelper $distributionContractFileHelper
+    ) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var DistributionContractFormDto $dto */
@@ -50,13 +55,15 @@ class DistributionContractFormType extends AbstractType
                 'choice_label' => fn (DistributionContractTypeEnum $enum) => $enum->getAsText(),
                 'placeholder' => 'Select a contract type',
             ])
-            ->add('file', FileType::class, [
-                'label' => 'Contract',
+            ->add('files', FileType::class, [
+                'label' => 'Add more files',
                 'required' => false,
+                'multiple' => true,
                 'attr' => [
                     'class' => 'custom-file-input',
                 ],
-                'help' => $dto->getFile()?->getClientOriginalName(),
+                'help' => \implode('', $this->distributionContractFileHelper->getFilesHelper($dto->getContract())),
+                'help_html' => true,
             ])
             ->add('startsAt', DateType::class, [
                 'label' => 'Rights starts at',
