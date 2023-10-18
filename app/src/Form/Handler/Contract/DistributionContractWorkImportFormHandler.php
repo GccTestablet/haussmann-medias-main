@@ -15,13 +15,10 @@ use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
 use App\Tools\Parser\StringParser;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use function count;
-use function sprintf;
 
 class DistributionContractWorkImportFormHandler extends AbstractFormHandler
 {
@@ -46,7 +43,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
         try {
             $this->contractWorkRevenueImporter->build(['contract' => $dto->getDistributionContract()]);
             $records = $this->contractWorkRevenueImporter->getRecords($dto->getFile());
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $form->addError(new FormError($exception->getMessage()));
 
             return parent::onFormNotSubmitAndValid($request, $form, $options);
@@ -55,7 +52,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
         foreach ($records as $record) {
             $work = $this->workManager->findOneByInternalId($record->getInternalId());
             if (!$work) {
-                $form->addError(new FormError(sprintf('Work with internal id "%s" does not exist', $record->getInternalId())));
+                $form->addError(new FormError(\sprintf('Work with internal id "%s" does not exist', $record->getInternalId())));
 
                 continue;
             }
@@ -66,7 +63,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             );
 
             if (!$contractWork) {
-                $form->addError(new FormError(sprintf('Work "%s" not found in contract %s', $work->getName(), $dto->getDistributionContract()->getName())));
+                $form->addError(new FormError(\sprintf('Work "%s" not found in contract %s', $work->getName(), $dto->getDistributionContract()->getName())));
 
                 continue;
             }
@@ -75,7 +72,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
                 $slug = $this->stringParser->slugify($channelName);
                 $channel = $this->broadcastChannelManager->findOneBySlug($slug);
                 if (!$channel) {
-                    $form->addError(new FormError(sprintf('Broadcast channel with slug "%s" does not exist', $slug)));
+                    $form->addError(new FormError(\sprintf('Broadcast channel with slug "%s" does not exist', $slug)));
 
                     continue;
                 }
@@ -93,7 +90,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             }
         }
 
-        if (count($form->getErrors()) > 0) {
+        if (\count($form->getErrors()) > 0) {
             return parent::onFormNotSubmitAndValid($request, $form, $options);
         }
 

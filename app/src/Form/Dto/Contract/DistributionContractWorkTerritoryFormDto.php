@@ -7,13 +7,12 @@ namespace App\Form\Dto\Contract;
 use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Setting\Territory;
-use function sprintf;
 
 class DistributionContractWorkTerritoryFormDto
 {
     public static function getFormName(Territory $territory, BroadcastChannel $broadcastChannel): string
     {
-        return sprintf('territory_%d_broadcast_channel_%d', $territory->getId(), $broadcastChannel->getId());
+        return \sprintf('territory_%d_broadcast_channel_%d', $territory->getId(), $broadcastChannel->getId());
     }
 
     /**

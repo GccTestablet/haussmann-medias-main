@@ -13,7 +13,6 @@ use App\Service\Setting\BroadcastChannelManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function sprintf;
 
 #[Route(path: '/distribution-contracts/{contract}/work/{work}/territories')]
 class DistributionContractWorkTerritoryController extends AbstractAppController
@@ -29,7 +28,7 @@ class DistributionContractWorkTerritoryController extends AbstractAppController
     {
         $contractWork = $contract->getContractWork($work);
         if (!$contractWork) {
-            throw $this->createNotFoundException(sprintf('Work %d not found in contract %d.', $work->getId(), $contract->getId()));
+            throw $this->createNotFoundException(\sprintf('Work %d not found in contract %d.', $work->getId(), $contract->getId()));
         }
 
         $dto = $this->formDtoFactory->create($contractWork);

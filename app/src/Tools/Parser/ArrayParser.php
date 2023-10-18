@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tools\Parser;
 
-use function array_shift;
-
 class ArrayParser
 {
     /**
@@ -13,6 +11,6 @@ class ArrayParser
      */
     public static function getFirstValue(array $array): mixed
     {
-        return array_shift($array);
+        return \array_shift($array);
     }
 }
