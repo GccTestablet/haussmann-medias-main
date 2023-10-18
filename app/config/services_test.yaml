@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  App\Tests\:
+    resource: "../tests/*"
+    exclude: "../tests/{bootstrap.php}"
+
+  App\Tools\Parser\ArrayParser: ~
+  App\Tools\Parser\ObjectParser: ~
