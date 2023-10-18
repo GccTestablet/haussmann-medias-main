@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace App\Form\Dto\Contract;
 
 use App\Entity\Contract\DistributionContract;
-use DateTime;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class DistributionContractWorkRevenueImportFormDto
 {
     #[Assert\NotBlank]
-    private ?DateTime $startsAt = null;
+    private ?\DateTime $startsAt = null;
 
-    private ?DateTime $endsAt = null;
+    private ?\DateTime $endsAt = null;
     #[Assert\NotBlank]
     #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
     #[Assert\NotBlank]
@@ -37,24 +36,24 @@ class DistributionContractWorkRevenueImportFormDto
         return $this->distributionContract;
     }
 
-    public function getStartsAt(): ?DateTime
+    public function getStartsAt(): ?\DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(?DateTime $startsAt): static
+    public function setStartsAt(?\DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?DateTime
+    public function getEndsAt(): ?\DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?DateTime $endsAt): static
+    public function setEndsAt(?\DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 

@@ -9,24 +9,26 @@
 {% block content %}
     {% component card %}
         {% block body_content %}
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Services</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for channel in channels %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td><a href="{{ path('app_setting_broadcast_channel_show', {'id': channel.id}) }}">{{ channel.name }}</a></td>
-                        <td>{{ channel.broadcastServices|length }}</td>
-                        <td><a class="btn btn-warning" href="{{ path('app_setting_broadcast_channel_update', {'id': channel.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                        <th>Name</th>
+                        <th>Services</th>
+                        <th>Action</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for channel in channels %}
+                        <tr>
+                            <td><a href="{{ path('app_setting_broadcast_channel_show', {'id': channel.id}) }}">{{ channel.name }}</a></td>
+                            <td>{{ channel.broadcastServices|length }}</td>
+                            <td><a class="btn btn-warning" href="{{ path('app_setting_broadcast_channel_update', {'id': channel.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endblock %}
     {% endcomponent %}
 {% endblock %}

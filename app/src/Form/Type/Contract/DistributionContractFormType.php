@@ -24,7 +24,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use function implode;
 
 class DistributionContractFormType extends AbstractType
 {
@@ -63,7 +62,7 @@ class DistributionContractFormType extends AbstractType
                 'attr' => [
                     'class' => 'custom-file-input',
                 ],
-                'help' => implode('', $this->distributionContractFileHelper->getFilesHelper($dto->getContract())),
+                'help' => \implode('', $this->distributionContractFileHelper->getFilesHelper($dto->getContract())),
                 'help_html' => true,
             ])
             ->add('startsAt', DateType::class, [

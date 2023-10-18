@@ -9,22 +9,24 @@
 {% block content %}
     {% component card %}
         {% block body_content %}
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>{% trans from 'company' %}Name{% endtrans %}</th>
-                    <th>{% trans from 'company' %}User count{% endtrans %}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for company in companies %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td><a href="{{ path('app_company_show', {'id': company.id}) }}">{{ company.name }}</a></td>
-                        <td>{{ company.users|length }}</td>
+                        <th>{% trans from 'company' %}Name{% endtrans %}</th>
+                        <th>{% trans from 'company' %}User count{% endtrans %}</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for company in companies %}
+                        <tr>
+                            <td><a href="{{ path('app_company_show', {'id': company.id}) }}">{{ company.name }}</a></td>
+                            <td>{{ company.users|length }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endblock %}
     {% endcomponent %}
 {% endblock %}

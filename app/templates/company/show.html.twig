@@ -51,29 +51,31 @@
 
             <h4>Users</h4>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for userCompany in company.users %}
-                    {% set user = userCompany.user %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
-                        <td>{{ userCompany.permission.asText }}</td>
-                        <td>
-                            {% if isCompanyAdmin %}
-                                <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">{% trans from 'misc' %}Remove{% endtrans %}</a>
-                            {% endif %}
-                        </td>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Action</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for userCompany in company.users %}
+                        {% set user = userCompany.user %}
+                        <tr>
+                            <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
+                            <td>{{ userCompany.permission.asText }}</td>
+                            <td>
+                                {% if isCompanyAdmin %}
+                                    <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">{% trans from 'misc' %}Remove{% endtrans %}</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endblock %}
     {% endcomponent %}
 {% endblock %}

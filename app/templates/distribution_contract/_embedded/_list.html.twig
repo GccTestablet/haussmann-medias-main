@@ -1,27 +1,29 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th>Distributor</th>
-        <th>Starts at</th>
-        <th>Ends at</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for contract in contracts %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
         <tr>
-            <td><a href="{{ path('app_company_show', {'id': contract.distributor.id}) }}">{{ contract.distributor.name }}</a></td>
-            <td>{{ contract.startsAt|date_format }}</td>
-            <td>{{ contract.endsAt|date_format }}</td>
-            <td>
-                <a href="{{ path('app_company_distribution_contract_show', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">
-                    {% trans from 'misc' %}Show{% endtrans %}
-                </a>
-                <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">
-                    {% trans from 'misc' %}Update{% endtrans %}
-                </a>
-            </td>
+            <th>Distributor</th>
+            <th>Starts at</th>
+            <th>Ends at</th>
+            <th>Actions</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for contract in contracts %}
+            <tr>
+                <td><a href="{{ path('app_company_show', {'id': contract.distributor.id}) }}">{{ contract.distributor.name }}</a></td>
+                <td>{{ contract.startsAt|date_format }}</td>
+                <td>{{ contract.endsAt|date_format }}</td>
+                <td>
+                    <a href="{{ path('app_company_distribution_contract_show', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">
+                        {% trans from 'misc' %}Show{% endtrans %}
+                    </a>
+                    <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">
+                        {% trans from 'misc' %}Update{% endtrans %}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

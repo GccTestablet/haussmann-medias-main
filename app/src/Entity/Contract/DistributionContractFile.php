@@ -9,7 +9,6 @@ use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use function sprintf;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'distribution_contracts_files')]
@@ -83,6 +82,6 @@ class DistributionContractFile implements FileInterface
 
     public function getUploadDir(): string
     {
-        return sprintf('media/distribution-contracts/%d', $this->distributionContract->getId());
+        return \sprintf('media/distribution-contracts/%d', $this->distributionContract->getId());
     }
 }

@@ -4,26 +4,21 @@ declare(strict_types=1);
 
 namespace App\Tools\Parser;
 
-use DOMDocument;
-use DOMElement;
-use DOMException;
-use function simplexml_import_dom;
-
 class HTMLDomParser
 {
-    private readonly DOMDocument $dom;
+    private readonly \DOMDocument $dom;
 
     public function __construct()
     {
-        $this->dom = new DOMDocument();
+        $this->dom = new \DOMDocument();
     }
 
     /**
      * @param array<string, string> $attributes
      *
-     * @throws DOMException
+     * @throws \DOMException
      */
-    public function createElement(string $name, array $attributes = [], string $value = ''): DOMElement
+    public function createElement(string $name, array $attributes = [], string $value = ''): \DOMElement
     {
         $element = $this->dom->createElement($name, $value);
         foreach ($attributes as $attribute => $attributeValue) {
@@ -34,15 +29,15 @@ class HTMLDomParser
     }
 
     /**
-     * @param array<DOMElement|string> $elements
+     * @param array<\DOMElement|string> $elements
      */
-    public function appendTo(DOMElement $domElement, array $elements): void
+    public function appendTo(\DOMElement $domElement, array $elements): void
     {
         $domElement->append(...$elements);
     }
 
-    public function asString(DOMElement $domElement): string
+    public function asString(\DOMElement $domElement): string
     {
-        return simplexml_import_dom($domElement)?->asXML();
+        return \simplexml_import_dom($domElement)?->asXML();
     }
 }

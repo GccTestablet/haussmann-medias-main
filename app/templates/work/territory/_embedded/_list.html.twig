@@ -1,16 +1,18 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th>Territory</th>
-        <th>Channels</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for workTerritory in workTerritories %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
         <tr>
-            <td>{{ workTerritory.territory.name }}</td>
-            <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
+            <th>Territory</th>
+            <th>Channels</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for workTerritory in workTerritories %}
+            <tr>
+                <td>{{ workTerritory.territory.name }}</td>
+                <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

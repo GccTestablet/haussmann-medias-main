@@ -16,7 +16,6 @@ use App\Tools\Parser\ObjectParser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use function count;
 
 class DistributionContractFormDtoFactory
 {
@@ -59,7 +58,7 @@ class DistributionContractFormDtoFactory
 
     public function updateEntity(DistributionContractFormDto $dto, DistributionContract $contract): void
     {
-        if (0 !== count($dto->getFiles())) {
+        if (0 !== \count($dto->getFiles())) {
             foreach ($dto->getFiles() as $file) {
                 $contractFile = (new DistributionContractFile())
                     ->setDistributionContract($contract)

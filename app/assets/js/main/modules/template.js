@@ -1,11 +1,3 @@
-/*
- *  Document   : template.js
- *  Author     : pixelcave
- *  Description: UI Framework custom functionality
- *
- */
-
-// Imports
 import * as bootstrap from "bootstrap";
 import SimpleBar from "simplebar";
 // import Helpers from "./helpers";
@@ -60,7 +52,7 @@ export default class Template {
     this._uiApiBlocks();
 
     // Init the following helpers by default
-    this.helpers(["bs-tooltip", "bs-popover", "one-toggle-class", "one-year-copy", "one-ripple"]);
+    // this.helpers(["bs-tooltip", "bs-popover", "one-toggle-class", "one-year-copy", "one-ripple"]);
 
     // Page Loader (hide it)
     this._uiHandlePageLoader();
@@ -71,38 +63,36 @@ export default class Template {
    *
    */
   _uiHandleSidebars(mode = "init") {
-    let self = this;
-
-    if (self._lSidebar || self._lSideOverlay) {
+    if (this._lSidebar || this._lSideOverlay) {
       if (mode === "init") {
         // Add 'side-trans-enabled' class to #page-container (enables sidebar and side overlay transition on open/close)
         // Fixes IE10, IE11 and Edge bug in which animation was executed on each page load
-        self._lPage.classList.add("side-trans-enabled");
+        this._lPage.classList.add("side-trans-enabled");
 
         // Remove side transitions on window resizing
         window.addEventListener("resize", () => {
-          clearTimeout(self._lResize);
+          clearTimeout(this._lResize);
 
-          self._lPage.classList.remove("side-trans-enabled");
+          this._lPage.classList.remove("side-trans-enabled");
 
-          self._lResize = setTimeout(() => {
-            self._lPage.classList.add("side-trans-enabled");
+          this._lResize = setTimeout(() => {
+            this._lPage.classList.add("side-trans-enabled");
           }, 500);
         });
 
         // Init custom scrolling
         this._uiHandleSidebars("custom-scroll");
-      } else if ((mode = "custom-scroll")) {
+      } else if (mode === "custom-scroll") {
         // If .side-scroll is added to #page-container, enable custom scrolling
-        if (self._lPage.classList.contains("side-scroll")) {
+        if (this._lPage.classList.contains("side-scroll")) {
           // Init custom scrolling on Sidebar
-          if (self._lSidebar && !self._lSidebarScroll) {
-            self._lSidebarScroll = new SimpleBar(self._lSidebarScrollCon);
+          if (this._lSidebar && !this._lSidebarScroll) {
+            this._lSidebarScroll = new SimpleBar(this._lSidebarScrollCon);
           }
 
           // Init custom scrolling on Side Overlay
-          if (self._lSideOverlay && !self._lSideOverlayScroll) {
-            self._lSideOverlayScroll = new SimpleBar(self._lSideOverlay);
+          if (this._lSideOverlay && !this._lSideOverlayScroll) {
+            this._lSideOverlayScroll = new SimpleBar(this._lSideOverlay);
           }
         }
       }
@@ -189,18 +179,16 @@ export default class Template {
    *
    */
   _uiHandleDarkMode(mode = "init") {
-    let self = this;
-
     // If dark mode is not enabled by default remember default sidebar
     // and header style to return to after any possible dark mode disabling
-    if (mode === "init" && !self._lPage.classList.contains("dark-mode")) {
-      if (self._lPage.classList.contains("sidebar-dark")) {
+    if (mode === "init" && !this._lPage.classList.contains("dark-mode")) {
+      if (this._lPage.classList.contains("sidebar-dark")) {
         localStorage.setItem("oneuiDefaultsSidebarDark", true);
       } else {
         localStorage.removeItem("oneuiDefaultsSidebarDark");
       }
 
-      if (self._lPage.classList.contains("page-header-dark")) {
+      if (this._lPage.classList.contains("page-header-dark")) {
         localStorage.setItem("oneuiDefaultsPageHeaderDark", true);
       } else {
         localStorage.removeItem("oneuiDefaultsPageHeaderDark");
@@ -213,11 +201,11 @@ export default class Template {
 
       if (mode === "init") {
         if (darkMode) {
-          self._lPage.classList.add("sidebar-dark");
-          self._lPage.classList.add("page-header-dark");
-          self._lPage.classList.add("dark-mode");
+          this._lPage.classList.add("sidebar-dark");
+          this._lPage.classList.add("page-header-dark");
+          this._lPage.classList.add("dark-mode");
         } else if (mode === "init") {
-          self._lPage.classList.remove("dark-mode");
+          this._lPage.classList.remove("dark-mode");
         }
       } else if (mode === "on") {
         localStorage.setItem("oneuiDarkMode", true);
@@ -234,7 +222,6 @@ export default class Template {
    *
    */
   _uiHandleTheme() {
-    let self = this;
     let themeEl = document.getElementById("css-theme");
     let rememberTheme = this._lPage.classList.contains("remember-theme") ? true : false;
 
@@ -244,7 +231,7 @@ export default class Template {
 
       // Update color theme
       if (themeName) {
-        self._uiUpdateTheme(themeEl, themeName);
+        this._uiUpdateTheme(themeEl, themeName);
       }
 
       // Update theme element
@@ -278,7 +265,7 @@ export default class Template {
         document.querySelector('[data-toggle="theme"][data-theme="' + themeName + '"]').classList.add("active");
 
         // Update color theme
-        self._uiUpdateTheme(themeEl, themeName);
+        this._uiUpdateTheme(themeEl, themeName);
 
         // Update theme element
         themeEl = document.getElementById("css-theme");
@@ -320,8 +307,6 @@ export default class Template {
    *
    */
   _uiApiLayout(mode = "init") {
-    let self = this;
-
     // API with object literals
     let layoutAPI = {
       init: () => {
@@ -330,205 +315,205 @@ export default class Template {
         // Call layout API on button click
         if (buttons) {
           buttons.forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-              self._uiApiLayout(btn.dataset.action);
+            btn.addEventListener("click", () => {
+              this._uiApiLayout(btn.dataset.action);
             });
           });
         }
 
         // Prepend Page Overlay div if enabled (used when Side Overlay opens)
-        if (self._lPage.classList.contains("enable-page-overlay")) {
+        if (this._lPage.classList.contains("enable-page-overlay")) {
           let pageOverlay = document.createElement("div");
           pageOverlay.id = "page-overlay";
 
-          self._lPage.insertBefore(pageOverlay, self._lPage.firstChild);
+          this._lPage.insertBefore(pageOverlay, this._lPage.firstChild);
 
-          document.getElementById("page-overlay").addEventListener("click", (e) => {
-            self._uiApiLayout("side_overlay_close");
+          document.getElementById("page-overlay").addEventListener("click", () => {
+            this._uiApiLayout("side_overlay_close");
           });
         }
       },
       sidebar_pos_toggle: () => {
-        self._lPage.classList.toggle("sidebar-r");
+        this._lPage.classList.toggle("sidebar-r");
       },
       sidebar_pos_left: () => {
-        self._lPage.classList.remove("sidebar-r");
+        this._lPage.classList.remove("sidebar-r");
       },
       sidebar_pos_right: () => {
-        self._lPage.classList.add("sidebar-r");
+        this._lPage.classList.add("sidebar-r");
       },
       sidebar_toggle: () => {
         if (window.innerWidth > 991) {
-          self._lPage.classList.toggle("sidebar-o");
+          this._lPage.classList.toggle("sidebar-o");
         } else {
-          self._lPage.classList.toggle("sidebar-o-xs");
+          this._lPage.classList.toggle("sidebar-o-xs");
         }
       },
       sidebar_open: () => {
         if (window.innerWidth > 991) {
-          self._lPage.classList.add("sidebar-o");
+          this._lPage.classList.add("sidebar-o");
         } else {
-          self._lPage.classList.add("sidebar-o-xs");
+          this._lPage.classList.add("sidebar-o-xs");
         }
       },
       sidebar_close: () => {
         if (window.innerWidth > 991) {
-          self._lPage.classList.remove("sidebar-o");
+          this._lPage.classList.remove("sidebar-o");
         } else {
-          self._lPage.classList.remove("sidebar-o-xs");
+          this._lPage.classList.remove("sidebar-o-xs");
         }
       },
       sidebar_mini_toggle: () => {
         if (window.innerWidth > 991) {
-          self._lPage.classList.toggle("sidebar-mini");
+          this._lPage.classList.toggle("sidebar-mini");
         }
       },
       sidebar_mini_on: () => {
         if (window.innerWidth > 991) {
-          self._lPage.classList.add("sidebar-mini");
+          this._lPage.classList.add("sidebar-mini");
         }
       },
       sidebar_mini_off: () => {
         if (window.innerWidth > 991) {
-          self._lPage.classList.remove("sidebar-mini");
+          this._lPage.classList.remove("sidebar-mini");
         }
       },
       sidebar_style_toggle: () => {
-        if (self._lPage.classList.contains("sidebar-dark")) {
-          self._uiApiLayout("sidebar_style_light");
+        if (this._lPage.classList.contains("sidebar-dark")) {
+          this._uiApiLayout("sidebar_style_light");
         } else {
-          self._uiApiLayout("sidebar_style_dark");
+          this._uiApiLayout("sidebar_style_dark");
         }
       },
       sidebar_style_dark: () => {
-        self._lPage.classList.add("sidebar-dark");
+        this._lPage.classList.add("sidebar-dark");
         localStorage.setItem("oneuiDefaultsSidebarDark", true);
       },
       sidebar_style_light: () => {
-        self._lPage.classList.remove("sidebar-dark");
-        self._lPage.classList.remove("dark-mode");
+        this._lPage.classList.remove("sidebar-dark");
+        this._lPage.classList.remove("dark-mode");
         localStorage.removeItem("oneuiDefaultsSidebarDark");
       },
       side_overlay_toggle: () => {
-        if (self._lPage.classList.contains("side-overlay-o")) {
-          self._uiApiLayout("side_overlay_close");
+        if (this._lPage.classList.contains("side-overlay-o")) {
+          this._uiApiLayout("side_overlay_close");
         } else {
-          self._uiApiLayout("side_overlay_open");
+          this._uiApiLayout("side_overlay_open");
         }
       },
       side_overlay_open: () => {
         // When ESCAPE key is hit close the side overlay
         document.addEventListener("keydown", (e) => {
           if (e.key === "Esc" || e.key === "Escape") {
-            self._uiApiLayout("side_overlay_close");
+            this._uiApiLayout("side_overlay_close");
           }
         });
 
-        self._lPage.classList.add("side-overlay-o");
+        this._lPage.classList.add("side-overlay-o");
       },
       side_overlay_close: () => {
-        self._lPage.classList.remove("side-overlay-o");
+        this._lPage.classList.remove("side-overlay-o");
       },
       side_overlay_mode_hover_toggle: () => {
-        self._lPage.classList.toggle("side-overlay-hover");
+        this._lPage.classList.toggle("side-overlay-hover");
       },
       side_overlay_mode_hover_on: () => {
-        self._lPage.classList.add("side-overlay-hover");
+        this._lPage.classList.add("side-overlay-hover");
       },
       side_overlay_mode_hover_off: () => {
-        self._lPage.classList.remove("side-overlay-hover");
+        this._lPage.classList.remove("side-overlay-hover");
       },
       header_mode_toggle: () => {
-        self._lPage.classList.toggle("page-header-fixed");
+        this._lPage.classList.toggle("page-header-fixed");
       },
       header_mode_static: () => {
-        self._lPage.classList.remove("page-header-fixed");
+        this._lPage.classList.remove("page-header-fixed");
       },
       header_mode_fixed: () => {
-        self._lPage.classList.add("page-header-fixed");
+        this._lPage.classList.add("page-header-fixed");
       },
       header_style_toggle: () => {
-        if (self._lPage.classList.contains("page-header-dark")) {
-          self._uiApiLayout("header_style_light");
+        if (this._lPage.classList.contains("page-header-dark")) {
+          this._uiApiLayout("header_style_light");
         } else {
-          self._uiApiLayout("header_style_dark");
+          this._uiApiLayout("header_style_dark");
         }
       },
       header_style_dark: () => {
-        self._lPage.classList.add("page-header-dark");
+        this._lPage.classList.add("page-header-dark");
         localStorage.setItem("oneuiDefaultsPageHeaderDark", true);
       },
       header_style_light: () => {
-        self._lPage.classList.remove("page-header-dark");
-        self._lPage.classList.remove("dark-mode");
+        this._lPage.classList.remove("page-header-dark");
+        this._lPage.classList.remove("dark-mode");
         localStorage.removeItem("oneuiDefaultsPageHeaderDark");
       },
       header_search_on: () => {
-        self._lHeaderSearch.classList.add("show");
-        self._lHeaderSearchInput.focus();
+        this._lHeaderSearch.classList.add("show");
+        this._lHeaderSearchInput.focus();
 
         // When ESCAPE key is hit close the search section
         document.addEventListener("keydown", (e) => {
           if (e.key === "Esc" || e.key === "Escape") {
-            self._uiApiLayout("header_search_off");
+            this._uiApiLayout("header_search_off");
           }
         });
       },
       header_search_off: () => {
-        self._lHeaderSearch.classList.remove("show");
-        self._lHeaderSearchInput.blur();
+        this._lHeaderSearch.classList.remove("show");
+        this._lHeaderSearchInput.blur();
       },
       header_loader_on: () => {
-        self._lHeaderLoader.classList.add("show");
+        this._lHeaderLoader.classList.add("show");
       },
       header_loader_off: () => {
-        self._lHeaderLoader.classList.remove("show");
+        this._lHeaderLoader.classList.remove("show");
       },
       dark_mode_toggle: () => {
-        if (self._lPage.classList.contains("dark-mode")) {
-          self._uiApiLayout("dark_mode_off");
+        if (this._lPage.classList.contains("dark-mode")) {
+          this._uiApiLayout("dark_mode_off");
         } else {
-          self._uiApiLayout("dark_mode_on");
+          this._uiApiLayout("dark_mode_on");
         }
       },
       dark_mode_on: () => {
-        self._lPage.classList.add("sidebar-dark");
-        self._lPage.classList.add("page-header-dark");
-        self._lPage.classList.add("dark-mode");
+        this._lPage.classList.add("sidebar-dark");
+        this._lPage.classList.add("page-header-dark");
+        this._lPage.classList.add("dark-mode");
         this._uiHandleDarkMode("on");
       },
       dark_mode_off: () => {
         if (!localStorage.getItem("oneuiDefaultsSidebarDark")) {
-          self._lPage.classList.remove("sidebar-dark");
+          this._lPage.classList.remove("sidebar-dark");
         }
 
         if (!localStorage.getItem("oneuiDefaultsPageHeaderDark")) {
-          self._lPage.classList.remove("page-header-dark");
+          this._lPage.classList.remove("page-header-dark");
         }
 
-        self._lPage.classList.remove("dark-mode");
+        this._lPage.classList.remove("dark-mode");
         this._uiHandleDarkMode("off");
       },
       content_layout_toggle: () => {
-        if (self._lPage.classList.contains("main-content-boxed")) {
-          self._uiApiLayout("content_layout_narrow");
-        } else if (self._lPage.classList.contains("main-content-narrow")) {
-          self._uiApiLayout("content_layout_full_width");
+        if (this._lPage.classList.contains("main-content-boxed")) {
+          this._uiApiLayout("content_layout_narrow");
+        } else if (this._lPage.classList.contains("main-content-narrow")) {
+          this._uiApiLayout("content_layout_full_width");
         } else {
-          self._uiApiLayout("content_layout_boxed");
+          this._uiApiLayout("content_layout_boxed");
         }
       },
       content_layout_boxed: () => {
-        self._lPage.classList.remove("main-content-narrow");
-        self._lPage.classList.add("main-content-boxed");
+        this._lPage.classList.remove("main-content-narrow");
+        this._lPage.classList.add("main-content-boxed");
       },
       content_layout_narrow: () => {
-        self._lPage.classList.remove("main-content-boxed");
-        self._lPage.classList.add("main-content-narrow");
+        this._lPage.classList.remove("main-content-boxed");
+        this._lPage.classList.add("main-content-narrow");
       },
       content_layout_full_width: () => {
-        self._lPage.classList.remove("main-content-boxed");
-        self._lPage.classList.remove("main-content-narrow");
+        this._lPage.classList.remove("main-content-boxed");
+        this._lPage.classList.remove("main-content-narrow");
       },
     };
 
@@ -543,8 +528,6 @@ export default class Template {
    *
    */
   _uiApiBlocks(mode = "init", block = false) {
-    let self = this;
-
     // Helper variables
     let elBlock, btnFullscreen, btnContentToggle;
 
@@ -581,7 +564,7 @@ export default class Template {
 
         // Call blocks API on option button click
         document.querySelectorAll('[data-toggle="block-option"]').forEach((btn) => {
-          btn.addEventListener("click", (e) => {
+          btn.addEventListener("click", () => {
             this._uiApiBlocks(btn.dataset.action, btn.closest(".block"));
           });
         });
