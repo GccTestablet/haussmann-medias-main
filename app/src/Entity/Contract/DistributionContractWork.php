@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Contract;
 
+use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
@@ -36,9 +37,13 @@ class DistributionContractWork
     #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkRevenue::class)]
     private Collection $revenues;
 
+    #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkTerritory::class, cascade: ['persist'])]
+    private Collection $workTerritories;
+
     public function __construct(
     ) {
         $this->revenues = new ArrayCollection();
+        $this->workTerritories = new ArrayCollection();
     }
 
     public function getId(): int
@@ -46,7 +51,7 @@ class DistributionContractWork
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id): static
     {
         $this->id = $id;
 
@@ -82,9 +87,32 @@ class DistributionContractWork
         return $this->revenues;
     }
 
-    public function setRevenues(Collection $revenues): self
+    public function setRevenues(Collection $revenues): static
     {
         $this->revenues = $revenues;
+
+        return $this;
+    }
+
+    public function getWorkTerritories(): Collection
+    {
+        return $this->workTerritories;
+    }
+
+    public function getWorkTerritory(Territory $territory): ?DistributionContractWorkTerritory
+    {
+        foreach ($this->workTerritories as $workTerritory) {
+            if ($workTerritory->getTerritory() === $territory) {
+                return $workTerritory;
+            }
+        }
+
+        return null;
+    }
+
+    public function setWorkTerritories(Collection $workTerritories): static
+    {
+        $this->workTerritories = $workTerritories;
 
         return $this;
     }

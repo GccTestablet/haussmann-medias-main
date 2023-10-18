@@ -257,6 +257,16 @@ class Work
         return $this->workTerritories;
     }
 
+    /**
+     * @return Collection<Territory>
+     */
+    public function getTerritories(): Collection
+    {
+        return $this->workTerritories
+            ->map(fn (WorkTerritory $workTerritory) => $workTerritory->getTerritory())
+        ;
+    }
+
     public function getWorkTerritory(Territory $territory): ?WorkTerritory
     {
         foreach ($this->workTerritories as $workTerritory) {
