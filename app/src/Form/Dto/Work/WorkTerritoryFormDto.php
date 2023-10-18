@@ -7,13 +7,12 @@ namespace App\Form\Dto\Work;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Setting\Territory;
 use App\Entity\Work\Work;
-use function sprintf;
 
 class WorkTerritoryFormDto
 {
     public static function getFormName(Territory $territory, BroadcastChannel $broadcastChannel): string
     {
-        return sprintf('territory_%d_broadcast_channel_%d', $territory->getId(), $broadcastChannel->getId());
+        return \sprintf('territory_%d_broadcast_channel_%d', $territory->getId(), $broadcastChannel->getId());
     }
 
     /**

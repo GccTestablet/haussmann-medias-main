@@ -7,7 +7,6 @@ namespace App\Form\Dto\Contract;
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Enum\Common\FrequencyEnum;
-use DateTime;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -22,13 +21,13 @@ class AcquisitionContractFormDto
     private ?UploadedFile $file = null;
 
     #[Assert\NotBlank()]
-    private ?DateTime $signedAt = null;
+    private ?\DateTime $signedAt = null;
 
     #[Assert\NotBlank()]
-    private ?DateTime $startsAt = null;
+    private ?\DateTime $startsAt = null;
 
     #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
-    private ?DateTime $endsAt = null;
+    private ?\DateTime $endsAt = null;
 
     private ?FrequencyEnum $reportFrequency = null;
 
@@ -83,36 +82,36 @@ class AcquisitionContractFormDto
         return $this;
     }
 
-    public function getSignedAt(): ?DateTime
+    public function getSignedAt(): ?\DateTime
     {
         return $this->signedAt;
     }
 
-    public function setSignedAt(?DateTime $signedAt): static
+    public function setSignedAt(?\DateTime $signedAt): static
     {
         $this->signedAt = $signedAt;
 
         return $this;
     }
 
-    public function getStartsAt(): ?DateTime
+    public function getStartsAt(): ?\DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(?DateTime $startsAt): static
+    public function setStartsAt(?\DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?DateTime
+    public function getEndsAt(): ?\DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?DateTime $endsAt): static
+    public function setEndsAt(?\DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 

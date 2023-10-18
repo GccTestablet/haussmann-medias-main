@@ -11,7 +11,6 @@ use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -50,10 +49,10 @@ class DistributionContract implements FileInterface
     private ?string $originalFileName = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private DateTime $startsAt;
+    private \DateTime $startsAt;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?DateTime $endsAt = null;
+    private ?\DateTime $endsAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $exclusivity = null;
@@ -162,24 +161,24 @@ class DistributionContract implements FileInterface
         return $this;
     }
 
-    public function getStartsAt(): DateTime
+    public function getStartsAt(): \DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(DateTime $startsAt): static
+    public function setStartsAt(\DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
         return $this;
     }
 
-    public function getEndsAt(): ?DateTime
+    public function getEndsAt(): ?\DateTime
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(?DateTime $endsAt): static
+    public function setEndsAt(?\DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
 

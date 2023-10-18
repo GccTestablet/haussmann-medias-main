@@ -7,7 +7,6 @@ namespace App\Repository\Broadcast;
 use App\Entity\Work\Work;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use function count;
 
 class BroadcastChannelRepository extends EntityRepository
 {
@@ -19,7 +18,7 @@ class BroadcastChannelRepository extends EntityRepository
         }
 
         $queryBuilder = $this->createQueryBuilder('bc');
-        if (0 === count($channels)) {
+        if (0 === \count($channels)) {
             return $queryBuilder;
         }
 
