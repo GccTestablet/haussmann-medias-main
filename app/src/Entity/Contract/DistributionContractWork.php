@@ -34,6 +34,18 @@ class DistributionContractWork
     #[ORM\JoinColumn(name: 'work_id', referencedColumnName: 'id', nullable: false)]
     private Work $work;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private \DateTime $startsAt;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTime $endsAt = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?float $amount = null;
+
+    #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
+    private string $currency = 'EUR';
+
     #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkRevenue::class)]
     private Collection $revenues;
 
@@ -78,6 +90,54 @@ class DistributionContractWork
     public function setWork(Work $work): static
     {
         $this->work = $work;
+
+        return $this;
+    }
+
+    public function getStartsAt(): \DateTime
+    {
+        return $this->startsAt;
+    }
+
+    public function setStartsAt(\DateTime $startsAt): static
+    {
+        $this->startsAt = $startsAt;
+
+        return $this;
+    }
+
+    public function getEndsAt(): ?\DateTime
+    {
+        return $this->endsAt;
+    }
+
+    public function setEndsAt(?\DateTime $endsAt): static
+    {
+        $this->endsAt = $endsAt;
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(?float $amount): static
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): static
+    {
+        $this->currency = $currency;
 
         return $this;
     }
