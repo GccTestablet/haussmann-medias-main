@@ -8,8 +8,8 @@
 
   > .col,
   > [class*="col-"] {
-    padding-left: $space-row-gutter-tiny * .5;
-    padding-right: $space-row-gutter-tiny  * .5;
+    padding-left: $space-row-gutter-tiny * 0.5;
+    padding-right: $space-row-gutter-tiny * 0.5;
   }
 
   .push,
@@ -26,8 +26,8 @@
 
     > .col,
     > [class*="col-"] {
-      padding-left: $space-mobile * .5;
-      padding-right: $space-mobile * .5;
+      padding-left: $space-mobile * 0.5;
+      padding-right: $space-mobile * 0.5;
     }
   }
 }

@@ -16,7 +16,9 @@
   }
 
   &.dropdown-menu-mega {
-    transition: transform .25s ease-out, opacity .25s ease-out;
+    transition:
+      transform 0.25s ease-out,
+      opacity 0.25s ease-out;
     opacity: 0;
     display: block;
     visibility: hidden;

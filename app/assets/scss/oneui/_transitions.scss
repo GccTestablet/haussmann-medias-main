@@ -8,7 +8,7 @@
   &.fade-up,
   &.fade-right,
   &.fade-left {
-    @include transition(opacity .25s ease-out, transform .25s ease-out);
+    @include transition(opacity 0.25s ease-out, transform 0.25s ease-out);
   }
 
   &.fade-up:not(.show) {

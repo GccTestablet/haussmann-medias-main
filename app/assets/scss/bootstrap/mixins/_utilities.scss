@@ -21,7 +21,11 @@
     $property-class: if($property-class == null, "", $property-class);
 
     // Use custom CSS variable name if present, otherwise default to `class`
-    $css-variable-name: if(map-has-key($utility, css-variable-name), map-get($utility, css-variable-name), map-get($utility, class));
+    $css-variable-name: if(
+      map-has-key($utility, css-variable-name),
+      map-get($utility, css-variable-name),
+      map-get($utility, class)
+    );
 
     // State params to generate pseudo-classes
     $state: if(map-has-key($utility, state), map-get($utility, state), ());
@@ -38,8 +42,7 @@
 
         // Do not render anything if fluid and non fluid values are the same
         $value: if($val == rfs-fluid-value($value), null, $val);
-      }
-      @else {
+      } @else {
         $value: rfs-fluid-value($value);
       }
     }

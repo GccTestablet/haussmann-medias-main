@@ -59,7 +59,9 @@
 // Image Link
 .img-link {
   display: inline-block;
-  transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+  transition:
+    transform 0.25s ease-out,
+    opacity 0.25s ease-out;
 
   &:hover {
     transform: scale(1.02);

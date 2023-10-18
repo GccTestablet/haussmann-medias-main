@@ -89,7 +89,9 @@
       font-family: "Font Awesome 6 Free", "Font Awesome 6 Pro";
       font-weight: 900;
       font-size: 0.75rem;
-      transition: opacity $main-nav-transition, transform $main-nav-transition;
+      transition:
+        opacity $main-nav-transition,
+        transform $main-nav-transition;
     }
 
     &::before {
@@ -109,7 +111,9 @@
 
   .nav-main-item {
     opacity: 0;
-    transition: opacity $main-nav-transition, transform $main-nav-transition;
+    transition:
+      opacity $main-nav-transition,
+      transform $main-nav-transition;
     transform: translateX(-0.75rem);
   }
 
@@ -323,13 +327,13 @@
     color: darken($body-bg-dark, 20%);
 
     > .nav-main-link-icon {
-      color: rgba(darken($body-bg-dark, 20%), .5);
+      color: rgba(darken($body-bg-dark, 20%), 0.5);
     }
 
     &:hover,
     &:focus {
       color: darken($body-bg-dark, 25%);
-      background-color: rgba(0, 0, 0, .2);
+      background-color: rgba(0, 0, 0, 0.2);
 
       > .nav-main-link-icon {
         color: $white;
@@ -347,7 +351,7 @@
 
   // Sub menus
   .nav-main-submenu {
-    background-color: rgba(0, 0, 0, .15);
+    background-color: rgba(0, 0, 0, 0.15);
 
     .nav-main-link {
       color: darken($body-bg-dark, 30%);
@@ -369,7 +373,7 @@
     }
 
     > .nav-main-submenu {
-      background-color: rgba(0, 0, 0, .1);
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 

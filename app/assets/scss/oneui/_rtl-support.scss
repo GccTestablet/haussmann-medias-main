@@ -14,14 +14,14 @@
   }
 
   .breadcrumb-item + .breadcrumb-item {
-    padding-right: .5rem;
+    padding-right: 0.5rem;
     padding-left: 0;
   }
 
   .breadcrumb-item + .breadcrumb-item::before {
     float: right;
     padding-right: 0;
-    padding-left: .5rem;
+    padding-left: 0.5rem;
   }
 
   // Mini Sidebar
@@ -29,8 +29,7 @@
     &.sidebar-mini.sidebar-o.sidebar-r #sidebar {
       .content-side,
       .content-header {
-        transform: translateX(-($sidebar-width - $sidebar-mini-width))
-          translateY(0) translateZ(0);
+        transform: translateX(-($sidebar-width - $sidebar-mini-width)) translateY(0) translateZ(0);
       }
 
       &:hover {

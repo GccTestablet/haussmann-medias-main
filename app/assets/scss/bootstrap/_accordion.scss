@@ -121,7 +121,6 @@
   padding: var(--#{$prefix}accordion-body-padding-y) var(--#{$prefix}accordion-body-padding-x);
 }
 
-
 // Flush accordion items
 //
 // Remove borders and border-radius to keep accordion items edge-to-edge.
@@ -136,8 +135,12 @@
     border-left: 0;
     @include border-radius(0);
 
-    &:first-child { border-top: 0; }
-    &:last-child { border-bottom: 0; }
+    &:first-child {
+      border-top: 0;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
 
     .accordion-button {
       &,

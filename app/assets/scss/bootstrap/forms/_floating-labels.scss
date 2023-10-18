@@ -61,7 +61,7 @@
 
       &::after {
         position: absolute;
-        inset: $form-floating-padding-y ($form-floating-padding-x * .5);
+        inset: $form-floating-padding-y ($form-floating-padding-x * 0.5);
         z-index: -1;
         height: $form-floating-label-height;
         content: "";
@@ -85,7 +85,8 @@
   }
 
   > :disabled ~ label,
-  > .form-control:disabled ~ label { // Required for `.form-control`s because of specificity
+  > .form-control:disabled ~ label {
+    // Required for `.form-control`s because of specificity
     color: $form-floating-label-disabled-color;
 
     &::after {

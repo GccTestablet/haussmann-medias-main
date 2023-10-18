@@ -118,7 +118,7 @@
   font-size: 1rem;
 
   i {
-    transition: transform .2s ease-out;
+    transition: transform 0.2s ease-out;
   }
 
   &.active {
@@ -135,7 +135,7 @@
     color: darken($body-bg-dark, 15%);
 
     i {
-      transform: scale(.9);
+      transform: scale(0.9);
     }
   }
 }

@@ -109,7 +109,9 @@
     border-top-width: 0;
 
     &.active {
-      margin-top: calc(-1 * var(--#{$prefix}list-group-border-width)); // stylelint-disable-line function-disallowed-list
+      margin-top: calc(
+        -1 * var(--#{$prefix}list-group-border-width)
+      ); // stylelint-disable-line function-disallowed-list
       border-top-width: var(--#{$prefix}list-group-border-width);
     }
   }
@@ -146,7 +148,9 @@
           border-left-width: 0;
 
           &.active {
-            margin-left: calc(-1 * var(--#{$prefix}list-group-border-width)); // stylelint-disable-line function-disallowed-list
+            margin-left: calc(
+              -1 * var(--#{$prefix}list-group-border-width)
+            ); // stylelint-disable-line function-disallowed-list
             border-left-width: var(--#{$prefix}list-group-border-width);
           }
         }
@@ -154,7 +158,6 @@
     }
   }
 }
-
 
 // Flush list items
 //
@@ -172,7 +175,6 @@
     }
   }
 }
-
 
 // scss-docs-start list-group-modifiers
 // List group contextual variants

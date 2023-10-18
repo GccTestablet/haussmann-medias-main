@@ -3,114 +3,114 @@
 // --------------------------------------------------
 
 // Bootstrap functions
-@import 'bootstrap/functions';
+@import "bootstrap/functions";
 
 // User variables (your own variable overrides)
-@import 'custom/variables';
+@import "custom/variables";
 
 // Custom Bootstrap variables overrides
-@import 'oneui/variables-bootstrap';
+@import "oneui/variables-bootstrap";
 
 // Bootstrap variables
-@import 'bootstrap/variables';
+@import "bootstrap/variables";
 
 // Bootstrap maps
-@import 'bootstrap/maps';
+@import "bootstrap/maps";
 
 // Bootstrap mixins
-@import 'bootstrap/mixins';
+@import "bootstrap/mixins";
 
 // Custom mixins and Bootstrap overrides
-@import 'oneui/mixins';
+@import "oneui/mixins";
 
 // Bootstrap Utilities
-@import 'bootstrap/utilities';
+@import "bootstrap/utilities";
 
 // Custom utilities and Bootstrap overrides
-@import 'oneui/utilities';
+@import "oneui/utilities";
 
 // Layout & components
-@import 'bootstrap/root';
-@import 'bootstrap/reboot';
-@import 'bootstrap/type';
-@import 'bootstrap/images';
-@import 'bootstrap/containers';
-@import 'bootstrap/grid';
-@import 'bootstrap/tables';
-@import 'bootstrap/forms';
-@import 'bootstrap/buttons';
-@import 'bootstrap/transitions';
-@import 'bootstrap/dropdown';
-@import 'bootstrap/button-group';
-@import 'bootstrap/nav';
-@import 'bootstrap/navbar';
-@import 'bootstrap/card';
-@import 'bootstrap/accordion';
-@import 'bootstrap/breadcrumb';
-@import 'bootstrap/pagination';
-@import 'bootstrap/badge';
-@import 'bootstrap/alert';
-@import 'bootstrap/progress';
-@import 'bootstrap/list-group';
-@import 'bootstrap/close';
-@import 'bootstrap/toasts';
-@import 'bootstrap/modal';
-@import 'bootstrap/tooltip';
-@import 'bootstrap/popover';
-@import 'bootstrap/carousel';
-@import 'bootstrap/spinners';
-@import 'bootstrap/offcanvas';
-@import 'bootstrap/placeholders';
+@import "bootstrap/root";
+@import "bootstrap/reboot";
+@import "bootstrap/type";
+@import "bootstrap/images";
+@import "bootstrap/containers";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+@import "bootstrap/transitions";
+@import "bootstrap/dropdown";
+@import "bootstrap/button-group";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/card";
+@import "bootstrap/accordion";
+@import "bootstrap/breadcrumb";
+@import "bootstrap/pagination";
+@import "bootstrap/badge";
+@import "bootstrap/alert";
+@import "bootstrap/progress";
+@import "bootstrap/list-group";
+@import "bootstrap/close";
+@import "bootstrap/toasts";
+@import "bootstrap/modal";
+@import "bootstrap/tooltip";
+@import "bootstrap/popover";
+@import "bootstrap/carousel";
+@import "bootstrap/spinners";
+@import "bootstrap/offcanvas";
+@import "bootstrap/placeholders";
 
 // Bootstrap Helpers
-@import 'bootstrap/helpers';
+@import "bootstrap/helpers";
 
 // Bootstrap Utilities
-@import 'bootstrap/utilities/api';
+@import "bootstrap/utilities/api";
 
 // Custom variables
-@import 'oneui/variables';
-@import 'oneui/variables-themes';
+@import "oneui/variables";
+@import "oneui/variables-themes";
 
 // Extend Bootstrap styles and override the ones..
 // ..we can't alter with the provided variables
-@import 'oneui/reboot';
-@import 'oneui/type';
-@import 'oneui/grid';
-@import 'oneui/tables';
-@import 'oneui/forms';
-@import 'oneui/buttons';
-@import 'oneui/transitions';
-@import 'oneui/dropdown';
-@import 'oneui/forms';
-@import 'oneui/nav';
-@import 'oneui/card';
-@import 'oneui/breadcrumb';
-@import 'oneui/pagination';
-@import 'oneui/modal';
-@import 'oneui/print';
+@import "oneui/reboot";
+@import "oneui/type";
+@import "oneui/grid";
+@import "oneui/tables";
+@import "oneui/forms";
+@import "oneui/buttons";
+@import "oneui/transitions";
+@import "oneui/dropdown";
+@import "oneui/forms";
+@import "oneui/nav";
+@import "oneui/card";
+@import "oneui/breadcrumb";
+@import "oneui/pagination";
+@import "oneui/modal";
+@import "oneui/print";
 
 // Custom layout
-@import 'oneui/layout';
-@import 'oneui/header';
-@import 'oneui/sidebar';
-@import 'oneui/side-overlay';
-@import 'oneui/layout-variations';
-@import 'oneui/hero';
-@import 'oneui/block';
+@import "oneui/layout";
+@import "oneui/header";
+@import "oneui/sidebar";
+@import "oneui/side-overlay";
+@import "oneui/layout-variations";
+@import "oneui/hero";
+@import "oneui/block";
 
 // Custom components
-@import 'oneui/page-loader';
-@import 'oneui/nav-main';
-@import 'oneui/images';
-@import 'oneui/lists';
-@import 'oneui/item';
-@import 'oneui/overlay';
-@import 'oneui/timeline';
-@import 'oneui/ribbon';
+@import "oneui/page-loader";
+@import "oneui/nav-main";
+@import "oneui/images";
+@import "oneui/lists";
+@import "oneui/item";
+@import "oneui/overlay";
+@import "oneui/timeline";
+@import "oneui/ribbon";
 
 // Helpers
-@import 'oneui/helpers';
+@import "oneui/helpers";
 
 //// Core third party components
 //@import 'vendor/animate';
@@ -137,10 +137,10 @@
 //@import 'vendor/flatpickr';
 
 // RTL Support
-@import 'oneui/rtl-support';
+@import "oneui/rtl-support";
 
 // Dark mode
-@import 'oneui/dark-mode';
+@import "oneui/dark-mode";
 
 // User styles (your own styles/overrides)
-@import 'custom/main';
+@import "custom/main";

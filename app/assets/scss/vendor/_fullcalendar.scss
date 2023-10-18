@@ -30,7 +30,7 @@
     &:focus,
     &:not(:disabled).fc-button-active:focus,
     &:not(:disabled):active:focus {
-      box-shadow: 0 0 0 .2rem rgba($primary, .4)
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.4);
     }
   }
 

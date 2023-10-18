@@ -3,10 +3,10 @@
 $font-sizes: map-merge(
   $font-sizes,
   (
-    'base': $font-size-base,
-    'xs': $font-size-xs,
-    'sm': $font-size-sm,
-    'lg': $font-size-lg
+    "base": $font-size-base,
+    "xs": $font-size-xs,
+    "sm": $font-size-sm,
+    "lg": $font-size-lg,
   )
 );
 
@@ -27,13 +27,13 @@ $utilities: map-merge(
         bolder: $font-weight-bolder,
         extrabold: 800,
         black: 900,
-      )
+      ),
     ),
     "font-size": (
       rfs: true,
       property: font-size,
       class: fs,
-      values: $font-sizes
+      values: $font-sizes,
     ),
     "letter-spacing": (
       property: letter-spacing,
@@ -44,8 +44,8 @@ $utilities: map-merge(
         normal: 0,
         wide: 0.025em,
         wider: 0.05em,
-        widest: 0.1em
-      )
+        widest: 0.1em,
+      ),
     ),
   )
 );
