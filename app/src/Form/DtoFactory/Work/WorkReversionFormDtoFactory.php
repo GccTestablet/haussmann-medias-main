@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\DtoFactory\Work;
 
-use App\Entity\Work;
-use App\Entity\WorkReversion;
+use App\Entity\Work\Work;
+use App\Entity\Work\WorkReversion;
 use App\Form\Dto\Work\WorkReversionFormDto;
 use App\Tools\Parser\ObjectParser;
 

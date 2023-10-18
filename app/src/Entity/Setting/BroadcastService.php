@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Setting;
 
-use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -30,14 +27,6 @@ class BroadcastService
     #[ORM\ManyToOne(targetEntity: BroadcastChannel::class, inversedBy: 'broadcastServices')]
     #[ORM\JoinColumn(name: 'broadcast_channel_id', referencedColumnName: 'id', nullable: false)]
     private BroadcastChannel $broadcastChannel;
-
-    #[ORM\ManyToMany(targetEntity: DistributionContractWork::class, mappedBy: 'broadcastServices')]
-    private Collection $distributionContractWorks;
-
-    public function __construct()
-    {
-        $this->distributionContractWorks = new ArrayCollection();
-    }
 
     public function getId(): int
     {
@@ -71,18 +60,6 @@ class BroadcastService
     public function setBroadcastChannel(BroadcastChannel $broadcastChannel): static
     {
         $this->broadcastChannel = $broadcastChannel;
-
-        return $this;
-    }
-
-    public function getDistributionContractWorks(): Collection
-    {
-        return $this->distributionContractWorks;
-    }
-
-    public function setDistributionContractWorks(Collection $distributionContractWorks): self
-    {
-        $this->distributionContractWorks = $distributionContractWorks;
 
         return $this;
     }

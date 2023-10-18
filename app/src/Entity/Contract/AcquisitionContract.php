@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Entity\Contract;
 
 use App\Entity\Company;
-use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Repository\Contract\AcquisitionContractRepository;
 use DateTime;
@@ -56,13 +55,6 @@ class AcquisitionContract implements FileInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?DateTime $endsAt = null;
 
-    /**
-     * @var Collection<Territory>
-     */
-    #[ORM\ManyToMany(targetEntity: Territory::class, inversedBy: 'acquisitionContracts')]
-    #[ORM\JoinTable(name: 'acquisition_contracts_territories')]
-    private Collection $territories;
-
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
 
@@ -74,7 +66,6 @@ class AcquisitionContract implements FileInterface
 
     public function __construct()
     {
-        $this->territories = new ArrayCollection();
         $this->works = new ArrayCollection();
     }
 
@@ -182,25 +173,6 @@ class AcquisitionContract implements FileInterface
     public function setEndsAt(?DateTime $endsAt): static
     {
         $this->endsAt = $endsAt;
-
-        return $this;
-    }
-
-    public function getTerritories(): Collection
-    {
-        return $this->territories;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setTerritories(Collection $territories): static
-    {
-        $this->territories->clear();
-
-        foreach ($territories as $territory) {
-            $this->territories->add($territory);
-        }
 
         return $this;
     }

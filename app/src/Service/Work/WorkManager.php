@@ -7,7 +7,7 @@ namespace App\Service\Work;
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContract;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;

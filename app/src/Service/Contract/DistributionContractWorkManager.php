@@ -6,7 +6,7 @@ namespace App\Service\Contract;
 
 use App\Entity\Contract\DistributionContract;
 use App\Entity\Contract\DistributionContractWork;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -15,6 +15,19 @@ class DistributionContractWorkManager
     public function __construct(
         private readonly EntityManagerInterface $entityManager
     ) {}
+
+    public function findOrCreateByDistributionContractAndWork(DistributionContract $distributionContract, Work $work): DistributionContractWork
+    {
+        $contractWork = $this->findOneByDistributionContractAndWork($distributionContract, $work);
+        if ($contractWork instanceof DistributionContractWork) {
+            return $contractWork;
+        }
+
+        return (new DistributionContractWork())
+            ->setDistributionContract($distributionContract)
+            ->setWork($work)
+        ;
+    }
 
     public function findOneByDistributionContractAndWork(DistributionContract $distributionContract, Work $work): ?DistributionContractWork
     {

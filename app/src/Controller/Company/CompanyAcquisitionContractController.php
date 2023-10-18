@@ -8,10 +8,10 @@ use App\Controller\Shared\AbstractAppController;
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\User;
-use App\Form\Dto\Company\CompanyContractFormDto;
-use App\Form\DtoFactory\Company\CompanyContractFormDtoFactory;
+use App\Form\Dto\Contract\AcquisitionContractFormDto;
+use App\Form\DtoFactory\Contract\AcquisitionContractFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
-use App\Form\Handler\Company\CompanyContractFormHandler;
+use App\Form\Handler\Contract\AcquisitionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Security\Voter\CompanyVoter;
 use App\Tools\Manager\UploadFileManager;
@@ -27,8 +27,8 @@ class CompanyAcquisitionContractController extends AbstractAppController
 {
     public function __construct(
         private readonly UploadFileManager $uploadFileManager,
-        private readonly CompanyContractFormHandler $companyContractFormHandler,
-        private readonly CompanyContractFormDtoFactory $companyContractFormDtoFactory,
+        private readonly AcquisitionContractFormHandler $companyContractFormHandler,
+        private readonly AcquisitionContractFormDtoFactory $companyContractFormDtoFactory,
     ) {}
 
     #[Route(name: 'app_company_acquisition_contract_index')]
@@ -58,7 +58,7 @@ class CompanyAcquisitionContractController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            /** @var CompanyContractFormDto $dto */
+            /** @var AcquisitionContractFormDto $dto */
             $dto = $form->getData();
 
             return $this->redirectToRoute('app_company_acquisition_contract_show', [

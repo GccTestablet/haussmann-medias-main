@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Work;
 
 use App\Controller\Shared\AbstractAppController;
-use App\Entity\Work;
+use App\Entity\Work\Work;
 use App\Service\Work\WorkManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

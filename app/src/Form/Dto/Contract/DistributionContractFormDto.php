@@ -9,6 +9,7 @@ use App\Entity\Contract\DistributionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistributionContractFormDto
@@ -32,6 +33,8 @@ class DistributionContractFormDto
     private string $currency = 'EUR';
 
     private ?FrequencyEnum $reportFrequency = null;
+
+    private Collection $works;
 
     public function __construct(
         private readonly DistributionContract $contract,
@@ -164,6 +167,18 @@ class DistributionContractFormDto
     public function setReportFrequency(?FrequencyEnum $reportFrequency): static
     {
         $this->reportFrequency = $reportFrequency;
+
+        return $this;
+    }
+
+    public function getWorks(): Collection
+    {
+        return $this->works;
+    }
+
+    public function setWorks(Collection $works): static
+    {
+        $this->works = $works;
 
         return $this;
     }

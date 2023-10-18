@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Work;
 
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContractWork;
-use App\Entity\Setting\BroadcastChannel;
+use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Repository\WorkRepository;
@@ -55,13 +55,6 @@ class Work
     #[ORM\Column(nullable: true)]
     private ?string $duration = null;
 
-    /**
-     * @var Collection<BroadcastChannel>
-     */
-    #[ORM\ManyToMany(targetEntity: BroadcastChannel::class, inversedBy: 'works')]
-    #[ORM\JoinTable(name: 'works_broadcast_channels')]
-    private Collection $broadcastChannels;
-
     #[ORM\ManyToOne(targetEntity: AcquisitionContract::class, inversedBy: 'works')]
     #[ORM\JoinColumn(name: 'acquisition_contract_id', referencedColumnName: 'id')]
     private AcquisitionContract $acquisitionContract;
@@ -79,6 +72,12 @@ class Work
     private Collection $workReversions;
 
     /**
+     * @var Collection<WorkTerritory>
+     */
+    #[ORM\OneToMany(mappedBy: 'work', targetEntity: WorkTerritory::class, cascade: ['persist'])]
+    private Collection $workTerritories;
+
+    /**
      * @var Collection<DistributionContractWork>
      */
     #[ORM\OneToMany(mappedBy: 'work', targetEntity: DistributionContractWork::class, cascade: ['persist'])]
@@ -86,9 +85,9 @@ class Work
 
     public function __construct()
     {
-        $this->broadcastChannels = new ArrayCollection();
         $this->workAdaptations = new ArrayCollection();
         $this->workReversions = new ArrayCollection();
+        $this->workTerritories = new ArrayCollection();
         $this->distributionContracts = new ArrayCollection();
     }
 
@@ -212,25 +211,6 @@ class Work
         return $this;
     }
 
-    public function getBroadcastChannels(): Collection
-    {
-        return $this->broadcastChannels;
-    }
-
-    /**
-     * We use add/remove to avoid a bug with ManyToMany in form type and DTO
-     */
-    public function setBroadcastChannels(Collection $broadcastChannels): static
-    {
-        $this->broadcastChannels->clear();
-
-        foreach ($broadcastChannels as $channel) {
-            $this->broadcastChannels->add($channel);
-        }
-
-        return $this;
-    }
-
     public function getAcquisitionContract(): AcquisitionContract
     {
         return $this->acquisitionContract;
@@ -266,6 +246,59 @@ class Work
     public function setWorkReversions(Collection $workReversions): static
     {
         $this->workReversions = $workReversions;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<WorkTerritory>
+     */
+    public function getWorkTerritories(): Collection
+    {
+        return $this->workTerritories;
+    }
+
+    /**
+     * @return Collection<Territory>
+     */
+    public function getTerritories(): Collection
+    {
+        return $this->workTerritories
+            ->map(fn (WorkTerritory $workTerritory) => $workTerritory->getTerritory())
+        ;
+    }
+
+    public function getWorkTerritory(Territory $territory): ?WorkTerritory
+    {
+        foreach ($this->workTerritories as $workTerritory) {
+            if ($workTerritory->getTerritory() === $territory) {
+                return $workTerritory;
+            }
+        }
+
+        return null;
+    }
+
+    public function addWorkTerritory(WorkTerritory $workTerritory): static
+    {
+        if (!$this->workTerritories->contains($workTerritory)) {
+            $this->workTerritories->add($workTerritory);
+            $workTerritory->setWork($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Collection<WorkTerritory> $workTerritories
+     */
+    public function setWorkTerritories(Collection $workTerritories): static
+    {
+        $this->workTerritories->clear();
+
+        foreach ($workTerritories as $workTerritory) {
+            $this->addWorkTerritory($workTerritory);
+        }
 
         return $this;
     }
