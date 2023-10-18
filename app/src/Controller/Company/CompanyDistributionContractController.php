@@ -15,8 +15,6 @@ use App\Form\Handler\Contract\DistributionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Contract\DistributionContractWorkManager;
-use App\Tools\Manager\UploadFileManager;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +25,6 @@ use Symfony\Component\Translation\TranslatableMessage;
 class CompanyDistributionContractController extends AbstractAppController
 {
     public function __construct(
-        private readonly UploadFileManager $uploadFileManager,
         private readonly DistributionContractFormHandler $distributionContractFormHandler,
         private readonly DistributionContractFormDtoFactory $distributionContractFormDtoFactory,
         private readonly DistributionContractWorkManager $distributionContractWorkManager
@@ -111,8 +108,6 @@ class CompanyDistributionContractController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            $this->uploadFileManager->remove($contract);
-
             return $this->redirectToRoute('app_company_show', ['id' => $company->getId()]);
         }
 
@@ -123,12 +118,6 @@ class CompanyDistributionContractController extends AbstractAppController
             ], 'company'),
             'form' => $form,
         ]);
-    }
-
-    #[Route(path: '/{id}/download', name: 'app_company_distribution_contract_download', requirements: ['id' => '\d+'])]
-    public function download(DistributionContract $contract): BinaryFileResponse
-    {
-        return $this->uploadFileManager->download($contract);
     }
 
     private function getFormHandlerResponse(Request $request, Company $company, ?DistributionContract $contract): FormHandlerResponseInterface

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Work;
+namespace App\Entity\Contract;
 
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Setting\Territory;
@@ -14,8 +14,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'work_territories')]
-class WorkTerritory
+#[ORM\Table(name: 'distribution_contract_work_territories')]
+class DistributionContractWorkTerritory
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -25,16 +25,16 @@ class WorkTerritory
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Work::class, inversedBy: 'workTerritories')]
-    #[ORM\JoinColumn(name: 'work_id', referencedColumnName: 'id', nullable: false)]
-    private Work $work;
+    #[ORM\ManyToOne(targetEntity: DistributionContractWork::class, inversedBy: 'workTerritories')]
+    #[ORM\JoinColumn(name: 'distribution_contract_work_id', referencedColumnName: 'id', nullable: false)]
+    private DistributionContractWork $contractWork;
 
     #[ORM\ManyToOne(targetEntity: Territory::class)]
     #[ORM\JoinColumn(name: 'territory_id', referencedColumnName: 'id', nullable: false)]
     private Territory $territory;
 
     #[ORM\ManyToMany(targetEntity: BroadcastChannel::class)]
-    #[ORM\JoinTable(name: 'work_territory_broadcast_channels')]
+    #[ORM\JoinTable(name: 'distribution_contract_work_territory_broadcast_channels')]
     private Collection $broadcastChannels;
 
     public function __construct()
@@ -47,21 +47,21 @@ class WorkTerritory
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getWork(): Work
+    public function getContractWork(): DistributionContractWork
     {
-        return $this->work;
+        return $this->contractWork;
     }
 
-    public function setWork(Work $work): self
+    public function setContractWork(DistributionContractWork $contractWork): static
     {
-        $this->work = $work;
+        $this->contractWork = $contractWork;
 
         return $this;
     }
@@ -71,7 +71,7 @@ class WorkTerritory
         return $this->territory;
     }
 
-    public function setTerritory(Territory $territory): self
+    public function setTerritory(Territory $territory): static
     {
         $this->territory = $territory;
 
@@ -81,11 +81,6 @@ class WorkTerritory
     public function getBroadcastChannels(): Collection
     {
         return $this->broadcastChannels;
-    }
-
-    public function hasBroadcastChannel(BroadcastChannel $channel): bool
-    {
-        return $this->broadcastChannels->contains($channel);
     }
 
     public function addBroadcastChannel(BroadcastChannel $channel): static
@@ -106,13 +101,9 @@ class WorkTerritory
         return $this;
     }
 
-    public function setBroadcastChannels(Collection $broadcastChannels): self
+    public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        $this->broadcastChannels->clear();
-
-        foreach ($broadcastChannels as $channel) {
-            $this->addBroadcastChannel($channel);
-        }
+        $this->broadcastChannels = $broadcastChannels;
 
         return $this;
     }

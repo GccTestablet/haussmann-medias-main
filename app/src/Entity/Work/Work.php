@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function sprintf;
 
 #[ORM\Entity(repositoryClass: WorkRepository::class)]
 #[ORM\Table(name: 'works')]
@@ -257,6 +258,16 @@ class Work
         return $this->workTerritories;
     }
 
+    /**
+     * @return Collection<Territory>
+     */
+    public function getTerritories(): Collection
+    {
+        return $this->workTerritories
+            ->map(fn (WorkTerritory $workTerritory) => $workTerritory->getTerritory())
+        ;
+    }
+
     public function getWorkTerritory(Territory $territory): ?WorkTerritory
     {
         foreach ($this->workTerritories as $workTerritory) {
@@ -306,6 +317,6 @@ class Work
 
     public function getImdbLink(): string
     {
-        return \sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
+        return sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
     }
 }

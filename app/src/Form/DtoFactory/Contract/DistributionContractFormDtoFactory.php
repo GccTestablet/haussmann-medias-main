@@ -6,6 +6,7 @@ namespace App\Form\DtoFactory\Contract;
 
 use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
+use App\Entity\Contract\DistributionContractFile;
 use App\Form\Dto\Contract\DistributionContractFormDto;
 use App\Service\Contract\DistributionContractWorkManager;
 use App\Service\Work\WorkManager;
@@ -15,6 +16,7 @@ use App\Tools\Parser\ObjectParser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use function count;
 
 class DistributionContractFormDtoFactory
 {
@@ -36,33 +38,39 @@ class DistributionContractFormDtoFactory
             return new DistributionContractFormDto($contract, false);
         }
 
-        $file = null;
-        if ($contract->getFileName()) {
-            $filePath = $this->uploadFileManager->path($contract->getUploadDir(), $contract->getFileName());
-            $file = new UploadedFile(
-                $filePath,
-                $contract->getOriginalFileName()
+        $files = [];
+        foreach ($contract->getContractFiles() as $contractFile) {
+            $files[$contractFile->getId()] = new UploadedFile(
+                $this->uploadFileManager->path($contractFile->getUploadDir(), $contractFile->getFileName()),
+                $contractFile->getOriginalFileName()
             );
         }
 
         $works = $this->workManager->findByDistributionContract($contract);
 
         $dto = (new DistributionContractFormDto($contract, true))
-            ->setFile($file)
+            ->setFiles($files)
             ->setWorks(new ArrayCollection($works))
         ;
-        $this->objectParser->mergeFromObject($contract, $dto);
+        $this->objectParser->mergeFromObject($contract, $dto, ['files', 'works']);
 
         return $dto;
     }
 
     public function updateEntity(DistributionContractFormDto $dto, DistributionContract $contract): void
     {
-        if ($dto->getFile()) {
-            $contract
-                ->setOriginalFileName($dto->getFile()->getClientOriginalName())
-                ->setFileName(FileNameGenerator::generate($dto->getFile()))
-            ;
+        if (0 !== count($dto->getFiles())) {
+            foreach ($dto->getFiles() as $file) {
+                $contractFile = (new DistributionContractFile())
+                    ->setDistributionContract($contract)
+                    ->setOriginalFileName($file->getClientOriginalName())
+                    ->setFileName(FileNameGenerator::generate($file))
+                ;
+
+                $this->uploadFileManager->upload($file, $contractFile->getUploadDir(), $contractFile->getFileName());
+
+                $contract->addContractFile($contractFile);
+            }
         }
 
         foreach ($contract->getContractWorks() as $contractWork) {
@@ -79,6 +87,6 @@ class DistributionContractFormDtoFactory
 
             $contract->addContractWork($contractWork);
         }
-        $this->objectParser->mergeFromObject($dto, $contract);
+        $this->objectParser->mergeFromObject($dto, $contract, ['files', 'works']);
     }
 }

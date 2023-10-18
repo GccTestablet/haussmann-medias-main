@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Type\Work;
+namespace App\Form\Type\Contract;
 
-use App\Form\Dto\Work\WorkTerritoryFormDto;
+use App\Form\Dto\Contract\DistributionContractWorkTerritoryFormDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WorkTerritoryFormType extends AbstractType
+class DistributionContractWorkTerritoryFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -28,7 +28,7 @@ class WorkTerritoryFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => WorkTerritoryFormDto::class,
+            'data_class' => DistributionContractWorkTerritoryFormDto::class,
         ]);
     }
 }

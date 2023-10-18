@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Type\Contract;
 
 use App\Form\Dto\Contract\DistributionContractWorkRevenueImportFormDto;
+use App\Form\Type\Shared\CurrencyType;
 use App\Form\Type\Shared\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -27,6 +28,9 @@ class DistributionContractWorkRevenueImportFormType extends AbstractType
                 'attr' => [
                     'accept' => '.csv',
                 ],
+            ])
+            ->add('currency', CurrencyType::class, [
+                'required' => true,
             ])
         ;
     }
