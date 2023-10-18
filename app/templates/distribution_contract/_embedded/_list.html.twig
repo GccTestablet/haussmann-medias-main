@@ -17,11 +17,6 @@
                 <a href="{{ path('app_company_distribution_contract_show', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">
                     {% trans from 'misc' %}Show{% endtrans %}
                 </a>
-                {% if contract.fileName %}
-                    <a href="{{ path('app_company_distribution_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">
-                        {% trans from 'misc' %}Download{% endtrans %}
-                    </a>
-                {% endif %}
                 <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">
                     {% trans from 'misc' %}Update{% endtrans %}
                 </a>

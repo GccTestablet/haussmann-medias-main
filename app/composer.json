@@ -10,6 +10,8 @@
     "ext-ctype": "*",
     "ext-fileinfo": "*",
     "ext-iconv": "*",
+    "ext-dom": "*",
+    "ext-simplexml": "*",
     "doctrine/doctrine-bundle": "^2.10",
     "doctrine/doctrine-migrations-bundle": "^3.2",
     "doctrine/orm": "^2.15",

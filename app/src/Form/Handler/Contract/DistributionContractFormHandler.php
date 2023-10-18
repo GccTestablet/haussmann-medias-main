@@ -9,7 +9,6 @@ use App\Form\DtoFactory\Contract\DistributionContractFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Type\Contract\DistributionContractFormType;
-use App\Tools\Manager\UploadFileManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +18,6 @@ class DistributionContractFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly UploadFileManager $uploadFileManager,
         private readonly DistributionContractFormDtoFactory $distributionContractFormDtoFactory,
     ) {}
 
@@ -38,10 +36,6 @@ class DistributionContractFormHandler extends AbstractFormHandler
         }
 
         $this->distributionContractFormDtoFactory->updateEntity($dto, $contract);
-
-        if ($dto->getFile()) {
-            $this->uploadFileManager->upload($dto->getFile(), $contract->getUploadDir(), $contract->getFileName());
-        }
 
         $this->entityManager->persist($contract);
         $this->entityManager->flush();
