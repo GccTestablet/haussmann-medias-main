@@ -13,10 +13,9 @@ class DistributionContractWorkRevenueImportFormDto
     #[Assert\NotBlank]
     private ?\DateTime $startsAt = null;
 
+    private ?\DateTime $endsAt = null;
     #[Assert\NotBlank]
     #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
-    private ?\DateTime $endsAt = null;
-
     #[Assert\NotBlank]
     #[Assert\File(
         mimeTypes: [
@@ -25,6 +24,8 @@ class DistributionContractWorkRevenueImportFormDto
         ]
     )]
     private ?UploadedFile $file = null;
+
+    private ?string $currency = 'EUR';
 
     public function __construct(
         private readonly DistributionContract $distributionContract,
@@ -69,5 +70,15 @@ class DistributionContractWorkRevenueImportFormDto
         $this->file = $file;
 
         return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): void
+    {
+        $this->currency = $currency;
     }
 }
