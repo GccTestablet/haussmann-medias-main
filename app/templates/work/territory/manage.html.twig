@@ -22,7 +22,7 @@
                             <td>{{ territory.name }}</td>
                             {% for channel in broadcastChannels %}
                                 {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory, channel) %}
-                                <td class="text-center">{{ form_widget(form.children[formName]) }}</td>
+                                <td class="text-center">{{ form_widget(form.territories[formName]) }}</td>
                             {% endfor %}
                         </tr>
                     {% endfor %}

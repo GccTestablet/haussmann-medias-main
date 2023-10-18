@@ -9,7 +9,6 @@ use App\Form\DtoFactory\Work\WorkTerritoryFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Type\Work\WorkTerritoryFormType;
-use App\Tools\Parser\ArrayParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +33,7 @@ class WorkTerritoryFormHandler extends AbstractFormHandler
         $work = $dto->getWork();
         $this->entityManager->refresh($work);
 
-        $this->formDtoFactory->updateEntity($work, ArrayParser::getFirstValue($request->request->all()));
+        $this->formDtoFactory->updateEntity($work, $dto->getTerritories());
 
         $this->entityManager->flush();
 
