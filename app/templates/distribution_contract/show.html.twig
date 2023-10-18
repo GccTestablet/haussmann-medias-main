@@ -77,15 +77,35 @@
                 <thead>
                 <tr>
                     <th>{% trans from 'work' %}Work{% endtrans %}</th>
-                    <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
+                    <th class="text-end">{% trans from 'misc' %}Actions{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for contractWork in contract.contractWorks %}
                     <tr>
                         <td>{{ contractWork.work.name }}</td>
-                        <td>
-                            <a href="#" class="btn btn-warning">{% trans from 'misc' %}Manage territories{% endtrans %}</a>
+                        <td class="text-end">
+                            <a href="{{ path('app_distribution_contract_work_territory_manage', {'contract': contract.id, 'work': contractWork.work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Manage territories{% endtrans %}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table class="table mb-0">
+                                <thead>
+                                <tr>
+                                    <th>Territory</th>
+                                    <th>Channels</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for workTerritory in contractWork.workTerritories %}
+                                    <tr>
+                                        <td>{{ workTerritory.territory.name }}</td>
+                                        <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
                 {% endfor %}
