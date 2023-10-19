@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Service\Security;
 
 use App\Entity\User;
-use App\Service\Security\UserActivityManager;
+use App\Service\User\UserActivityManager;
 use App\Tests\AbstractTestCase;
 use App\Tools\Parser\DateParser;
 use Doctrine\ORM\EntityManagerInterface;

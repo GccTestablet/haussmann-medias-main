@@ -7,7 +7,7 @@ namespace App\Security;
 use App\Entity\User;
 use App\Form\Dto\Security\LoginFormDto;
 use App\Form\Type\Security\LoginFormType;
-use App\Service\Security\UserActivityManager;
+use App\Service\User\UserActivityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

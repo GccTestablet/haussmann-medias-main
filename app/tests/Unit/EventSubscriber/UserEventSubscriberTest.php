@@ -7,7 +7,7 @@ namespace App\Tests\Unit\EventSubscriber;
 use App\Entity\User;
 use App\EventSubscriber\UserEventSubscriber;
 use App\Service\Security\SecurityManager;
-use App\Service\Security\UserActivityManager;
+use App\Service\User\UserActivityManager;
 use App\Tests\AbstractTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;

@@ -28,6 +28,7 @@ class UserFixture extends AbstractFixture
             'firstName' => 'SIMPLE',
             'lastName' => 'User',
             'email' => 'simple-user@hm.mail',
+            'passwordResetToken' => 'token',
         ],
     ];
 

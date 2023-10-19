@@ -41,6 +41,11 @@ class DoctrineFixtureLoader
         $this->ORMExecutor->execute($loader->getFixtures(), true);
     }
 
+    public function getReference(string $reference): object
+    {
+        return $this->ORMExecutor->getReferenceRepository()->getReference($reference);
+    }
+
     private function truncateDatabase(): void
     {
         $connection = $this->entityManager->getConnection();

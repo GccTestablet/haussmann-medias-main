@@ -32,4 +32,10 @@ class UserManagerTest extends AbstractTestCase
         $this->assertInstanceOf(User::class, $this->userManager->findByEmail('super-admin@hm.mail'));
         $this->assertNull($this->userManager->findByEmail('no-existing@hm.mail'));
     }
+
+    public function testFindByPasswordResetToken(): void
+    {
+        $this->assertInstanceOf(User::class, $this->userManager->findByPasswordResetToken('token'));
+        $this->assertNull($this->userManager->findByPasswordResetToken('no-existing-token'));
+    }
 }
