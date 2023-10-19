@@ -1,6 +1,12 @@
-<!-- Search Small Screens -->
-<div class="navbar-search-wrapper search-input-wrapper  d-none">
-    <input type="text" class="form-control search-input container-fluid border-0" placeholder="Search..." aria-label="Search...">
-    <i class="bx bx-x bx-sm search-toggler cursor-pointer"></i>
+<div id="page-header-search" class="overlay-header bg-body-extra-light">
+    <div class="content-header">
+        <div class="w-100">
+            <div class="input-group">
+                <button type="button" class="btn btn-alt-secondary" data-toggle="layout" data-action="header_search_off">
+                    <i class="fa fa-fw fa-times-circle"></i>
+                </button>
+                {{ component('layout_search_bar') }}
+            </div>
+        </div>
+    </div>
 </div>
-<!--/ Search Small Screens -->

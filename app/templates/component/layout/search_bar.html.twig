@@ -1,9 +1,8 @@
 <div {{ attributes }} class="position-relative">
-    <input
-            type="text"
-            data-model="debounce(500)|query"
-            placeholder="Search an artwork, contract, beneficiary ..."
-            class="form-control"
+    <input id="page-header-search-input" type="text"
+           data-model="debounce(500)|query"
+           placeholder="Search an artwork, contract, beneficiary ..."
+           class="form-control form-control-alt shadow-none"
     >
 
     {% if this.results|length > 0 %}

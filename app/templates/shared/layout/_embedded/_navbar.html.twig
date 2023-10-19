@@ -16,9 +16,7 @@
             <!-- END Open Search Section -->
 
             <!-- Search Form (visible on larger screens) -->
-            <form class="d-none d-md-inline-block" action="be_pages_generic_search.html" method="POST">
-                {{ include('shared/layout/_embedded/_navbar/_search.html.twig') }}
-            </form>
+            {{ include('shared/layout/_embedded/_navbar/_search.html.twig') }}
             <!-- END Search Form -->
         </div>
         <!-- END Left Section -->
@@ -29,5 +27,6 @@
         </div>
         <!-- END Right Section -->
     </div>
+    {{ include('shared/layout/_embedded/_navbar/_search-small-screens.html.twig') }}
     <!-- END Header Content -->
 </header>
