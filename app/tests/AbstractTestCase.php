@@ -15,8 +15,12 @@ abstract class AbstractTestCase extends WebTestCase
         return self::getContainer()->get($id);
     }
 
+    /**
+     * @param string[] $fixtures
+     */
     protected function loadOrmOnDemandFixtures(array $fixtures, bool $append = false): void
     {
+        /** @var DoctrineFixtureLoader $fixtureLoader */
         $fixtureLoader = $this->getService(DoctrineFixtureLoader::class);
 
         $fixtureLoader->loadFixtures($fixtures, $append);

@@ -8,5 +8,11 @@ services:
     resource: "../tests/*"
     exclude: "../tests/{bootstrap.php}"
 
+  Doctrine\Common\DataFixtures\Executor\ORMExecutor: ~
+
+  App\Tests\Tools\Loader\DoctrineFixtureLoader:
+    arguments:
+      $container: "@service_container"
+
   App\Tools\Parser\ArrayParser: ~
   App\Tools\Parser\ObjectParser: ~
