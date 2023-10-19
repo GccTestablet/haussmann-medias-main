@@ -31,7 +31,9 @@ class DistributionContractWorkFormHandler extends AbstractFormHandler
         }
 
         $contractWork = $dto->getContractWork();
-        $this->entityManager->refresh($contractWork);
+        if ($dto->isExists()) {
+            $this->entityManager->refresh($contractWork);
+        }
 
         $this->formDtoFactory->updateEntity($contractWork, $dto);
 
