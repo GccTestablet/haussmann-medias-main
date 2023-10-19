@@ -21,6 +21,7 @@ class UserUpdaterTest extends AbstractTestCase
             UserFixture::class,
             CompanyFixture::class,
         ]);
+
         $this->userUpdater = $this->getService(UserUpdater::class);
     }
 

@@ -18,6 +18,7 @@ class UserActivityManagerTest extends AbstractTestCase
         $this->loadOrmOnDemandFixtures([
             UserFixture::class,
         ]);
+
         $this->userActivityManager = $this->getService(UserActivityManager::class);
     }
 
