@@ -13,8 +13,12 @@ class FormatExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('date_format', [FormatExtensionRuntime::class, 'formatDate']),
-            new TwigFilter('datetime_format', [FormatExtensionRuntime::class, 'formatDateTime']),
+            new TwigFilter('date_format', [FormatExtensionRuntime::class, 'formatDate'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFilter('datetime_format', [FormatExtensionRuntime::class, 'formatDateTime'], [
+                'is_safe' => ['html'],
+            ]),
             new TwigFilter('initial_format', [FormatExtensionRuntime::class, 'formatInitial']),
             new TwigFilter('country_format', [FormatExtensionRuntime::class, 'formatCountry']),
             new TwigFilter('user_format', [FormatExtensionRuntime::class, 'formatUser'], [
