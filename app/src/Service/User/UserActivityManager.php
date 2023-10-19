@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Security;
+namespace App\Service\User;
 
 use App\Entity\User;
 use App\Tools\Parser\DateParser;
