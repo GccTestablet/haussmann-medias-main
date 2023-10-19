@@ -1,7 +1,8 @@
 <!-- User Dropdown -->
 <div class="dropdown d-inline-block ms-2">
     <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="d-none d-sm-inline-block ms-2">{{ app.user.fullName }}</span>
+        <span class="d-none d-sm-inline-block">{{ app.user.fullName }}</span>
+        <span class="d-sm-none">{{ app.user.fullName|initial_format }}</span>
         <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block opacity-50 ms-1 mt-1"></i>
     </button>
     <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown">
