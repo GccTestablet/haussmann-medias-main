@@ -31,15 +31,12 @@ class BroadcastChannelFixture extends AbstractFixture
         ],
     ];
 
-    public function __construct(
-        private readonly StringParser $stringParser
-    ) {}
-
     public function load(ObjectManager $manager): void
     {
+        $stringParser = $this->getService(StringParser::class);
         foreach (self::ROWS as $reference => $row) {
             $broadcastChannel = (new BroadcastChannel())
-                ->setSlug($this->stringParser->slugify($row['name']))
+                ->setSlug($stringParser->slugify($row['name']))
             ;
             $this->merge($row, $broadcastChannel);
 
