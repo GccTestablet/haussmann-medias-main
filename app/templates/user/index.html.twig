@@ -1,29 +1,32 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {% trans from 'user' %}List of users{% endtrans %}
+{% endblock %}
+{% block content_action %}
+    <a class="btn btn-success btn-sm" href="{{ path('app_user_add') }}">{% trans from 'user' %}Add user{% endtrans %}</a>
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center">{% trans from 'user' %}List of users{% endtrans %}</h1>
-        {% endblock %}
         {% block body_content %}
-            <a class="btn btn-success" href="{{ path('app_user_add') }}">{% trans from 'user' %}Add user{% endtrans %}</a>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user in users %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
-                        <td><a  class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                        <th>Name</th>
+                        <th>Action</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
+                            <td><a  class="btn btn-warning" href="{{ path('app_user_update', {'id': user.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endblock %}
     {% endcomponent %}
 {% endblock %}

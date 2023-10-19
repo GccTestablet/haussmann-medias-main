@@ -1,16 +1,15 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {{ channel.name }}
+{% endblock %}
+{% block content_action %}
+    <a href="{{ path('app_setting_broadcast_channel_service_add', {'channel': channel.id}) }}" class="btn-block-option">{% trans from 'setting' %}Add a service{% endtrans %}</a>
+    <a href="{{ path('app_setting_broadcast_channel_update', {'id': channel.id}) }}" class="btn-block-option">{% trans from 'misc' %}Update{% endtrans %}</a>
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center">{{ channel.name }}</h1>
-        {% endblock %}
         {% block body_content %}
-            <div class="justify-content-between mb-2">
-                <a href="{{ path('app_setting_broadcast_channel_service_add', {'channel': channel.id}) }}" class="btn btn-success">{% trans from 'setting' %}Add a service{% endtrans %}</a>
-                <a href="{{ path('app_setting_broadcast_channel_update', {'id': channel.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
-            </div>
-
             <ul>
                 <li>Id: {{ channel.id }}</li>
                 <li>Name: {{ channel.name }}</li>

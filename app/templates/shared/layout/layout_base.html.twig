@@ -3,33 +3,41 @@
 {% block css_global %}
     {{ parent() }}
     {{ encore_entry_link_tags('assets/app') }}
-    {{ encore_entry_link_tags('assets/css/app') }}
-    {{ encore_entry_link_tags('assets/css/demo') }}
+{#    {{ encore_entry_link_tags('assets/css/app') }}#}
+{#    {{ encore_entry_link_tags('assets/css/demo') }}#}
+    {{ encore_entry_link_tags('assets/css/main') }}
 {% endblock %}
 
 {% block js_global %}
     {{ encore_entry_script_tags('assets/app') }}
 {% endblock %}
 
-{% block html_class('light-style layout-navbar-fixed layout-menu-fixed') %}
-
 {% block body %}
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
-            {{ include('shared/layout/_embedded/_sidebar.html.twig') }}
-            <div class="layout-page">
-                {{ include('shared/layout/_embedded/_navbar.html.twig') }}
-                <div class="content-wrapper">
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        {{ component('flash', {
-                            flashes: app.flashes
-                        }) }}
-
-                        {% block content %}{% endblock %}
+    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed">
+        {{ include('shared/layout/_embedded/_sidebar.html.twig') }}
+        {{ include('shared/layout/_embedded/_navbar.html.twig') }}
+        <main id="main-container">
+            {{ component('flash', {
+                flashes: app.flashes
+            }) }}
+            <div class="bg-body-light">
+                <div class="content content-full py-0">
+                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
+                        <div class="flex-grow-1">
+                            <h1 class="h3 fw-bold mb-1">
+                                {% block content_title %}{% endblock %}
+                            </h1>
+                        </div>
+                        <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
+                            {% block content_action %}{% endblock %}
+                        </nav>
                     </div>
-                    {{ include('shared/layout/_embedded/_footer.html.twig') }}
                 </div>
             </div>
-        </div>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+        {{ include('shared/layout/_embedded/_footer.html.twig') }}
     </div>
 {% endblock %}

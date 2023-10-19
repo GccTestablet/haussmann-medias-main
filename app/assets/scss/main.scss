@@ -1,0 +1,128 @@
+//
+// OneUI - UI Framework
+// --------------------------------------------------
+
+// Bootstrap functions
+@import "~bootstrap/scss/functions";
+
+// User variables (your own variable overrides)
+@import "custom/variables";
+
+// Custom Bootstrap variables overrides
+@import "oneui/variables-bootstrap";
+
+// Bootstrap variables
+@import "~bootstrap/scss/variables";
+
+// Bootstrap maps
+@import "~bootstrap/scss/maps";
+
+// Bootstrap mixins
+@import "~bootstrap/scss/mixins";
+
+// Custom mixins and Bootstrap overrides
+@import "oneui/mixins";
+
+// Bootstrap Utilities
+@import "~bootstrap/scss/utilities";
+
+// Custom utilities and Bootstrap overrides
+@import "oneui/utilities";
+
+// Layout & components
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/accordion";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/spinners";
+@import "~bootstrap/scss/offcanvas";
+@import "~bootstrap/scss/placeholders";
+
+// Bootstrap Helpers
+@import "~bootstrap/scss/helpers";
+
+// Bootstrap Utilities
+@import "~bootstrap/scss/utilities/api";
+
+// Custom variables
+@import "oneui/variables";
+@import "oneui/variables-themes";
+
+// Extend Bootstrap styles and override the ones..
+// ..we can't alter with the provided variables
+@import "oneui/reboot";
+@import "oneui/type";
+@import "oneui/grid";
+@import "oneui/tables";
+@import "oneui/forms";
+@import "oneui/buttons";
+@import "oneui/transitions";
+@import "oneui/dropdown";
+@import "oneui/forms";
+@import "oneui/nav";
+@import "oneui/card";
+@import "oneui/breadcrumb";
+@import "oneui/pagination";
+@import "oneui/modal";
+@import "oneui/print";
+
+// Custom layout
+@import "oneui/layout";
+@import "oneui/header";
+@import "oneui/sidebar";
+@import "oneui/side-overlay";
+@import "oneui/layout-variations";
+@import "oneui/hero";
+@import "oneui/block";
+
+// Custom components
+@import "oneui/page-loader";
+@import "oneui/nav-main";
+@import "oneui/images";
+@import "oneui/lists";
+@import "oneui/item";
+@import "oneui/overlay";
+@import "oneui/timeline";
+@import "oneui/ribbon";
+
+// Helpers
+@import "oneui/helpers";
+
+//// Core third party components
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~simplebar/dist/simplebar.min.css";
+@import "../../node_modules/vanillajs-datepicker/dist/css/datepicker.min.css";
+@import "../../node_modules/vanillajs-datepicker/dist/css/datepicker-bs5.min.css";
+
+// RTL Support
+@import "oneui/rtl-support";
+
+// Dark mode
+@import "oneui/dark-mode";
+
+// User styles (your own styles/overrides)
+@import "custom/main";

@@ -1,10 +1,10 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {{ title|trans }}
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center h3 mb-3 font-weight-normal">{{ title|trans }}</h1>
-        {% endblock %}
         {% block body_content %}
             {{ form_start(form) }}
             {{ form_rest(form) }}

@@ -1,18 +1,20 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for service in services %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
         <tr>
-            <td><a href="{{ path('app_setting_broadcast_service_show', {'id': service.id}) }}">{{ service.name }}</a></td>
-            <td>
-                <a href="{{ path('app_setting_broadcast_channel_service_update', {'channel': service.broadcastChannel.id, 'id': service.id}) }}" class="btn btn-warning">Update</a>
-            </td>
+            <th>Name</th>
+            <th>Actions</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td><a href="{{ path('app_setting_broadcast_service_show', {'id': service.id}) }}">{{ service.name }}</a></td>
+                <td>
+                    <a href="{{ path('app_setting_broadcast_channel_service_update', {'channel': service.broadcastChannel.id, 'id': service.id}) }}" class="btn btn-warning">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

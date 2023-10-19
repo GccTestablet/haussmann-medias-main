@@ -16,13 +16,21 @@ class FormatExtensionRuntime implements RuntimeExtensionInterface
         private readonly UrlGeneratorInterface $urlGenerator
     ) {}
 
-    public function formatDate(?\DateTime $dateTime): ?string
+    public function formatDate(?\DateTime $dateTime, bool $unlimited = false): ?string
     {
+        if (!$dateTime && $unlimited) {
+            return '<i class="fas fa-infinity"></i>';
+        }
+
         return $dateTime?->format(DateParser::FR_DATE_FORMAT);
     }
 
-    public function formatDateTime(?\DateTime $dateTime): ?string
+    public function formatDateTime(?\DateTime $dateTime, bool $unlimited = false): ?string
     {
+        if (!$dateTime && $unlimited) {
+            return '<i class="fas fa-infinity"></i>';
+        }
+
         return $dateTime?->format(DateParser::FR_DATETIME_FORMAT);
     }
 

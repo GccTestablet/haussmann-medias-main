@@ -1,15 +1,14 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {{ type.name }}
+{% endblock %}
+{% block content_action %}
+    <a href="{{ path('app_setting_adaptation_cost_type_update', {'id': type.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center">{{ type.name }}</h1>
-        {% endblock %}
         {% block body_content %}
-            <div class="justify-content-between mb-2">
-                <a href="{{ path('app_setting_adaptation_cost_type_update', {'id': type.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
-            </div>
-
             <ul>
                 <li>Id: {{ type.id }}</li>
                 <li>Name: {{ type.name }}</li>

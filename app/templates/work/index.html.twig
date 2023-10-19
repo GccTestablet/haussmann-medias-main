@@ -1,10 +1,10 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {% trans from 'work' %}List of works{% endtrans %}
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1 class="card-title text-center">{% trans from 'work' %}List of works{% endtrans %}</h1>
-        {% endblock %}
         {% block body_content %}
             {% include 'work/_embedded/_list.html.twig' with {
                 works: works,

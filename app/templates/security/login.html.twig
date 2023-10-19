@@ -1,8 +1,12 @@
 {% extends 'shared/layout/layout_authentication.html.twig' %}
 
+{% block content_title %}
+    Sign In
+{% endblock %}
+{% block content_action %}
+    <a class="btn-block-option fs-sm" href="{{ path('app_security_resetting_request') }}">Forgot password?</a>
+{% endblock %}
 {% block content %}
-<h4 class="mb-2">Welcome to Rights Flow !</h4>
-<p class="mb-4">Please to sign-in to your account and start your work</p>
 {% if error %}
     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
@@ -16,7 +20,6 @@
             <input type="checkbox" class="form-check-input" id="_remember_me" name="_remember_me" />
             <label class="form-check-label" for="_remember_me">Se souvenir de moi ?</label>
         </div>
-        <a href="{{ path('app_security_resetting_request') }}">Forgot password?</a>
     </div>
 </div>
 <!-- Token -->

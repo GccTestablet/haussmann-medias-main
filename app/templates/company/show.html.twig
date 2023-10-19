@@ -2,81 +2,99 @@
 
 {% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), company) %}
 
+{% block content_title %}
+    {{ company.name }}
+{% endblock %}
+
+
+{% block content_action %}
+    {% if isCompanyAdmin %}
+        <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-sm btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
+        <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-sm btn-success">{% trans from "user" %}Add user{% endtrans %}</a>
+        <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-sm btn-success">{% trans from "contract" %}Add acquisition contract{% endtrans %}</a>
+    {% endif %}
+{% endblock %}
 {% block content %}
-    {% component card %}
-        {% block header_content%}
-            <h1 class="card-title text-center">{{ company.name }}</h1>
-        {% endblock %}
-        {% block body_content%}
-            <div class="justify-content-between align-items-center text-center">
-                <a href="{{ path('app_company_index') }}" class="btn btn-primary">{% trans from "misc" %}List{% endtrans %}</a>
-                {% if isCompanyAdmin %}
-                    <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
-                    <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "user" %}Add user{% endtrans %}</a>
-                    <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-success">{% trans from "contract" %}Add acquisition contract{% endtrans %}</a>
-                {% endif %}
+    <div class="row">
+        <div class="col-xxl-9">
+            <div class="block block-rounded mb-3">
+                <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link active" id="ecom-product-info-tab" data-bs-toggle="tab" data-bs-target="#company-acquisition-contracts-tab" role="tab" aria-controls="ecom-product-reviews" aria-selected="true">{% trans from 'contract' %}Acquisition contracts{% endtrans %}</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link" id="ecom-product-comments-tab" data-bs-toggle="tab" data-bs-target="#company-users-tab" role="tab" aria-controls="ecom-product-reviews" aria-selected="false" tabindex="-1">Users</button>
+                    </li>
+                </ul>
+                <div class="block-content tab-content">
+                    <div class="tab-pane pull-x active show" id="company-acquisition-contracts-tab" role="tabpanel" tabindex="0">
+                        {% include 'acquisition_contract/_embedded/_list.html.twig' with {
+                            contracts: company.acquisitionContracts,
+                        } %}
+                    </div>
+                    <div class="tab-pane pull-x" id="company-users-tab" role="tabpanel" tabindex="0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for userCompany in company.users %}
+                                    {% set user = userCompany.user %}
+                                    <tr>
+                                        <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
+                                        <td>{{ userCompany.permission.asText }}</td>
+                                        <td>
+                                            {% if isCompanyAdmin %}
+                                                <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">{% trans from 'misc' %}Remove{% endtrans %}</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <ul class="list-unstyled">
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'company' %}Name{% endtrans %}:</span>
-                    <span>{{ company.name }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
-                    <span>{{ company.createdAt|datetime_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Created by{% endtrans %}:</span>
-                    <span>{{ company.createdBy|user_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated at{% endtrans %}:</span>
-                    <span>{{ company.updatedAt|datetime_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated by{% endtrans %}:</span>
-                    <span>{{ company.updatedBy|user_format }}</span>
-                </li>
-            </ul>
-
-            <br>
-
-            <hr class="my-0">
-
-            <h4>{% trans from 'contract' %}Acquisition contracts{% endtrans %}</h4>
-
-            {% include 'acquisition_contract/_embedded/_list.html.twig' with {
-                contracts: company.acquisitionContracts,
-            } %}
-
-            <br>
-
-            <h4>Users</h4>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for userCompany in company.users %}
-                    {% set user = userCompany.user %}
-                    <tr>
-                        <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
-                        <td>{{ userCompany.permission.asText }}</td>
-                        <td>
-                            {% if isCompanyAdmin %}
-                                <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">{% trans from 'misc' %}Remove{% endtrans %}</a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% endblock %}
-    {% endcomponent %}
+        </div>
+        <div class="col-xxl-3">
+            <div class="block block-rounded mb-3">
+                <div class="block-content p-1">
+                    <table class="table table-striped table-borderless fs-sm">
+                        <tbody>
+                        <tr>
+                            <td>{% trans from 'misc' %}Created at{% endtrans %}</td>
+                            <td>
+                                {{ company.createdAt|datetime_format }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans from 'misc' %}Created by{% endtrans %}</td>
+                            <td>
+                                {{ company.createdBy|user_format }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans from 'misc' %}Updated at{% endtrans %}</td>
+                            <td>
+                                {{ company.updatedAt|datetime_format }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans from 'misc' %}Updated by{% endtrans %}</td>
+                            <td>
+                                {{ company.updatedBy|user_format }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

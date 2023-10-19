@@ -2,20 +2,49 @@
 
 {% block css_global %}
     {{ parent() }}
-    {{ encore_entry_link_tags('assets/css/app') }}
-    {{ encore_entry_link_tags('assets/css/demo') }}
+{#    {{ encore_entry_link_tags('assets/css/app') }}#}
+{#    {{ encore_entry_link_tags('assets/css/demo') }}#}`
+    {{ encore_entry_link_tags('assets/css/main') }}
 {% endblock %}
 
-{% block html_class('light-style layout-navbar-fixed layout-menu-fixed') %}
 
 {% block body %}
-    <div class="container-xxl">
-        <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner py-4">
-                {{ include('shared/layout/_embedded/_logo/_logo_rigthsflow.html.twig') }}
-                {% block content %}{% endblock %}
+    <div id="page-container">
+        <!-- Main Container -->
+        <main id="main-container">
+            <!-- Page Content -->
+            <div class="hero-static d-flex align-items-center">
+                <div class="content">
+                    <div class="row justify-content-center push">
+                        <div class="col-md-8 col-lg-6 col-xl-4">
+                            <!-- Sign In Block -->
+                            <div class="block block-rounded mb-0">
+                                <div class="block-header block-header-default">
+                                    <h3 class="block-title">
+                                        {% block content_title %}{% endblock %}
+                                    </h3>
+                                    <div class="block-options">
+                                        {% block content_action %}{% endblock %}
+                                    </div>
+                                </div>
+                                <div class="block-content pt-0 pb-3">
+                                    <div class="p-sm-3">
+                                        {{ include('shared/layout/_embedded/_logo/_logo_rigthsflow.html.twig') }}
+                                        {% block content %}{% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END Sign In Block -->
+                        </div>
+                    </div>
+                    <div class="fs-sm text-muted text-center">
+                        {{ include('shared/layout/_embedded/_footer.html.twig') }}
+                    </div>
+                </div>
             </div>
-        </div>
-        {{ include('shared/layout/_embedded/_footer.html.twig') }}
+            <!-- END Page Content -->
+        </main>
+        <!-- END Main Container -->
     </div>
+    <!-- END Page Container -->
 {% endblock %}

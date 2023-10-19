@@ -1,0 +1,12 @@
+//
+// Display
+// --------------------------------------------------
+
+.h-header {
+  height: $header-height !important;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

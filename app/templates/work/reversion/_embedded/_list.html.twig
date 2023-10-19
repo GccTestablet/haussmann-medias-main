@@ -1,22 +1,24 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th>Canal</th>
-        <th>Pourcentage reversion</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for reversion in reversions %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
         <tr>
-            <td>{{ reversion.channel.name }}</td>
-            <td>{{ reversion.percentageReversion }}</td>
-            <td>
-                <a href="{{ path('app_work_reversion_show', {'work': work.id, 'id': reversion.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Show{% endtrans %}</a>
-                <a href="{{ path('app_work_reversion_update', {'work': work.id, 'id': reversion.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
-                <a href="{{ path('app_work_reversion_remove', {'work': work.id, 'id': reversion.id}) }}" class="btn btn-danger">{% trans from 'misc' %}Remove{% endtrans %}</a>
-            </td>
+            <th>Canal</th>
+            <th>Pourcentage reversion</th>
+            <th>Action</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for reversion in reversions %}
+            <tr>
+                <td>{{ reversion.channel.name }}</td>
+                <td>{{ reversion.percentageReversion }}</td>
+                <td>
+                    <a href="{{ path('app_work_reversion_show', {'work': work.id, 'id': reversion.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Show{% endtrans %}</a>
+                    <a href="{{ path('app_work_reversion_update', {'work': work.id, 'id': reversion.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+                    <a href="{{ path('app_work_reversion_remove', {'work': work.id, 'id': reversion.id}) }}" class="btn btn-danger">{% trans from 'misc' %}Remove{% endtrans %}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
