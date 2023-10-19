@@ -17,3 +17,4 @@ services:
   Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher: ~
   App\Tools\Parser\ArrayParser: ~
   App\Tools\Parser\ObjectParser: ~
+  App\Tools\Parser\StringParser: ~
