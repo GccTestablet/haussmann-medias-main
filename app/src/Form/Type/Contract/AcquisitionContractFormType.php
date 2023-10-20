@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AcquisitionContractFormType extends AbstractType
 {
@@ -46,6 +47,9 @@ class AcquisitionContractFormType extends AbstractType
                 'attr' => [
                     'class' => 'custom-file-input',
                 ],
+                'constraints' => !$dto->isExists() ? [
+                    new NotBlank(),
+                ] : [],
                 'help' => $dto->getFile()?->getClientOriginalName(),
             ])
             ->add('signedAt', DateType::class, [

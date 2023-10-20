@@ -17,7 +17,6 @@ class AcquisitionContractFormDto
     #[Assert\NotBlank()]
     private ?string $name = null;
 
-    #[Assert\NotBlank()]
     private ?UploadedFile $file = null;
 
     #[Assert\NotBlank()]
