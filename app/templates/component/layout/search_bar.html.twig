@@ -6,28 +6,26 @@
     >
 
     {% if this.results|length > 0 %}
-        <div data-loading="addClass(opacity-50)" class="position-fixed d-flex">
+        <div data-loading="addClass(opacity-50)" class="position-fixed d-flex flex-column flex-lg-row">
             {% for categoryResult in this.results|filter(categoryResult => categoryResult.results|length > 0) %}
-                <div id="result-container">
-                    <div class="card mb-3">
-                        <div class="card card-header text-center bg-amethyst-dark text-white fw-extrabold">
-                            {{ categoryResult.category }}
-                        </div>
-                        <div class="card-body p-0">
-                            <ul class="list-group list-group-flush text-center">
-                                {% for result in categoryResult.results %}
-                                    <li class="list-group-item">
-                                        <a href="{{ result.url }}" class="text-dark">{{ result.label }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        {% if categoryResult.totalResults > 5 %}
-                            <div class="card-footer text-center">
-                                <a href="#" class="btn btn-secondary">Voir plus</a>
-                            </div>
-                        {% endif %}
+                <div class="card mb-3">
+                    <div class="card card-header text-center bg-amethyst-dark text-white fw-extrabold">
+                        {{ categoryResult.category }}
                     </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            {% for result in categoryResult.results %}
+                                <li class="list-group-item">
+                                    <a href="{{ result.url }}" class="text-dark">{{ result.label }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% if categoryResult.totalResults > 5 %}
+                        <div class="card-footer text-center">
+                            <a href="#" class="btn btn-secondary">Voir plus</a>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
