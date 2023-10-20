@@ -4,88 +4,78 @@
     {{ work.name }}
 {% endblock %}
 {% block content_action %}
-    <a href="{{ path('app_work_index') }}" class="btn btn-primary btn-sm">{% trans from "misc" %}List{% endtrans %}</a>
     <a href="{{ path('app_acquisition_contract_work_update', {'contract': work.acquisitionContract.id, 'id': work.id}) }}" class="btn btn-warning btn-sm">{% trans from "misc" %}Update{% endtrans %}</a>
-    <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-success btn-sm">{% trans from 'work' %}Add adaptation{% endtrans %}</a>
-    <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-success btn-sm">{% trans from 'work' %}Add reversion{% endtrans %}</a>
 {% endblock %}
 {% block content %}
-    {% component card %}
-        {% block body_content %}
-            <ul class="list-unstyled">
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Internal Id{% endtrans %}</span>
-                    <span>{{ work.internalId }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Imdb{% endtrans %}</span>
-                    <span><a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Name{% endtrans %}</span>
-                    <span>{{ work.name }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Original name{% endtrans %}</span>
-                    <span>{{ work.originalName }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Minimum guaranteed before reversion{% endtrans %}</span>
-                    <span>{{ work.minimumGuaranteedBeforeReversion }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Minimum cost of the top before reversion{% endtrans %}</span>
-                    <span>{{ work.minimumCostOfTheTopBeforeReversion }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Year{% endtrans %}</span>
-                    <span>{{ work.year }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Duration{% endtrans %}</span>
-                    <span>{{ work.duration }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'work' %}Country{% endtrans %}</span>
-                    <span>{{ work.country|country_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
-                    <span>{{ work.createdAt|datetime_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Created by{% endtrans %}:</span>
-                    <span>{{ work.createdBy|user_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated at{% endtrans %}:</span>
-                    <span>{{ work.updatedAt|datetime_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated by{% endtrans %}:</span>
-                    <span>{{ work.updatedBy|user_format }}</span>
-                </li>
-            </ul>
-
-            <br />
-            <h4>Territories</h4>
-            <a href="{{ path('app_work_territory_manage', {'work': work.id}) }}" class="btn btn-warning">Manage</a>
-            {% include 'work/territory/_embedded/_list.html.twig' with {
-                workTerritories: work.workTerritories
+    <div class="row">
+        <div class="col-xxl-8">
+            <div class="card">
+                <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#work-territories-tab" role="tab" aria-selected="true">
+                            {% trans from 'work' %}Territories{% endtrans %}
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#work-adaptations-tab" role="tab">
+                            {% trans from 'work' %}Adaptations{% endtrans %}
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#work-reversions-tab" role="tab">
+                            {% trans from 'work' %}Reversions{% endtrans %}
+                        </button>
+                    </li>
+                </ul>
+                <div class="card-body tab-content">
+                    <div class="tab-pane pull-x active show" id="work-territories-tab" role="tabpanel" tabindex="0">
+                        <div class="card">
+                            <div class="card-header text-end">
+                                <a href="{{ path('app_work_territory_manage', {'work': work.id}) }}" class="btn btn-sm btn-warning">
+                                    {% trans from 'work' %}Manage territories{% endtrans %}
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                {% include 'work/territory/_embedded/_list.html.twig' with {
+                                    workTerritories: work.workTerritories
+                                } %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane pull-x" id="work-adaptations-tab" role="tabpanel" tabindex="0">
+                        <div class="card">
+                            <div class="card-header text-end">
+                                <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
+                                    {% trans from 'work' %}Add adaptation{% endtrans %}
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                {% include 'work/adaptation/_embedded/_list.html.twig' with {
+                                    adaptations: work.workAdaptations
+                                } %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane pull-x" id="work-reversions-tab" role="tabpanel" tabindex="0">
+                        <div class="card">
+                            <div class="card-header text-end">
+                                <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-sm btn-success">{% trans from 'work' %}Add reversion{% endtrans %}</a>
+                            </div>
+                            <div class="card-body">
+                                {% include 'work/reversion/_embedded/_list.html.twig' with {
+                                    reversions: work.workReversions
+                                } %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4">
+            {% include 'work/_embedded/_information.html.twig' with {
+                work: work
             } %}
-
-            <br />
-            <h4>Adaptations</h4>
-            {% include 'work/adaptation/_embedded/_list.html.twig' with {
-                adaptations: work.workAdaptations
-            } %}
-
-            <br />
-            <h4>Reversions</h4>
-            {% include 'work/reversion/_embedded/_list.html.twig' with {
-                reversions: work.workReversions
-            } %}
-        {% endblock %}
-    {% endcomponent %}
+        </div>
+    </div>
 {% endblock %}
 

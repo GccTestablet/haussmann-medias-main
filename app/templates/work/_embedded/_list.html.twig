@@ -1,24 +1,40 @@
 <div class="table-responsive">
-    <table class="table">
+    <table class="table" data-controller="datatable--table-expand">
         <thead>
         <tr>
+            <th>&nbsp;</th>
             <th>{% trans from 'work' %}Internal Id{% endtrans %}</th>
-            <th>{% trans from 'work' %}Imdb{% endtrans %}</th>
             <th>{% trans from 'work' %}Original name{% endtrans %}</th>
-            <th>{% trans from 'work' %}Year{% endtrans %}</th>
-            <th>{% trans from 'work' %}Contract{% endtrans %}</th>
             <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
         </tr>
         </thead>
         <tbody>
         {% for work in works %}
             <tr>
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm"
+                            data-datatable--table-expand-target="button"
+                            data-action="click->datatable--table-expand#expand"
+                            data-datatable--table-expand-work-param="{{ work.id }}"
+                    >
+                        <i class="fa fa-angle-right text-muted"></i>
+                    </button>
+
+                </td>
                 <td><a href="{{ path('app_work_show', {'id': work.id}) }}">{{ work.internalId }}</a></td>
-                <td><a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></td>
                 <td>{{ work.originalName }}</td>
-                <td>{{ work.year }}</td>
-                <td><a href="{{ path('app_acquisition_contract_show', {'id': work.acquisitionContract.id}) }}">{{ work.acquisitionContract.name }}</a></td>
-                <td><a href="{{ path('app_acquisition_contract_work_update', {'contract': work.acquisitionContract.id, 'id': work.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                <td>
+                    <a href="{{ path('app_acquisition_contract_work_update', {'contract': work.acquisitionContract.id, 'id': work.id}) }}" class="btn btn-sm btn-warning">
+                        {% trans from 'misc' %}Update{% endtrans %}
+                    </a>
+                </td>
+            </tr>
+            <tr data-datatable--table-expand-target="expandableRow" data-work-id="{{ work.id }}" class="d-none">
+                <td colspan="4">
+                    {% include 'work/territory/_embedded/_list.html.twig' with {
+                        workTerritories: work.workTerritories,
+                    } %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>

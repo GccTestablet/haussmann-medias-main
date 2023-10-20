@@ -6,7 +6,6 @@
     {{ company.name }}
 {% endblock %}
 
-
 {% block content_action %}
     {% if isCompanyAdmin %}
         <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-sm btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
@@ -17,16 +16,16 @@
 {% block content %}
     <div class="row">
         <div class="col-xxl-9">
-            <div class="block block-rounded mb-3">
+            <div class="card mb-3">
                 <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link active" id="ecom-product-info-tab" data-bs-toggle="tab" data-bs-target="#company-acquisition-contracts-tab" role="tab" aria-controls="ecom-product-reviews" aria-selected="true">{% trans from 'contract' %}Acquisition contracts{% endtrans %}</button>
+                        <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#company-acquisition-contracts-tab" role="tab" aria-controls="ecom-product-reviews" aria-selected="true">{% trans from 'contract' %}Acquisition contracts{% endtrans %}</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link" id="ecom-product-comments-tab" data-bs-toggle="tab" data-bs-target="#company-users-tab" role="tab" aria-controls="ecom-product-reviews" aria-selected="false" tabindex="-1">Users</button>
+                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#company-users-tab" role="tab" aria-controls="ecom-product-reviews" aria-selected="false" tabindex="-1">Users</button>
                     </li>
                 </ul>
-                <div class="block-content tab-content">
+                <div class="card-body tab-content">
                     <div class="tab-pane pull-x active show" id="company-acquisition-contracts-tab" role="tabpanel" tabindex="0">
                         {% include 'acquisition_contract/_embedded/_list.html.twig' with {
                             contracts: company.acquisitionContracts,
@@ -63,8 +62,8 @@
             </div>
         </div>
         <div class="col-xxl-3">
-            <div class="block block-rounded mb-3">
-                <div class="block-content p-1">
+            <div class="card mb-3">
+                <div class="card-body p-1">
                     <table class="table table-striped table-borderless fs-sm">
                         <tbody>
                         <tr>

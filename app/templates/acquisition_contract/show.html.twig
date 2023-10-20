@@ -6,64 +6,42 @@
     {{ contract.name }}
 {% endblock %}
 {% block content_action %}
-    <a href="{{ path('app_company_show', {'id': contract.company.id}) }}" class="btn btn-dark">{% trans from 'company' %}Back to company{% endtrans %}</a>
-
-    <a href="{{ path('app_company_acquisition_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Download{% endtrans %}</a>
     {% if isCompanyAdmin %}
-        <a href="{{ path('app_company_acquisition_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+        <a href="{{ path('app_company_acquisition_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-sm btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
     {% endif %}
-    <a href="{{ path('app_acquisition_contract_work_add', {'contract': contract.id}) }}" class="btn btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
+
 {% endblock %}
 {% block content %}
-    {% component card %}
-        {% block body_content %}
-            <ul class="list-unstyled">
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Name{% endtrans %}:</span>
-                    <span>{{ contract.name }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'contract' %}File name{% endtrans %}:</span>
-                    <span>{{ contract.originalFileName }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'contract' %}Signed at{% endtrans %}:</span>
-                    <span>{{ contract.signedAt|date_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights starts at{% endtrans %}:</span>
-                    <span>{{ contract.startsAt|date_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'contract' %}Rights ends at{% endtrans %}:</span>
-                    <span>{{ contract.endsAt|date_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency{% endtrans %}:</span>
-                    <span>{{ contract.reportFrequency ? contract.reportFrequency.asText|trans({}, 'misc') }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
-                    <span>{{ contract.createdAt|datetime_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Created by{% endtrans %}:</span>
-                    <span>{{ contract.createdBy|user_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated at{% endtrans %}:</span>
-                    <span>{{ contract.updatedAt|datetime_format }}</span>
-                </li>
-                <li class="mb-3">
-                    <span class="fw-bold me-2">{% trans from 'misc' %}Updated by{% endtrans %}:</span>
-                    <span>{{ contract.updatedBy|user_format }}</span>
-                </li>
-            </ul>
-
-            <h4>Works</h4>
-            {% include 'work/_embedded/_list.html.twig' with {
-                works: contract.works,
+    <div class="row">
+        <div class="col-xxl-8">
+            <div class="card mb-3">
+                <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#acquisition-contract-works-tab" role="tab" aria-controls="ecom-product-reviews" aria-selected="true">
+                            {% trans from 'work' %}Works{% endtrans %}
+                        </button>
+                    </li>
+                </ul>
+                <div class="card-body tab-content">
+                    <div class="tab-pane pull-x active show" id="company-acquisition-contracts-tab" role="tabpanel" tabindex="0">
+                        <div class="card">
+                            <div class="card-header text-end">
+                                <a href="{{ path('app_acquisition_contract_work_add', {'contract': contract.id}) }}" class="btn btn-sm btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
+                            </div>
+                            <div class="card-body">
+                                {% include 'work/_embedded/_list.html.twig' with {
+                                    works: contract.works,
+                                } %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4">
+            {% include 'acquisition_contract/_embedded/_information.html.twig' with {
+                contract: contract,
             } %}
-        {% endblock %}
-    {% endcomponent %}
+        </div>
+    </div>
 {% endblock %}
