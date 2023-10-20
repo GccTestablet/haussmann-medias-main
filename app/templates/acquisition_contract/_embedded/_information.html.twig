@@ -1,0 +1,41 @@
+<div class="card mb-3">
+    <div class="card-body p-1">
+        <table class="table table-striped table-borderless fs-sm">
+            <tbody>
+            <tr>
+                <td>{% trans from 'contract' %}File name{% endtrans %}</td>
+                <td>
+                    {{ contract.originalFileName }}
+                    <a href="{{ path('app_company_acquisition_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="" title="{% trans from 'misc' %}Download{% endtrans %}">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans from 'contract' %}Signed at{% endtrans %}</td>
+                <td>
+                    {{ contract.signedAt|date_format }}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans from 'contract' %}Rights starts at{% endtrans %}</td>
+                <td>
+                    {{ contract.startsAt|date_format }}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans from 'contract' %}Rights ends at{% endtrans %}</td>
+                <td>
+                    {{ contract.endsAt|date_format }}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans from 'contract' %}Report frequency{% endtrans %}</td>
+                <td>
+                    {{ contract.reportFrequency ? contract.reportFrequency.asText|trans({}, 'misc') }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
