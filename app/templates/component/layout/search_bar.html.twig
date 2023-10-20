@@ -10,7 +10,7 @@
             {% for categoryResult in this.results|filter(categoryResult => categoryResult.results|length > 0) %}
                 <div id="result-container">
                     <div class="card mb-3">
-                        <div class="card-header text-center bg-amethyst-dark text-white fw-extrabold">
+                        <div class="card card-header text-center bg-amethyst-dark text-white fw-extrabold">
                             {{ categoryResult.category }}
                         </div>
                         <div class="card-body p-0">
