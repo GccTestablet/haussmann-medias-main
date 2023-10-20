@@ -41,15 +41,22 @@ class WorkRepository extends EntityRepository
 
     public function getAvailableWorksByDistributionContractQueryBuilder(DistributionContract $distributionContract, Work $excludeWork = null): QueryBuilder
     {
+        $queryBuilder = $this->createQueryBuilder('w')
+            ->orderBy('w.internalId', 'ASC')
+        ;
+
         $works = $distributionContract->getWorks();
+        if (0 === $works->count()) {
+            return $queryBuilder;
+        }
+
         if ($excludeWork) {
             $works->removeElement($excludeWork);
         }
 
-        return $this->createQueryBuilder('w')
+        return $queryBuilder
             ->where('w NOT IN (:works)')
             ->setParameter('works', $works)
-            ->orderBy('w.internalId', 'ASC')
         ;
     }
 
