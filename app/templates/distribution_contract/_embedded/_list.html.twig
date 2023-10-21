@@ -11,14 +11,15 @@
         <tbody>
         {% for contract in contracts %}
             <tr>
-                <td>{{ contract.name }}</td>
+                <td>
+                    <a href="{{ path('app_company_distribution_contract_show', {'company': contract.company.id, 'id': contract.id}) }}">
+                        {{ contract.name }}
+                    </a>
+                </td>
                 <td><a href="{{ path('app_company_show', {'id': contract.distributor.id}) }}">{{ contract.distributor.name }}</a></td>
                 <td>{{ contract.works|map(work => work.name)|join(', ') }}</td>
                 <td>
-                    <a href="{{ path('app_company_distribution_contract_show', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-primary">
-                        {% trans from 'misc' %}Show{% endtrans %}
-                    </a>
-                    <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-warning">
+                    <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-sm btn-warning">
                         {% trans from 'misc' %}Update{% endtrans %}
                     </a>
                 </td>

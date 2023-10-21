@@ -4,7 +4,7 @@
     {% trans from 'setting' %}List of broadcast channels{% endtrans %}
 {% endblock %}
 {% block content_action %}
-    <a class="btn btn-success" href="{{ path('app_setting_broadcast_channel_add') }}">{% trans from 'setting' %}Add a channel{% endtrans %}</a>
+    <a class="btn btn-sm btn-success" href="{{ path('app_setting_broadcast_channel_add') }}">{% trans from 'setting' %}Add a channel{% endtrans %}</a>
 {% endblock %}
 {% block content %}
     {% component card %}
@@ -23,7 +23,7 @@
                         <tr>
                             <td><a href="{{ path('app_setting_broadcast_channel_show', {'id': channel.id}) }}">{{ channel.name }}</a></td>
                             <td>{{ channel.broadcastServices|length }}</td>
-                            <td><a class="btn btn-warning" href="{{ path('app_setting_broadcast_channel_update', {'id': channel.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                            <td><a class="btn btn-sm btn-warning" href="{{ path('app_setting_broadcast_channel_update', {'id': channel.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

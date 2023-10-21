@@ -1,0 +1,30 @@
+<ul class="list-unstyled">
+    <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'misc' %}Name{% endtrans %}:</span>
+        <span>{{ contract.name }}</span>
+    </li>
+    <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'contract' %}Exclusivity{% endtrans %}:</span>
+        <span>{{ contract.exclusivity }}</span>
+    </li>
+    <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency{% endtrans %}:</span>
+        <span>{{ contract.reportFrequency ? contract.reportFrequency.asText|trans({}, 'misc') }}</span>
+    </li>
+    <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'misc' %}Created at{% endtrans %}:</span>
+        <span>{{ contract.createdAt|datetime_format }}</span>
+    </li>
+    <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'misc' %}Created by{% endtrans %}:</span>
+        <span>{{ contract.createdBy|user_format }}</span>
+    </li>
+    <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'misc' %}Updated at{% endtrans %}:</span>
+        <span>{{ contract.updatedAt|datetime_format }}</span>
+    </li>
+    <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'misc' %}Updated by{% endtrans %}:</span>
+        <span>{{ contract.updatedBy|user_format }}</span>
+    </li>
+</ul>

@@ -1,0 +1,16 @@
+<table class="table table-striped table-borderless fs-sm">
+    <tbody>
+    <tr>
+        <td>{% trans from 'contract' %}Contrat{% endtrans %}</td>
+        <td>
+            <a href="{{ path('app_acquisition_contract_show', {'id': work.acquisitionContract.id}) }}">
+                {{ work.acquisitionContract.name }}
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>{% trans from 'contract' %}Beneficiary{% endtrans %}</td>
+        <td>{{ work.acquisitionContract.beneficiary.name }}</td>
+    </tr>
+    </tbody>
+</table>

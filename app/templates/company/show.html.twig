@@ -9,8 +9,6 @@
 {% block content_action %}
     {% if isCompanyAdmin %}
         <a href="{{ path('app_company_update', {'id': company.id}) }}" class="btn btn-sm btn-warning">{% trans from "misc" %}Update{% endtrans %}</a>
-        <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-sm btn-success">{% trans from "user" %}Add user{% endtrans %}</a>
-        <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-sm btn-success">{% trans from "contract" %}Add acquisition contract{% endtrans %}</a>
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -27,36 +25,53 @@
                 </ul>
                 <div class="card-body tab-content">
                     <div class="tab-pane pull-x active show" id="company-acquisition-contracts-tab" role="tabpanel" tabindex="0">
-                        {% include 'acquisition_contract/_embedded/_list.html.twig' with {
-                            contracts: company.acquisitionContracts,
-                        } %}
+                        <div class="card">
+                            <div class="card-header text-end">
+                                <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-sm btn-success">
+                                    {% trans from "contract" %}Add acquisition contract{% endtrans %}
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                {% include 'acquisition_contract/_embedded/_list.html.twig' with {
+                                    contracts: company.acquisitionContracts,
+                                } %}
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane pull-x" id="company-users-tab" role="tabpanel" tabindex="0">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for userCompany in company.users %}
-                                    {% set user = userCompany.user %}
-                                    <tr>
-                                        <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
-                                        <td>{{ userCompany.permission.asText }}</td>
-                                        <td>
-                                            {% if isCompanyAdmin %}
-                                                <a class="btn btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">{% trans from 'misc' %}Remove{% endtrans %}</a>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                        <div class="card">
+                            <div class="card-header text-end">
+                                <a href="{{ path('app_company_user_add', {'company': company.id}) }}" class="btn btn-sm btn-success">{% trans from "user" %}Add user{% endtrans %}</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for userCompany in company.users %}
+                                            {% set user = userCompany.user %}
+                                            <tr>
+                                                <td><a href="{{ path('app_user_show', {'id': user.id}) }}">{{ user.fullName }}</a></td>
+                                                <td>{{ userCompany.permission.asText }}</td>
+                                                <td>
+                                                    {% if isCompanyAdmin %}
+                                                        <a class="btn btn-sm btn-danger" href="{{ path('app_company_user_remove', {'company': company.id, 'user': user.id}) }}">{% trans from 'misc' %}Remove{% endtrans %}</a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
