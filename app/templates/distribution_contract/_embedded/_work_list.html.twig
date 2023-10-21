@@ -1,0 +1,61 @@
+<div class="table-responsive">
+    <table class="table" data-controller="datatable--table-expand">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>{% trans from 'work' %}Work{% endtrans %}</th>
+            <th>{% trans from 'work' %}Starts at{% endtrans %}</th>
+            <th>{% trans from 'work' %}Ends at{% endtrans %}</th>
+            <th>{% trans from 'work' %}Amount{% endtrans %}</th>
+            <th class="text-end">{% trans from 'misc' %}Actions{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contractWork in contract.contractWorks %}
+            <tr>
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm"
+                            data-datatable--table-expand-target="button"
+                            data-action="click->datatable--table-expand#expand"
+                            data-datatable--table-expand-work-param="{{ contractWork.work.id }}"
+                    >
+                        <i class="fa fa-angle-right text-muted"></i>
+                    </button>
+                </td>
+                <td>{{ contractWork.work.name }}</td>
+                <td>{{ contractWork.startsAt|date_format }}</td>
+                <td>{{ contractWork.endsAt|date_format }}</td>
+                <td>{{ contractWork.amount|format_currency(contractWork.currency) }}</td>
+                <td class="text-end">
+                    <a href="{{ path('app_distribution_contract_work_update', {'contract': contract.id, 'work': contractWork.work.id}) }}" class="btn btn-sm btn-warning">
+                        {% trans from 'misc' %}Update{% endtrans %}
+                    </a>
+                    <a href="{{ path('app_distribution_contract_work_territory_manage', {'contract': contract.id, 'work': contractWork.work.id}) }}" class="btn btn-sm btn-warning">
+                        {% trans from 'work' %}Manage territories{% endtrans %}
+                    </a>
+                </td>
+            </tr>
+            <tr data-datatable--table-expand-target="expandableRow" data-work-id="{{ contractWork.work.id }}" class="d-none">
+                <td colspan="6">
+                    <table class="table mb-0">
+                        <thead>
+                        <tr>
+                            <th>Territory</th>
+                            <th>Channels</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for workTerritory in contractWork.workTerritories %}
+                            <tr>
+                                <td>{{ workTerritory.territory.name }}</td>
+                                <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

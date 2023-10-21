@@ -4,7 +4,7 @@
     {% trans from 'setting' %}List of territories{% endtrans %}
 {% endblock %}
 {% block content_action %}
-    <a class="btn btn-success" href="{{ path('app_setting_territory_add') }}">{% trans from 'setting' %}Add territory{% endtrans %}</a>
+    <a class="btn btn-sm btn-success" href="{{ path('app_setting_territory_add') }}">{% trans from 'setting' %}Add territory{% endtrans %}</a>
 {% endblock %}
 {% block content %}
     {% component card %}
@@ -21,7 +21,7 @@
                     {% for territory in territories %}
                         <tr>
                             <td><a href="{{ path('app_setting_territory_show', {'id': territory.id}) }}">{{ territory.name }}</a></td>
-                            <td><a class="btn btn-warning" href="{{ path('app_setting_territory_update', {'id': territory.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                            <td><a class="btn btn-sm btn-warning" href="{{ path('app_setting_territory_update', {'id': territory.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

@@ -37,6 +37,7 @@ class DistributionContractWorkFormHandler extends AbstractFormHandler
 
         $this->formDtoFactory->updateEntity($contractWork, $dto);
 
+        $this->entityManager->persist($contractWork);
         $this->entityManager->flush();
 
         return parent::onFormSubmitAndValid($request, $form, $options);

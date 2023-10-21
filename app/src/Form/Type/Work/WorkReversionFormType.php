@@ -25,7 +25,10 @@ class WorkReversionFormType extends AbstractType
                 'placeholder' => 'Select a channel',
                 'required' => true,
                 'class' => BroadcastChannel::class,
-                'query_builder' => fn (BroadcastChannelRepository $repository) => $repository->getAvailableChannelByWorkQueryBuilder($dto->getWorkReversion()->getWork()),
+                'query_builder' => fn (BroadcastChannelRepository $repository) => $repository->getAvailableChannelByWorkQueryBuilder(
+                    $dto->getWorkReversion()->getWork(),
+                    $dto->getChannel()
+                ),
                 'choice_label' => 'name',
             ])
             ->add('percentageReversion', NumberType::class, [

@@ -12,6 +12,7 @@
                     <thead>
                     <tr>
                         <th>Territory</th>
+                        <th class="text-nowrap">Select all</th>
                         {% for channel in broadcastChannels %}
                             <th>{{ channel.name }}</th>
                         {% endfor %}
@@ -19,12 +20,23 @@
                     </thead>
                     <tbody>
                     {% for territory in territories %}
-                        <tr>
-                            <td>{{ territory.name }}</td>
+                        <tr data-controller="datatable--select-all-row">
+                            <td class="text-nowrap">{{ territory.name }}</td>
+                            <td>
+                                <input type="checkbox" class="form-check-input"
+                                       data-datatable--select-all-row-target="checkAll"
+                                       data-action="input->datatable--select-all-row#toggleAll" />
+                            </td>
                             {% for channel in broadcastChannels %}
                                 {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory, channel) %}
                                 {% set formView = form.territories[formName] ?? null %}
-                                <td class="text-center">{{ formView ? form_widget(formView) }}</td>
+                                <td class="text-center">
+                                    {{ formView ? form_widget(formView, {
+                                        'attr': {
+                                            'data-datatable--select-all-row-target': 'checkbox'
+                                        }
+                                    }) }}
+                                </td>
                             {% endfor %}
                         </tr>
                     {% endfor %}

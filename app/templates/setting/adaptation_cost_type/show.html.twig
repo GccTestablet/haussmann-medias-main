@@ -4,7 +4,7 @@
     {{ type.name }}
 {% endblock %}
 {% block content_action %}
-    <a href="{{ path('app_setting_adaptation_cost_type_update', {'id': type.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+    <a href="{{ path('app_setting_adaptation_cost_type_update', {'id': type.id}) }}" class="btn btn-sm btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
 {% endblock %}
 {% block content %}
     {% component card %}

@@ -4,7 +4,7 @@
     {% trans from 'setting' %}List of adaptation cost types{% endtrans %}
 {% endblock %}
 {% block content_action %}
-    <a class="btn btn-success" href="{{ path('app_setting_adaptation_cost_type_add') }}">{% trans from 'setting' %}Add adaptation cost type{% endtrans %}</a>
+    <a class="btn btn-sm btn-success" href="{{ path('app_setting_adaptation_cost_type_add') }}">{% trans from 'setting' %}Add adaptation cost type{% endtrans %}</a>
 {% endblock %}
 {% block content %}
     {% component card %}
@@ -21,7 +21,7 @@
                     {% for type in types %}
                         <tr>
                             <td><a href="{{ path('app_setting_adaptation_cost_type_show', {'id': type.id}) }}">{{ type.name }}</a></td>
-                            <td><a class="btn btn-warning" href="{{ path('app_setting_adaptation_cost_type_update', {'id': type.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
+                            <td><a class="btn btn-sm btn-warning" href="{{ path('app_setting_adaptation_cost_type_update', {'id': type.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

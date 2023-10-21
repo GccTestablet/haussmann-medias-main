@@ -107,7 +107,7 @@ $paragraph-margin-bottom: 1.875rem !default;
 //
 // Set the number of columns and specify the width of the gutters.
 
-$grid-gutter-width: 1.75rem !default;
+$grid-gutter-width: 1rem !default;
 
 // Components
 //
@@ -277,8 +277,8 @@ $pagination-disabled-border-color: $white !default;
 
 // Cards
 
-$card-spacer-y: 1.25rem !default;
-$card-spacer-x: 1.25rem !default;
+$card-spacer-y: 0.75rem !default;
+$card-spacer-x: 0.75rem !default;
 $card-title-spacer-y: $card-spacer-y * 0.5 !default;
 $card-border-color: darken($light, 4.5%) !default;
 $card-border-radius: 0.3rem !default;

@@ -27,7 +27,7 @@ class UserFormDtoFactory
             ->setRole($role)
         ;
 
-        $this->objectParser->mergeFromObject($user, $dto);
+        $this->objectParser->mergeFromObject($user, $dto, ['roles']);
 
         return $dto;
     }

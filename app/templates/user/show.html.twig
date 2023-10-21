@@ -4,7 +4,7 @@
     {{ user.fullName }}
 {% endblock %}
 {% block content_action %}
-    <a class="btn btn-success" href="{{ path('app_user_update', {'id': user.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a>
+    <a class="btn btn-sm btn-success" href="{{ path('app_user_update', {'id': user.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a>
 {% endblock %}
 {% block content %}
     {% component card %}

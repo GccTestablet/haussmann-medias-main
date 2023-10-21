@@ -72,9 +72,16 @@
             </div>
         </div>
         <div class="col-xxl-4">
-            {% include 'work/_embedded/_information.html.twig' with {
-                work: work
-            } %}
+            <div class="card card-body p-0 mb-3">
+                {% include 'work/_embedded/_contract_information.html.twig' with {
+                    work: work
+                } %}
+            </div>
+            <div class="card card-body p-0">
+                {% include 'work/_embedded/_information.html.twig' with {
+                    work: work
+                } %}
+            </div>
         </div>
     </div>
 {% endblock %}
