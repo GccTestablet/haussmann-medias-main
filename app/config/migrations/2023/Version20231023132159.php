@@ -21,7 +21,6 @@ final class Version20231023132159 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE work_adaptations DROP comment');
     }
 }
