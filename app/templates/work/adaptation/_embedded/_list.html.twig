@@ -1,24 +1,24 @@
 <div class="table-responsive">
     <table class="table">
         <thead>
-        <tr>
-            <th>Type</th>
-            <th>Coût</th>
-            <th>Action</th>
-        </tr>
+            <tr>
+                <th>Type</th>
+                <th>Coût</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
-        {% for adaptation in adaptations %}
-            <tr>
-                <td>{{ adaptation.type.name }}</td>
-                <td>{{ adaptation.amount|format_currency(adaptation.currency) }}</td>
-                <td>
-                    <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Show{% endtrans %}</a>
-                    <a href="{{ path('app_work_adaptation_update', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
-                    <a href="{{ path('app_work_adaptation_remove', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-danger">{% trans from 'misc' %}Remove{% endtrans %}</a>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for adaptation in adaptations %}
+                <tr>
+                    <td>{{ adaptation.type.name }}</td>
+                    <td>{{ adaptation.amount|format_currency(adaptation.currency) }}</td>
+                    <td>
+                        <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Show{% endtrans %}</a>
+                        <a href="{{ path('app_work_adaptation_update', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+                        <a href="{{ path('app_work_adaptation_remove', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-danger">{% trans from 'misc' %}Remove{% endtrans %}</a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
