@@ -7,21 +7,15 @@ namespace Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 final class Version20231023144456 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add text-area to comment in work adaptation';
     }
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE work_adaptations ADD comment TEXT DEFAULT NULL');
-        $this->addSql('ALTER TABLE works DROP currency');
     }
 
     public function down(Schema $schema): void
