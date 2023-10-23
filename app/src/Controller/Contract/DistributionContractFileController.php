@@ -40,8 +40,7 @@ class DistributionContractFileController extends AbstractAppController
         if ($formHandlerResponse->isSuccessful()) {
             $this->uploadFileManager->remove($file);
 
-            return $this->redirectToRoute('app_company_distribution_contract_update', [
-                'company' => $file->getDistributionContract()->getCompany()->getId(),
+            return $this->redirectToRoute('app_distribution_contract_update', [
                 'id' => $file->getDistributionContract()->getId(),
             ]);
         }
