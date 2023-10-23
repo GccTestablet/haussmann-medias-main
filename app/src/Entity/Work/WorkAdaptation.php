@@ -9,7 +9,6 @@ use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\This;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'work_adaptations')]
