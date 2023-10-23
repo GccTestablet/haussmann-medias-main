@@ -36,6 +36,9 @@ class WorkAdaptation
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $comment = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -94,5 +97,15 @@ class WorkAdaptation
         $this->currency = $currency;
 
         return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): void
+    {
+        $this->comment = $comment;
     }
 }

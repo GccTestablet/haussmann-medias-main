@@ -10,6 +10,7 @@ use App\Form\Type\Shared\CurrencyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,6 +31,9 @@ class WorkAdaptationFormType extends AbstractType
             ])
             ->add('currency', CurrencyType::class, [
                 'required' => true,
+            ])
+            ->add('comment', TextareaType::class, [
+                'required' => false,
             ])
         ;
     }
