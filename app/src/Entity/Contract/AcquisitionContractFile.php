@@ -26,11 +26,11 @@ class AcquisitionContractFile implements FileInterface
     #[ORM\JoinColumn(name: 'acquisition_contract_id', referencedColumnName: 'id', nullable: false)]
     private AcquisitionContract $acquisitionContract;
 
-    #[ORM\Column(unique: true, nullable: true)]
-    private ?string $fileName = null;
+    #[ORM\Column(unique: true)]
+    private string $fileName;
 
-    #[ORM\Column(nullable: true)]
-    private ?string $originalFileName = null;
+    #[ORM\Column()]
+    private string $originalFileName;
 
     public function getId(): int
     {
@@ -56,24 +56,24 @@ class AcquisitionContractFile implements FileInterface
         return $this;
     }
 
-    public function getFileName(): ?string
+    public function getFileName(): string
     {
         return $this->fileName;
     }
 
-    public function setFileName(?string $fileName): static
+    public function setFileName(string $fileName): static
     {
         $this->fileName = $fileName;
 
         return $this;
     }
 
-    public function getOriginalFileName(): ?string
+    public function getOriginalFileName(): string
     {
         return $this->originalFileName;
     }
 
-    public function setOriginalFileName(?string $originalFileName): static
+    public function setOriginalFileName(string $originalFileName): static
     {
         $this->originalFileName = $originalFileName;
 

@@ -26,10 +26,10 @@ class DistributionContractFile implements FileInterface
     #[ORM\JoinColumn(name: 'distribution_contract_id', referencedColumnName: 'id', nullable: false)]
     private DistributionContract $distributionContract;
 
-    #[ORM\Column(unique: true, nullable: true)]
+    #[ORM\Column(unique: true)]
     private ?string $fileName = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column()]
     private ?string $originalFileName = null;
 
     public function getId(): int
@@ -56,24 +56,24 @@ class DistributionContractFile implements FileInterface
         return $this;
     }
 
-    public function getFileName(): ?string
+    public function getFileName(): string
     {
         return $this->fileName;
     }
 
-    public function setFileName(?string $fileName): static
+    public function setFileName(string $fileName): static
     {
         $this->fileName = $fileName;
 
         return $this;
     }
 
-    public function getOriginalFileName(): ?string
+    public function getOriginalFileName(): string
     {
         return $this->originalFileName;
     }
 
-    public function setOriginalFileName(?string $originalFileName): static
+    public function setOriginalFileName(string $originalFileName): static
     {
         $this->originalFileName = $originalFileName;
 
