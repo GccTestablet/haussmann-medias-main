@@ -9,7 +9,7 @@ use App\Entity\Contract\DistributionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
 use App\Form\Dto\Contract\DistributionContractFormDto;
-use App\Form\Type\Shared\CurrencyType;
+use App\Form\Type\Common\BroadcastChannelAutocompleteField;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
@@ -18,7 +18,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -54,6 +53,13 @@ class DistributionContractFormType extends AbstractType
                 'choice_label' => fn (DistributionContractTypeEnum $enum) => $enum->getAsText(),
                 'placeholder' => 'Select a contract type',
             ])
+            ->add('broadcastChannels', BroadcastChannelAutocompleteField::class, [
+                'multiple' => true,
+                'required' => false,
+            ])
+            ->add('signedAt', DateType::class, [
+                'label' => 'Signed at',
+            ])
             ->add('files', FileType::class, [
                 'label' => 'Add more files',
                 'required' => false,
@@ -64,20 +70,10 @@ class DistributionContractFormType extends AbstractType
                 'help' => \implode('', $this->distributionContractFileHelper->getFilesHelper($dto->getContract())),
                 'help_html' => true,
             ])
-            ->add('startsAt', DateType::class, [
-                'label' => 'Rights starts at',
-            ])
-            ->add('endsAt', DateType::class, [
-                'label' => 'Rights ends at',
-                'required' => false,
-            ])
             ->add('exclusivity', TextareaType::class, [
                 'required' => false,
             ])
-            ->add('amount', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('currency', CurrencyType::class, [
+            ->add('commercialConditions', TextareaType::class, [
                 'required' => false,
             ])
             ->add('reportFrequency', EnumType::class, [

@@ -6,6 +6,22 @@
             <h1>Manage territory from work {{ work.name }}</h1>
         {% endblock %}
         {% block body_content %}
+            {% if 0 == contract.broadcastChannels|length %}
+                <div class="alert alert-danger">
+                    {% trans from 'contract' %}No broadcast channels available for this contract{% endtrans %}<br />
+
+                    {% set link %}
+                        <a href="{{ path('app_distribution_contract_update', {'id': contract.id}) }}">
+                            {% trans from 'contract' %}update the contract{% endtrans %}
+                        </a>
+                    {% endset %}
+                    {% trans with {
+                        '%link%': link
+                    } from 'contract' %}Please %link% and add broadcast channels to be able to continue
+                    {% endtrans %}
+                </div>
+            {% endif %}
+
             {{ form_start(form) }}
             <div class="table-responsive">
                 <table class="table">
@@ -13,13 +29,13 @@
                     <tr>
                         <th>Territory</th>
                         <th class="text-nowrap">Select all</th>
-                        {% for channel in broadcastChannels %}
+                        {% for channel in contract.broadcastChannels %}
                             <th>{{ channel.name }}</th>
                         {% endfor %}
                     </tr>
                     </thead>
                     <tbody>
-                    {% for territory in territories %}
+                    {% for territory in work.territories %}
                         <tr data-controller="datatable--select-all-row">
                             <td class="text-nowrap">{{ territory.name }}</td>
                             <td>
@@ -27,7 +43,7 @@
                                        data-datatable--select-all-row-target="checkAll"
                                        data-action="input->datatable--select-all-row#toggleAll" />
                             </td>
-                            {% for channel in broadcastChannels %}
+                            {% for channel in contract.broadcastChannels %}
                                 {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory, channel) %}
                                 {% set formView = form.territories[formName] ?? null %}
                                 <td class="text-center">

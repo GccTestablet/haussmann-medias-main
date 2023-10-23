@@ -9,7 +9,6 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Work\Work;
 use App\Form\DtoFactory\Contract\DistributionContractWorkTerritoryFormDtoFactory;
 use App\Form\Handler\Contract\DistributionContractWorkTerritoryFormHandler;
-use App\Service\Setting\BroadcastChannelManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class DistributionContractWorkTerritoryController extends AbstractAppController
 {
     public function __construct(
-        private readonly BroadcastChannelManager $broadcastChannelManager,
         private readonly DistributionContractWorkTerritoryFormDtoFactory $formDtoFactory,
         private readonly DistributionContractWorkTerritoryFormHandler $formHandler,
     ) {}
@@ -48,9 +46,8 @@ class DistributionContractWorkTerritoryController extends AbstractAppController
         }
 
         return $this->render('distribution_contract/work/territory/manage.html.twig', [
+            'contract' => $contract,
             'work' => $work,
-            'territories' => $work->getTerritories(),
-            'broadcastChannels' => $this->broadcastChannelManager->findAll(),
             'form' => $form,
         ]);
     }

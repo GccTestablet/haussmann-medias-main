@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Contract;
 
 use App\Entity\Company;
+use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
@@ -41,11 +42,24 @@ class DistributionContract
     #[ORM\Column(length: 20, enumType: DistributionContractTypeEnum::class)]
     private DistributionContractTypeEnum $type;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private \DateTime $signedAt;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $exclusivity = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $commercialConditions = null;
+
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
+
+    /**
+     * @var Collection<BroadcastChannel>
+     */
+    #[ORM\ManyToMany(targetEntity: BroadcastChannel::class)]
+    #[ORM\JoinTable(name: 'distribution_contracts_broadcast_channels')]
+    private Collection $broadcastChannels;
 
     /**
      * @var Collection<DistributionContractFile>
@@ -61,6 +75,7 @@ class DistributionContract
 
     public function __construct()
     {
+        $this->broadcastChannels = new ArrayCollection();
         $this->contractFiles = new ArrayCollection();
         $this->contractWorks = new ArrayCollection();
     }
@@ -125,6 +140,18 @@ class DistributionContract
         return $this;
     }
 
+    public function getSignedAt(): \DateTime
+    {
+        return $this->signedAt;
+    }
+
+    public function setSignedAt(\DateTime $signedAt): static
+    {
+        $this->signedAt = $signedAt;
+
+        return $this;
+    }
+
     public function getExclusivity(): ?string
     {
         return $this->exclusivity;
@@ -137,6 +164,18 @@ class DistributionContract
         return $this;
     }
 
+    public function getCommercialConditions(): ?string
+    {
+        return $this->commercialConditions;
+    }
+
+    public function setCommercialConditions(?string $commercialConditions): static
+    {
+        $this->commercialConditions = $commercialConditions;
+
+        return $this;
+    }
+
     public function getReportFrequency(): ?FrequencyEnum
     {
         return $this->reportFrequency;
@@ -145,6 +184,18 @@ class DistributionContract
     public function setReportFrequency(?FrequencyEnum $reportFrequency): static
     {
         $this->reportFrequency = $reportFrequency;
+
+        return $this;
+    }
+
+    public function getBroadcastChannels(): Collection
+    {
+        return $this->broadcastChannels;
+    }
+
+    public function setBroadcastChannels(Collection $broadcastChannels): static
+    {
+        $this->broadcastChannels = $broadcastChannels;
 
         return $this;
     }

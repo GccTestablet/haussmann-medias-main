@@ -6,7 +6,6 @@ namespace App\Service\Contract;
 
 use App\Entity\Contract\DistributionContract;
 use App\Model\Importer\Contract\DistributionContractWorkRevenueImporterModel;
-use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
 use App\Tools\Parser\CsvParser;
 use App\Tools\Parser\StringParser;
@@ -34,7 +33,6 @@ class DistributionContractWorkRevenueImporter
     public function __construct(
         private readonly CsvParser $csvParser,
         private readonly StringParser $stringParser,
-        private readonly BroadcastChannelManager $broadcastChannelManager,
         private readonly WorkManager $workManager,
     ) {}
 
@@ -48,7 +46,7 @@ class DistributionContractWorkRevenueImporter
             throw new UnexpectedTypeException($distributionContract, DistributionContract::class);
         }
 
-        $this->addHeaders();
+        $this->addHeaders($distributionContract);
         $this->addRows($distributionContract);
     }
 
@@ -96,9 +94,9 @@ class DistributionContractWorkRevenueImporter
         $csvWriter->insertAll($this->rows);
     }
 
-    private function addHeaders(): void
+    private function addHeaders(DistributionContract $contract): void
     {
-        foreach ($this->broadcastChannelManager->findAll() as $channel) {
+        foreach ($contract->getBroadcastChannels() as $channel) {
             $this->headers[] = \strtoupper($this->stringParser->slugify($channel->getName(), '_'));
         }
     }

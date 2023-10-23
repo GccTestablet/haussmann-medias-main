@@ -13,12 +13,14 @@ Update work %name% for distribution contract: Modifier l'oeuvre %name% du contra
 Download CSV template: Télécharger le modèle CSV
 Import revenues: Importer le CSV des revenues
 
+Name: Nom du contrat
 File name: Fichier
 Signed at: Date de signature
 Starts at: Date de début
 Ends at: Date de fin
 Territories: Territoires
 Exclusivity: Exclusivité
+Commercial conditions: Conditions commerciales
 Amount: Montant
 Report frequency: Fréquence des rapports
 
@@ -34,8 +36,14 @@ Select a broadcast channel: Sélectionner un canal de diffusion
 Select a broadcast service: Sélectionner un service de diffusion
 Broadcast channels: Canaux de diffusion
 Broadcast services: Services de diffusion
+Add more files: Ajouter plus de fichiers
 
 # Contract types
 Select a contract type: Sélectionner un type de contrat
 One-off: Contrat à paiement unique
 Recurring: Contrat à paiement récurrent
+
+# Messages
+No broadcast channels available for this contract: Aucun canal de diffusion disponible pour ce contrat
+update the contract: modifier le contrat
+Please %link% and add broadcast channels to be able to continue: Veuillez %link% et ajouter des canaux de diffusion pour pouvoir continuer

@@ -8,7 +8,6 @@ use App\Entity\Contract\DistributionContractWork;
 use App\Form\Dto\Contract\DistributionContractWorkTerritoryFormDto;
 use App\Form\Dto\Work\WorkTerritoryFormDto;
 use App\Service\Contract\DistributionContractWorkTerritoryManager;
-use App\Service\Setting\BroadcastChannelManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -16,7 +15,6 @@ class DistributionContractWorkTerritoryFormDtoFactory
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly BroadcastChannelManager $broadcastChannelManager,
         private readonly DistributionContractWorkTerritoryManager $distributionContractWorkTerritoryManager
     ) {}
 
@@ -26,7 +24,7 @@ class DistributionContractWorkTerritoryFormDtoFactory
 
         $work = $contractWork->getWork();
         $territories = $work->getTerritories();
-        $broadcastChannels = $this->broadcastChannelManager->findAll();
+        $broadcastChannels = $contractWork->getDistributionContract()->getBroadcastChannels();
 
         foreach ($territories as $territory) {
             $workTerritory = $work->getWorkTerritory($territory);
@@ -51,7 +49,7 @@ class DistributionContractWorkTerritoryFormDtoFactory
     public function updateEntity(DistributionContractWork $contractWork, array $territories): void
     {
         $work = $contractWork->getWork();
-        $broadcastChannels = $this->broadcastChannelManager->findAll();
+        $broadcastChannels = $contractWork->getDistributionContract()->getBroadcastChannels();
 
         $workTerritories = new ArrayCollection();
         foreach ($work->getTerritories() as $territory) {
@@ -59,7 +57,6 @@ class DistributionContractWorkTerritoryFormDtoFactory
 
             foreach ($broadcastChannels as $broadcastChannel) {
                 $value = (bool) ($territories[DistributionContractWorkTerritoryFormDto::getFormName($territory, $broadcastChannel)] ?? false);
-
                 if (!$value) {
                     $workTerritory->removeBroadcastChannel($broadcastChannel);
 
