@@ -2,14 +2,13 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Distributor</th>
-            <th>Works</th>
-            <th>Actions</th>
+            <th>{% trans from 'contract' %}Name{% endtrans %}</th>
+            <th>{% trans from 'contract' %}Distributor{% endtrans %}</th>
         </tr>
         </thead>
         <tbody>
-        {% for contract in contracts %}
+        {% for contractWork in contractWorks %}
+            {% set contract = contractWork.distributionContract %}
             <tr>
                 <td>
                     <a href="{{ path('app_distribution_contract_show', {'id': contract.id}) }}">
@@ -17,12 +16,6 @@
                     </a>
                 </td>
                 <td><a href="{{ path('app_company_show', {'id': contract.distributor.id}) }}">{{ contract.distributor.name }}</a></td>
-                <td>{{ contract.works|map(work => work.name)|join(', ') }}</td>
-                <td>
-                    <a href="{{ path('app_distribution_contract_update', {'id': contract.id}) }}" class="btn btn-sm btn-warning">
-                        {% trans from 'misc' %}Update{% endtrans %}
-                    </a>
-                </td>
             </tr>
         {% endfor %}
         </tbody>
