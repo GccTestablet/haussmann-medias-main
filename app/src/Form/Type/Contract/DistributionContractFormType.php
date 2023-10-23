@@ -13,7 +13,7 @@ use App\Form\Type\Common\BroadcastChannelAutocompleteField;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
-use App\Service\Contract\DistributionContractFileHelper;
+use App\Service\Contract\ContractFileHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -26,7 +26,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DistributionContractFormType extends AbstractType
 {
     public function __construct(
-        private readonly DistributionContractFileHelper $distributionContractFileHelper
+        private readonly ContractFileHelper $contractFileHelper
     ) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -67,7 +67,7 @@ class DistributionContractFormType extends AbstractType
                 'attr' => [
                     'class' => 'custom-file-input',
                 ],
-                'help' => \implode('', $this->distributionContractFileHelper->getFilesHelper($dto->getContract())),
+                'help' => \implode('', $this->contractFileHelper->getFilesHelper($dto->getContract())),
                 'help_html' => true,
             ])
             ->add('exclusivity', TextareaType::class, [

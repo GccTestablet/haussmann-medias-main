@@ -25,12 +25,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item text-primary" href="{{ path('app_company_acquisition_contract_download', {'company': contract.company.id, 'id': contract.id}) }}">
-                                    <i class="fas fa-download"></i> {% trans from 'misc' %}Download{% endtrans %}
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-warning" href="{{ path('app_company_acquisition_contract_update', {'company': contract.company.id, 'id': contract.id}) }}">
+                                <a class="dropdown-item text-warning" href="{{ path('app_acquisition_contract_update', {'id': contract.id}) }}">
                                     <i class="fas fa-edit"></i> {% trans from 'misc' %}Update{% endtrans %}
                                 </a>
                             </li>
