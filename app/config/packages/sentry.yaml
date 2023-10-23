@@ -1,0 +1,31 @@
+when@prod:
+  sentry:
+    dsn: "%env(SENTRY_BACKEND_DSN)%"
+    options:
+      environment: "%env(SENTRY_ENVIRONMENT)%"
+      before_send: "sentry.callback.before_send"
+      traces_sample_rate: 0.1
+      integrations:
+        - 'Sentry\Integration\IgnoreErrorsIntegration'
+    register_error_listener: false
+
+services:
+  sentry.callback.before_send:
+    class: 'App\Service\Integration\Sentry'
+    factory: ['@App\Service\Integration\Sentry', "getBeforeSend"]
+  Sentry\Integration\IgnoreErrorsIntegration:
+    arguments:
+      $options:
+        ignore_exceptions:
+          - RuntimeException
+#        If you are using Monolog, you also need this additional configuration to log the errors correctly:
+#        https://docs.sentry.io/platforms/php/guides/symfony/#monolog-integration
+#        register_error_listener: false
+#        register_error_handler: false
+
+#    monolog:
+#        handlers:
+#            sentry:
+#                type: sentry
+#                level: !php/const Monolog\Logger::ERROR
+#                hub_id: Sentry\State\HubInterface

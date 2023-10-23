@@ -1,6 +1,9 @@
 twig:
   default_path: "%kernel.project_dir%/templates"
   form_themes: ["bootstrap_5_layout.html.twig"]
+  globals:
+    SENTRY_FRONTEND_DSN: "%env(SENTRY_FRONTEND_DSN)%"
+    SENTRY_ENVIRONMENT: "%env(SENTRY_ENVIRONMENT)%"
 
 when@test:
   twig:
