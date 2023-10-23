@@ -23,6 +23,15 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
 
+    {% apply spaceless %}
+        {% if SENTRY_FRONTEND_DSN is not empty %}
+            <div data-controller="common--sentry"
+                 data-common--sentry-dsn-value="{{ SENTRY_FRONTEND_DSN }}"
+                 data-common--sentry-env-value="{{ SENTRY_ENVIRONMENT }}"
+            ></div>
+        {% endif %}
+    {% endapply %}
+
     <!-- Font -->
     {% block css_font %}
     {% endblock %}

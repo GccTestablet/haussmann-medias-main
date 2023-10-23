@@ -8,9 +8,9 @@
   "require": {
     "php": ">=8.2",
     "ext-ctype": "*",
+    "ext-dom": "*",
     "ext-fileinfo": "*",
     "ext-iconv": "*",
-    "ext-dom": "*",
     "ext-simplexml": "*",
     "doctrine/doctrine-bundle": "^2.10",
     "doctrine/doctrine-migrations-bundle": "^3.2",
@@ -22,6 +22,7 @@
     "phing/phing": "^2.17",
     "phpdocumentor/reflection-docblock": "^5.3",
     "phpstan/phpdoc-parser": "^1.24",
+    "sentry/sentry-symfony": "^4.11",
     "stof/doctrine-extensions-bundle": "^1.8",
     "symfony/asset": "6.3.*",
     "symfony/console": "6.3.*",
