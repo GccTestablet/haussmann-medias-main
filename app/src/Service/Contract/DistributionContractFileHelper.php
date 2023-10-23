@@ -23,27 +23,18 @@ class DistributionContractFileHelper
         $files = [];
         foreach ($contract->getContractFiles() as $contractFile) {
             $divElement = $this->HTMLDomParser->createElement('div', ['class' => 'mt-1']);
+            $trashIconElement = $this->HTMLDomParser->createElement('i', ['class' => 'fas fa-trash-alt']);
             $aRemoveElement = $this->HTMLDomParser->createElement('a', [
                 'href' => $this->urlGenerator->generate('app_distribution_contract_file_remove', [
                     'contract' => $contract->getId(),
                     'file' => $contractFile->getId(),
                 ]),
                 'title' => 'Remove',
-                'class' => 'btn btn-xs btn-danger me-1',
-            ], 'X');
-
-            $aDownloadElement = $this->HTMLDomParser->createElement('a', [
-                'href' => $this->urlGenerator->generate('app_distribution_contract_file_download', [
-                    'contract' => $contract->getId(),
-                    'file' => $contractFile->getId(),
-                ]),
-                'title' => 'Download',
-                'class' => 'btn btn-xs btn-primary me-1',
-            ], 'D');
+                'class' => 'btn btn-sm btn-danger me-1',
+            ], $trashIconElement);
 
             $this->HTMLDomParser->appendTo($divElement, [
                 $aRemoveElement,
-                $aDownloadElement,
                 ' ',
                 $contractFile->getOriginalFileName(),
             ]);

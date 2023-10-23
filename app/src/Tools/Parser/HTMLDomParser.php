@@ -18,9 +18,11 @@ class HTMLDomParser
      *
      * @throws \DOMException
      */
-    public function createElement(string $name, array $attributes = [], string $value = ''): \DOMElement
+    public function createElement(string $name, array $attributes = [], string|\DOMElement $value = ''): \DOMElement
     {
-        $element = $this->dom->createElement($name, $value);
+        $element = $this->dom->createElement($name);
+        $this->setValue($element, $value);
+
         foreach ($attributes as $attribute => $attributeValue) {
             $element->setAttribute($attribute, $attributeValue);
         }
@@ -39,5 +41,16 @@ class HTMLDomParser
     public function asString(\DOMElement $domElement): string
     {
         return \simplexml_import_dom($domElement)?->asXML();
+    }
+
+    private function setValue(\DOMElement $element, string|\DOMElement $value = ''): void
+    {
+        if ($value instanceof \DOMElement) {
+            $element->appendChild($value);
+
+            return;
+        }
+
+        $element->nodeValue = $value;
     }
 }

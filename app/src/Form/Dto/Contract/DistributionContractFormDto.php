@@ -8,6 +8,8 @@ use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistributionContractFormDto
@@ -18,27 +20,27 @@ class DistributionContractFormDto
 
     private ?DistributionContractTypeEnum $type = null;
 
+    private Collection $broadcastChannels;
+
     /**
      * @var UploadedFile[]
      */
     private array $files = [];
 
-    private ?\DateTime $startsAt = null;
-
-    private ?\DateTime $endsAt = null;
+    private ?\DateTime $signedAt = null;
 
     private ?string $exclusivity = null;
 
-    private ?float $amount = null;
-
-    private string $currency = 'EUR';
+    private ?string $commercialConditions = null;
 
     private ?FrequencyEnum $reportFrequency = null;
 
     public function __construct(
         private readonly DistributionContract $contract,
         private readonly bool $exists,
-    ) {}
+    ) {
+        $this->broadcastChannels = new ArrayCollection();
+    }
 
     public function getContract(): DistributionContract
     {
@@ -86,6 +88,18 @@ class DistributionContractFormDto
         return $this;
     }
 
+    public function getBroadcastChannels(): Collection
+    {
+        return $this->broadcastChannels;
+    }
+
+    public function setBroadcastChannels(Collection $broadcastChannels): static
+    {
+        $this->broadcastChannels = $broadcastChannels;
+
+        return $this;
+    }
+
     /**
      * @return UploadedFile[]
      */
@@ -104,26 +118,14 @@ class DistributionContractFormDto
         return $this;
     }
 
-    public function getStartsAt(): ?\DateTime
+    public function getSignedAt(): ?\DateTime
     {
-        return $this->startsAt;
+        return $this->signedAt;
     }
 
-    public function setStartsAt(?\DateTime $startsAt): static
+    public function setSignedAt(?\DateTime $signedAt): static
     {
-        $this->startsAt = $startsAt;
-
-        return $this;
-    }
-
-    public function getEndsAt(): ?\DateTime
-    {
-        return $this->endsAt;
-    }
-
-    public function setEndsAt(?\DateTime $endsAt): static
-    {
-        $this->endsAt = $endsAt;
+        $this->signedAt = $signedAt;
 
         return $this;
     }
@@ -140,26 +142,14 @@ class DistributionContractFormDto
         return $this;
     }
 
-    public function getAmount(): ?float
+    public function getCommercialConditions(): ?string
     {
-        return $this->amount;
+        return $this->commercialConditions;
     }
 
-    public function setAmount(?float $amount): static
+    public function setCommercialConditions(?string $commercialConditions): self
     {
-        $this->amount = $amount;
-
-        return $this;
-    }
-
-    public function getCurrency(): string
-    {
-        return $this->currency;
-    }
-
-    public function setCurrency(string $currency): static
-    {
-        $this->currency = $currency;
+        $this->commercialConditions = $commercialConditions;
 
         return $this;
     }

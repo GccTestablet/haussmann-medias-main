@@ -70,29 +70,6 @@ class CompanyDistributionContractController extends AbstractAppController
         ]);
     }
 
-    #[Route(path: '/{id}/update', name: 'app_company_distribution_contract_update', requirements: ['id' => '\d+'])]
-    #[IsGranted(User::ROLE_ADMIN)]
-    public function update(Request $request, DistributionContract $contract): Response
-    {
-        $company = $contract->getCompany();
-        $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
-
-        $formHandlerResponse = $this->getFormHandlerResponse($request, $company, $contract);
-
-        $form = $formHandlerResponse->getForm();
-        if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_distribution_contract_show', ['id' => $contract->getId()]);
-        }
-
-        return $this->render('shared/common/save.html.twig', [
-            'title' => new TranslatableMessage('Update contract %contract% from company %company%', [
-                '%contract%' => $contract->getName(),
-                '%company%' => $company->getName(),
-            ], 'company'),
-            'form' => $form,
-        ]);
-    }
-
     #[Route(path: '/{id}/remove', name: 'app_company_distribution_contract_remove', requirements: ['id' => '\d+'])]
     #[IsGranted(User::ROLE_ADMIN)]
     public function remove(Request $request, RemoveFormHandler $removeFormHandler, DistributionContract $contract): Response

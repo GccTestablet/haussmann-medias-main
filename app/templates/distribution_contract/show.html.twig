@@ -8,7 +8,7 @@
 
 {% block content_action %}
     {% if isCompanyAdmin %}
-        <a href="{{ path('app_company_distribution_contract_update', {'company': contract.company.id, 'id': contract.id}) }}" class="btn btn-sm btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
+        <a href="{{ path('app_distribution_contract_update', {'id': contract.id}) }}" class="btn btn-sm btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
     {% endif %}
 {% endblock %}
 {% block content %}
