@@ -15,6 +15,8 @@ class WorkAdaptationFormDto
 
     private ?string $currency = 'EUR';
 
+    private ?string $comment = null;
+
     public function __construct(
         private readonly WorkAdaptation $workAdaptation,
         private readonly bool $exists,
@@ -62,6 +64,18 @@ class WorkAdaptationFormDto
     public function setCurrency(?string $currency): static
     {
         $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): static
+    {
+        $this->comment = $comment;
 
         return $this;
     }
