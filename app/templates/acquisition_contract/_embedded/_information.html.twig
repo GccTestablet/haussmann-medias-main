@@ -1,41 +1,45 @@
 <div class="card mb-3">
-    <div class="card-body p-1">
-        <table class="table table-striped table-borderless fs-sm">
-            <tbody>
-            <tr>
-                <td>{% trans from 'contract' %}File name{% endtrans %}</td>
-                <td>
-                    {{ contract.originalFileName }}
-                    <a href="{{ path('app_company_acquisition_contract_download', {'company': contract.company.id, 'id': contract.id}) }}" class="" title="{% trans from 'misc' %}Download{% endtrans %}">
-                        <i class="fas fa-download"></i>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>{% trans from 'contract' %}Signed at{% endtrans %}</td>
-                <td>
+    <div class="card-body">
+        <ul class="list-unstyled">
+            <li class="mb-3">
+                <span class="fw-bold me-2">{% trans from 'contract' %}Signed at{% endtrans %}</span>
+                <span>
                     {{ contract.signedAt|date_format }}
-                </td>
-            </tr>
-            <tr>
-                <td>{% trans from 'contract' %}Rights starts at{% endtrans %}</td>
-                <td>
+                </span>
+            </li>
+            <li class="mb-3">
+                <span class="fw-bold me-2">{% trans from 'contract' %}Rights starts at{% endtrans %}</span>
+                <span>
                     {{ contract.startsAt|date_format }}
-                </td>
-            </tr>
-            <tr>
-                <td>{% trans from 'contract' %}Rights ends at{% endtrans %}</td>
-                <td>
+                </span>
+            </li>
+            <li class="mb-3">
+                <span class="fw-bold me-2">{% trans from 'contract' %}Rights ends at{% endtrans %}</span>
+                <span>
                     {{ contract.endsAt|date_format }}
-                </td>
-            </tr>
-            <tr>
-                <td>{% trans from 'contract' %}Report frequency{% endtrans %}</td>
-                <td>
+                </span>
+            </li>
+            <li class="mb-3">
+                <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency{% endtrans %}</span>
+                <span>
                     {{ contract.reportFrequency ? contract.reportFrequency.asText|trans({}, 'misc') }}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </span>
+            </li>
+            <li class="mb-3">
+                <span class="fw-bold me-2">{% trans from 'contract' %}Files{% endtrans %}:</span>
+                <span>
+                    {% for contractFile in contract.contractFiles %}
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="{{ path('app_acquisition_contract_file_download', {'contract': contract.id, 'file': contractFile.id}) }}">
+                                    <i class="fa fa-download"></i>
+                                </a>
+                                {{ contractFile.originalFileName }}
+                            </li>
+                        </ul>
+                    {% endfor %}
+                </span>
+            </li>
+        </ul>
     </div>
 </div>

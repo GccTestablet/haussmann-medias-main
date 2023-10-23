@@ -11,6 +11,7 @@ use App\Form\Dto\Contract\AcquisitionContractFormDto;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
+use App\Service\Contract\ContractFileHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -18,10 +19,13 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AcquisitionContractFormType extends AbstractType
 {
+    public function __construct(
+        private readonly ContractFileHelper $contractFileHelper
+    ) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var AcquisitionContractFormDto $dto */
@@ -41,22 +45,22 @@ class AcquisitionContractFormType extends AbstractType
                     origin: $dto->isExists() ? $dto->getContract() : null
                 ),
             ])
-            ->add('file', FileType::class, [
-                'label' => 'Contract',
-                'required' => !$dto->isExists(),
-                'attr' => [
-                    'class' => 'custom-file-input',
-                ],
-                'constraints' => !$dto->isExists() ? [
-                    new NotBlank(),
-                ] : [],
-                'help' => $dto->getFile()?->getClientOriginalName(),
-            ])
             ->add('signedAt', DateType::class, [
                 'label' => 'Signed at',
             ])
+            ->add('files', FileType::class, [
+                'label' => 'Add more files',
+                'required' => false,
+                'multiple' => true,
+                'attr' => [
+                    'class' => 'custom-file-input',
+                ],
+                'help' => \implode('', $this->contractFileHelper->getFilesHelper($dto->getContract())),
+                'help_html' => true,
+            ])
             ->add('startsAt', DateType::class, [
                 'label' => 'Rights starts at',
+                'required' => false,
             ])
             ->add('endsAt', DateType::class, [
                 'label' => 'Rights ends at',

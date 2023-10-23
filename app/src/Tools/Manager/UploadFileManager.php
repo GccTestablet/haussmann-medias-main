@@ -48,6 +48,16 @@ class UploadFileManager
         $file->move($directory, $filename);
     }
 
+    /**
+     * @param FileInterface[] $files
+     */
+    public function removeMultiple(array $files): void
+    {
+        foreach ($files as $file) {
+            $this->remove($file);
+        }
+    }
+
     public function remove(FileInterface|string $file): void
     {
         $fileSystem = new Filesystem();

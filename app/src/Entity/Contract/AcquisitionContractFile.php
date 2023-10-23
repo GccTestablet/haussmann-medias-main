@@ -11,8 +11,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'distribution_contracts_files')]
-class DistributionContractFile implements FileInterface
+#[ORM\Table(name: 'acquisition_contract_files')]
+class AcquisitionContractFile implements FileInterface
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -22,15 +22,15 @@ class DistributionContractFile implements FileInterface
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: DistributionContract::class, inversedBy: 'contractFiles')]
-    #[ORM\JoinColumn(name: 'distribution_contract_id', referencedColumnName: 'id', nullable: false)]
-    private DistributionContract $distributionContract;
+    #[ORM\ManyToOne(targetEntity: AcquisitionContract::class, inversedBy: 'contractFiles')]
+    #[ORM\JoinColumn(name: 'acquisition_contract_id', referencedColumnName: 'id', nullable: false)]
+    private AcquisitionContract $acquisitionContract;
 
     #[ORM\Column(unique: true)]
-    private ?string $fileName = null;
+    private string $fileName;
 
     #[ORM\Column()]
-    private ?string $originalFileName = null;
+    private string $originalFileName;
 
     public function getId(): int
     {
@@ -44,14 +44,14 @@ class DistributionContractFile implements FileInterface
         return $this;
     }
 
-    public function getDistributionContract(): DistributionContract
+    public function getAcquisitionContract(): AcquisitionContract
     {
-        return $this->distributionContract;
+        return $this->acquisitionContract;
     }
 
-    public function setDistributionContract(DistributionContract $distributionContract): static
+    public function setAcquisitionContract(AcquisitionContract $acquisitionContract): static
     {
-        $this->distributionContract = $distributionContract;
+        $this->acquisitionContract = $acquisitionContract;
 
         return $this;
     }
@@ -82,6 +82,6 @@ class DistributionContractFile implements FileInterface
 
     public function getUploadDir(): string
     {
-        return \sprintf('media/distribution-contracts/%d', $this->distributionContract->getId());
+        return \sprintf('media/acquisition-contracts/%d', $this->acquisitionContract->getId());
     }
 }

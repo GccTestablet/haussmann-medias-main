@@ -6,7 +6,6 @@ namespace App\Entity\Contract;
 
 use App\Entity\Company;
 use App\Entity\Shared\BlameableEntity;
-use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
@@ -18,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AcquisitionContractRepository::class)]
 #[ORM\Table(name: 'acquisition_contracts')]
-class AcquisitionContract implements FileInterface
+class AcquisitionContract
 {
     use BlameableEntity;
     use TimestampableEntity;
@@ -39,23 +38,23 @@ class AcquisitionContract implements FileInterface
     #[ORM\Column(unique: true)]
     private string $name;
 
-    #[ORM\Column(unique: true)]
-    private string $fileName;
-
-    #[ORM\Column]
-    private string $originalFileName;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTime $signedAt;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private \DateTime $startsAt;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTime $startsAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $endsAt = null;
 
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
+
+    /**
+     * @var Collection<AcquisitionContractFile>
+     */
+    #[ORM\OneToMany(mappedBy: 'acquisitionContract', targetEntity: AcquisitionContractFile::class, cascade: ['persist'])]
+    private Collection $contractFiles;
 
     /**
      * @var Collection<Work>
@@ -65,6 +64,7 @@ class AcquisitionContract implements FileInterface
 
     public function __construct()
     {
+        $this->contractFiles = new ArrayCollection();
         $this->works = new ArrayCollection();
     }
 
@@ -116,30 +116,6 @@ class AcquisitionContract implements FileInterface
         return $this;
     }
 
-    public function getFileName(): string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileName(string $fileName): static
-    {
-        $this->fileName = $fileName;
-
-        return $this;
-    }
-
-    public function getOriginalFileName(): string
-    {
-        return $this->originalFileName;
-    }
-
-    public function setOriginalFileName(string $originalFileName): static
-    {
-        $this->originalFileName = $originalFileName;
-
-        return $this;
-    }
-
     public function getSignedAt(): \DateTime
     {
         return $this->signedAt;
@@ -152,12 +128,12 @@ class AcquisitionContract implements FileInterface
         return $this;
     }
 
-    public function getStartsAt(): \DateTime
+    public function getStartsAt(): ?\DateTime
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(\DateTime $startsAt): static
+    public function setStartsAt(?\DateTime $startsAt): static
     {
         $this->startsAt = $startsAt;
 
@@ -188,6 +164,27 @@ class AcquisitionContract implements FileInterface
         return $this;
     }
 
+    public function getContractFiles(): Collection
+    {
+        return $this->contractFiles;
+    }
+
+    public function addContractFile(AcquisitionContractFile $contractFile): static
+    {
+        if (!$this->contractFiles->contains($contractFile)) {
+            $this->contractFiles->add($contractFile);
+        }
+
+        return $this;
+    }
+
+    public function setContractFiles(Collection $contractFiles): static
+    {
+        $this->contractFiles = $contractFiles;
+
+        return $this;
+    }
+
     public function getWorks(): Collection
     {
         return $this->works;
@@ -198,10 +195,5 @@ class AcquisitionContract implements FileInterface
         $this->works = $works;
 
         return $this;
-    }
-
-    public function getUploadDir(): string
-    {
-        return 'media/acquisition-contracts';
     }
 }

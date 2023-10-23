@@ -17,12 +17,14 @@ class AcquisitionContractFormDto
     #[Assert\NotBlank()]
     private ?string $name = null;
 
-    private ?UploadedFile $file = null;
+    /**
+     * @var UploadedFile[]
+     */
+    private array $files = [];
 
     #[Assert\NotBlank()]
     private ?\DateTime $signedAt = null;
 
-    #[Assert\NotBlank()]
     private ?\DateTime $startsAt = null;
 
     #[Assert\GreaterThanOrEqual(propertyPath: 'startsAt')]
@@ -69,14 +71,20 @@ class AcquisitionContractFormDto
         return $this;
     }
 
-    public function getFile(): ?UploadedFile
+    /**
+     * @return UploadedFile[]
+     */
+    public function getFiles(): array
     {
-        return $this->file;
+        return $this->files;
     }
 
-    public function setFile(?UploadedFile $file): static
+    /**
+     * @param UploadedFile[] $files
+     */
+    public function setFiles(array $files): static
     {
-        $this->file = $file;
+        $this->files = $files;
 
         return $this;
     }

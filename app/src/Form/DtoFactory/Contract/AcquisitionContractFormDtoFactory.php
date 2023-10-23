@@ -6,15 +6,18 @@ namespace App\Form\DtoFactory\Contract;
 
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
+use App\Entity\Contract\AcquisitionContractFile;
 use App\Form\Dto\Contract\AcquisitionContractFormDto;
 use App\Tools\Generator\FileNameGenerator;
 use App\Tools\Manager\UploadFileManager;
+use App\Tools\Parser\ObjectParser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AcquisitionContractFormDtoFactory
 {
     public function __construct(
-        private readonly UploadFileManager $uploadFileManager
+        private readonly UploadFileManager $uploadFileManager,
+        private readonly ObjectParser $objectParser
     ) {}
 
     public function create(Company $company, ?AcquisitionContract $contract): AcquisitionContractFormDto
@@ -27,39 +30,39 @@ class AcquisitionContractFormDtoFactory
             return new AcquisitionContractFormDto($contract, false);
         }
 
-        $filePath = $this->uploadFileManager->path($contract->getUploadDir(), $contract->getFileName());
-        $file = new UploadedFile(
-            $filePath,
-            $contract->getOriginalFileName()
-        );
+        $files = [];
+        foreach ($contract->getContractFiles() as $contractFile) {
+            $files[$contractFile->getId()] = new UploadedFile(
+                $this->uploadFileManager->path($contractFile->getUploadDir(), $contractFile->getFileName()),
+                $contractFile->getOriginalFileName()
+            );
+        }
 
-        return (new AcquisitionContractFormDto($contract, true))
-            ->setBeneficiary($contract->getBeneficiary())
-            ->setName($contract->getName())
-            ->setFile($file)
-            ->setSignedAt($contract->getSignedAt())
-            ->setStartsAt($contract->getStartsAt())
-            ->setEndsAt($contract->getEndsAt())
-            ->setReportFrequency($contract->getReportFrequency())
+        $dto = (new AcquisitionContractFormDto($contract, true))
+            ->setFiles($files)
         ;
+
+        $this->objectParser->mergeFromObject($contract, $dto, ['files', 'works']);
+
+        return $dto;
     }
 
     public function updateEntity(AcquisitionContractFormDto $dto, AcquisitionContract $contract): void
     {
-        if ($dto->getFile()) {
-            $contract
-                ->setOriginalFileName($dto->getFile()->getClientOriginalName())
-                ->setFileName(FileNameGenerator::generate($dto->getFile()))
-            ;
+        if (0 !== \count($dto->getFiles())) {
+            foreach ($dto->getFiles() as $file) {
+                $contractFile = (new AcquisitionContractFile())
+                    ->setAcquisitionContract($contract)
+                    ->setOriginalFileName($file->getClientOriginalName())
+                    ->setFileName(FileNameGenerator::generate($file))
+                ;
+
+                $this->uploadFileManager->upload($file, $contractFile->getUploadDir(), $contractFile->getFileName());
+
+                $contract->addContractFile($contractFile);
+            }
         }
 
-        $contract
-            ->setBeneficiary($dto->getBeneficiary())
-            ->setName($dto->getName())
-            ->setSignedAt($dto->getSignedAt())
-            ->setStartsAt($dto->getStartsAt())
-            ->setEndsAt($dto->getEndsAt())
-            ->setReportFrequency($dto->getReportFrequency())
-        ;
+        $this->objectParser->mergeFromObject($dto, $contract, ['files']);
     }
 }
