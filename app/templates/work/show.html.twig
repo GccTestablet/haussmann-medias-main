@@ -26,6 +26,11 @@
                             {% trans from 'work' %}Reversions{% endtrans %}
                         </button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#work-distribution-contracts-tab" role="tab">
+                            {% trans from 'contract' %}Distribution contracts{% endtrans %}
+                        </button>
+                    </li>
                 </ul>
                 <div class="card-body tab-content">
                     <div class="tab-pane pull-x active show" id="work-territories-tab" role="tabpanel" tabindex="0">
@@ -64,6 +69,15 @@
                             <div class="card-body">
                                 {% include 'work/reversion/_embedded/_list.html.twig' with {
                                     reversions: work.workReversions
+                                } %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane pull-x" id="work-distribution-contracts-tab" role="tabpanel" tabindex="0">
+                        <div class="card">
+                            <div class="card-body">
+                                {% include 'work/_distribution_contract_list.html.twig' with {
+                                    contractWorks: work.contractWorks
                                 } %}
                             </div>
                         </div>

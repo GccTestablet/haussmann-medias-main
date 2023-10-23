@@ -30,7 +30,7 @@ class DistributionContractWork
     #[ORM\JoinColumn(name: 'distribution_contract_id', referencedColumnName: 'id', nullable: false)]
     private DistributionContract $distributionContract;
 
-    #[ORM\ManyToOne(targetEntity: Work::class, inversedBy: 'distributionContracts')]
+    #[ORM\ManyToOne(targetEntity: Work::class, inversedBy: 'contractWorks')]
     #[ORM\JoinColumn(name: 'work_id', referencedColumnName: 'id', nullable: false)]
     private Work $work;
 
