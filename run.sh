@@ -38,9 +38,10 @@ get_var() {
 }
 
 exec_in_container() {
-    export COMPOSE_PROJECT_NAME=$(get_var COMPOSE_PROJECT_NAME)
     docker-compose -f ${DOCKER_FILE} exec ${APP_CONTAINER} "${@:1}"
 }
+
+export COMPOSE_PROJECT_NAME=$(get_var COMPOSE_PROJECT_NAME)
 
 case "$1" in
     init)
@@ -53,6 +54,7 @@ case "$1" in
         docker-sync-stack clean
     ;;
     build)
+
         docker-compose -f ${DOCKER_FILE} build --no-cache
     ;;
     force-stop)

@@ -19,6 +19,7 @@ chown -R www-data var
 
 # SSH
 echo -en '127.0.0.1 www.haussmann-medias.local' >> /etc/hosts
+echo -en '127.0.0.1 test.haussmann-medias.local' >> /etc/hosts
 
 # NGINX
 service nginx restart
