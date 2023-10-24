@@ -48,8 +48,10 @@ class Work
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?float $minimumCostOfTheTopBeforeReversion = null;
+
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
+
     #[ORM\Column(type: Types::SMALLINT, length: 4, nullable: true)]
     private ?int $year = null;
 
