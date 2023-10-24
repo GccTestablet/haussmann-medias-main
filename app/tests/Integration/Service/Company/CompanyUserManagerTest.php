@@ -7,10 +7,10 @@ namespace App\Tests\Integration\Service\Company;
 use App\Entity\User;
 use App\Entity\UserCompany;
 use App\Service\Company\CompanyUserManager;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\CompanyFixture;
 use App\Tests\Fixtures\Doctrine\UserCompanyFixture;
 use App\Tests\Fixtures\Doctrine\UserFixture;
+use App\Tests\Shared\AbstractTestCase;
 
 class CompanyUserManagerTest extends AbstractTestCase
 {

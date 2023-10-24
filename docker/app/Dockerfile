@@ -1,5 +1,14 @@
 FROM gccteam/haussmann-medias:0.1.0
 
+# Chromium and ChromeDriver
+ENV PANTHER_NO_SANDBOX 1
+# Not mandatory, but recommended
+ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+    chromium-driver
+
 COPY . /var/www/haussmann-medias
 
 EXPOSE 80

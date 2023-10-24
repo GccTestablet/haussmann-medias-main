@@ -4,7 +4,9 @@
     {% trans from 'contract' %}List of acquisition contracts{% endtrans %}
 {% endblock %}
 {% block content_action %}
-    <a href="{{ path('app_company_acquisition_contract_add', {'company': company.id}) }}" class="btn btn-sm btn-success">{% trans from 'contract' %}Add acquisition contract{% endtrans %}</a>
+    <a href="{{ path('app_acquisition_contract_add') }}" class="btn btn-sm btn-success">
+        {% trans from 'contract' %}Add acquisition contract{% endtrans %}
+    </a>
 {% endblock %}
 {% block content %}
     {% component card %}

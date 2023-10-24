@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Service\Security;
 
 use App\Entity\User;
 use App\Service\Security\SecurityManager;
-use App\Tests\AbstractTestCase;
+use App\Tests\Shared\AbstractTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\SecurityBundle\Security;
 

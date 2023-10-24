@@ -6,8 +6,8 @@ namespace App\Tests\Integration\Service\Setting;
 
 use App\Entity\Setting\BroadcastChannel;
 use App\Service\Setting\BroadcastChannelManager;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\Setting\BroadcastChannelFixture;
+use App\Tests\Shared\AbstractTestCase;
 
 class BroadcastChannelManagerTest extends AbstractTestCase
 {

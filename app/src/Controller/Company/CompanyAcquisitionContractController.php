@@ -70,6 +70,9 @@ class CompanyAcquisitionContractController extends AbstractAppController
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add contract to company %name%', ['%name%' => $company->getName()], 'company'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_company_acquisition_contract_index', [
+                'company' => $company->getId(),
+            ]),
         ]);
     }
 }

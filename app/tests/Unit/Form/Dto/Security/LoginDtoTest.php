@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Form\Dto\Security;
 
 use App\Form\Dto\Security\LoginFormDto;
-use App\Tests\AbstractTestCase;
+use App\Tests\Shared\AbstractTestCase;
 
 class LoginDtoTest extends AbstractTestCase
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Tools\Generator;
 
-use App\Tests\AbstractTestCase;
+use App\Tests\Shared\AbstractTestCase;
 use App\Tools\Generator\FileNameGenerator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

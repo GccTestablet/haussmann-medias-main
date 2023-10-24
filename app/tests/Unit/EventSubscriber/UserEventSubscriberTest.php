@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\EventSubscriber\UserEventSubscriber;
 use App\Service\Security\SecurityManager;
 use App\Service\User\UserActivityManager;
-use App\Tests\AbstractTestCase;
+use App\Tests\Shared\AbstractTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;

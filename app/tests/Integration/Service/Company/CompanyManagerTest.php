@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Integration\Service\Company;
 
 use App\Service\Company\CompanyManager;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\UserCompanyFixture;
 use App\Tests\Fixtures\Doctrine\UserFixture;
+use App\Tests\Shared\AbstractTestCase;
 
 class CompanyManagerTest extends AbstractTestCase
 {
@@ -28,7 +28,7 @@ class CompanyManagerTest extends AbstractTestCase
         $user = $this->getReference(UserFixture::SIMPLE_USER);
 
         $this->assertCount(2, $this->companyManager->findByUser($admin));
-        $this->assertCount(0, $this->companyManager->findByUser($user));
+        $this->assertCount(1, $this->companyManager->findByUser($user));
 
         $this->assertCount(5, $this->companyManager->findByUser($user, true));
     }
