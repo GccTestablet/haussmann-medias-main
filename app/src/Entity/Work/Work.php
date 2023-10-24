@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use function sprintf;
 
 #[ORM\Entity(repositoryClass: WorkRepository::class)]
 #[ORM\Table(name: 'works')]
@@ -47,7 +48,8 @@ class Work
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?float $minimumCostOfTheTopBeforeReversion = null;
-
+    #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
+    private string $currency = 'EUR';
     #[ORM\Column(type: Types::SMALLINT, length: 4, nullable: true)]
     private ?int $year = null;
 
@@ -186,6 +188,16 @@ class Work
         return $this;
     }
 
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): void
+    {
+        $this->currency = $currency;
+    }
+
     public function getYear(): ?int
     {
         return $this->year;
@@ -316,6 +328,6 @@ class Work
 
     public function getImdbLink(): string
     {
-        return \sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
+        return sprintf('https://www.imdb.com/title/%s/', $this->imdbId);
     }
 }

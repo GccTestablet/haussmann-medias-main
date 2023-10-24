@@ -23,7 +23,8 @@ class WorkFormDto
     private ?float $minimumGuaranteedBeforeReversion = null;
 
     private ?float $minimumCostOfTheTopBeforeReversion = null;
-
+    #[Assert\Currency()]
+    private string $currency = 'EUR';
     #[Assert\Range(min: 1900, max: 2100)]
     private ?int $year = null;
 
@@ -127,6 +128,17 @@ class WorkFormDto
 
         return $this;
     }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(string $currency): void
+    {
+        $this->currency = $currency;
+    }
+
 
     public function getYear(): ?int
     {

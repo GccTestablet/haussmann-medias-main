@@ -6,6 +6,7 @@ namespace App\Form\Type\Work;
 
 use App\Entity\Work\Work;
 use App\Form\Dto\Work\WorkFormDto;
+use App\Form\Type\Shared\CurrencyType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -63,6 +64,9 @@ class WorkFormType extends AbstractType
             ])
             ->add('minimumCostOfTheTopBeforeReversion', NumberType::class, [
                 'required' => false,
+            ])
+            ->add('currency', CurrencyType::class, [
+                'required' => true,
             ])
             ->add('year', NumberType::class, [
                 'required' => false,
