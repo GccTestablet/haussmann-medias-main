@@ -1,32 +1,35 @@
 {% extends 'shared/layout/layout_authentication.html.twig' %}
 
 {% block content_title %}
-    Sign In
+    {% trans from 'security' %}Sign in{% endtrans %}
 {% endblock %}
-{% block content_action %}
-    <a class="btn-block-option fs-sm" href="{{ path('app_security_resetting_request') }}">Forgot password?</a>
-{% endblock %}
-{% block content %}
-{% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-{{ form_start(form) }}
-{{ form_rest(form) }}
 
-<!-- Remember me -->
-<div class="mb-3">
-    <div class="d-flex justify-content-between">
-        <div>
-            <input type="checkbox" class="form-check-input" id="_remember_me" name="_remember_me" />
-            <label class="form-check-label" for="_remember_me">Se souvenir de moi ?</label>
+{% block content_action %}
+    <a class="btn-block-option fs-sm" href="{{ path('app_security_resetting_request') }}">
+        {% trans from 'security' %}Forgot password?{% endtrans %}
+    </a>
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+
+    <div class="mb-3">
+        <div class="d-flex justify-content-between">
+            <div>
+                <input type="checkbox" class="form-check-input" id="_remember_me" name="_remember_me" />
+                <label class="form-check-label" for="_remember_me">{% trans from 'security' %}Remember me?{% endtrans %}</label>
+            </div>
         </div>
     </div>
-</div>
-<!-- Token -->
-<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-<!-- Button -->
-<div class="mb-3">
-    <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
-</div>
-{{ form_end(form) }}
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <div class="mb-3">
+        <button class="btn btn-primary d-grid w-100" type="submit">{% trans from 'security' %}Sign in{% endtrans %}</button>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}

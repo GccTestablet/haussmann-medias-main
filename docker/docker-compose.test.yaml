@@ -22,6 +22,7 @@ services:
     extra_hosts:
       - "haussmann-medias.local:127.0.0.1"
       - "www.haussmann-medias.local:127.0.0.1"
+      - "test.haussmann-medias.local:127.0.0.1"
       - "host.docker.internal:host-gateway"
 
   db:

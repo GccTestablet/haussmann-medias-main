@@ -5,7 +5,7 @@ COPY . /var/www/haussmann-medias
 EXPOSE 80
 
 # Configure
-COPY docker/app/config/www.haussmann-medias.local /etc/nginx/sites-enabled/
+COPY docker/app/config/*.local /etc/nginx/sites-enabled/
 COPY docker/app/config/.env.ci /var/www/haussmann-medias/app/.env
 
 COPY docker/app/entrypoint.sh /usr/local/bin/docker-entrypoint

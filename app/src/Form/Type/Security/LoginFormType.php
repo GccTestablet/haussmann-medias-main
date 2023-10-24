@@ -36,6 +36,7 @@ class LoginFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => LoginFormDto::class,
             'csrf_protection' => false, // CSRF token is checked by Auth Passport
+            'translation_domain' => 'security',
         ]);
     }
 }

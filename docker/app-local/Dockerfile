@@ -7,7 +7,7 @@ WORKDIR /var/www/haussmann-medias/app
 
 RUN \
     # Copy configuration
-    cp ../docker/app/config/www.haussmann-medias.local /etc/nginx/sites-enabled/
+    cp ../docker/app/config/*.local /etc/nginx/sites-enabled/
 
 RUN \
     # Prepare public folders
