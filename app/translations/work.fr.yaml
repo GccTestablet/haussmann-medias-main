@@ -1,5 +1,5 @@
-Works: Oeuvres
-Work: Oeuvre
+Works: Œuvres
+Work: Œuvre
 Add work: Ajouter une oeuvre
 Update work %name%: Mettre à jour l'oeuvre %name%
 Add adaptation: Ajouter une adaptation
@@ -17,15 +17,15 @@ Add revenue to work %work%: Ajouter un revenu à l'oeuvre %work%
 Update revenue from work %work%: Mettre à jour le revenu de l'oeuvre %work%
 Remove revenue from work %work%: Supprimer le revenu de l'oeuvre %work%
 
-Minimum guaranteed before reversion: Minimum garanti avant réversion
-Minimum cost of the top before reversion: COTT minimum avant réversion
+Minimum guaranteed: Minimum garanti
+Ceiling of recoverable costs: Plafond des frais recoupables
 
-Internal id: Id interne
+Internal Id: Id Interne
 Imdb: Imdb
 Imdb id: Id IMDB
 Name: Nom
-Original name: Nom original
-Year: Année
+French Title: Titre Français
+Year of production: Année de production
 Duration: Durée
 Contract: Contrat
 Origin: Provenance
@@ -34,6 +34,8 @@ Country: Pays d'origine
 Broadcast channels: Canaux de diffusion
 Select a work: Sélectionner une oeuvre
 Manage territories: Gérer les territoires
+Beneficiary: Ayant-Droit
+Period: Période
 
 # Revenue
 Distributor: Distributeur
@@ -49,3 +51,7 @@ Cost: Coût
 France: France
 European: Européen
 International: International
+
+#Terrritory
+Manage territory from work: Gérer les territoires de l'oeuvre
+Territory: Territoire

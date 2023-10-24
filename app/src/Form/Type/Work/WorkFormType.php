@@ -59,20 +59,20 @@ class WorkFormType extends AbstractType
                 'preferred_choices' => ['FR', 'US'],
                 'autocomplete' => true,
             ])
-            ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('minimumCostOfTheTopBeforeReversion', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('currency', CurrencyType::class, [
-                'required' => true,
-            ])
             ->add('year', NumberType::class, [
                 'required' => false,
             ])
             ->add('duration', TextType::class, [
                 'required' => false,
+            ])
+            ->add('minimumGuaranteed', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('ceilingOfRecoverableCosts', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('currency', CurrencyType::class, [
+                'required' => true,
             ])
         ;
     }
