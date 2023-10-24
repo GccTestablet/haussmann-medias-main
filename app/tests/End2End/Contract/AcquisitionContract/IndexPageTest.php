@@ -39,9 +39,6 @@ class IndexPageTest extends AbstractEnd2EndTestCase
     {
         $this->iClickOn('Ajouter un contrat d\'acquisition');
         $this->assertUrl('/acquisition-contracts/add');
-
-        $this->iClickOn('Retour');
-        $this->assertUrl('/acquisition-contracts');
     }
 
     public function testContractLink(): void

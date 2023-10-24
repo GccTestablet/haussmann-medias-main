@@ -10,4 +10,15 @@ trait AssertActionTrait
     {
         $this->client->clickLink($link);
     }
+
+    protected function iClickOnElement(string $selector): void
+    {
+        //        $link = $this
+        //            ->crawler
+        //            ->filter($selector)
+        //            ->link()
+        //        ;
+
+        $this->client->getMouse()->clickTo($selector);
+    }
 }
