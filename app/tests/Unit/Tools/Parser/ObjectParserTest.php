@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Tools\Parser;
 use App\Entity\Company;
 use App\Entity\User;
 use App\Form\Dto\User\UserFormDto;
-use App\Tests\AbstractTestCase;
+use App\Tests\Shared\AbstractTestCase;
 use App\Tools\Parser\ObjectParser;
 
 class ObjectParserTest extends AbstractTestCase

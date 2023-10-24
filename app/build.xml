@@ -29,6 +29,7 @@
         <phingcall target="test_prepare" />
         <phingcall target="testing_php_unit" />
         <phingcall target="testing_php_integration" />
+        <phingcall target="testing_php_end2end" />
     </target>
 
     <!-- Prepare -->
@@ -54,6 +55,11 @@
     <target name="testing_php_integration" description="Run PHPUnit tests (Integration suite)">
         <echo message="PHPUnit tests (Integration suite) running" />
         <exec command="bin/phpunit --testsuite=integration" dir="${project_dir}" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="testing_php_end2end" description="Run PHPUnit tests (End2End suite)">
+        <echo message="PHPUnit tests (Integration suite) running" />
+        <exec command="bin/phpunit --testsuite=end2end" dir="${project_dir}" passthru="true" checkreturn="true" />
     </target>
 
     <!-- Analysis -->

@@ -52,10 +52,18 @@ class DoctrineFixtureLoader
 
         try {
             $tables = $connection->createSchemaManager()->listTables();
+            $sequences = $connection->createSchemaManager()->listSequences();
             $connection->beginTransaction();
 
-            foreach ($tables as $table) {
-                $connection->executeQuery(\sprintf('TRUNCATE %s CASCADE', $table->getName()));
+            $tableNames = \array_map(static fn ($table) => $table->getName(), $tables);
+            $connection->executeQuery(
+                \sprintf('TRUNCATE ONLY %s RESTART IDENTITY CASCADE', \implode(', ', $tableNames))
+            );
+
+            foreach ($sequences as $sequence) {
+                $connection->executeQuery(
+                    \sprintf('ALTER SEQUENCE %s RESTART WITH 1', $sequence->getName())
+                );
             }
 
             $connection->commit();

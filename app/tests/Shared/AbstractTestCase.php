@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests;
+namespace App\Tests\Shared;
 
 use App\Entity\User;
-use App\Tests\Tools\Loader\DoctrineFixtureLoader;
+use App\Tests\Shared\Traits\FixtureTrait;
+use App\Tests\Shared\Traits\ServiceTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -13,10 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 abstract class AbstractTestCase extends WebTestCase
 {
-    protected function getService(string $id): ?object
-    {
-        return self::getContainer()->get($id);
-    }
+    use FixtureTrait;
+    use ServiceTrait;
 
     protected function logInAs(string $reference): void
     {
@@ -30,25 +29,6 @@ abstract class AbstractTestCase extends WebTestCase
         /** @var TokenStorageInterface $tokenStorage */
         $tokenStorage = $this->getService(TokenStorageInterface::class);
         $tokenStorage->setToken($token);
-    }
-
-    /**
-     * @param string[] $fixtures
-     */
-    protected function loadOrmOnDemandFixtures(array $fixtures, bool $append = false): void
-    {
-        /** @var DoctrineFixtureLoader $fixtureLoader */
-        $fixtureLoader = $this->getService(DoctrineFixtureLoader::class);
-
-        $fixtureLoader->loadFixtures($fixtures, $append);
-    }
-
-    public function getReference(string $reference): object
-    {
-        /** @var DoctrineFixtureLoader $fixtureLoader */
-        $fixtureLoader = $this->getService(DoctrineFixtureLoader::class);
-
-        return $fixtureLoader->getReference($reference);
     }
 
     protected function getFile(string $path): string

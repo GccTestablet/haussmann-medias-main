@@ -6,8 +6,8 @@ namespace App\Tests\Integration\Service\Setting;
 
 use App\Entity\Setting\Territory;
 use App\Service\Setting\TerritoryManager;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\Setting\TerritoryFixture;
+use App\Tests\Shared\AbstractTestCase;
 
 class TerritoryManagerTest extends AbstractTestCase
 {

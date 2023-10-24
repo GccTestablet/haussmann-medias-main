@@ -23,6 +23,7 @@ class DistributionContractFixture extends AbstractFixture implements DependentFi
             'company' => CompanyFixture::HAUSSMANN_MEDIAS,
             'distributor' => CompanyFixture::HKA_FILMS,
             'type' => DistributionContractTypeEnum::ONE_OFF,
+            'signedAt' => '2021-10-01',
             'reportFrequency' => FrequencyEnum::MONTHLY,
         ],
         self::SNIPER_AND_MANEATER => [
@@ -30,6 +31,7 @@ class DistributionContractFixture extends AbstractFixture implements DependentFi
             'company' => CompanyFixture::CHROME_FILMS,
             'distributor' => CompanyFixture::MEDIAWAN,
             'type' => DistributionContractTypeEnum::RECURRING,
+            'signedAt' => '2022-03-07',
             'reportFrequency' => FrequencyEnum::YEARLY,
         ],
     ];
@@ -37,6 +39,7 @@ class DistributionContractFixture extends AbstractFixture implements DependentFi
     public function load(ObjectManager $manager): void
     {
         foreach (self::ROWS as $reference => $row) {
+            $this->denormalizeDateTimeFields($row, ['signedAt']);
             $this->denormalizeReferenceFields($row, ['company', 'distributor']);
 
             $distributionContract = new DistributionContract();

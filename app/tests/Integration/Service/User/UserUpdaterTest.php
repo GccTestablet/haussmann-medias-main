@@ -7,9 +7,9 @@ namespace App\Tests\Integration\Service\User;
 use App\Entity\Company;
 use App\Entity\User;
 use App\Service\User\UserUpdater;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\CompanyFixture;
 use App\Tests\Fixtures\Doctrine\UserFixture;
+use App\Tests\Shared\AbstractTestCase;
 
 class UserUpdaterTest extends AbstractTestCase
 {
@@ -30,13 +30,16 @@ class UserUpdaterTest extends AbstractTestCase
         /** @var User $user */
         $user = $this->getReference(UserFixture::SUPER_ADMIN_USER);
 
-        /** @var Company $company */
-        $company = $this->getReference(CompanyFixture::HAUSSMANN_MEDIAS);
+        /** @var Company $company1 */
+        $company1 = $this->getReference(CompanyFixture::HAUSSMANN_MEDIAS);
 
-        $this->assertNull($user->getConnectedOn());
+        /** @var Company $company2 */
+        $company2 = $this->getReference(CompanyFixture::CHROME_FILMS);
 
-        $this->userUpdater->updateConnectedOn($user, $company);
+        $this->assertSame($company1, $user->getConnectedOn());
 
-        $this->assertSame($company, $user->getConnectedOn());
+        $this->userUpdater->updateConnectedOn($user, $company2);
+
+        $this->assertSame($company2, $user->getConnectedOn());
     }
 }

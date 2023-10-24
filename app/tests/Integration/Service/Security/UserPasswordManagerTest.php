@@ -6,8 +6,8 @@ namespace App\Tests\Integration\Service\Security;
 
 use App\Entity\User;
 use App\Service\Security\UserPasswordManager;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\UserFixture;
+use App\Tests\Shared\AbstractTestCase;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
 
 class UserPasswordManagerTest extends AbstractTestCase

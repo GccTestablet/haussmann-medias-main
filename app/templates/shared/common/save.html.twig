@@ -13,6 +13,9 @@
             <button class="btn btn-sm btn-primary" type="submit">
                 {% trans from 'misc' %}Save{% endtrans %}
             </button>
+            {% if backUrl is defined %}
+                <a href="{{ backUrl }}" class="btn btn-sm btn-dark">{% trans from 'misc' %}Back{% endtrans %}</a>
+            {% endif %}
             {{ form_end(form) }}
         {% endblock %}
     {% endcomponent %}

@@ -23,6 +23,11 @@ class UserCompanyFixture extends AbstractFixture implements DependentFixtureInte
             'company' => CompanyFixture::CHROME_FILMS,
             'permission' => UserCompanyPermissionEnum::ADMIN,
         ],
+        [
+            'user' => UserFixture::SIMPLE_USER,
+            'company' => CompanyFixture::HAUSSMANN_MEDIAS,
+            'permission' => UserCompanyPermissionEnum::ADMIN,
+        ],
     ];
 
     public function load(ObjectManager $manager): void

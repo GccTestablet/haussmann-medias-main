@@ -6,8 +6,8 @@ namespace App\Tests\Integration\Service\Setting;
 
 use App\Entity\Setting\AdaptationCostType;
 use App\Service\Setting\AdaptationCostTypeManager;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\Setting\AdaptationCostTypeFixture;
+use App\Tests\Shared\AbstractTestCase;
 
 class AdaptationCostTypeManagerTest extends AbstractTestCase
 {

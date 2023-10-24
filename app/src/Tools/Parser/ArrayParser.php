@@ -31,4 +31,23 @@ class ArrayParser
 
         return $merged;
     }
+
+    /**
+     * @param array<string, string> $arrayA
+     * @param array<string, string> $arrayB
+     */
+    public static function isSameArrayExcludingDifferentKeys(array $arrayA, array $arrayB): bool
+    {
+        foreach ($arrayA as $key => $array) {
+            if (!isset($arrayB[$key])) {
+                continue;
+            }
+
+            if ($arrayB[$key] !== $array) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

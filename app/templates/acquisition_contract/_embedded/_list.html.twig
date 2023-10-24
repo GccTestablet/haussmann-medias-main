@@ -12,7 +12,7 @@
         <tbody>
         {% for contract in contracts %}
             <tr>
-                <td><a href="{{ path('app_company_acquisition_contract_show', {'company': contract.company.id, 'id': contract.id}) }}">{{ contract.name }}</a></td>
+                <td><a href="{{ path('app_acquisition_contract_show', {'id': contract.id}) }}">{{ contract.name }}</a></td>
                 <td><a href="{{ path('app_company_show', {'id': contract.beneficiary.id}) }}">{{ contract.beneficiary.name }}</a></td>
                 <td>
                     {{ contract.startsAt|date_format }} - {{ contract.endsAt|date_format(true) }}

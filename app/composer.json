@@ -122,6 +122,7 @@
     "symfony/css-selector": "6.3.*",
     "symfony/debug-bundle": "6.3.*",
     "symfony/maker-bundle": "^1.0",
+    "symfony/panther": "^2.1",
     "symfony/phpunit-bridge": "^6.3",
     "symfony/stopwatch": "6.3.*",
     "symfony/web-profiler-bundle": "6.3.*"
