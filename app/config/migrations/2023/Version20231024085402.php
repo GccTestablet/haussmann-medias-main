@@ -11,7 +11,7 @@ final class Version20231024085402 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'add current to work';
+        return 'add currency to work table';
     }
 
     public function up(Schema $schema): void
