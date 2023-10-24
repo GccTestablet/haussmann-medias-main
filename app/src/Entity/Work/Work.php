@@ -193,9 +193,11 @@ class Work
         return $this->currency;
     }
 
-    public function setCurrency(string $currency): void
+    public function setCurrency(string $currency): static
     {
         $this->currency = $currency;
+
+        return $this;
     }
 
     public function getYear(): ?int
