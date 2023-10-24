@@ -139,7 +139,6 @@ class WorkFormDto
         $this->currency = $currency;
     }
 
-
     public function getYear(): ?int
     {
         return $this->year;
