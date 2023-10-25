@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\End2End\Shared\Traits;
 
-trait AssertActionTrait
+trait InteractionActionTrait
 {
     protected function iClickOn(string $link): void
     {
@@ -13,12 +13,6 @@ trait AssertActionTrait
 
     protected function iClickOnElement(string $selector): void
     {
-        //        $link = $this
-        //            ->crawler
-        //            ->filter($selector)
-        //            ->link()
-        //        ;
-
         $this->client->getMouse()->clickTo($selector);
     }
 }

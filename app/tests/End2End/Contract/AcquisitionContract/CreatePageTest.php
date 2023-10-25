@@ -43,7 +43,7 @@ class CreatePageTest extends AbstractEnd2EndTestCase
         $this->assertStringContainsString(
             'Cette valeur ne doit pas être vide',
             $crawler
-                ->filter('input[name="acquisition_contract_form[name]"]')
+                ->filter('[name="acquisition_contract_form[beneficiary]"]')
                 ->ancestors()
                 ->filter('.invalid-feedback')
                 ->text()
@@ -52,7 +52,16 @@ class CreatePageTest extends AbstractEnd2EndTestCase
         $this->assertStringContainsString(
             'Cette valeur ne doit pas être vide',
             $crawler
-                ->filter('input[name="acquisition_contract_form[signedAt]"]')
+                ->filter('[name="acquisition_contract_form[name]"]')
+                ->ancestors()
+                ->filter('.invalid-feedback')
+                ->text()
+        );
+
+        $this->assertStringContainsString(
+            'Cette valeur ne doit pas être vide',
+            $crawler
+                ->filter('[name="acquisition_contract_form[signedAt]"]')
                 ->ancestors()
                 ->filter('.invalid-feedback')
                 ->text()

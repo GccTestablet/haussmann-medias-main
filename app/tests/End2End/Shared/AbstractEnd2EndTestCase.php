@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\End2End\Shared;
 
 use App\Entity\User;
-use App\Tests\End2End\Shared\Traits\AssertActionTrait;
 use App\Tests\End2End\Shared\Traits\AssertTableTrait;
 use App\Tests\End2End\Shared\Traits\AssertTrait;
+use App\Tests\End2End\Shared\Traits\InteractionActionTrait;
+use App\Tests\End2End\Shared\Traits\UserTrait;
 use App\Tests\Shared\Traits\FixtureTrait;
 use App\Tests\Shared\Traits\ServiceTrait;
 use App\Tests\Tools\Loader\DoctrineFixtureLoader;
@@ -18,12 +19,13 @@ use Symfony\Component\Panther\PantherTestCase;
 
 abstract class AbstractEnd2EndTestCase extends PantherTestCase
 {
-    use AssertActionTrait;
     use AssertTableTrait;
     use AssertTrait;
-
     use FixtureTrait;
+    use InteractionActionTrait;
+
     use ServiceTrait;
+    use UserTrait;
 
     private const BASE_URI = 'http://test.haussmann-medias.local';
 
@@ -37,6 +39,11 @@ abstract class AbstractEnd2EndTestCase extends PantherTestCase
             'external_base_uri' => self::BASE_URI,
             'browser' => static::CHROME,
         ]);
+    }
+
+    protected function refreshCrawler(): void
+    {
+        $this->crawler = $this->client->refreshCrawler();
     }
 
     protected function iAmOn(string $path, string $method = Request::METHOD_GET): void

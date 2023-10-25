@@ -6,6 +6,7 @@ namespace App\Tests\End2End\Contract\AcquisitionContract;
 
 use App\Tests\End2End\Shared\AbstractEnd2EndTestCase;
 use App\Tests\Fixtures\Doctrine\Contract\AcquisitionContractFixture;
+use App\Tests\Fixtures\Doctrine\UserCompanyFixture;
 use App\Tests\Fixtures\Doctrine\UserFixture;
 use App\Tests\Fixtures\Doctrine\Work\WorkFixture;
 
@@ -14,7 +15,7 @@ class IndexPageTest extends AbstractEnd2EndTestCase
     protected function setUp(): void
     {
         $this->loadOrmOnDemandFixtures([
-            UserFixture::class,
+            UserCompanyFixture::class,
             AcquisitionContractFixture::class,
             WorkFixture::class,
         ]);
@@ -31,6 +32,15 @@ class IndexPageTest extends AbstractEnd2EndTestCase
             ['CONTRACT', 'BENEFICIARY', 'PERIOD', 'WORKS'],
             [
                 ['Winnie the Pooh', 'HKA Films', '01/01/2023 - 31/12/2023', '1'],
+            ]
+        );
+
+        $this->iSwitchToCompany('Chrome Films');
+
+        $this->assertTableContains('table',
+            ['CONTRACT', 'BENEFICIARY', 'PERIOD', 'WORKS'],
+            [
+                ['Sniper and Maneater', 'Mediawan', '01/01/2023 -', '2'],
             ]
         );
     }
