@@ -95,15 +95,4 @@ class ProfileController extends AbstractAppController
             'contracts' => $user->getConnectedOn()->getAcquisitionContracts(),
         ]);
     }
-
-    #[Route('/distribution-contracts', name: 'app_security_profile_distribution_contracts')]
-    public function distributionContracts(): Response
-    {
-        $user = $this->securityManager->getConnectedUser();
-
-        return $this->render('distribution_contract/index.html.twig', [
-            'company' => $user->getConnectedOn(),
-            'contracts' => $user->getConnectedOn()->getDistributionContracts(),
-        ]);
-    }
 }

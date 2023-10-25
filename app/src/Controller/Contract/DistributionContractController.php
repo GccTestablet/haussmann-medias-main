@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Contract;
 
 use App\Controller\Shared\AbstractAppController;
+use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\User;
 use App\Form\DtoFactory\Contract\DistributionContractFormDtoFactory;
@@ -12,6 +13,7 @@ use App\Form\Handler\Contract\DistributionContractFormHandler;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Contract\DistributionContractWorkManager;
 use App\Service\Contract\DistributionContractWorkRevenueImporter;
+use App\Service\Security\SecurityManager;
 use App\Tools\Manager\UploadFileManager;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,10 +26,26 @@ use Symfony\Component\Translation\TranslatableMessage;
 class DistributionContractController extends AbstractAppController
 {
     public function __construct(
+        private readonly SecurityManager $securityManager,
         private readonly UploadFileManager $uploadFileManager,
         private readonly DistributionContractWorkRevenueImporter $distributionContractTemplateGenerator,
         private readonly DistributionContractWorkManager $distributionContractWorkManager
     ) {}
+
+    #[Route(name: 'app_distribution_contract_index')]
+    public function index(): Response
+    {
+        $user = $this->securityManager->getConnectedUser();
+        $company = $user->getConnectedOn();
+        if (!$company instanceof Company) {
+            $this->createAccessDeniedException('You must be connected on a company to access this page');
+        }
+
+        return $this->render('distribution_contract/index.html.twig', [
+            'company' => $company,
+            'contracts' => $company->getDistributionContracts(),
+        ]);
+    }
 
     #[Route(path: '/{id}', name: 'app_distribution_contract_show', requirements: ['id' => '\d+'])]
     public function show(DistributionContract $contract): Response
