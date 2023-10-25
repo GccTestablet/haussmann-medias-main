@@ -84,26 +84,4 @@ class ProfileController extends AbstractAppController
             'works' => $this->workManager->findByCompany($user->getConnectedOn()),
         ]);
     }
-
-    #[Route('/acquisition-contracts', name: 'app_security_profile_acquisition_contracts')]
-    public function acquisitionContracts(): Response
-    {
-        $user = $this->securityManager->getConnectedUser();
-
-        return $this->render('acquisition_contract/index.html.twig', [
-            'company' => $user->getConnectedOn(),
-            'contracts' => $user->getConnectedOn()->getAcquisitionContracts(),
-        ]);
-    }
-
-    #[Route('/distribution-contracts', name: 'app_security_profile_distribution_contracts')]
-    public function distributionContracts(): Response
-    {
-        $user = $this->securityManager->getConnectedUser();
-
-        return $this->render('distribution_contract/index.html.twig', [
-            'company' => $user->getConnectedOn(),
-            'contracts' => $user->getConnectedOn()->getDistributionContracts(),
-        ]);
-    }
 }

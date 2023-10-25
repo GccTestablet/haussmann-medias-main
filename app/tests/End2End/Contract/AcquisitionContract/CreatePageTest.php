@@ -82,5 +82,8 @@ class CreatePageTest extends AbstractEnd2EndTestCase
 
         $this->client->submit($form);
         $this->assertUrl('/acquisition-contracts/3');
+
+        $this->refreshCrawler();
+        $this->assertPageContains('FAST X and Oppenheimer');
     }
 }

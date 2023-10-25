@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace App\Controller\Contract;
 
 use App\Controller\Shared\AbstractAppController;
+use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\User;
+use App\Form\Dto\Contract\DistributionContractFormDto;
 use App\Form\DtoFactory\Contract\DistributionContractFormDtoFactory;
 use App\Form\Handler\Contract\DistributionContractFormHandler;
+use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Contract\DistributionContractWorkManager;
 use App\Service\Contract\DistributionContractWorkRevenueImporter;
+use App\Service\Security\SecurityManager;
 use App\Tools\Manager\UploadFileManager;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,10 +28,28 @@ use Symfony\Component\Translation\TranslatableMessage;
 class DistributionContractController extends AbstractAppController
 {
     public function __construct(
+        private readonly SecurityManager $securityManager,
         private readonly UploadFileManager $uploadFileManager,
         private readonly DistributionContractWorkRevenueImporter $distributionContractTemplateGenerator,
-        private readonly DistributionContractWorkManager $distributionContractWorkManager
+        private readonly DistributionContractWorkManager $distributionContractWorkManager,
+        private readonly DistributionContractFormDtoFactory $formDtoFactory,
+        private readonly DistributionContractFormHandler $formHandler
     ) {}
+
+    #[Route(name: 'app_distribution_contract_index')]
+    public function index(): Response
+    {
+        $user = $this->securityManager->getConnectedUser();
+        $company = $user->getConnectedOn();
+        if (!$company instanceof Company) {
+            $this->createAccessDeniedException('You must be connected on a company to access this page');
+        }
+
+        return $this->render('distribution_contract/index.html.twig', [
+            'company' => $company,
+            'contracts' => $company->getDistributionContracts(),
+        ]);
+    }
 
     #[Route(path: '/{id}', name: 'app_distribution_contract_show', requirements: ['id' => '\d+'])]
     public function show(DistributionContract $contract): Response
@@ -38,18 +60,46 @@ class DistributionContractController extends AbstractAppController
         ]);
     }
 
+    #[Route(path: '/add', name: 'app_distribution_contract_add')]
+    #[IsGranted(User::ROLE_ADMIN)]
+    public function add(Request $request): Response
+    {
+        $user = $this->securityManager->getConnectedUser();
+        $company = $user->getConnectedOn();
+        if (!$company instanceof Company) {
+            $this->createAccessDeniedException('You must be connected on a company to access this page');
+        }
+
+        $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
+
+        $formHandlerResponse = $this->getFormHandlerResponse($request, $company, null);
+
+        $form = $formHandlerResponse->getForm();
+        if ($formHandlerResponse->isSuccessful()) {
+            /** @var DistributionContractFormDto $dto */
+            $dto = $form->getData();
+
+            return $this->redirectToRoute('app_distribution_contract_show', ['id' => $dto->getContract()->getId()]);
+        }
+
+        return $this->render('shared/common/save.html.twig', [
+            'title' => new TranslatableMessage('Add contract to company %name%', ['%name%' => $company->getName()], 'company'),
+            'form' => $form,
+            'backUrl' => $this->generateUrl('app_distribution_contract_index'),
+        ]);
+    }
+
     #[Route(path: '/{id}/update', name: 'app_distribution_contract_update', requirements: ['id' => '\d+'])]
     #[IsGranted(User::ROLE_ADMIN)]
-    public function update(Request $request, DistributionContractFormDtoFactory $formDtoFactory, DistributionContractFormHandler $formHandler, DistributionContract $contract): Response
+    public function update(Request $request, DistributionContract $contract): Response
     {
         $company = $contract->getCompany();
         $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
 
-        $dto = $formDtoFactory->create($company, $contract);
-        $formHandlerResponse = $this->formHandlerManager->createAndHandle(
-            $formHandler,
+        $formHandlerResponse = $this->getFormHandlerResponse(
             $request,
-            $dto
+            $company,
+            $contract
         );
 
         $form = $formHandlerResponse->getForm();
@@ -63,6 +113,7 @@ class DistributionContractController extends AbstractAppController
                 '%company%' => $company->getName(),
             ], 'company'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_distribution_contract_index'),
         ]);
     }
 
@@ -82,5 +133,16 @@ class DistributionContractController extends AbstractAppController
         $response->sendHeaders();
 
         return $response;
+    }
+
+    private function getFormHandlerResponse(Request $request, Company $company, ?DistributionContract $contract): FormHandlerResponseInterface
+    {
+        $dto = $this->formDtoFactory->create($company, $contract);
+
+        return $this->formHandlerManager->createAndHandle(
+            $this->formHandler,
+            $request,
+            $dto
+        );
     }
 }

@@ -11,13 +11,17 @@ use App\Enum\Contract\DistributionContractTypeEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class DistributionContractFormDto
 {
+    #[Assert\NotBlank]
     private ?Company $distributor = null;
 
+    #[Assert\NotBlank]
     private ?string $name = null;
 
+    #[Assert\NotBlank]
     private ?DistributionContractTypeEnum $type = null;
 
     private Collection $broadcastChannels;
@@ -27,6 +31,7 @@ class DistributionContractFormDto
      */
     private array $files = [];
 
+    #[Assert\NotBlank]
     private ?\DateTime $signedAt = null;
 
     private ?string $exclusivity = null;
@@ -45,6 +50,11 @@ class DistributionContractFormDto
     public function getContract(): DistributionContract
     {
         return $this->contract;
+    }
+
+    public function getCompany(): Company
+    {
+        return $this->contract->getCompany();
     }
 
     public function isExists(): bool

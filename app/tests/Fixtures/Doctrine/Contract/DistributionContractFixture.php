@@ -21,7 +21,7 @@ class DistributionContractFixture extends AbstractFixture implements DependentFi
         self::WINNIE_THE_POOH => [
             'name' => 'MW - Winnie the Pooh',
             'company' => CompanyFixture::HAUSSMANN_MEDIAS,
-            'distributor' => CompanyFixture::HKA_FILMS,
+            'distributor' => CompanyFixture::MEDIAWAN,
             'type' => DistributionContractTypeEnum::ONE_OFF,
             'signedAt' => '2021-10-01',
             'reportFrequency' => FrequencyEnum::MONTHLY,
@@ -29,7 +29,7 @@ class DistributionContractFixture extends AbstractFixture implements DependentFi
         self::SNIPER_AND_MANEATER => [
             'name' => 'MDC - Sniper and Maneater',
             'company' => CompanyFixture::CHROME_FILMS,
-            'distributor' => CompanyFixture::MEDIAWAN,
+            'distributor' => CompanyFixture::MY_DIGITAL_COMPANY,
             'type' => DistributionContractTypeEnum::RECURRING,
             'signedAt' => '2022-03-07',
             'reportFrequency' => FrequencyEnum::YEARLY,

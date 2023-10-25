@@ -40,7 +40,7 @@ class MenuRedirectionTest extends AbstractEnd2EndTestCase
             ],
             [
                 'link' => 'Contrats de distribution',
-                'url' => '/profile/distribution-contracts',
+                'url' => '/distribution-contracts',
             ],
             [
                 'link' => 'Oeuvres',

@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\End2End\Contract\AcquisitionContract;
+namespace App\Tests\End2End\Contract\DistributionContract;
 
 use App\Tests\End2End\Shared\AbstractEnd2EndTestCase;
-use App\Tests\Fixtures\Doctrine\Contract\AcquisitionContractFixture;
+use App\Tests\Fixtures\Doctrine\Contract\DistributionContractFixture;
+use App\Tests\Fixtures\Doctrine\Contract\DistributionContractWorkFixture;
 use App\Tests\Fixtures\Doctrine\UserCompanyFixture;
 use App\Tests\Fixtures\Doctrine\UserFixture;
 use App\Tests\Fixtures\Doctrine\Work\WorkFixture;
@@ -16,31 +17,32 @@ class IndexPageTest extends AbstractEnd2EndTestCase
     {
         $this->loadOrmOnDemandFixtures([
             UserCompanyFixture::class,
-            AcquisitionContractFixture::class,
+            DistributionContractFixture::class,
+            DistributionContractWorkFixture::class,
             WorkFixture::class,
         ]);
 
         $this->logInAs(UserFixture::SUPER_ADMIN_USER);
 
-        $this->iAmOn('/acquisition-contracts');
+        $this->iAmOn('/distribution-contracts');
     }
 
     public function testContractList(): void
     {
-        $this->assertPageContains('Liste des contrats d\'acquisition');
+        $this->assertPageContains('Liste des contrats de distribution');
         $this->assertTableContains('table',
-            ['CONTRACT', 'BENEFICIARY', 'PERIOD', 'WORKS'],
+            ['NAME', 'DISTRIBUTOR', 'WORKS'],
             [
-                ['Winnie the Pooh', 'HKA Films', '01/01/2023 - 31/12/2023', '1'],
+                ['MW - Winnie the Pooh', 'Mediawan', 'Winnie the Pooh'],
             ]
         );
 
         $this->iSwitchToCompany('Chrome Films');
 
         $this->assertTableContains('table',
-            ['CONTRACT', 'BENEFICIARY', 'PERIOD', 'WORKS'],
+            ['NAME', 'DISTRIBUTOR', 'WORKS'],
             [
-                ['Sniper and Maneater', 'Mediawan', '01/01/2023 -', '2'],
+                ['MDC - Sniper and Maneater', 'My Digital Company', 'Sniper, Maneater'],
             ]
         );
     }
@@ -61,16 +63,16 @@ class IndexPageTest extends AbstractEnd2EndTestCase
     {
         return [
             [
-                'clickOn' => 'Ajouter un contrat d\'acquisition',
-                'expectedUrl' => '/acquisition-contracts/add',
+                'clickOn' => 'Ajouter un contrat de distribution',
+                'expectedUrl' => '/distribution-contracts/add',
             ],
             [
-                'clickOn' => 'Winnie the Pooh',
-                'expectedUrl' => '/acquisition-contracts/1',
+                'clickOn' => 'MW - Winnie the Pooh',
+                'expectedUrl' => '/distribution-contracts/1',
             ],
             [
-                'clickOn' => 'HKA Films',
-                'expectedUrl' => '/companies/3',
+                'clickOn' => 'Mediawan',
+                'expectedUrl' => '/companies/4',
             ],
         ];
     }
