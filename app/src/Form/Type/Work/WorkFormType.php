@@ -37,20 +37,20 @@ class WorkFormType extends AbstractType
                 'required' => false,
                 'help' => 'IMDB Id starts with "tt" followed by numbers.',
             ])
-            ->add('name', TextType::class, [
+            ->add('frenchTitle', TextType::class, [
                 'constraints' => [
                     new UniqueEntityField(
                         entityClass: Work::class,
-                        field: 'name',
+                        field: 'French Title',
                         origin: $dto->isExists() ? $dto->getWork() : null
                     ),
                 ],
             ])
-            ->add('originalName', TextType::class, [
+            ->add('originalTitle', TextType::class, [
                 'constraints' => [
                     new UniqueEntityField(
                         entityClass: Work::class,
-                        field: 'originalName',
+                        field: 'Original Title',
                         origin: $dto->isExists() ? $dto->getWork() : null
                     ),
                 ],
@@ -59,20 +59,20 @@ class WorkFormType extends AbstractType
                 'preferred_choices' => ['FR', 'US'],
                 'autocomplete' => true,
             ])
-            ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('minimumCostOfTheTopBeforeReversion', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('currency', CurrencyType::class, [
-                'required' => true,
-            ])
             ->add('year', NumberType::class, [
                 'required' => false,
             ])
             ->add('duration', TextType::class, [
                 'required' => false,
+            ])
+            ->add('minimumGuaranteed', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('ceilingOfRecoverableCosts', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('currency', CurrencyType::class, [
+                'required' => true,
             ])
         ;
     }

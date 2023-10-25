@@ -1,7 +1,7 @@
 <div {{ attributes }} class="position-relative">
     <input id="page-header-search-input" type="text"
            data-model="debounce(500)|query"
-           placeholder="Search an artwork, contract, beneficiary ..."
+           placeholder="{% trans from 'navbar' %}Search an artwork, contract, beneficiary ...{% endtrans %}"
            class="form-control form-control-alt shadow-none"
     >
 
@@ -23,7 +23,7 @@
                     </div>
                     {% if categoryResult.totalResults > 5 %}
                         <div class="card-footer text-center">
-                            <a href="#" class="btn btn-secondary">Voir plus</a>
+                            <a href="#" class="btn btn-secondary">{% trans from 'navbar' %}View more{% endtrans %}</a>
                         </div>
                     {% endif %}
                 </div>
@@ -33,7 +33,7 @@
         <div data-loading="addClass(opacity-50)" class="mt-1 position-absolute">
             <div class="card tt-menu mb-1">
                 <div class="card-header">
-                    <h6>Oh! No result found matching : </h6>
+                    <h6>{% trans from 'navbar' %}Oh! No result found matching{% endtrans %} : </h6>
                 </div>
                 <div class="card-body">
                     <h6>{{ query }}</h6>

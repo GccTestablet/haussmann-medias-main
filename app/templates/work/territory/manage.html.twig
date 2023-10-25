@@ -1,18 +1,18 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
+{% block content_title %}
+    {% trans from 'work' %}Manage territory from work{% endtrans %} : {{ work.name }}
+{% endblock %}
 {% block content %}
     {% component card %}
-        {% block header_content %}
-            <h1>Manage territory from work {{ work.name }}</h1>
-        {% endblock %}
         {% block body_content %}
             {{ form_start(form) }}
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Territory</th>
-                        <th class="text-nowrap">Select all</th>
+                        <th>{% trans from 'work' %}Territory{% endtrans %}</th>
+                        <th class="text-nowrap">{% trans from 'misc' %}Select all{% endtrans %}</th>
                         {% for channel in broadcastChannels %}
                             <th>{{ channel.name }}</th>
                         {% endfor %}

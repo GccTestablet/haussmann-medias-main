@@ -54,7 +54,7 @@ class AcquisitionContractWorkController extends AbstractAppController
         }
 
         return $this->render('shared/common/save.html.twig', [
-            'title' => new TranslatableMessage('Update work %name%', ['%name%' => $work->getName()], 'work'),
+            'title' => new TranslatableMessage('Update work %name%', ['%name%' => $work->getFrenchTitle()], 'work'),
             'form' => $form,
         ]);
     }

@@ -36,9 +36,11 @@ abstract class AbstractEnd2EndTestCase extends PantherTestCase
     protected function getClient(): void
     {
         $this->client = static::createPantherClient([
+//            '--headless',
+//            '--disable-dev-shm-usage',
+//            '--no-sandbox',
             'external_base_uri' => self::BASE_URI,
-            'browser' => static::CHROME,
-        ]);
+            'browser' => static::CHROME, ], [], []);
     }
 
     protected function refreshCrawler(): void

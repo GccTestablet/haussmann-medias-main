@@ -34,19 +34,19 @@ class Work
     private ?string $imdbId = null;
 
     #[ORM\Column(unique: true)]
-    private string $name;
+    private string $frenchTitle;
 
     #[ORM\Column(unique: true)]
-    private string $originalName;
+    private string $originalTitle;
 
     #[ORM\Column(length: 2)]
     private string $country;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?float $minimumGuaranteedBeforeReversion = null;
+    private ?float $minimumGuaranteed = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?float $minimumCostOfTheTopBeforeReversion = null;
+    private ?float $ceilingOfRecoverableCosts = null;
 
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
@@ -129,26 +129,26 @@ class Work
         return $this;
     }
 
-    public function getName(): string
+    public function getFrenchTitle(): string
     {
-        return $this->name;
+        return $this->frenchTitle;
     }
 
-    public function setName(string $name): static
+    public function setFrenchTitle(string $frenchTitle): static
     {
-        $this->name = $name;
+        $this->frenchTitle = $frenchTitle;
 
         return $this;
     }
 
-    public function getOriginalName(): string
+    public function getOriginalTitle(): string
     {
-        return $this->originalName;
+        return $this->originalTitle;
     }
 
-    public function setOriginalName(string $originalName): static
+    public function setOriginalTitle(string $originalTitle): static
     {
-        $this->originalName = $originalName;
+        $this->originalTitle = $originalTitle;
 
         return $this;
     }
@@ -165,26 +165,26 @@ class Work
         return $this;
     }
 
-    public function getMinimumGuaranteedBeforeReversion(): ?float
+    public function getMinimumGuaranteed(): ?float
     {
-        return $this->minimumGuaranteedBeforeReversion;
+        return $this->minimumGuaranteed;
     }
 
-    public function setMinimumGuaranteedBeforeReversion(?float $minimumGuaranteedBeforeReversion): static
+    public function setMinimumGuaranteed(?float $minimumGuaranteed): static
     {
-        $this->minimumGuaranteedBeforeReversion = $minimumGuaranteedBeforeReversion;
+        $this->minimumGuaranteed = $minimumGuaranteed;
 
         return $this;
     }
 
-    public function getMinimumCostOfTheTopBeforeReversion(): ?float
+    public function getCeilingOfRecoverableCosts(): ?float
     {
-        return $this->minimumCostOfTheTopBeforeReversion;
+        return $this->ceilingOfRecoverableCosts;
     }
 
-    public function setMinimumCostOfTheTopBeforeReversion(?float $minimumCostOfTheTopBeforeReversion): static
+    public function setCeilingOfRecoverableCosts(?float $ceilingOfRecoverableCosts): static
     {
-        $this->minimumCostOfTheTopBeforeReversion = $minimumCostOfTheTopBeforeReversion;
+        $this->ceilingOfRecoverableCosts = $ceilingOfRecoverableCosts;
 
         return $this;
     }

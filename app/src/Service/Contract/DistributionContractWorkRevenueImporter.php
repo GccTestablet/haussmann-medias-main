@@ -106,7 +106,7 @@ class DistributionContractWorkRevenueImporter
         foreach ($this->workManager->findByDistributionContract($contract) as $work) {
             $this->rows[] = [
                 self::INTERNAL_ID => $work->getInternalId(),
-                self::NAME => $work->getName(),
+                self::NAME => $work->getFrenchTitle(),
             ];
         }
     }

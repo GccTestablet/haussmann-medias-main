@@ -5,27 +5,23 @@
         <td>{{ work.internalId }}</td>
     </tr>
     <tr>
-        <td>{% trans from 'work' %}Imdb{% endtrans %}</td>
+        <td>{% trans from 'work' %}Imdb id{% endtrans %}</td>
         <td><a href="{{ work.imdbLink }}" target="_blank">{{ work.imdbId }}</a></td>
     </tr>
     <tr>
-        <td>{% trans from 'work' %}Name{% endtrans %}</td>
-        <td>{{ work.name }}</td>
+        <td>{% trans from 'work' %}French Title{% endtrans %}</td>
+        <td>{{ work.frenchTitle }}</td>
     </tr>
     <tr>
-        <td>{% trans from 'work' %}Original name{% endtrans %}</td>
-        <td>{{ work.originalName }}</td>
+        <td>{% trans from 'work' %}Original Title{% endtrans %}</td>
+        <td>{{ work.originalTitle }}</td>
     </tr>
     <tr>
-        <td>{% trans from 'work' %}Minimum guaranteed before reversion{% endtrans %}</td>
-        <td>{{ work.minimumGuaranteedBeforeReversion }}</td>
+        <td>{% trans from 'work' %}Country{% endtrans %}</td>
+        <td>{{ work.country|country_format }}</td>
     </tr>
     <tr>
-        <td>{% trans from 'work' %}Minimum cost of the top before reversion{% endtrans %}</td>
-        <td>{{ work.minimumCostOfTheTopBeforeReversion }}</td>
-    </tr>
-    <tr>
-        <td>{% trans from 'work' %}Year{% endtrans %}</td>
+        <td>{% trans from 'work' %}Year of production{% endtrans %}</td>
         <td>{{ work.year }}</td>
     </tr>
     <tr>
@@ -33,8 +29,16 @@
         <td>{{ work.duration }}</td>
     </tr>
     <tr>
-        <td>{% trans from 'work' %}Country{% endtrans %}</td>
-        <td>{{ work.country|country_format }}</td>
+        <td>{% trans from 'work' %}Minimum guaranteed{% endtrans %}</td>
+        <td>{{ work.minimumGuaranteed }}</td>
+    </tr>
+    <tr>
+        <td>{% trans from 'work' %}Ceiling of recoverable costs{% endtrans %}</td>
+        <td>{{ work.ceilingOfRecoverableCosts }}</td>
+    </tr>
+    <tr>
+        <td>{% trans from 'work' %}Currency{% endtrans %}</td>
+        <td>{{ work.currency }}</td>
     </tr>
     </tbody>
 </table>

@@ -44,7 +44,7 @@ class WorkReversionController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add reversion to work %work%', [
-                '%work%' => $work->getName(),
+                '%work%' => $work->getFrenchTitle(),
             ], 'work'),
             'form' => $form,
         ]);
@@ -62,7 +62,7 @@ class WorkReversionController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update reversion from work %work%', [
-                '%work%' => $workReversion->getWork()->getName(),
+                '%work%' => $workReversion->getWork()->getFrenchTitle(),
             ], 'work'),
             'form' => $form,
         ]);
@@ -84,7 +84,7 @@ class WorkReversionController extends AbstractAppController
 
         return $this->render('shared/common/remove.html.twig', [
             'title' => new TranslatableMessage('Remove reversion from work %work%', [
-                '%work%' => $workReversion->getWork()->getName(),
+                '%work%' => $workReversion->getWork()->getFrenchTitle(),
             ], 'work'),
             'form' => $form,
         ]);
