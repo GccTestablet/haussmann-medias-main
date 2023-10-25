@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table" data-controller="datatable--table-expand">
+    <table id="acquisition-contract-works-table" class="table" data-controller="datatable--table-expand">
         <thead>
         <tr>
             <th>&nbsp;</th>
@@ -12,7 +12,7 @@
         <tbody>
         {% for work in works %}
             <tr>
-                <td class="text-center">
+                <td>
                     <button type="button" class="btn btn-sm"
                             data-datatable--table-expand-target="button"
                             data-action="click->datatable--table-expand#expand"
@@ -20,6 +20,14 @@
                     >
                         <i class="fa fa-angle-right text-muted"></i>
                     </button>
+                    <div class="position-absolute d-none"
+                         data-datatable--table-expand-target="expandableRow"
+                         data-work-id="{{ work.id }}"
+                    >
+                        {% include 'work/territory/_embedded/_list.html.twig' with {
+                            workTerritories: work.workTerritories,
+                        } %}
+                    </div>
                 </td>
                 <td><a href="{{ path('app_work_show', {'id': work.id}) }}">{{ work.internalId }}</a></td>
                 <td>{{ work.name }}</td>
@@ -32,13 +40,6 @@
                     <a href="{{ path('app_acquisition_contract_work_update', {'contract': work.acquisitionContract.id, 'id': work.id}) }}" class="btn btn-sm btn-warning">
                         {% trans from 'misc' %}Update{% endtrans %}
                     </a>
-                </td>
-            </tr>
-            <tr data-datatable--table-expand-target="expandableRow" data-work-id="{{ work.id }}" class="d-none">
-                <td colspan="4">
-                    {% include 'work/territory/_embedded/_list.html.twig' with {
-                        workTerritories: work.workTerritories,
-                    } %}
                 </td>
             </tr>
         {% endfor %}

@@ -17,8 +17,8 @@ trait AssertTableTrait
     {
         $expectedRows = $this->expectedRows($headers, $rows);
         $table = $this->crawler->filter($selector);
-        $headers = $this->findTableHeaders($table);
-        $currentColumns = $this->findTableColumns($table, $headers);
+        $foundHeaders = $this->findTableHeaders($table);
+        $currentColumns = $this->findTableColumns($table, $foundHeaders);
 
         $foundRows = [];
         foreach ($expectedRows as $row) {
@@ -56,7 +56,7 @@ trait AssertTableTrait
     private function findTableHeaders(Crawler $table): array
     {
         $headers = [];
-        $table->filter('thead tr th')->each(function (Crawler $th, int $i) use (&$headers): void {
+        $table->filter('thead')->first()->filter('tr th')->each(function (Crawler $th, int $i) use (&$headers): void {
             $headers[$i] = $th->text();
         });
 
@@ -71,14 +71,11 @@ trait AssertTableTrait
     public function findTableColumns(Crawler $table, array $headers): array
     {
         $mergedColumns = [];
-
-        $columns = $table
-            ->filter('tbody tr')
-            ->each(fn (Crawler $tr) => $tr
-                ->filter('td')
-                ->each(fn (Crawler $td) => $td->text())
-            )
-        ;
+        $columns = [];
+        $trElements = $table->children('tbody > tr');
+        for ($i = 0; $i < $trElements->count(); ++$i) {
+            $columns[] = $trElements->eq($i)->children('td')->each(fn (Crawler $td) => $td->text());
+        }
 
         foreach ($columns as $column) {
             $mergedColumns[] = \array_combine($headers, $column);
