@@ -52,12 +52,17 @@ class ProfileController extends AbstractAppController
     }
 
     #[Route('/switch-company/{company}', name: 'app_security_profile_switch_company', requirements: ['company' => '\d+'])]
-    public function switchCompany(Company $company): RedirectResponse
+    public function switchCompany(Request $request, Company $company): RedirectResponse
     {
         $this->denyAccessUnlessGranted(CompanyVoter::ALLOWED_TO_SWITCH, $company);
         $this->userUpdater->updateConnectedOn($this->securityManager->getConnectedUser(), $company);
 
-        return $this->redirectToRoute('_welcome');
+        $redirectTo = $request->query->get('redirectTo');
+        if (!$redirectTo) {
+            return $this->redirectToRoute('_welcome');
+        }
+
+        return $this->redirect($redirectTo);
     }
 
     #[Route('/company', name: 'app_security_profile_company')]
@@ -77,28 +82,6 @@ class ProfileController extends AbstractAppController
 
         return $this->render('work/index.html.twig', [
             'works' => $this->workManager->findByCompany($user->getConnectedOn()),
-        ]);
-    }
-
-    #[Route('/acquisition-contracts', name: 'app_security_profile_acquisition_contracts')]
-    public function acquisitionContracts(): Response
-    {
-        $user = $this->securityManager->getConnectedUser();
-
-        return $this->render('acquisition_contract/index.html.twig', [
-            'company' => $user->getConnectedOn(),
-            'contracts' => $user->getConnectedOn()->getAcquisitionContracts(),
-        ]);
-    }
-
-    #[Route('/distribution-contracts', name: 'app_security_profile_distribution_contracts')]
-    public function distributionContracts(): Response
-    {
-        $user = $this->securityManager->getConnectedUser();
-
-        return $this->render('distribution_contract/index.html.twig', [
-            'company' => $user->getConnectedOn(),
-            'contracts' => $user->getConnectedOn()->getDistributionContracts(),
         ]);
     }
 }
