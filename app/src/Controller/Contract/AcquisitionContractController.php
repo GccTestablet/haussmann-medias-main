@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace App\Controller\Contract;
 
 use App\Controller\Shared\AbstractAppController;
+use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\User;
+use App\Form\Dto\Contract\AcquisitionContractFormDto;
 use App\Form\DtoFactory\Contract\AcquisitionContractFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Contract\AcquisitionContractFormHandler;
+use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Security\Voter\CompanyVoter;
+use App\Service\Security\SecurityManager;
 use App\Tools\Manager\UploadFileManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,8 +26,26 @@ use Symfony\Component\Translation\TranslatableMessage;
 class AcquisitionContractController extends AbstractAppController
 {
     public function __construct(
-        private readonly UploadFileManager $uploadFileManager
+        private readonly SecurityManager $securityManager,
+        private readonly UploadFileManager $uploadFileManager,
+        private readonly AcquisitionContractFormHandler $formHandler,
+        private readonly AcquisitionContractFormDtoFactory $formDtoFactory,
     ) {}
+
+    #[Route(name: 'app_acquisition_contract_index')]
+    public function index(): Response
+    {
+        $user = $this->securityManager->getConnectedUser();
+        $company = $user->getConnectedOn();
+        if (!$company instanceof Company) {
+            $this->createAccessDeniedException('You must be connected on a company to access this page');
+        }
+
+        return $this->render('acquisition_contract/index.html.twig', [
+            'company' => $company,
+            'contracts' => $company->getAcquisitionContracts(),
+        ]);
+    }
 
     #[Route(path: '/{id}', name: 'app_acquisition_contract_show', requirements: ['id' => '\d+'])]
     public function show(AcquisitionContract $contract): Response
@@ -33,19 +55,44 @@ class AcquisitionContractController extends AbstractAppController
         ]);
     }
 
+    #[Route(path: '/add', name: 'app_acquisition_contract_add', requirements: ['id' => '\d+'])]
+    public function add(Request $request): Response
+    {
+        $user = $this->securityManager->getConnectedUser();
+        $company = $user->getConnectedOn();
+        if (!$company instanceof Company) {
+            $this->createAccessDeniedException('You must be connected on a company to access this page');
+        }
+
+        $formHandlerResponse = $this->getFormHandlerResponse($request, $company, null);
+
+        $form = $formHandlerResponse->getForm();
+        if ($formHandlerResponse->isSuccessful()) {
+            /** @var AcquisitionContractFormDto $dto */
+            $dto = $form->getData();
+
+            return $this->redirectToRoute('app_company_acquisition_contract_show', [
+                'company' => $company->getId(),
+                'id' => $dto->getContract()->getId(),
+            ]);
+        }
+
+        return $this->render('shared/common/save.html.twig', [
+            'title' => new TranslatableMessage('Add contract to company %name%', [
+                '%name%' => $company->getName(),
+            ], 'company'),
+            'form' => $form,
+            'backUrl' => $this->generateUrl('app_acquisition_contract_index'),
+        ]);
+    }
+
     #[Route(path: '/{id}/update', name: 'app_acquisition_contract_update', requirements: ['id' => '\d+'])]
-    #[IsGranted(User::ROLE_ADMIN)]
-    public function update(Request $request, AcquisitionContractFormDtoFactory $formDtoFactory, AcquisitionContractFormHandler $formHandler, AcquisitionContract $contract): Response
+    public function update(Request $request, AcquisitionContract $contract): Response
     {
         $company = $contract->getCompany();
         $this->denyAccessUnlessGranted(CompanyVoter::COMPANY_ADMIN, $company);
 
-        $dto = $formDtoFactory->create($company, $contract);
-        $formHandlerResponse = $this->formHandlerManager->createAndHandle(
-            $formHandler,
-            $request,
-            $dto
-        );
+        $formHandlerResponse = $this->getFormHandlerResponse($request, $company, $contract);
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
@@ -91,5 +138,16 @@ class AcquisitionContractController extends AbstractAppController
             ], 'company'),
             'form' => $form,
         ]);
+    }
+
+    private function getFormHandlerResponse(Request $request, Company $company, ?AcquisitionContract $contract): FormHandlerResponseInterface
+    {
+        $dto = $this->formDtoFactory->create($company, $contract);
+
+        return $this->formHandlerManager->createAndHandle(
+            $this->formHandler,
+            $request,
+            $dto
+        );
     }
 }

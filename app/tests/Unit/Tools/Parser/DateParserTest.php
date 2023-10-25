@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Tools\Parser;
 
-use App\Tests\AbstractTestCase;
+use App\Tests\Shared\AbstractTestCase;
 use App\Tools\Parser\DateParser;
 
 class DateParserTest extends AbstractTestCase

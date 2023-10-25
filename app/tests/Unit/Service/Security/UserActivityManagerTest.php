@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Service\Security;
 
 use App\Entity\User;
 use App\Service\User\UserActivityManager;
-use App\Tests\AbstractTestCase;
+use App\Tests\Shared\AbstractTestCase;
 use App\Tools\Parser\DateParser;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;

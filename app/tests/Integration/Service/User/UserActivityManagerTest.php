@@ -6,8 +6,8 @@ namespace App\Tests\Integration\Service\User;
 
 use App\Entity\User;
 use App\Service\User\UserActivityManager;
-use App\Tests\AbstractTestCase;
 use App\Tests\Fixtures\Doctrine\UserFixture;
+use App\Tests\Shared\AbstractTestCase;
 
 class UserActivityManagerTest extends AbstractTestCase
 {
