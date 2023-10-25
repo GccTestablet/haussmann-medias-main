@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class AcquisitionContractFormDto
 {
+    #[Assert\NotBlank()]
     private ?Company $beneficiary = null;
 
     #[Assert\NotBlank()]
@@ -36,6 +37,11 @@ class AcquisitionContractFormDto
         private readonly AcquisitionContract $contract,
         private readonly bool $exists,
     ) {}
+
+    public function getCompany(): Company
+    {
+        return $this->contract->getCompany();
+    }
 
     public function getContract(): AcquisitionContract
     {

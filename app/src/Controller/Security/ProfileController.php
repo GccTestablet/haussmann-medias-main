@@ -52,12 +52,17 @@ class ProfileController extends AbstractAppController
     }
 
     #[Route('/switch-company/{company}', name: 'app_security_profile_switch_company', requirements: ['company' => '\d+'])]
-    public function switchCompany(Company $company): RedirectResponse
+    public function switchCompany(Request $request, Company $company): RedirectResponse
     {
         $this->denyAccessUnlessGranted(CompanyVoter::ALLOWED_TO_SWITCH, $company);
         $this->userUpdater->updateConnectedOn($this->securityManager->getConnectedUser(), $company);
 
-        return $this->redirectToRoute('_welcome');
+        $redirectTo = $request->query->get('redirectTo');
+        if (!$redirectTo) {
+            return $this->redirectToRoute('_welcome');
+        }
+
+        return $this->redirect($redirectTo);
     }
 
     #[Route('/company', name: 'app_security_profile_company')]

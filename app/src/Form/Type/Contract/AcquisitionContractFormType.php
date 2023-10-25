@@ -32,6 +32,12 @@ class AcquisitionContractFormType extends AbstractType
         $dto = $builder->getData();
 
         $builder
+            ->add('company', EntityType::class, [
+                'label' => 'Acquirer',
+                'class' => Company::class,
+                'choice_label' => 'name',
+                'disabled' => true,
+            ])
             ->add('beneficiary', EntityType::class, [
                 'class' => Company::class,
                 'placeholder' => 'Select a beneficiary',
