@@ -14,9 +14,9 @@ class WorkFormDto
     #[Assert\Regex('/^tt[0-9]*$/')]
     private ?string $imdbId = null;
 
-    private ?string $name = null;
+    private ?string $frenchTitle = null;
 
-    private ?string $originalName = null;
+    private ?string $originalTitle = null;
 
     private ?string $country = null;
 
@@ -69,26 +69,26 @@ class WorkFormDto
         return $this;
     }
 
-    public function getName(): ?string
+    public function getFrenchTitle(): ?string
     {
-        return $this->name;
+        return $this->frenchTitle;
     }
 
-    public function setName(?string $name): static
+    public function setFrenchTitle(?string $frenchTitle): static
     {
-        $this->name = $name;
+        $this->frenchTitle = $frenchTitle;
 
         return $this;
     }
 
-    public function getOriginalName(): ?string
+    public function getOriginalTitle(): ?string
     {
-        return $this->originalName;
+        return $this->originalTitle;
     }
 
-    public function setOriginalName(?string $originalName): static
+    public function setOriginalTitle(?string $originalTitle): static
     {
-        $this->originalName = $originalName;
+        $this->originalTitle = $originalTitle;
 
         return $this;
     }

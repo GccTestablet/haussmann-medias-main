@@ -18,7 +18,7 @@ class WorkAutocompleteField extends AbstractType
         $resolver->setDefaults([
             'class' => Work::class,
             'placeholder' => 'Select a work',
-            'choice_label' => fn (Work $work) => $work->getName(),
+            'choice_label' => fn (Work $work) => $work->getFrenchTitle(),
             'translation_domain' => 'work',
         ]);
     }

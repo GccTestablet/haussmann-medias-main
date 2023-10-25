@@ -44,7 +44,7 @@ class WorkAdaptationController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add adaptation to work %work%', [
-                '%work%' => $work->getName(),
+                '%work%' => $work->getFrenchTitle(),
             ], 'work'),
             'form' => $form,
         ]);
@@ -62,7 +62,7 @@ class WorkAdaptationController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update adaptation from work %work%', [
-                '%work%' => $workAdaptation->getWork()->getName(),
+                '%work%' => $workAdaptation->getWork()->getFrenchTitle(),
             ], 'work'),
             'form' => $form,
         ]);
@@ -84,7 +84,7 @@ class WorkAdaptationController extends AbstractAppController
 
         return $this->render('shared/common/remove.html.twig', [
             'title' => new TranslatableMessage('Remove adaptation from work %work%', [
-                '%work%' => $workAdaptation->getWork()->getName(),
+                '%work%' => $workAdaptation->getWork()->getFrenchTitle(),
             ], 'work'),
             'form' => $form,
         ]);

@@ -63,7 +63,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             );
 
             if (!$contractWork) {
-                $form->addError(new FormError(\sprintf('Work "%s" not found in contract %s', $work->getName(), $dto->getDistributionContract()->getName())));
+                $form->addError(new FormError(\sprintf('Work "%s" not found in contract %s', $work->getFrenchTitle(), $dto->getDistributionContract()->getName())));
 
                 continue;
             }

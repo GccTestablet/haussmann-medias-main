@@ -37,20 +37,20 @@ class WorkFormType extends AbstractType
                 'required' => false,
                 'help' => 'IMDB Id starts with "tt" followed by numbers.',
             ])
-            ->add('name', TextType::class, [
+            ->add('frenchTitle', TextType::class, [
                 'constraints' => [
                     new UniqueEntityField(
                         entityClass: Work::class,
-                        field: 'name',
+                        field: 'French Title',
                         origin: $dto->isExists() ? $dto->getWork() : null
                     ),
                 ],
             ])
-            ->add('originalName', TextType::class, [
+            ->add('originalTitle', TextType::class, [
                 'constraints' => [
                     new UniqueEntityField(
                         entityClass: Work::class,
-                        field: 'originalName',
+                        field: 'Original Title',
                         origin: $dto->isExists() ? $dto->getWork() : null
                     ),
                 ],

@@ -34,10 +34,10 @@ class Work
     private ?string $imdbId = null;
 
     #[ORM\Column(unique: true)]
-    private string $name;
+    private string $frenchTitle;
 
     #[ORM\Column(unique: true)]
-    private string $originalName;
+    private string $originalTitle;
 
     #[ORM\Column(length: 2)]
     private string $country;
@@ -129,26 +129,26 @@ class Work
         return $this;
     }
 
-    public function getName(): string
+    public function getFrenchTitle(): string
     {
-        return $this->name;
+        return $this->frenchTitle;
     }
 
-    public function setName(string $name): static
+    public function setFrenchTitle(string $frenchTitle): static
     {
-        $this->name = $name;
+        $this->frenchTitle = $frenchTitle;
 
         return $this;
     }
 
-    public function getOriginalName(): string
+    public function getOriginalTitle(): string
     {
-        return $this->originalName;
+        return $this->originalTitle;
     }
 
-    public function setOriginalName(string $originalName): static
+    public function setOriginalTitle(string $originalTitle): static
     {
-        $this->originalName = $originalName;
+        $this->originalTitle = $originalTitle;
 
         return $this;
     }

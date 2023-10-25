@@ -10,11 +10,11 @@
     </tr>
     <tr>
         <td>{% trans from 'work' %}French Title{% endtrans %}</td>
-        <td>{{ work.name }}</td>
+        <td>{{ work.frenchTitle }}</td>
     </tr>
     <tr>
-        <td>{% trans from 'work' %}Original name{% endtrans %}</td>
-        <td>{{ work.originalName }}</td>
+        <td>{% trans from 'work' %}Original Title{% endtrans %}</td>
+        <td>{{ work.originalTitle }}</td>
     </tr>
     <tr>
         <td>{% trans from 'work' %}Country{% endtrans %}</td>
@@ -35,6 +35,10 @@
     <tr>
         <td>{% trans from 'work' %}Ceiling of recoverable costs{% endtrans %}</td>
         <td>{{ work.ceilingOfRecoverableCosts }}</td>
+    </tr>
+    <tr>
+        <td>{% trans from 'work' %}Currency{% endtrans %}</td>
+        <td>{{ work.currency }}</td>
     </tr>
     </tbody>
 </table>

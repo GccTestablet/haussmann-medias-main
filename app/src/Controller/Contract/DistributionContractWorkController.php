@@ -52,7 +52,7 @@ class DistributionContractWorkController extends AbstractAppController
         $contractWork = $contract->getContractWork($work);
         if (!$contractWork) {
             throw $this->createNotFoundException(
-                \sprintf('Work %s not found in contract %s', $work->getName(), $contract->getName())
+                \sprintf('Work %s not found in contract %s', $work->getFrenchTitle(), $contract->getName())
             );
         }
 
@@ -71,7 +71,7 @@ class DistributionContractWorkController extends AbstractAppController
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update work %work% for distribution contract %contract%', [
-                '%work%' => $work->getName(),
+                '%work%' => $work->getFrenchTitle(),
                 '%contract%' => $contract->getName(),
             ], 'contract'),
             'form' => $form,

@@ -26,6 +26,7 @@ Imdb id: Id IMDB
 Name: Nom
 Role: Rôle
 French Title: Titre Français
+Original Title: Titre Original
 Year of production: Année de production
 Duration: Durée
 Contract: Contrat
@@ -37,6 +38,8 @@ Select a work: Sélectionner une oeuvre
 Manage territories: Gérer les territoires
 Beneficiary: Ayant-Droit
 Period: Période
+Currency: Devise
+Channels: Canaux
 
 # Revenue
 Distributor: Distributeur
