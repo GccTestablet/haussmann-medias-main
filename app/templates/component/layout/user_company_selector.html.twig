@@ -5,7 +5,7 @@
     <ul class="dropdown-menu w-100">
         {% for company in computed.companies|filter(company => company != app.user.connectedOn) %}
             <li>
-                <a class="dropdown-item" href="{{ path('app_security_profile_switch_company', {'company': company.id}) }}">
+                <a class="dropdown-item" href="{{ path('app_security_profile_switch_company', {'company': company.id, 'redirectTo': app.request.requestUri}) }}">
                     {{ company.name }}
                 </a>
             </li>
