@@ -8,7 +8,8 @@ WORKDIR /var/www/haussmann-medias/app
 # Chromium and ChromeDriver
 ENV PANTHER_NO_SANDBOX 1
 # Not mandatory, but recommended
-ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
+#ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
+ENV PANTHER_CHROME_ARGUMENTS="--disable-dev-shm-usage --disable-extensions --no-sandbox --whitelisted-ips=''"
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
