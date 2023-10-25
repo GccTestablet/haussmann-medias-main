@@ -42,7 +42,7 @@ class AcquisitionContractFormDtoFactory
             ->setFiles($files)
         ;
 
-        $this->objectParser->mergeFromObject($contract, $dto, ['files', 'works']);
+        $this->objectParser->mergeFromObject($contract, $dto, ['company', 'files', 'works']);
 
         return $dto;
     }
@@ -63,6 +63,6 @@ class AcquisitionContractFormDtoFactory
             }
         }
 
-        $this->objectParser->mergeFromObject($dto, $contract, ['files']);
+        $this->objectParser->mergeFromObject($dto, $contract, ['company', 'files', 'works']);
     }
 }

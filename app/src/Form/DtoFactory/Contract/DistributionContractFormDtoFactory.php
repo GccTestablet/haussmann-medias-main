@@ -41,7 +41,7 @@ class DistributionContractFormDtoFactory
         $dto = (new DistributionContractFormDto($contract, true))
             ->setFiles($files)
         ;
-        $this->objectParser->mergeFromObject($contract, $dto, ['files', 'works']);
+        $this->objectParser->mergeFromObject($contract, $dto, ['company', 'files', 'works']);
 
         return $dto;
     }
@@ -62,6 +62,6 @@ class DistributionContractFormDtoFactory
             }
         }
 
-        $this->objectParser->mergeFromObject($dto, $contract, ['files']);
+        $this->objectParser->mergeFromObject($dto, $contract, ['company', 'files']);
     }
 }

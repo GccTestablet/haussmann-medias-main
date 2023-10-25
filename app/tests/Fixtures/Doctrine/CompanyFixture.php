@@ -30,7 +30,7 @@ class CompanyFixture extends AbstractFixture
             'name' => 'Mediawan',
         ],
         self::MY_DIGITAL_COMPANY => [
-            'name' => 'My digital company',
+            'name' => 'My Digital Company',
         ],
     ];
 

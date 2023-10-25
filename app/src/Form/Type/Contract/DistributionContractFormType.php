@@ -6,10 +6,10 @@ namespace App\Form\Type\Contract;
 
 use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
+use App\Entity\Setting\BroadcastChannel;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
 use App\Form\Dto\Contract\DistributionContractFormDto;
-use App\Form\Type\Common\BroadcastChannelAutocompleteField;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
@@ -35,6 +35,12 @@ class DistributionContractFormType extends AbstractType
         $dto = $builder->getData();
 
         $builder
+            ->add('company', EntityType::class, [
+                'label' => 'Seller',
+                'class' => Company::class,
+                'choice_label' => 'name',
+                'disabled' => true,
+            ])
             ->add('distributor', EntityType::class, [
                 'class' => Company::class,
                 'placeholder' => 'Select a distributor',
@@ -53,8 +59,11 @@ class DistributionContractFormType extends AbstractType
                 'choice_label' => fn (DistributionContractTypeEnum $enum) => $enum->getAsText(),
                 'placeholder' => 'Select a contract type',
             ])
-            ->add('broadcastChannels', BroadcastChannelAutocompleteField::class, [
+            ->add('broadcastChannels', EntityType::class, [
+                'class' => BroadcastChannel::class,
+                'choice_label' => 'name',
                 'multiple' => true,
+                'autocomplete' => true,
                 'required' => false,
             ])
             ->add('signedAt', DateType::class, [
