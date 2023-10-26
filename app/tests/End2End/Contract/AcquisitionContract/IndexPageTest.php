@@ -31,7 +31,7 @@ class IndexPageTest extends AbstractEnd2EndTestCase
         $this->assertTableContains('table',
             ['CONTRACT', 'BENEFICIARY', 'PERIOD', 'WORKS'],
             [
-                ['Winnie the Pooh', 'HKA Films', '01/01/2023 - 31/12/2023', '1'],
+                ['HF - Winnie the Pooh', 'HKA Films', '01/01/2023 - 31/12/2023', '1'],
             ]
         );
 
@@ -40,7 +40,7 @@ class IndexPageTest extends AbstractEnd2EndTestCase
         $this->assertTableContains('table',
             ['CONTRACT', 'BENEFICIARY', 'PERIOD', 'WORKS'],
             [
-                ['Sniper and Maneater', 'Mediawan', '01/01/2023 -', '2'],
+                ['MW - Sniper and Maneater', 'Mediawan', '01/01/2023 -', '2'],
             ]
         );
     }
