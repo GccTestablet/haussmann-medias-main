@@ -24,7 +24,6 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly StringParser $stringParser,
         private readonly DistributionContractWorkRevenueImporter $contractWorkRevenueImporter,
         private readonly DistributionContractWorkManager $distributionContractWorkManager,
         private readonly WorkManager $workManager,
@@ -69,7 +68,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             }
 
             foreach ($record->getChannels() as $channelName => $revenue) {
-                $slug = $this->stringParser->slugify($channelName);
+                $slug = StringParser::slugify($channelName);
                 $channel = $this->broadcastChannelManager->findOneBySlug($slug);
                 if (!$channel) {
                     $form->addError(new FormError(\sprintf('Broadcast channel with slug "%s" does not exist', $slug)));

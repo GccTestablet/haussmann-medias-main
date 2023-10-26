@@ -7,6 +7,7 @@ namespace App\Twig\Extension;
 use App\Twig\Runtime\CoreExtensionRuntime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 class CoreExtension extends AbstractExtension
 {
@@ -14,6 +15,14 @@ class CoreExtension extends AbstractExtension
     {
         return [
             new TwigFunction('call_static', [CoreExtensionRuntime::class, 'callStatic']),
+            new TwigFunction('execute', [CoreExtensionRuntime::class, 'executeClosure']),
+        ];
+    }
+
+    public function getTests(): array
+    {
+        return [
+            new TwigTest('instanceof', [CoreExtensionRuntime::class, 'isInstanceOf']),
         ];
     }
 }

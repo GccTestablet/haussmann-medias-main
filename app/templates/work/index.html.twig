@@ -4,11 +4,15 @@
     {% trans from 'work' %}List of works{% endtrans %}
 {% endblock %}
 {% block content %}
-    {% component card %}
-        {% block body_content %}
-            {% include 'work/_embedded/_list.html.twig' with {
-                works: works,
-            } %}
-        {% endblock %}
-    {% endcomponent %}
+    {{ component('data_table', {
+        pagerResponse: pagerResponse,
+        options: options ?? {}
+    }) }}
+{#    {% component card %}#}
+{#        {% block body_content %}#}
+{#            {% include 'work/_embedded/_list.html.twig' with {#}
+{#                works: works,#}
+{#            } %}#}
+{#        {% endblock %}#}
+{#    {% endcomponent %}#}
 {% endblock %}

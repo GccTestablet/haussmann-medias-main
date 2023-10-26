@@ -66,4 +66,18 @@ class FormatExtensionRuntime implements RuntimeExtensionInterface
 
         return Countries::getName($countryCode);
     }
+
+    /**
+     * @param array<string, mixed> $attributes
+     */
+    public function formatAttributes(array $attributes): string
+    {
+        $result = [];
+
+        foreach ($attributes as $key => $value) {
+            $result[] = \sprintf('%s="%s"', $key, $value);
+        }
+
+        return \implode(' ', $result);
+    }
 }

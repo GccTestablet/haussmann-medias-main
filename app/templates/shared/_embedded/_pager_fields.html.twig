@@ -1,0 +1,19 @@
+{% block pager_links %}
+    {% for link in viewData.links %}
+        {{ block(link.type.value) }}
+    {% endfor %}
+{% endblock %}
+
+{% block pager_link %}
+    {% if link is defined %}
+        {% set viewData = link %}
+    {% endif %}
+
+    <a {{ viewData.attributes|attributes_format }}>
+        {% if viewData.value is instanceof('Symfony\\Component\\Translation\\TranslatableMessage') %}
+            {{ viewData.value|trans|e }}
+        {% else %}
+            {{ viewData.value|e }}
+        {% endif %}
+    </a>
+{% endblock %}

@@ -11,6 +11,9 @@ class PagerResponse
 {
     public function __construct(
         private readonly PagerInterface $pager,
+        /**
+         * @var PaginationInterface<object>
+         */
         private readonly PaginationInterface $pagination
     ) {}
 
@@ -19,6 +22,9 @@ class PagerResponse
         return $this->pager;
     }
 
+    /**
+     * @return PaginationInterface<object>
+     */
     public function getPagination(): PaginationInterface
     {
         return $this->pagination;
