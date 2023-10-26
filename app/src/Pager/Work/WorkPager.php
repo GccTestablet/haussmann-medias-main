@@ -8,12 +8,15 @@ use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
+use App\Model\Pager\Field\IconField;
 use App\Model\Pager\Field\LinkField;
 use App\Model\Pager\Field\LinksField;
+use App\Model\Pager\Field\PopoverButtonField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
+use Twig\Environment;
 
 class WorkPager extends AbstractPager
 {
@@ -21,11 +24,16 @@ class WorkPager extends AbstractPager
     protected static array $defaultSort = [ColumnEnum::INTERNAL_ID->value => 'ASC'];
 
     protected static array $columns = [
+        ColumnEnum::ID,
         ColumnEnum::INTERNAL_ID,
         ColumnEnum::NAME,
         ColumnEnum::CONTRACT,
         ColumnEnum::ACTIONS,
     ];
+
+    public function __construct(
+        private readonly Environment $twig
+    ) {}
 
     public function buildQuery(array $criteria = [], array $orderBy = [], int $limit = self::DEFAULT_LIMIT, int $offset = self::DEFAULT_OFFSET): void
     {
@@ -35,6 +43,29 @@ class WorkPager extends AbstractPager
     protected function configureColumnSchema(): void
     {
         static::$columnSchema = [
+            new Column(
+                id: ColumnEnum::ID,
+                header: new ColumnHeader(
+                    callback: fn () => '',
+                    sortable: false,
+                ),
+                callback: fn (Work $work) => new PopoverButtonField(
+                    value: new IconField(
+                        icon: 'circle-exclamation',
+                        attributes: [
+                            'class' => 'text-primary',
+                        ]
+                    ),
+                    popoverTitle: new TranslatableMessage('Territories', [], 'work'),
+                    popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
+                        'workTerritories' => $work->getWorkTerritories(),
+                    ]),
+                    attributes: [
+                        'title' => new TranslatableMessage('Territories', [], 'work'),
+                        'class' => 'btn btn-sm',
+                    ],
+                )
+            ),
             new Column(
                 id: ColumnEnum::INTERNAL_ID,
                 header: new ColumnHeader(

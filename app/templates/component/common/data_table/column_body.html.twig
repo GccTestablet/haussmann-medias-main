@@ -1,7 +1,7 @@
 {% use 'shared/_embedded/_pager_fields.html.twig' %}
 
 {% set viewData = execute(column.callBack, [entity, options]) %}
-<td class="{{ column.extraClass }} py-1">
+<td>
     {% if viewData is instanceof('App\\Model\\Pager\\Field\\FieldInterface') %}
         {{ block(viewData.type.value) }}
     {% else %}

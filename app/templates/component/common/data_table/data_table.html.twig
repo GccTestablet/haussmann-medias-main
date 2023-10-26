@@ -24,7 +24,7 @@
 {#                {{ form_errors(form) }}#}
 {#            </div>#}
 {#        {% endif %}#}
-        <table id="{{ pager.pagerId }}-table" class="table table-striped {{ classes.table ?? '' }}" aria-label="Liste" data-controller="tools--checkbox-group widgets--lightbox tools--form-reset">
+        <table id="{{ pager.pagerId }}-table" class="table table-striped {{ classes.table ?? '' }}" aria-label="Liste" data-controller="datatable--table-expand">
             <thead>
             <tr>
                 {% for column in computed.visibleColumns %}

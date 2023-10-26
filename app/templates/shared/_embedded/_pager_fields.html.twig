@@ -1,14 +1,57 @@
+{% block pager_icon %}
+    {% set attributes = viewData.attributes|merge({
+        'class': 'fa fa-' ~ viewData.icon ~ ' ' ~ viewData.attributes.class|default('')
+    }) %}
+
+    <i {{ attributes|attributes_format }}></i>
+{% endblock %}
+
+{% block pager_button %}
+    <button type="button" {{ viewData.attributes|attributes_format }}>
+        {% if viewData.value is instanceof('Symfony\\Component\\Translation\\TranslatableMessage') %}
+            {{ viewData.value|trans|e }}
+        {% elseif viewData.value is instanceof('App\\Model\\Pager\\Field\\FieldInterface') %}
+            {% with {
+                'viewData': viewData.value,
+            } %}
+                {{ block(viewData.type.value) }}
+            {% endwith %}
+        {% else %}
+            {{ viewData.value|e }}
+        {% endif %}
+    </button>
+{% endblock %}
+
+{% block pager_popover_button %}
+    <button type="button"
+            data-controller="widgets--tooltip"
+            data-widgets--tooltip-content-value="{{ viewData.popoverContent|e|raw }}"
+        {{ viewData.attributes|attributes_format }}>
+        {% if viewData.value is instanceof('Symfony\\Component\\Translation\\TranslatableMessage') %}
+            {{ viewData.value|trans|e }}
+        {% elseif viewData.value is instanceof('App\\Model\\Pager\\Field\\FieldInterface') %}
+            {% with {
+                'viewData': viewData.value,
+            } %}
+                {{ block(viewData.type.value) }}
+            {% endwith %}
+        {% else %}
+            {{ viewData.value|e }}
+        {% endif %}
+    </button>
+{% endblock %}
+
 {% block pager_links %}
     {% for link in viewData.links %}
-        {{ block(link.type.value) }}
+        {% with {
+            'viewData': link,
+        } %}
+            {{ block(viewData.type.value) }}
+        {% endwith %}
     {% endfor %}
 {% endblock %}
 
 {% block pager_link %}
-    {% if link is defined %}
-        {% set viewData = link %}
-    {% endif %}
-
     <a {{ viewData.attributes|attributes_format }}>
         {% if viewData.value is instanceof('Symfony\\Component\\Translation\\TranslatableMessage') %}
             {{ viewData.value|trans|e }}

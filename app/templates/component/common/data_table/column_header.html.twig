@@ -3,10 +3,7 @@
 {% set header = column.header %}
 {% set viewData = execute(header.callBack, [options]) %}
 
-<th
-        {{ header.attributes|attributes_format }}
-        class="text-nowrap p-2"
->
+<th class="text-nowrap">
     {% if header.isSortable %}
         {% set options = {
             class: 'text-default',
