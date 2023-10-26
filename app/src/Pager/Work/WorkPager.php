@@ -24,7 +24,7 @@ class WorkPager extends AbstractPager
     protected static array $defaultSort = [ColumnEnum::INTERNAL_ID->value => 'ASC'];
 
     protected static array $columns = [
-        ColumnEnum::ID,
+        ColumnEnum::EXTRA,
         ColumnEnum::INTERNAL_ID,
         ColumnEnum::NAME,
         ColumnEnum::CONTRACT,
@@ -44,7 +44,7 @@ class WorkPager extends AbstractPager
     {
         static::$columnSchema = [
             new Column(
-                id: ColumnEnum::ID,
+                id: ColumnEnum::EXTRA,
                 header: new ColumnHeader(
                     callback: fn () => '',
                     sortable: false,
@@ -63,6 +63,7 @@ class WorkPager extends AbstractPager
                     attributes: [
                         'title' => new TranslatableMessage('Territories', [], 'work'),
                         'class' => 'btn btn-sm',
+                        'data-work-id' => $work->getId(),
                     ],
                 )
             ),

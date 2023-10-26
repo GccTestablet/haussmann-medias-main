@@ -6,6 +6,7 @@ namespace App\Enum\Pager;
 
 enum ColumnEnum: string
 {
+    case EXTRA = 'extra';
     case SORT = 'sort';
     case DIRECTION = 'direction';
     case PAGE = 'page';
@@ -23,4 +24,7 @@ enum ColumnEnum: string
     case INTERNAL_ID = 'internalId';
     case CONTRACT = 'contract';
     case COMPANY = 'company';
+
+    // Contract
+    case ACQUISITION_CONTRACT = 'acquisitionContract';
 }

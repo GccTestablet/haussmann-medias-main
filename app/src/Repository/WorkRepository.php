@@ -26,6 +26,9 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::COMPANY => $queryBuilder
                     ->andWhere('ac.company = :company')
                     ->setParameter('company', $value),
+                ColumnEnum::ACQUISITION_CONTRACT => $queryBuilder
+                    ->andWhere('w.acquisitionContract = :acquisitionContract')
+                    ->setParameter('acquisitionContract', $value),
                 default => null,
             };
         }

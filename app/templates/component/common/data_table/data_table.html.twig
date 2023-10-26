@@ -2,8 +2,7 @@
 
 {% set pager = pagerResponse.pager %}
 {% set pagination = pagerResponse.pagination %}
-{#{% set displayedColumns = pagerResponse.pager.columns %}#}
-{#{% set form = pagerResponse.pager.form.createView %}#}
+{% set displayedColumns = pagerResponse.pager.columns %}
 
 <div id="{{ pager.pagerId }}-block" class="card mb-0">
     <div class="card-header d-sm-flex align-items-center justify-content-between p-2">
@@ -18,13 +17,7 @@
     </div>
 
     <div class="table-responsive">
-{#        {{ form_start(form) }}#}
-{#        {% if form.vars.errors is not empty %}#}
-{#            <div class="alert alert-danger m-3">#}
-{#                {{ form_errors(form) }}#}
-{#            </div>#}
-{#        {% endif %}#}
-        <table id="{{ pager.pagerId }}-table" class="table table-striped {{ classes.table ?? '' }}" aria-label="Liste" data-controller="datatable--table-expand">
+        <table id="{{ pager.pagerId }}-table" class="table table-striped {{ classes.table ?? '' }}">
             <thead>
             <tr>
                 {% for column in computed.visibleColumns %}
@@ -35,14 +28,6 @@
                         options: options,
                     }) }}
                 {% endfor %}
-            </tr>
-            <tr>
-{#                {% for column in computed.visibleColumns %}#}
-{#                    {{ component('data_table_column_filter', {#}
-{#                        form: form,#}
-{#                        column: column,#}
-{#                    }) }}#}
-{#                {% endfor %}#}
             </tr>
             </thead>
             <tbody>
@@ -60,18 +45,13 @@
                 {% endfor %}
             {% else %}
                 <tr>
-{#                    <td colspan="{{ displayedColumns|length }}" class="text-center">#}
-{#                        {% trans from 'pager' %}No records found{% endtrans %}#}
-{#                    </td>#}
+                    <td colspan="{{ displayedColumns|length }}" class="text-center">
+                        {% trans from 'misc' %}No records found{% endtrans %}
+                    </td>
                 </tr>
             {% endif %}
             </tbody>
         </table>
-
-{#        {{ form_widget(form.sort) }}#}
-{#        {{ form_widget(form.direction) }}#}
-{#        {{ form_widget(form.page) }}#}
-{#        {{ form_end(form, {'render_rest': false}) }}#}
     </div>
 
     <div class="card-footer d-sm-flex align-items-center justify-content-between">
