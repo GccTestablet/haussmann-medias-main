@@ -7,9 +7,15 @@ Remove: Supprimer
 Download: Télécharger
 List: Liste
 Back: Retour
+Select all: Séléctionner tout
 
 Name: Nom
+Cost: Montant
+Amount: Montant
+Currency: Devise
+Comment: Commentaire
 Actions: Actions
+File: Fichier
 
 Daily: Quotidien
 Weekly: Hebdomadaire
@@ -18,7 +24,12 @@ Quarterly: Trimestriel
 Half-yearly: Semestriel
 Yearly: Annuel
 
+Starts at: Début
+Ends at: Fin
+
 Created at: Crée le
 Created by: Crée par
 Updated at: Mis à jour le
 Updated by: Mis à jour par
+
+Search a work, contract, ...: Rechercher un titre, contrat, ...

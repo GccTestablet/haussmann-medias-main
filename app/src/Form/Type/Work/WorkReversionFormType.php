@@ -30,6 +30,7 @@ class WorkReversionFormType extends AbstractType
                     $dto->getChannel()
                 ),
                 'choice_label' => 'name',
+                'translation_domain' => 'setting',
             ])
             ->add('percentageReversion', NumberType::class, [
                 'required' => true,
@@ -41,6 +42,7 @@ class WorkReversionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => WorkReversionFormDto::class,
+            'translation_domain' => 'work',
         ]);
     }
 }

@@ -39,7 +39,7 @@ class DistributionContractWorkRevenueImportFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => DistributionContractWorkRevenueImportFormDto::class,
-            'translation_domain' => 'contract',
+            'translation_domain' => 'misc',
         ]);
     }
 }

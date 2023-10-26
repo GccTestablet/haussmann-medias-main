@@ -24,6 +24,7 @@ class WorkFormType extends AbstractType
 
         $builder
             ->add('internalId', TextType::class, [
+                'label' => 'Internal Id',
                 'disabled' => true,
                 'constraints' => [
                     new UniqueEntityField(
@@ -34,6 +35,7 @@ class WorkFormType extends AbstractType
                 ],
             ])
             ->add('imdbId', TextType::class, [
+                'label' => 'Imdb id',
                 'required' => false,
                 'help' => 'IMDB Id starts with "tt" followed by numbers.',
             ])
