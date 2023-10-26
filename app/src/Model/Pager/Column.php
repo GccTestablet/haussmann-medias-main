@@ -16,9 +16,7 @@ class Column
         /**
          * @var array<string, mixed>
          */
-        private readonly array $properties = [],
-        private readonly ?string $extraClass = null,
-        private readonly ?string $width = null,
+        private readonly array $attributes = [],
     ) {}
 
     public function getId(): ColumnEnum
@@ -44,18 +42,8 @@ class Column
     /**
      * @return array<string, mixed>
      */
-    public function getProperties(): array
+    public function getAttributes(): array
     {
-        return $this->properties;
-    }
-
-    public function getExtraClass(): ?string
-    {
-        return $this->extraClass;
-    }
-
-    public function getWidth(): ?string
-    {
-        return $this->width;
+        return $this->attributes;
     }
 }
