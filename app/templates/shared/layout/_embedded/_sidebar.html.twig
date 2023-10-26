@@ -19,8 +19,6 @@
                         user: app.user
                     })}}
                 </li>
-                <!-- Managing my buiness -->
-                <li class="nav-main-heading">Managing my business</li>
                 {% if app.user.connectedOn %}
                     <li class="nav-main-item">
                         <a href="{{ path('app_acquisition_contract_index') }}" class="nav-main-link">
@@ -44,7 +42,6 @@
                         </div>
                     </li>
                 {% endif %}
-                <!-- Settings -->
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="nav-main-heading">Settings</li>
                     <li class="nav-main-item">

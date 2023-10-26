@@ -3,7 +3,11 @@
 {% block content %}
     {% component card %}
         {% block header_content %}
-            <h1>Manage territory from work {{ work.name }}</h1>
+            <h1 class="h3 fw-bold mb-1">
+                {% trans with {
+                    'work': work.name
+                } from 'work' %}Manage territory and channels from work %work%{% endtrans %}
+            </h1>
         {% endblock %}
         {% block body_content %}
             {% if 0 == contract.broadcastChannels|length %}
@@ -27,8 +31,8 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Territory</th>
-                        <th class="text-nowrap">Select all</th>
+                        <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
+                        <th class="text-nowrap">{% trans from 'misc' %}Select all{% endtrans %}</th>
                         {% for channel in contract.broadcastChannels %}
                             <th>{{ channel.name }}</th>
                         {% endfor %}

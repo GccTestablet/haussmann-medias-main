@@ -20,7 +20,7 @@ class WorkAdaptationFormType extends AbstractType
     {
         $builder
             ->add('type', EntityType::class, [
-                'placeholder' => 'Select a adaptation cost type',
+                'placeholder' => 'Select a cost type',
                 'class' => AdaptationCostType::class,
                 'choice_label' => fn (AdaptationCostType $type) => $type->getName(),
                 'required' => true,
@@ -28,12 +28,15 @@ class WorkAdaptationFormType extends AbstractType
             ])
             ->add('amount', NumberType::class, [
                 'required' => true,
+                'translation_domain' => 'misc',
             ])
             ->add('currency', CurrencyType::class, [
                 'required' => true,
+                'translation_domain' => 'misc',
             ])
             ->add('comment', TextareaType::class, [
                 'required' => false,
+                'translation_domain' => 'misc',
             ])
         ;
     }

@@ -3,11 +3,10 @@
         <thead>
         <tr>
             <th>&nbsp;</th>
-            <th>{% trans from 'work' %}Internal id{% endtrans %}</th>
-            <th>{% trans from 'work' %}Name{% endtrans %}</th>
-            <th>{% trans from 'work' %}Starts at{% endtrans %}</th>
-            <th>{% trans from 'work' %}Ends at{% endtrans %}</th>
-            <th>{% trans from 'work' %}Amount{% endtrans %}</th>
+            <th>{% trans from 'work' %}Work{% endtrans %}</th>
+            <th>{% trans from 'contract' %}Rights starts at{% endtrans %}</th>
+            <th>{% trans from 'contract' %}Rights ends at{% endtrans %}</th>
+            <th>{% trans from 'misc' %}Amount{% endtrans %}</th>
             <th class="text-end">{% trans from 'misc' %}Actions{% endtrans %}</th>
         </tr>
         </thead>
@@ -32,8 +31,7 @@
                         } %}
                     </div>
                 </td>
-                <td><a href="{{ path('app_work_show', {'id': work.id}) }}">{{ work.internalId }}</a></td>
-                <td>{{ contractWork.work.name }}</td>
+                <td><a href="{{ path('app_work_show', {'id': work.id}) }}">{{ contractWork.work.name }}</a></td>
                 <td>{{ contractWork.startsAt|date_format }}</td>
                 <td>{{ contractWork.endsAt|date_format }}</td>
                 <td>{{ contractWork.amount|format_currency(contractWork.currency) }}</td>

@@ -34,24 +34,24 @@ class ShowPageTest extends AbstractEnd2EndTestCase
     public function testInfo(): void
     {
         $this->assertPageContains('Date de signature 01/01/2023');
-        $this->assertPageContains('Droits à partir de 01/01/2023');
-        $this->assertPageContains('Droits jusqu\'à 31/12/2023');
+        $this->assertPageContains('Date de début de droits 01/01/2023');
+        $this->assertPageContains('Date de fin de droits 31/12/2023');
         $this->assertPageContains('Fréquence des rapports Mensuel');
-        $this->assertPageContains('Files');
+        $this->assertPageContains('Fichiers');
     }
 
     public function testWorkList(): void
     {
-        $this->assertPageContains('Ajouter une oeuvre');
+        $this->assertPageContains('Ajouter une œuvre');
         $this->assertTableContains('#acquisition-contract-works-table', [
-            'INTERNAL ID', 'NOM ORIGINAL', 'CONTRACT',
+            ' ID INTERNE', 'TITRE FRANÇAIS', 'CONTRAT',
         ], [
             ['HAU000001', 'Winnie the Pooh', 'HF - Winnie the Pooh'],
         ]);
 
         $this->iClickOnElement('[data-datatable--table-expand-work-param="1"]');
         $this->assertTableContains('#work-territories-table', [
-            'TERRITORY', 'CHANNELS',
+            'TERRITOIRE', 'CANAUX',
         ], [
             ['France', 'AVOD, SVOD'],
             ['United Kingdom', 'AVOD, SVOD, TVOD'],

@@ -22,13 +22,13 @@ class MenuVisibilityTest extends AbstractEnd2EndTestCase
         $this->logInAs(UserFixture::SUPER_ADMIN_USER);
 
         $this->assertMenuContains('Contrats d\'acquisition');
-        $this->assertMenuContains('Contrats de distribution');
-        $this->assertMenuContains('Oeuvres');
+        $this->assertMenuContains('Contrats de sous-distribution');
+        $this->assertMenuContains('Œuvres');
         $this->assertMenuContains('Sociétés');
         $this->assertMenuContains('Utilisateurs');
         $this->assertMenuContains('Canaux de diffusion');
         $this->assertMenuContains('Territoires');
-        $this->assertMenuContains('Types de coût d\'adaptation');
+        $this->assertMenuContains('Types de coûts de distribution');
     }
 
     public function testNonAdminShouldSeeSettings(): void
@@ -36,12 +36,12 @@ class MenuVisibilityTest extends AbstractEnd2EndTestCase
         $this->logInAs(UserFixture::SIMPLE_USER);
 
         $this->assertMenuContains('Contrats d\'acquisition');
-        $this->assertMenuContains('Contrats de distribution');
-        $this->assertMenuContains('Oeuvres');
+        $this->assertMenuContains('Contrats de sous-distribution');
+        $this->assertMenuContains('Œuvres');
         $this->assertMenuNotContains('Sociétés');
         $this->assertMenuNotContains('Utilisateurs');
         $this->assertMenuNotContains('Canaux de diffusion');
         $this->assertMenuNotContains('Territoires');
-        $this->assertMenuNotContains('Types de coût d\'adaptation');
+        $this->assertMenuNotContains('Types de coûts de distribution');
     }
 }

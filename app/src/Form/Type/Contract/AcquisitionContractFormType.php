@@ -55,7 +55,7 @@ class AcquisitionContractFormType extends AbstractType
                 'label' => 'Signed at',
             ])
             ->add('files', FileType::class, [
-                'label' => 'Add more files',
+                'label' => 'Files',
                 'required' => false,
                 'multiple' => true,
                 'attr' => [

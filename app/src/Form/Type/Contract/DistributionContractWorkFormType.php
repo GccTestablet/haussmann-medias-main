@@ -29,20 +29,27 @@ class DistributionContractWorkFormType extends AbstractType
                 'query_builder' => fn (WorkRepository $repository) => $repository
                     ->getAvailableWorksByDistributionContractQueryBuilder($distributionContract, $dto->getWork()),
                 'choice_label' => 'name',
-                'placeholder' => 'Select work',
+                'placeholder' => 'Select a work',
                 'required' => true,
+                'translation_domain' => 'work',
             ])
             ->add('startsAt', DateType::class, [
+                'label' => 'Rights starts at',
                 'required' => true,
+                'translation_domain' => 'contract',
             ])
             ->add('endsAt', DateType::class, [
+                'label' => 'Rights ends at',
                 'required' => false,
+                'translation_domain' => 'contract',
             ])
             ->add('amount', NumberType::class, [
                 'required' => false,
+                'translation_domain' => 'misc',
             ])
             ->add('currency', CurrencyType::class, [
                 'required' => true,
+                'translation_domain' => 'misc',
             ])
         ;
     }
@@ -51,6 +58,7 @@ class DistributionContractWorkFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => DistributionContractWorkFormDto::class,
+            'translation_domain' => 'contract',
         ]);
     }
 }

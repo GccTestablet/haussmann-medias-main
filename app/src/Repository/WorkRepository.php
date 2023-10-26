@@ -66,8 +66,8 @@ class WorkRepository extends EntityRepository
     public function findByDistributionContract(DistributionContract $distributionContract): array
     {
         return $this->createQueryBuilder('w')
-            ->innerJoin('w.distributionContracts', 'dcw')
-            ->where('dcw.distributionContract = :contract')
+            ->innerJoin('w.contractWorks', 'cw')
+            ->where('cw.distributionContract = :contract')
             ->setParameter('contract', $distributionContract)
             ->orderBy('w.internalId', 'ASC')
             ->getQuery()

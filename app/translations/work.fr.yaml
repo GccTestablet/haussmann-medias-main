@@ -1,49 +1,58 @@
-Works: Oeuvres
-Work: Oeuvre
-Add work: Ajouter une oeuvre
-Update work %name%: Mettre à jour l'oeuvre %name%
+Works: Œuvres
+Work: Œuvre
+Add work: Ajouter une œuvre
+Update work %name%: Mettre à jour l'œuvre %name%
 Add adaptation: Ajouter une adaptation
-Add reversion: Ajouter une réversion
+Add reversion: Ajouter un reversement
 Add revenue: Ajouter un revenu
 
-List of works: Liste des oeuvres
-Add adaptation to work %work%: Ajouter une adaptation à l'oeuvre %work%
-Update adaptation from work %work%: Mettre à jour l'adaptation de l'oeuvre %work%
-Remove adaptation from work %work%: Supprimer l'adapation de l'oeuvre %work%
-Add reversion to work %work%: Ajouter une réversion à l'oeuvre %work%
-Update reversion from work %work%: Mettre à jour la réversion de l'oeuvre %work%
-Remove reversion from work %work%: Supprimer la réversion de l'oeuvre %work%
-Add revenue to work %work%: Ajouter un revenu à l'oeuvre %work%
-Update revenue from work %work%: Mettre à jour le revenu de l'oeuvre %work%
-Remove revenue from work %work%: Supprimer le revenu de l'oeuvre %work%
+List of works: Liste des œuvres
+Add adaptation to work %work%: Ajouter un coût de distribution à l’œuvre %work%
+Update adaptation from work %work%: Mettre à jour le coût de distribution de l'œuvre %work%
+Remove adaptation from work %work%: Supprimer le coût de distribution de l'œuvre %work%
+Add reversion to work %work%: Ajouter un reversement à l'œuvre %work%
+Update reversion from work %work%: Mettre à jour le reversement de l'œuvre %work%
+Remove reversion from work %work%: Supprimer le reversement de l'œuvre %work%
+Add revenue to work %work%: Ajouter un revenu à l'œuvre %work%
+Update revenue from work %work%: Mettre à jour le revenu de l'œuvre %work%
+Remove revenue from work %work%: Supprimer le revenu de l'œuvre %work%
 
-Minimum guaranteed before reversion: Minimum garanti avant réversion
-Minimum cost of the top before reversion: COTT minimum avant réversion
+Minimum guaranteed before reversion: Minimum garanti
+Minimum cost of the top before reversion: Plafond des frais recoupables
+Manage territory and channels from work %work%: Gérer les territoires et canaux pour l’œuvre
 
-Internal id: Id interne
-Imdb: Imdb
-Imdb id: Id IMDB
-Name: Nom
-Original name: Nom original
-Year: Année
+Internal Id: Id interne
+Imdb: IMDB
+Imdb id: ID IMDB
+Name: Titre français
+Original name: Titre original
+Year: Année de production
 Duration: Durée
 Contract: Contrat
 Origin: Provenance
 IMDB Id starts with "tt" followed by numbers.: L'identifiant IMDB commence par "tt" suivi de chiffres.
 Country: Pays d'origine
 Broadcast channels: Canaux de diffusion
-Select a work: Sélectionner une oeuvre
+Select a work: Sélectionner une œuvre
 Manage territories: Gérer les territoires
+Manage territories and channels: Gérer les territoires et les canaux
+Territories: Territoires
+Adaptations: Coûts de distribution
 
 # Revenue
 Distributor: Distributeur
 Starts at: Débute le
 Ends at: Fini le
 Revenue: Revenu
+Revenues: Revenus
 
 # Adaptation
-Select a adaptation cost type: Sélectionner un type de coût d'adaptation
-Cost: Coût
+Select a cost type: Sélectionner un type de coût
+Add distribution cost: Ajouter un coût
+
+# Reversions
+Reversions: Reversements
+Percentage reversion: Pourcentage ayant-droits
 
 # Origin
 France: France
