@@ -8,7 +8,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class StringParser
 {
-    public function slugify(string $string, string $delimiter = '-'): string
+    public static function slugify(string $string, string $delimiter = '-'): string
     {
         $slugger = new AsciiSlugger();
 

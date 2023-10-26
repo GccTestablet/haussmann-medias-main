@@ -12,7 +12,6 @@ use App\Tools\Parser\StringParser;
 class BroadcastChannelFormDtoFactory
 {
     public function __construct(
-        private readonly StringParser $stringParser,
         private readonly ObjectParser $objectParser
     ) {}
 
@@ -32,6 +31,6 @@ class BroadcastChannelFormDtoFactory
     {
         $this->objectParser->mergeFromObject($dto, $channel);
 
-        $channel->setSlug($this->stringParser->slugify($dto->getName()));
+        $channel->setSlug(StringParser::slugify($dto->getName()));
     }
 }

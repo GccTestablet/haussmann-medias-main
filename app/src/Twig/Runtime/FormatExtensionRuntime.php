@@ -8,12 +8,15 @@ use App\Entity\User;
 use App\Tools\Parser\DateParser;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class FormatExtensionRuntime implements RuntimeExtensionInterface
 {
     public function __construct(
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly TranslatorInterface $translator,
     ) {}
 
     public function formatDate(?\DateTime $dateTime, bool $unlimited = false): ?string
@@ -65,5 +68,23 @@ class FormatExtensionRuntime implements RuntimeExtensionInterface
         }
 
         return Countries::getName($countryCode);
+    }
+
+    /**
+     * @param array<string, mixed> $attributes
+     */
+    public function formatAttributes(array $attributes): string
+    {
+        $result = [];
+
+        foreach ($attributes as $key => $value) {
+            if ($value instanceof TranslatableMessage) {
+                $value = $this->translator->trans($value->getMessage(), $value->getParameters(), $value->getDomain());
+            }
+
+            $result[] = \sprintf('%s="%s"', $key, $value);
+        }
+
+        return \implode(' ', $result);
     }
 }

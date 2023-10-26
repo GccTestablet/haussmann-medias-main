@@ -32,7 +32,6 @@ class DistributionContractWorkRevenueImporter
 
     public function __construct(
         private readonly CsvParser $csvParser,
-        private readonly StringParser $stringParser,
         private readonly WorkManager $workManager,
     ) {}
 
@@ -97,7 +96,7 @@ class DistributionContractWorkRevenueImporter
     private function addHeaders(DistributionContract $contract): void
     {
         foreach ($contract->getBroadcastChannels() as $channel) {
-            $this->headers[] = \strtoupper($this->stringParser->slugify($channel->getName(), '_'));
+            $this->headers[] = \strtoupper(StringParser::slugify($channel->getName(), '_'));
         }
     }
 

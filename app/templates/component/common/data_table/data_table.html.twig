@@ -1,0 +1,62 @@
+{% use 'shared/_embedded/_pager_fields.html.twig' %}
+
+{% set pager = pagerResponse.pager %}
+{% set pagination = pagerResponse.pagination %}
+{% set displayedColumns = pagerResponse.pager.columns %}
+
+<div id="{{ pager.pagerId }}-block" class="card mb-0">
+    <div class="card-header d-sm-flex align-items-center justify-content-between p-2">
+        <div class="card-title">
+            {% trans with {
+                '%count%': pagination.getTotalItemCount
+            } from 'misc' %}%count% recordings found{% endtrans %}
+        </div>
+        <div class="header-elements-inline">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="{{ pager.pagerId }}-table" class="table table-striped {{ classes.table ?? '' }}">
+            <thead>
+            <tr>
+                {% for column in computed.visibleColumns %}
+                    {{ component('data_table_column_header', {
+                        pager: pager,
+                        pagination: pagination,
+                        column: column,
+                        options: options,
+                    }) }}
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% if pagination.getTotalItemCount > 0 %}
+                {% for entity in pagination %}
+                    <tr data-row="{{ loop.index0 }}">
+                        {% for column in computed.visibleColumns %}
+                            {{ component('data_table_column_body', {
+                                column: column,
+                                entity: entity,
+                                options: options
+                            }) }}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="{{ displayedColumns|length }}" class="text-center">
+                        {% trans from 'misc' %}No records found{% endtrans %}
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-footer d-sm-flex align-items-center justify-content-between">
+        <div class="header-elements-inline">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+</div>

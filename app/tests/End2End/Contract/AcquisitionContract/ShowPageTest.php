@@ -43,13 +43,13 @@ class ShowPageTest extends AbstractEnd2EndTestCase
     public function testWorkList(): void
     {
         $this->assertPageContains('Ajouter une œuvre');
-        $this->assertTableContains('#acquisition-contract-works-table', [
-            ' ID INTERNE', 'TITRE FRANÇAIS', 'CONTRAT',
+        $this->assertTableContains('#app-pager-work-table', [
+            ' ID INTERNE', 'TITRE FRANÇAIS',
         ], [
-            ['HAU000001', 'Winnie the Pooh', 'HF - Winnie the Pooh'],
+            ['HAU000001', 'Winnie the Pooh'],
         ]);
 
-        $this->iClickOnElement('[data-datatable--table-expand-work-param="1"]');
+        $this->iClickOnElement('[data-work-id="1"]');
         $this->assertTableContains('#work-territories-table', [
             'TERRITOIRE', 'CANAUX',
         ], [

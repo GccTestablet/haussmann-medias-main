@@ -7,11 +7,48 @@ namespace App\Repository;
 use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\Work\Work;
+use App\Enum\Pager\ColumnEnum;
+use App\Repository\Shared\PagerRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class WorkRepository extends EntityRepository
+class WorkRepository extends EntityRepository implements PagerRepositoryInterface
 {
+    public function getPagerQueryBuilder(array $criteria, array $orderBy, int $limit, int $offset): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder('w')
+            ->innerJoin('w.acquisitionContract', 'ac')
+        ;
+
+        foreach ($criteria as $field => $value) {
+            $enum = ColumnEnum::tryFrom($field);
+            match ($enum) {
+                ColumnEnum::COMPANY => $queryBuilder
+                    ->andWhere('ac.company = :company')
+                    ->setParameter('company', $value),
+                ColumnEnum::ACQUISITION_CONTRACT => $queryBuilder
+                    ->andWhere('w.acquisitionContract = :acquisitionContract')
+                    ->setParameter('acquisitionContract', $value),
+                default => null,
+            };
+        }
+
+        foreach ($orderBy as $field => $direction) {
+            $enum = ColumnEnum::tryFrom($field);
+            match ($enum) {
+                ColumnEnum::INTERNAL_ID => $queryBuilder->addOrderBy('w.internalId', $direction),
+                ColumnEnum::NAME => $queryBuilder->addOrderBy('w.name', $direction),
+                ColumnEnum::CONTRACT => $queryBuilder->addOrderBy('ac.name', $direction),
+                default => null,
+            };
+        }
+
+        return $queryBuilder
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+        ;
+    }
+
     public function findLastInternalId(string $prefix): ?string
     {
         return $this->createQueryBuilder('w')

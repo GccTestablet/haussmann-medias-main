@@ -8,11 +8,14 @@ use App\Controller\Shared\AbstractAppController;
 use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\User;
+use App\Enum\Pager\ColumnEnum;
 use App\Form\Dto\Contract\AcquisitionContractFormDto;
 use App\Form\DtoFactory\Contract\AcquisitionContractFormDtoFactory;
 use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Contract\AcquisitionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
+use App\Model\Pager\Filter;
+use App\Pager\Contract\AcquisitionContractWorkPager;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Security\SecurityManager;
 use App\Tools\Manager\UploadFileManager;
@@ -30,6 +33,7 @@ class AcquisitionContractController extends AbstractAppController
         private readonly UploadFileManager $uploadFileManager,
         private readonly AcquisitionContractFormHandler $formHandler,
         private readonly AcquisitionContractFormDtoFactory $formDtoFactory,
+        private readonly AcquisitionContractWorkPager $acquisitionContractWorkPager
     ) {}
 
     #[Route(name: 'app_acquisition_contract_index')]
@@ -48,10 +52,19 @@ class AcquisitionContractController extends AbstractAppController
     }
 
     #[Route(path: '/{id}', name: 'app_acquisition_contract_show', requirements: ['id' => '\d+'])]
-    public function show(AcquisitionContract $contract): Response
+    public function show(Request $request, AcquisitionContract $contract): Response
     {
+        $workPagerResponse = $this->pagerManager->create(
+            $this->acquisitionContractWorkPager,
+            $request,
+            [
+                new Filter(ColumnEnum::ACQUISITION_CONTRACT, $contract),
+            ]
+        );
+
         return $this->render('acquisition_contract/show.html.twig', [
             'contract' => $contract,
+            'workPagerResponse' => $workPagerResponse,
         ]);
     }
 

@@ -20,4 +20,17 @@ class CoreExtensionRuntime implements RuntimeExtensionInterface
 
         return \forward_static_call_array([$class, $method], $args);
     }
+
+    /**
+     * @param array<mixed> $arguments
+     */
+    public function executeClosure(\Closure $closure, array $arguments = []): mixed
+    {
+        return $closure(...$arguments);
+    }
+
+    public function isInstanceOf(mixed $var, string $instance): bool
+    {
+        return $var instanceof $instance;
+    }
 }

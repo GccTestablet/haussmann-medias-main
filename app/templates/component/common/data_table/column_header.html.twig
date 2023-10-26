@@ -1,0 +1,21 @@
+{% use 'shared/_embedded/_pager_fields.html.twig' %}
+
+{% set header = column.header %}
+{% set viewData = execute(header.callBack, [options]) %}
+
+<th class="text-nowrap">
+    {% if header.isSortable %}
+        {% set options = {
+            class: 'text-default',
+        } %}
+        {% set params = {
+            _fragment: pager.pagerId,
+        } %}
+
+        {{ knp_pagination_sortable(pagination, (viewData|trans|raw), column.id.value, options, params) }}
+    {% elseif viewData is instanceof('App\\Model\\Shared\\Pager\\Field\\FieldInterface') %}
+        {{ block(viewData.type) }}
+    {% else %}
+        {{ viewData|trans|raw }}
+    {% endif %}
+</th>

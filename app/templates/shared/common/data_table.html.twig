@@ -1,8 +1,5 @@
 {% extends 'shared/layout/layout_base.html.twig' %}
 
-{% block content_title %}
-    {% trans from 'work' %}List of works{% endtrans %}
-{% endblock %}
 {% block content %}
     {{ component('data_table', {
         pagerResponse: pagerResponse,

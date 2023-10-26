@@ -24,14 +24,14 @@
                 </ul>
                 <div class="card-body tab-content">
                     <div class="tab-pane pull-x active show" id="company-acquisition-contracts-tab" role="tabpanel" tabindex="0">
-                        <div class="card">
-                            <div class="card-header text-end">
-                                <a href="{{ path('app_acquisition_contract_work_add', {'contract': contract.id}) }}" class="btn btn-sm btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
-                            </div>
-                            <div class="card-body">
-                                {% include 'work/_embedded/_list.html.twig' with {
-                                    works: contract.works,
-                                } %}
+                        <div class="card border-0">
+                            <div class="card-body p-0">
+                                <div class="card-title text-end">
+                                    <a href="{{ path('app_acquisition_contract_work_add', {'contract': contract.id}) }}" class="btn btn-sm btn-success">{% trans from 'work' %}Add work{% endtrans %}</a>
+                                </div>
+                                {{ component('data_table', {
+                                    pagerResponse: workPagerResponse
+                                }) }}
                             </div>
                         </div>
                     </div>
