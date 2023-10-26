@@ -29,9 +29,9 @@ class IndexPageTest extends AbstractEnd2EndTestCase
 
     public function testContractList(): void
     {
-        $this->assertPageContains('Liste des contrats de distribution');
+        $this->assertPageContains('Liste des contrats de sous-distribution');
         $this->assertTableContains('table',
-            ['NAME', 'DISTRIBUTOR', 'WORKS'],
+            ['NOM', 'DISTRIBUTEUR', 'ŒUVRES'],
             [
                 ['MW - Winnie the Pooh', 'Mediawan', 'Winnie the Pooh'],
             ]
@@ -40,7 +40,7 @@ class IndexPageTest extends AbstractEnd2EndTestCase
         $this->iSwitchToCompany('Chrome Films');
 
         $this->assertTableContains('table',
-            ['NAME', 'DISTRIBUTOR', 'WORKS'],
+            ['NOM', 'DISTRIBUTEUR', 'ŒUVRES'],
             [
                 ['MDC - Sniper and Maneater', 'My Digital Company', 'Sniper, Maneater'],
             ]
@@ -63,7 +63,7 @@ class IndexPageTest extends AbstractEnd2EndTestCase
     {
         return [
             [
-                'clickOn' => 'Ajouter un contrat de distribution',
+                'clickOn' => 'Ajouter un contrat de sous-distribution',
                 'expectedUrl' => '/distribution-contracts/add',
             ],
             [

@@ -39,11 +39,11 @@ class MenuRedirectionTest extends AbstractEnd2EndTestCase
                 'url' => '/acquisition-contracts',
             ],
             [
-                'link' => 'Contrats de distribution',
+                'link' => 'Contrats de sous-distribution',
                 'url' => '/distribution-contracts',
             ],
             [
-                'link' => 'Oeuvres',
+                'link' => 'Œuvres',
                 'url' => '/works',
             ],
             [
@@ -63,7 +63,7 @@ class MenuRedirectionTest extends AbstractEnd2EndTestCase
                 'url' => '/settings/territories',
             ],
             [
-                'link' => 'Types de coût d\'adaptation',
+                'link' => 'Types de coûts de distribution',
                 'url' => '/settings/adaptation-cost-types',
             ],
         ];
