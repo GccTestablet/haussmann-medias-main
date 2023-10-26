@@ -71,8 +71,7 @@ class AcquisitionContractController extends AbstractAppController
             /** @var AcquisitionContractFormDto $dto */
             $dto = $form->getData();
 
-            return $this->redirectToRoute('app_company_acquisition_contract_show', [
-                'company' => $company->getId(),
+            return $this->redirectToRoute('app_acquisition_contract_show', [
                 'id' => $dto->getContract()->getId(),
             ]);
         }
@@ -96,8 +95,7 @@ class AcquisitionContractController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_company_acquisition_contract_show', [
-                'company' => $company->getId(),
+            return $this->redirectToRoute('app_acquisition_contract_show', [
                 'id' => $contract->getId(),
             ]);
         }
@@ -108,6 +106,7 @@ class AcquisitionContractController extends AbstractAppController
                 '%company%' => $company->getName(),
             ], 'company'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_acquisition_contract_index'),
         ]);
     }
 

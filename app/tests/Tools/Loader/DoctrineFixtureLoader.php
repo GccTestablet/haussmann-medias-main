@@ -57,7 +57,7 @@ class DoctrineFixtureLoader
 
             $tableNames = \array_map(static fn ($table) => $table->getName(), $tables);
             $connection->executeQuery(
-                \sprintf('TRUNCATE ONLY %s RESTART IDENTITY CASCADE', \implode(', ', $tableNames))
+                \sprintf('TRUNCATE ONLY %s CASCADE', \implode(', ', $tableNames))
             );
 
             foreach ($sequences as $sequence) {

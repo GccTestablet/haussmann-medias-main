@@ -44,7 +44,7 @@ class MenuRedirectionTest extends AbstractEnd2EndTestCase
             ],
             [
                 'link' => 'Oeuvres',
-                'url' => '/profile/works',
+                'url' => '/works',
             ],
             [
                 'link' => 'Sociétés',

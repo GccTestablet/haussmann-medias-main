@@ -4,7 +4,7 @@ export default class extends Controller<HTMLTableElement> {
   static targets = ["button", "row", "expandableRow"];
 
   declare readonly buttonTarget: HTMLButtonElement;
-  declare readonly expandableRowTargets: HTMLTableRowElement[];
+  declare readonly expandableRowTargets: HTMLDivElement[];
 
   expand({ params: { work } }) {
     this.expandableRowTargets.forEach((element) => {

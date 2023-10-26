@@ -10,7 +10,6 @@ use App\Form\Handler\Security\ChangePasswordFormHandler;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Security\SecurityManager;
 use App\Service\User\UserUpdater;
-use App\Service\Work\WorkManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +22,6 @@ class ProfileController extends AbstractAppController
     public function __construct(
         private readonly SecurityManager $securityManager,
         private readonly UserUpdater $userUpdater,
-        private readonly WorkManager $workManager
     ) {}
 
     #[Route(name: 'app_security_profile_index')]
@@ -63,25 +61,5 @@ class ProfileController extends AbstractAppController
         }
 
         return $this->redirect($redirectTo);
-    }
-
-    #[Route('/company', name: 'app_security_profile_company')]
-    public function company(): Response
-    {
-        $user = $this->securityManager->getConnectedUser();
-
-        return $this->render('company/show.html.twig', [
-            'company' => $user->getConnectedOn(),
-        ]);
-    }
-
-    #[Route('/works', name: 'app_security_profile_works')]
-    public function works(): Response
-    {
-        $user = $this->securityManager->getConnectedUser();
-
-        return $this->render('work/index.html.twig', [
-            'works' => $this->workManager->findByCompany($user->getConnectedOn()),
-        ]);
     }
 }

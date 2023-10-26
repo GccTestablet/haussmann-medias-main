@@ -18,7 +18,7 @@ class AcquisitionContractFixture extends AbstractFixture implements DependentFix
 
     private const ROWS = [
         self::WINNIE_THE_POOH => [
-            'name' => 'Winnie the Pooh',
+            'name' => 'HF - Winnie the Pooh',
             'company' => CompanyFixture::HAUSSMANN_MEDIAS,
             'beneficiary' => CompanyFixture::HKA_FILMS,
             'signedAt' => '2023-01-01',
@@ -27,7 +27,7 @@ class AcquisitionContractFixture extends AbstractFixture implements DependentFix
             'reportFrequency' => FrequencyEnum::MONTHLY,
         ],
         self::SNIPER_AND_MANEATER => [
-            'name' => 'Sniper and Maneater',
+            'name' => 'MW - Sniper and Maneater',
             'company' => CompanyFixture::CHROME_FILMS,
             'beneficiary' => CompanyFixture::MEDIAWAN,
             'signedAt' => '2023-01-01',
