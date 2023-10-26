@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-header text-end">
                                 <a href="{{ path('app_work_territory_manage', {'work': work.id}) }}" class="btn btn-sm btn-warning">
-                                    {% trans from 'work' %}Manage territories{% endtrans %}
+                                    {% trans from 'work' %}Manage territories and channels{% endtrans %}
                                 </a>
                             </div>
                             <div class="card-body">
@@ -51,7 +51,7 @@
                         <div class="card">
                             <div class="card-header text-end">
                                 <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
-                                    {% trans from 'work' %}Add adaptation{% endtrans %}
+                                    {% trans from 'work' %}Add distribution cost{% endtrans %}
                                 </a>
                             </div>
                             <div class="card-body">
@@ -64,7 +64,9 @@
                     <div class="tab-pane pull-x" id="work-reversions-tab" role="tabpanel" tabindex="0">
                         <div class="card">
                             <div class="card-header text-end">
-                                <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-sm btn-success">{% trans from 'work' %}Add reversion{% endtrans %}</a>
+                                <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
+                                    {% trans from 'work' %}Add reversion{% endtrans %}
+                                </a>
                             </div>
                             <div class="card-body">
                                 {% include 'work/reversion/_embedded/_list.html.twig' with {

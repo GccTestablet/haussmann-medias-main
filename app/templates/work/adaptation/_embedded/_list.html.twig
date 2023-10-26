@@ -2,20 +2,23 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Type</th>
-                <th>Coût</th>
-                <th>Comment</th>
-                <th>Action</th>
+                <th>{% trans from 'misc' %}Type{% endtrans %}</th>
+                <th>{% trans from 'misc' %}Cost{% endtrans %}</th>
+                <th>{% trans from 'misc' %}Comment{% endtrans %}</th>
+                <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
             {% for adaptation in adaptations %}
                 <tr>
-                    <td>{{ adaptation.type.name }}</td>
+                    <td>
+                        <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}">
+                            {{ adaptation.type.name }}
+                        </a>
+                    </td>
                     <td>{{ adaptation.amount|format_currency(adaptation.currency) }}</td>
                     <td>{{ adaptation.comment }}</td>
                     <td>
-                        <a href="{{ path('app_work_adaptation_show', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-primary">{% trans from 'misc' %}Show{% endtrans %}</a>
                         <a href="{{ path('app_work_adaptation_update', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-warning">{% trans from 'misc' %}Update{% endtrans %}</a>
                         <a href="{{ path('app_work_adaptation_remove', {'work': work.id, 'id': adaptation.id}) }}" class="btn btn-danger">{% trans from 'misc' %}Remove{% endtrans %}</a>
                     </td>

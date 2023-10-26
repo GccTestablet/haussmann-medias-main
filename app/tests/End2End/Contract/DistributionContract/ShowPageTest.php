@@ -31,7 +31,7 @@ class ShowPageTest extends AbstractEnd2EndTestCase
 
     public function testPageTitle(): void
     {
-        $this->assertPageContains('Contrat de distribution du distributeur Mediawan');
+        $this->assertPageContains('Contrat de sous-distribution du distributeur Mediawan');
     }
 
     public function testInfo(): void
@@ -42,24 +42,22 @@ class ShowPageTest extends AbstractEnd2EndTestCase
         $this->assertPageContains('Exclusivité:');
         $this->assertPageContains('Conditions commerciales:');
         $this->assertPageContains('Fréquence des rapports: Mensuel');
-        $this->assertPageContains('Files:');
+        $this->assertPageContains('Fichiers');
     }
 
     public function testWorkList(): void
     {
-        $this->assertPageContains('Ajouter une oeuvre');
+        $this->assertPageContains('Ajouter une œuvre');
         $this->assertTableContains('#distribution-contract-works-table', [
-            'INTERNAL ID', 'NOM', 'DÉBUTE LE', 'FINI LE', 'AMOUNT',
+            'ŒUVRE', 'DATE DE DÉBUT DE DROITS', 'DATE DE FIN DE DROITS', 'MONTANT',
         ], [
-            ['HAU000001', 'Winnie the Pooh', '01/01/2023', '31/12/2023', "50\u{202f}000,00 €"],
+            ['Winnie the Pooh', '01/01/2023', '31/12/2023', "50\u{202f}000,00 €"],
         ]);
 
         $this->iClickOnElement('[data-datatable--table-expand-work-param="1"]');
         $this->assertTableContains('#work-territories-table', [
             'TERRITORY', 'CHANNELS',
         ], [
-//            ['France', 'AVOD, SVOD'],
-//            ['United Kingdom', 'AVOD, SVOD, TVOD'],
         ]);
     }
 }

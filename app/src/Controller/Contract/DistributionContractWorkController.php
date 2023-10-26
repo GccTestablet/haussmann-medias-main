@@ -41,7 +41,7 @@ class DistributionContractWorkController extends AbstractAppController
         }
 
         return $this->render('shared/common/save.html.twig', [
-            'title' => 'Add work to distribution contract',
+            'title' => new TranslatableMessage('Add work to contract', [], 'contract'),
             'form' => $form,
         ]);
     }
@@ -70,7 +70,7 @@ class DistributionContractWorkController extends AbstractAppController
         }
 
         return $this->render('shared/common/save.html.twig', [
-            'title' => new TranslatableMessage('Update work %work% for distribution contract %contract%', [
+            'title' => new TranslatableMessage('Update work %work% for contract %contract%', [
                 '%work%' => $work->getName(),
                 '%contract%' => $contract->getName(),
             ], 'contract'),

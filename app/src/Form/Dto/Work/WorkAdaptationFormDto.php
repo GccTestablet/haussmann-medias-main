@@ -6,13 +6,17 @@ namespace App\Form\Dto\Work;
 
 use App\Entity\Setting\AdaptationCostType;
 use App\Entity\Work\WorkAdaptation;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkAdaptationFormDto
 {
+    #[Assert\NotBlank()]
     private ?AdaptationCostType $type = null;
 
+    #[Assert\NotBlank()]
     private ?float $amount = null;
 
+    #[Assert\NotBlank()]
     private ?string $currency = 'EUR';
 
     private ?string $comment = null;
