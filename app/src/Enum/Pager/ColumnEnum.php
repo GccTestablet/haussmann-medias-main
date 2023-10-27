@@ -14,6 +14,8 @@ enum ColumnEnum: string
     // Misc
     case ID = 'id';
     case NAME = 'name';
+    case STARTS_AT = 'startsAt';
+    case ENDS_AT = 'endsAt';
     case CREATED_AT = 'createdAt';
     case CREATED_BY = 'createdBy';
     case UPDATED_AT = 'updatedAt';
@@ -29,4 +31,7 @@ enum ColumnEnum: string
     case ACQUISITION_CONTRACT = 'acquisitionContract';
     case ACQUISITION_CONTRACT_NAME = 'acquisitionContractName';
     case BENEFICIARY = 'beneficiary';
+    case BENEFICIARIES = 'beneficiaries';
+    case WORKS = 'works';
+    case WORKS_COUNT = 'worksCount';
 }

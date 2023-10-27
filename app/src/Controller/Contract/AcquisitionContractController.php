@@ -15,6 +15,7 @@ use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Contract\AcquisitionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Model\Pager\Filter;
+use App\Pager\Contract\AcquisitionContractPager;
 use App\Pager\Contract\AcquisitionContractWorkPager;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Security\SecurityManager;
@@ -33,11 +34,12 @@ class AcquisitionContractController extends AbstractAppController
         private readonly UploadFileManager $uploadFileManager,
         private readonly AcquisitionContractFormHandler $formHandler,
         private readonly AcquisitionContractFormDtoFactory $formDtoFactory,
-        private readonly AcquisitionContractWorkPager $acquisitionContractWorkPager
+        private readonly AcquisitionContractPager $acquisitionContractPager,
+        private readonly AcquisitionContractWorkPager $acquisitionContractWorkPager,
     ) {}
 
     #[Route(name: 'app_acquisition_contract_index')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $user = $this->securityManager->getConnectedUser();
         $company = $user->getConnectedOn();
@@ -45,9 +47,16 @@ class AcquisitionContractController extends AbstractAppController
             $this->createAccessDeniedException('You must be connected on a company to access this page');
         }
 
+        $pagerResponse = $this->pagerManager->create(
+            $this->acquisitionContractPager,
+            $request,
+            [
+                new Filter(ColumnEnum::COMPANY, $company),
+            ]
+        );
+
         return $this->render('acquisition_contract/index.html.twig', [
-            'company' => $company,
-            'contracts' => $company->getAcquisitionContracts(),
+            'pagerResponse' => $pagerResponse,
         ]);
     }
 

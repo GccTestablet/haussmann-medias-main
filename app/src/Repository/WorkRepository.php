@@ -9,7 +9,6 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
 use App\Repository\Shared\PagerRepositoryInterface;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -23,16 +22,13 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
 
         foreach ($criteria as $field => $value) {
             $enum = ColumnEnum::tryFrom($field);
-            if ($value instanceof Collection && 0 === $value->count()) {
-                continue;
-            }
 
             match ($enum) {
                 ColumnEnum::INTERNAL_ID => $queryBuilder
-                    ->andWhere('w.internalId LIKE :internalId')
+                    ->andWhere('LOWER(w.internalId) LIKE LOWER(:internalId)')
                     ->setParameter('internalId', \sprintf('%%%s%%', $value)),
                 ColumnEnum::NAME => $queryBuilder
-                    ->andWhere('w.name LIKE :name OR w.originalName LIKE :name')
+                    ->andWhere('LOWER(w.name) LIKE LOWER(:name) OR LOWER(w.originalName) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),
                 ColumnEnum::COMPANY => $queryBuilder
                     ->andWhere('ac.company = :company')
@@ -41,9 +37,9 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                     ->andWhere('w.acquisitionContract = :acquisitionContract')
                     ->setParameter('acquisitionContract', $value),
                 ColumnEnum::ACQUISITION_CONTRACT_NAME => $queryBuilder
-                    ->andWhere('ac.name LIKE :acquisitionContractName')
+                    ->andWhere('LOWER(ac.name) LIKE LOWER(:acquisitionContractName)')
                     ->setParameter('acquisitionContractName', \sprintf('%%%s%%', $value)),
-                ColumnEnum::BENEFICIARY => $queryBuilder
+                ColumnEnum::BENEFICIARIES => $queryBuilder
                     ->andWhere('ac.beneficiary IN (:beneficiaries)')
                     ->setParameter('beneficiaries', $value),
                 default => null,

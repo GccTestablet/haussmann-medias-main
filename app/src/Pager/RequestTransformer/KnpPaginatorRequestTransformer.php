@@ -6,6 +6,7 @@ namespace App\Pager\RequestTransformer;
 
 use App\Model\Pager\Filter;
 use App\Pager\Shared\PagerInterface;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -29,10 +30,12 @@ class KnpPaginatorRequestTransformer extends AbstractRequestTransformer
 
         if (\is_array($form->getData())) {
             foreach ($form->getData() as $key => $value) {
-                if ($value) {
-                    $this->addFilteredBy([$key => $value]);
-                    $this->isFiltered = true;
+                if (!$value || ($value instanceof Collection && 0 === $value->count())) {
+                    continue;
                 }
+
+                $this->addFilteredBy([$key => $value]);
+                $this->isFiltered = true;
             }
 
             $this->pager->setForm($form);
