@@ -49,6 +49,7 @@ class PagerManager
         $pagination->setTotalItemCount($pager->getItemsCount());
         $pagination->setCustomParameters([
             'size' => 'small',
+            'isFiltered' => $requestTransformer->isFiltered(),
         ]);
 
         return new PagerResponse(

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BasePagerType extends AbstractType
+class BasePagerFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,13 +20,13 @@ class BasePagerType extends AbstractType
         $pagerDefaultData = $options['pager_default_data'];
 
         $builder
-            ->add(ColumnEnum::SORT->name, HiddenType::class, [
+            ->add(ColumnEnum::SORT->value, HiddenType::class, [
                 'data' => \key($pagerDefaultData),
             ])
-            ->add(ColumnEnum::DIRECTION->name, HiddenType::class, [
+            ->add(ColumnEnum::DIRECTION->value, HiddenType::class, [
                 'data' => \current($pagerDefaultData),
             ])
-            ->add(ColumnEnum::PAGE->name, HiddenType::class, [
+            ->add(ColumnEnum::PAGE->value, HiddenType::class, [
                 'data' => 1,
             ])
         ;
@@ -36,7 +36,7 @@ class BasePagerType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'pager',
+                'translation_domain' => 'misc',
                 'csrf_protection' => false,
                 'required' => false,
                 'mapped' => false,

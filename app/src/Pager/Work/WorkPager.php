@@ -6,6 +6,7 @@ namespace App\Pager\Work;
 
 use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
+use App\Form\Type\Pager\Work\WorkPagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
 use App\Model\Pager\Field\IconField;
@@ -22,6 +23,8 @@ class WorkPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-pager-work';
     protected static array $defaultSort = [ColumnEnum::INTERNAL_ID->value => 'ASC'];
+
+    protected static string $formType = WorkPagerFormType::class;
 
     protected static array $columns = [
         ColumnEnum::EXTRA,

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Pager\Shared;
 
 use App\Enum\Pager\ColumnEnum;
-use App\Form\Type\Pager\Shared\BasePagerType;
+use App\Form\Type\Pager\Shared\BasePagerFormType;
 use App\Model\Pager\Column;
 use App\Tools\Parser\ArrayParser;
 use App\Tools\Parser\StringParser;
@@ -30,7 +30,7 @@ abstract class AbstractPager implements PagerInterface
 
     protected static ?string $pagerId = null;
 
-    protected static string $formType = BasePagerType::class;
+    protected static string $formType = BasePagerFormType::class;
 
     /**
      * @var array<string, string>

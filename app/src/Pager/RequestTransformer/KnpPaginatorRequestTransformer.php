@@ -31,6 +31,7 @@ class KnpPaginatorRequestTransformer extends AbstractRequestTransformer
             foreach ($form->getData() as $key => $value) {
                 if ($value) {
                     $this->addFilteredBy([$key => $value]);
+                    $this->isFiltered = true;
                 }
             }
 

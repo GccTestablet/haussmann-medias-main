@@ -9,6 +9,7 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
 use App\Repository\Shared\PagerRepositoryInterface;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
@@ -22,13 +23,29 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
 
         foreach ($criteria as $field => $value) {
             $enum = ColumnEnum::tryFrom($field);
+            if ($value instanceof Collection && 0 === $value->count()) {
+                continue;
+            }
+
             match ($enum) {
+                ColumnEnum::INTERNAL_ID => $queryBuilder
+                    ->andWhere('w.internalId LIKE :internalId')
+                    ->setParameter('internalId', \sprintf('%%%s%%', $value)),
+                ColumnEnum::NAME => $queryBuilder
+                    ->andWhere('w.name LIKE :name OR w.originalName LIKE :name')
+                    ->setParameter('name', \sprintf('%%%s%%', $value)),
                 ColumnEnum::COMPANY => $queryBuilder
                     ->andWhere('ac.company = :company')
                     ->setParameter('company', $value),
                 ColumnEnum::ACQUISITION_CONTRACT => $queryBuilder
                     ->andWhere('w.acquisitionContract = :acquisitionContract')
                     ->setParameter('acquisitionContract', $value),
+                ColumnEnum::ACQUISITION_CONTRACT_NAME => $queryBuilder
+                    ->andWhere('ac.name LIKE :acquisitionContractName')
+                    ->setParameter('acquisitionContractName', \sprintf('%%%s%%', $value)),
+                ColumnEnum::BENEFICIARY => $queryBuilder
+                    ->andWhere('ac.beneficiary IN (:beneficiaries)')
+                    ->setParameter('beneficiaries', $value),
                 default => null,
             };
         }

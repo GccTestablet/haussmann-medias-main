@@ -21,11 +21,14 @@ Minimum guaranteed before reversion: Minimum garanti
 Minimum cost of the top before reversion: Plafond des frais recoupables
 Manage territory and channels from work %work%: Gérer les territoires et canaux pour l’œuvre
 
-Internal Id: Id interne
+Internal Id: ID interne
 Imdb: IMDB
 Imdb id: ID IMDB
 Name: Titre français
 Original name: Titre original
+Title (French or original): Titre (Français ou original)
+Acquisition contract name: Nom du contrat d'acquisition
+Acquisition contract beneficiary: Ayant-droit du contrat d'acquisition
 Year: Année de production
 Duration: Durée
 Contract: Contrat

@@ -24,6 +24,8 @@ class AbstractRequestTransformer
 
     protected int $page = 1;
 
+    protected bool $isFiltered = false;
+
     public function isInitialized(): bool
     {
         return $this->isInitialized;
@@ -65,6 +67,6 @@ class AbstractRequestTransformer
 
     public function isFiltered(): bool
     {
-        return \count($this->filteredBy) > 0;
+        return $this->isFiltered;
     }
 }
