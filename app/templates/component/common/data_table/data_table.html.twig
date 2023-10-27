@@ -69,6 +69,13 @@
                 </tr>
             {% endif %}
             </tbody>
+            <tfoot>
+                <tr>
+                    {% for column in computed.visibleColumns %}
+                        <th>{{ pager.footer[column.id.value] ?? '' }}</th>
+                    {% endfor %}
+                </tr>
+            </tfoot>
         </table>
     </div>
 

@@ -9,8 +9,9 @@ use App\Enum\Pager\ColumnEnum;
 use App\Form\Type\Pager\Contract\DistributionContractWorkRevenuePagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
+use App\Model\Pager\Field\AmountField;
 use App\Pager\Shared\AbstractPager;
-use App\Repository\Shared\PagerRepositoryInterface;
+use App\Repository\Contract\DistributionContractWorkRevenueRepository;
 use App\Tools\Parser\DateParser;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -33,6 +34,15 @@ class DistributionContractRevenuePager extends AbstractPager
     public function buildQuery(array $criteria = [], array $orderBy = [], int $limit = self::DEFAULT_LIMIT, int $offset = self::DEFAULT_OFFSET): void
     {
         $this->query = $this->getRepository()->getPagerQueryBuilder($criteria, $orderBy, $limit, $offset);
+    }
+
+    public function getFooter(): array
+    {
+        $sum = $this->getRepository()->getFilteredTotalAmount($this->query);
+
+        return [
+            ColumnEnum::AMOUNT->value => $sum.' €',
+        ];
     }
 
     protected function configureColumnSchema(): void
@@ -71,12 +81,15 @@ class DistributionContractRevenuePager extends AbstractPager
                 header: new ColumnHeader(
                     callback: fn () => new TranslatableMessage('Amount', [], 'misc'),
                 ),
-                callback: fn (DistributionContractWorkRevenue $revenue) => $revenue->getAmount(),
+                callback: fn (DistributionContractWorkRevenue $revenue) => new AmountField($revenue->getAmount(), $revenue->getCurrency()),
             ),
         ];
     }
 
-    private function getRepository(): PagerRepositoryInterface|EntityRepository
+    /**
+     * @return DistributionContractWorkRevenueRepository|EntityRepository<DistributionContractWorkRevenue>
+     */
+    private function getRepository(): DistributionContractWorkRevenueRepository|EntityRepository
     {
         return $this->entityManager->getRepository(DistributionContractWorkRevenue::class);
     }

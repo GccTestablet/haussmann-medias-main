@@ -59,4 +59,15 @@ class DistributionContractWorkRevenueRepository extends EntityRepository impleme
             ->setMaxResults($limit)
         ;
     }
+
+    public function getFilteredTotalAmount(QueryBuilder $queryBuilder): int
+    {
+        return (int) $queryBuilder
+            ->resetDQLPart('orderBy')
+            ->select('SUM(dcwr.amount) as total')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

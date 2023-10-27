@@ -65,6 +65,17 @@ abstract class AbstractPager implements PagerInterface
     }
 
     /**
+     * Returns a list of column with their values to display in pager footer.
+     * Can be empty.
+     *
+     * @return array<string, string>
+     */
+    public function getFooter(): array
+    {
+        return [];
+    }
+
+    /**
      * @return array<mixed>
      */
     public function getItems(): array

@@ -1,3 +1,7 @@
+{% block pager_amount %}
+    {{ viewData.amount|format_currency(viewData.currency) }}
+{% endblock %}
+
 {% block pager_icon %}
     {% set attributes = viewData.attributes|merge({
         'class': 'fa fa-' ~ viewData.icon ~ ' ' ~ viewData.attributes.class|default('')
