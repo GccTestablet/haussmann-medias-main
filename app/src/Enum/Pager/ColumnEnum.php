@@ -28,6 +28,7 @@ enum ColumnEnum: string
     case COMPANY = 'company';
 
     // Contract
+    case SIGNED_AT = 'signedAt';
     case ACQUISITION_CONTRACT = 'acquisitionContract';
     case ACQUISITION_CONTRACT_NAME = 'acquisitionContractName';
     case BENEFICIARY = 'beneficiary';

@@ -36,6 +36,10 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
                 ColumnEnum::WORKS => $queryBuilder
                     ->andWhere('w IN (:works)')
                     ->setParameter('works', $value),
+                ColumnEnum::SIGNED_AT => $queryBuilder
+                    ->andWhere('ac.signedAt BETWEEN :signedAtFrom AND :signedAtTo')
+                    ->setParameter('signedAtFrom', $value->getFrom())
+                    ->setParameter('signedAtTo', $value->getTo()),
                 ColumnEnum::STARTS_AT => $queryBuilder
                     ->andWhere('ac.startsAt BETWEEN :startsAtFrom AND :startsAtTo')
                     ->setParameter('startsAtFrom', $value->getFrom())
@@ -53,6 +57,7 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
             match ($enum) {
                 ColumnEnum::NAME => $queryBuilder->orderBy('ac.name', $direction),
                 ColumnEnum::BENEFICIARY => $queryBuilder->orderBy('b.name', $direction),
+                ColumnEnum::SIGNED_AT => $queryBuilder->orderBy('ac.signedAt', $direction),
                 ColumnEnum::STARTS_AT => $queryBuilder->orderBy('ac.startsAt', $direction),
                 ColumnEnum::ENDS_AT => $queryBuilder->orderBy('ac.endsAt', $direction),
                 default => null,

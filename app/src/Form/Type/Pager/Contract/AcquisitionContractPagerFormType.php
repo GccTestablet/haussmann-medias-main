@@ -32,6 +32,9 @@ class AcquisitionContractPagerFormType extends BasePagerFormType
                 'translation_domain' => 'work',
                 'multiple' => true,
             ])
+            ->add(ColumnEnum::SIGNED_AT->value, DateRangeType::class, [
+                'label' => 'Signed at',
+            ])
             ->add(ColumnEnum::STARTS_AT->value, DateRangeType::class, [
                 'label' => 'Rights starts at',
             ])

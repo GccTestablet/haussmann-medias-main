@@ -30,7 +30,7 @@ class WorkPagerFormType extends BasePagerFormType
                     'class' => 'col-sm-6 col-lg-3',
                 ],
             ])
-            ->add(ColumnEnum::ACQUISITION_CONTRACT->value, TextType::class, [
+            ->add(ColumnEnum::ACQUISITION_CONTRACT_NAME->value, TextType::class, [
                 'label' => 'Acquisition contract name',
                 'row_attr' => [
                     'class' => 'col-sm-6 col-lg-3',
