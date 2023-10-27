@@ -22,7 +22,7 @@ use Twig\Environment;
 class WorkPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-pager-work';
-    protected static array $defaultSort = [ColumnEnum::INTERNAL_ID->value => 'ASC'];
+    protected static array $defaultSort = [ColumnEnum::NAME->value => 'ASC'];
 
     protected static string $formType = WorkPagerFormType::class;
 
@@ -30,7 +30,7 @@ class WorkPager extends AbstractPager
         ColumnEnum::EXTRA,
         ColumnEnum::INTERNAL_ID,
         ColumnEnum::NAME,
-        ColumnEnum::CONTRACT,
+        ColumnEnum::ACQUISITION_CONTRACT,
         ColumnEnum::ACTIONS,
     ];
 
@@ -92,7 +92,7 @@ class WorkPager extends AbstractPager
                 callback: fn (Work $work) => $work->getName(),
             ),
             new Column(
-                id: ColumnEnum::CONTRACT,
+                id: ColumnEnum::ACQUISITION_CONTRACT,
                 header: new ColumnHeader(
                     callback: fn () => new TranslatableMessage('Contract', [], 'work')
                 ),

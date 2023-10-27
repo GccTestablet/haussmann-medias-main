@@ -55,7 +55,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
             match ($enum) {
                 ColumnEnum::INTERNAL_ID => $queryBuilder->addOrderBy('w.internalId', $direction),
                 ColumnEnum::NAME => $queryBuilder->addOrderBy('w.name', $direction),
-                ColumnEnum::CONTRACT => $queryBuilder->addOrderBy('ac.name', $direction),
+                ColumnEnum::ACQUISITION_CONTRACT => $queryBuilder->addOrderBy('ac.name', $direction),
                 default => null,
             };
         }
