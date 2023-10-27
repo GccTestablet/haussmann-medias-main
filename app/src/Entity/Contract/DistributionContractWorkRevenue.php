@@ -7,10 +7,11 @@ namespace App\Entity\Contract;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Repository\Contract\DistributionContractWorkRevenueRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: DistributionContractWorkRevenueRepository::class)]
 #[ORM\Table(name: 'distribution_contract_work_revenues')]
 class DistributionContractWorkRevenue
 {

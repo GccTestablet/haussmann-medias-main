@@ -8,10 +8,13 @@ use App\Controller\Shared\AbstractAppController;
 use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\User;
+use App\Enum\Pager\ColumnEnum;
 use App\Form\Dto\Contract\DistributionContractFormDto;
 use App\Form\DtoFactory\Contract\DistributionContractFormDtoFactory;
 use App\Form\Handler\Contract\DistributionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
+use App\Model\Pager\Filter;
+use App\Pager\Contract\DistributionContractRevenuePager;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Contract\DistributionContractWorkManager;
 use App\Service\Contract\DistributionContractWorkRevenueImporter;
@@ -33,7 +36,8 @@ class DistributionContractController extends AbstractAppController
         private readonly DistributionContractWorkRevenueImporter $distributionContractTemplateGenerator,
         private readonly DistributionContractWorkManager $distributionContractWorkManager,
         private readonly DistributionContractFormDtoFactory $formDtoFactory,
-        private readonly DistributionContractFormHandler $formHandler
+        private readonly DistributionContractFormHandler $formHandler,
+        private readonly DistributionContractRevenuePager $distributionContractRevenuePager
     ) {}
 
     #[Route(name: 'app_distribution_contract_index')]
@@ -51,10 +55,24 @@ class DistributionContractController extends AbstractAppController
         ]);
     }
 
-    #[Route(path: '/{id}', name: 'app_distribution_contract_show', requirements: ['id' => '\d+'])]
-    public function show(DistributionContract $contract): Response
+    #[Route(path: '/{id}/{tab}', name: 'app_distribution_contract_show', requirements: ['id' => '\d+', 'tab' => 'works|revenues'], defaults: ['tab' => null])]
+    public function show(Request $request, DistributionContract $contract, string $tab = null): Response
     {
-        return $this->render('distribution_contract/show.html.twig', [
+        if (!$tab) {
+            return $this->redirectToRoute('app_distribution_contract_show', ['id' => $contract->getId(), 'tab' => 'works']);
+        }
+
+        $revenuePagerResponse = $this->pagerManager->create(
+            $this->distributionContractRevenuePager,
+            $request,
+            [
+                new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract),
+            ]
+        );
+
+        return $this->render(\sprintf('distribution_contract/tab/%s.html.twig', $tab), [
+            'revenuePagerResponse' => $revenuePagerResponse,
+            'tab' => $tab,
             'contract' => $contract,
             'contractWorks' => $this->distributionContractWorkManager->findByDistributionContract($contract),
         ]);

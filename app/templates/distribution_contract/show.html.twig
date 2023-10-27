@@ -15,50 +15,20 @@
     <div class="row">
         <div class="col-xxl-8">
             <div class="card mb-3">
-                <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#distribution-contracts-works-tab" role="tab" aria-selected="true">
+                <ul class="nav nav-tabs nav-tabs-alt align-items-center">
+                    <li class="nav-item">
+                        <a href="{{ path('app_distribution_contract_show', {'id': contract.id, 'tab': 'works'}) }}" class="nav-link {{ 'works' == tab ? 'active' }}">
                             {% trans from 'work' %}Works{% endtrans %}
-                        </button>
+                        </a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#distribution-contracts-revenues-tab" role="tab" aria-selected="false" tabindex="-1">
+                    <li class="nav-item">
+                        <a href="{{ path('app_distribution_contract_show', {'id': contract.id, 'tab': 'revenues'}) }}" class="nav-link {{ 'revenues' == tab ? 'active' }}">
                             {% trans from 'work' %}Revenues{% endtrans %}
-                        </button>
+                        </a>
                     </li>
                 </ul>
-                <div class="card-body tab-content">
-                    <div class="tab-pane pull-x active show" id="distribution-contracts-works-tab" role="tabpanel" tabindex="0">
-                        <div class="card">
-                            <div class="card-header text-end">
-                                <a href="{{ path('app_distribution_contract_work_add', {'contract': contract.id}) }}" class="btn btn-sm btn-success">
-                                    {% trans from 'work' %}Add work{% endtrans %}
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                {% include 'distribution_contract/_embedded/_work_list.html.twig' with {
-                                    contract: contract,
-                                } %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane pull-x" id="distribution-contracts-revenues-tab" role="tabpanel" tabindex="0">
-                        <div class="card">
-                            <div class="card-header text-end">
-                                <a href="{{ path('app_distribution_contract_generate_template', {'id': contract.id}) }}" class="btn btn-sm btn-primary">
-                                    {% trans from 'contract' %}Download CSV template{% endtrans %}
-                                </a>
-                                <a href="{{ path('app_distribution_contract_work_revenue_import', {'contract': contract.id}) }}" class="btn btn-sm btn-success">
-                                    {% trans from 'contract' %}Import revenues{% endtrans %}
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                {% include 'distribution_contract/_embedded/_revenue_list.html.twig' with {
-                                    contract: contract,
-                                } %}
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    {% block content_inner %}{% endblock %}
                 </div>
             </div>
         </div>
