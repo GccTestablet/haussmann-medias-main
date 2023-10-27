@@ -41,6 +41,7 @@
     "format:prettier": "prettier --write '**/*.{js,jsx,ts,tsx,css,scss,json,yaml}'"
   },
   "dependencies": {
+    "@easepick/bundle": "^1.2.1",
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@popperjs/core": "^2.11.8",
     "@sentry/browser": "^7.74.1",

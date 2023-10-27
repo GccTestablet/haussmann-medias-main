@@ -47,7 +47,7 @@ class DateParserTest extends AbstractTestCase
 
         $this->assertSame(
             $dateTime->format(DateParser::DATETIME_FORMAT),
-            $this->dateParser->createFromMixed('2023-01-13 14:30:00')->format(DateParser::DATETIME_FORMAT)
+            $this->dateParser->createFromMixed('2023-01-13 14:30:00', DateParser::DATETIME_FORMAT)->format(DateParser::DATETIME_FORMAT)
         );
 
         $this->assertNull($this->dateParser->createFromMixed(null));

@@ -26,7 +26,7 @@ class DateParser
         }
     }
 
-    public function createFromMixed(mixed $date): ?\DateTime
+    public function createFromMixed(mixed $date, string $format = self::FR_DATE_FORMAT): ?\DateTime
     {
         if ($date instanceof \DateTime) {
             return $date;
@@ -37,7 +37,7 @@ class DateParser
         }
 
         if (\is_string($date)) {
-            return $this->getDateTime($date);
+            return \DateTime::createFromFormat($format, $date);
         }
 
         return null;
