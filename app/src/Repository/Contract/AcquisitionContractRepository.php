@@ -16,7 +16,8 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
         $queryBuilder = $this->createQueryBuilder('ac')
             ->innerJoin('ac.beneficiary', 'b')
             ->leftJoin('ac.works', 'w')
-            ->groupBy('ac.id')
+            ->groupBy('ac')
+            ->addGroupBy('b')
         ;
 
         foreach ($criteria as $field => $value) {
@@ -50,15 +51,10 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
         foreach ($orderBy as $field => $direction) {
             $enum = ColumnEnum::tryFrom($field);
             match ($enum) {
-                ColumnEnum::NAME => $queryBuilder->addOrderBy('ac.name', $direction),
-                ColumnEnum::BENEFICIARY => $queryBuilder->addOrderBy('b.name', $direction),
-                ColumnEnum::STARTS_AT => $queryBuilder->addOrderBy('ac.startsAt', $direction),
-                ColumnEnum::ENDS_AT => $queryBuilder->addOrderBy('ac.endsAt', $direction),
-                ColumnEnum::WORKS_COUNT => $queryBuilder
-                    ->addSelect('COUNT(w.id) AS HIDDEN worksCount')
-                    ->addOrderBy('worksCount', $direction)
-                    ->addGroupBy('w.id'),
-
+                ColumnEnum::NAME => $queryBuilder->orderBy('ac.name', $direction),
+                ColumnEnum::BENEFICIARY => $queryBuilder->orderBy('b.name', $direction),
+                ColumnEnum::STARTS_AT => $queryBuilder->orderBy('ac.startsAt', $direction),
+                ColumnEnum::ENDS_AT => $queryBuilder->orderBy('ac.endsAt', $direction),
                 default => null,
             };
         }

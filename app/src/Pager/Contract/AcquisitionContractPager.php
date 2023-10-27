@@ -83,6 +83,7 @@ class AcquisitionContractPager extends AbstractPager
                 id: ColumnEnum::WORKS_COUNT,
                 header: new ColumnHeader(
                     callback: fn () => new TranslatableMessage('Works', [], 'work'),
+                    sortable: false,
                 ),
                 callback: fn (AcquisitionContract $contract) => $contract->getWorks()->count(),
             ),
