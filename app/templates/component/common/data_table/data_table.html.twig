@@ -3,8 +3,26 @@
 {% set pager = pagerResponse.pager %}
 {% set pagination = pagerResponse.pagination %}
 {% set displayedColumns = pagerResponse.pager.columns %}
+{% set form = pagerResponse.pager.form.createView %}
+{% set isFiltered = pagination.customParameters.isFiltered %}
+
+{% if block('filters') is not empty %}
+    <div class="card mb-2" data-controller="form--reset">
+        <div class="card-header">
+            <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ pager.pagerId }}-filters" aria-expanded="{{ isFiltered ? 'true' : 'false' }}">
+                {% trans from 'misc' %}Show filters{% endtrans %}
+            </button>
+        </div>
+        <div class="card-body p-0">
+            <div class="collapse {{ isFiltered ? 'collapse show' }} p-2" id="{{ pager.pagerId }}-filters">
+                {% block filters %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endif %}
 
 <div id="{{ pager.pagerId }}-block" class="card mb-0">
+
     <div class="card-header d-sm-flex align-items-center justify-content-between p-2">
         <div class="card-title">
             {% trans with {

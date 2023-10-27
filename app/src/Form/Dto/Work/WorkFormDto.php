@@ -12,12 +12,16 @@ class WorkFormDto
     private ?string $internalId = null;
 
     #[Assert\Regex('/^tt[0-9]*$/')]
+    #[Assert\NotBlank]
     private ?string $imdbId = null;
 
+    #[Assert\NotBlank]
     private ?string $name = null;
 
+    #[Assert\NotBlank]
     private ?string $originalName = null;
 
+    #[Assert\NotBlank]
     private ?string $country = null;
 
     private ?float $minimumGuaranteedBeforeReversion = null;

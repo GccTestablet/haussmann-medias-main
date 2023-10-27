@@ -4,8 +4,28 @@
     {% trans from 'work' %}List of works{% endtrans %}
 {% endblock %}
 {% block content %}
-    {{ component('data_table', {
-        pagerResponse: pagerResponse,
-        options: options ?? {}
-    }) }}
+    {% component data_table with {
+        pagerResponse: pagerResponse
+    } %}
+        {% block filters %}
+            {% set form = pagerResponse.pager.form.createView %}
+            {{ form_start(form, {'attr': {'class': 'row'}}) }}
+            {{ form_rest(form) }}
+
+            <div class="mt-3">
+                <button class="btn btn-sm btn-primary" type="submit">
+                    {% trans from 'misc' %}Search{% endtrans %}
+                </button>
+
+                <button class="btn btn-sm btn-danger" data-form--reset-target="button">
+                    {% trans from 'misc' %}Reset{% endtrans %}
+                </button>
+            </div>
+            {{ form_end(form) }}
+        {% endblock %}
+    {% endcomponent %}
+{#    {{ component('data_table', {#}
+{#        pagerResponse: pagerResponse,#}
+{#        options: options ?? {}#}
+{#    }) }}#}
 {% endblock %}

@@ -27,4 +27,6 @@ enum ColumnEnum: string
 
     // Contract
     case ACQUISITION_CONTRACT = 'acquisitionContract';
+    case ACQUISITION_CONTRACT_NAME = 'acquisitionContractName';
+    case BENEFICIARY = 'beneficiary';
 }

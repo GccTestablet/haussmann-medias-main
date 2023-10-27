@@ -21,6 +21,8 @@ interface PagerInterface
      */
     public function buildQuery(array $criteria = [], array $orderBy = [], int $limit = self::DEFAULT_LIMIT, int $offset = self::DEFAULT_OFFSET): void;
 
+    public function getPagerId(): string;
+
     /**
      * @return array<Column>
      */
