@@ -14,6 +14,7 @@ use App\Form\DtoFactory\Contract\DistributionContractFormDtoFactory;
 use App\Form\Handler\Contract\DistributionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Model\Pager\Filter;
+use App\Model\Pager\FilterCollection;
 use App\Pager\Contract\DistributionContractRevenuePager;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Contract\DistributionContractWorkManager;
@@ -65,9 +66,8 @@ class DistributionContractController extends AbstractAppController
         $revenuePagerResponse = $this->pagerManager->create(
             $this->distributionContractRevenuePager,
             $request,
-            [
-                new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract),
-            ]
+            (new FilterCollection())
+                ->addFilter(new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract)),
         );
 
         return $this->render(\sprintf('distribution_contract/tab/%s.html.twig', $tab), [

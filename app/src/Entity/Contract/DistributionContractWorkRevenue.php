@@ -27,7 +27,7 @@ class DistributionContractWorkRevenue
     #[ORM\JoinColumn(name: 'distribution_contract_work_id', referencedColumnName: 'id', nullable: false)]
     private DistributionContractWork $contractWork;
 
-    #[ORM\ManyToOne(targetEntity: BroadcastChannel::class)]
+    #[ORM\ManyToOne(targetEntity: BroadcastChannel::class, inversedBy: 'distributionContractWorkRevenues')]
     #[ORM\JoinColumn(name: 'broadcast_channel_id', referencedColumnName: 'id', nullable: false)]
     private BroadcastChannel $broadcastChannel;
 

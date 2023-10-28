@@ -15,6 +15,7 @@ use App\Form\Handler\Common\RemoveFormHandler;
 use App\Form\Handler\Contract\AcquisitionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Model\Pager\Filter;
+use App\Model\Pager\FilterCollection;
 use App\Pager\Contract\AcquisitionContractPager;
 use App\Pager\Contract\AcquisitionContractWorkPager;
 use App\Security\Voter\CompanyVoter;
@@ -50,9 +51,8 @@ class AcquisitionContractController extends AbstractAppController
         $pagerResponse = $this->pagerManager->create(
             $this->acquisitionContractPager,
             $request,
-            [
-                new Filter(ColumnEnum::COMPANY, $company),
-            ]
+            (new FilterCollection())
+                ->addFilter(new Filter(ColumnEnum::COMPANY, $company))
         );
 
         return $this->render('acquisition_contract/index.html.twig', [
@@ -66,9 +66,8 @@ class AcquisitionContractController extends AbstractAppController
         $workPagerResponse = $this->pagerManager->create(
             $this->acquisitionContractWorkPager,
             $request,
-            [
-                new Filter(ColumnEnum::ACQUISITION_CONTRACT, $contract),
-            ]
+            (new FilterCollection())
+                ->addFilter(new Filter(ColumnEnum::ACQUISITION_CONTRACT, $contract))
         );
 
         return $this->render('acquisition_contract/show.html.twig', [

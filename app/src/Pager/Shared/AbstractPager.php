@@ -7,6 +7,7 @@ namespace App\Pager\Shared;
 use App\Enum\Pager\ColumnEnum;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
 use App\Model\Pager\Column;
+use App\Model\Pager\FilterCollection;
 use App\Tools\Parser\ArrayParser;
 use App\Tools\Parser\StringParser;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,12 +54,13 @@ abstract class AbstractPager implements PagerInterface
 
     protected Query|QueryBuilder|null $query = null;
 
-    public function init(Request $request): void
+    public function init(Request $request, FilterCollection $filters): void
     {
         $this->request = $request;
         $this->form = $this->formFactory->create(static::$formType, null, [
             'action' => $this->request->getRequestUri(),
             'pager_default_data' => static::$defaultSort,
+            'filters' => $filters,
         ]);
 
         $this->configureColumnSchema();

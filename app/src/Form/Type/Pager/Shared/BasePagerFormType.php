@@ -43,6 +43,7 @@ class BasePagerFormType extends AbstractType
                 'method' => Request::METHOD_GET,
                 'allow_extra_fields' => true,
                 'pager_default_data' => [],
+                'filters' => [],
             ])
         ;
     }

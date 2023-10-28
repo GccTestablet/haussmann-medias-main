@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pager\RequestTransformer;
 
-use App\Model\Pager\Filter;
+use App\Model\Pager\FilterCollection;
 use App\Pager\Shared\PagerInterface;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,12 +16,9 @@ class KnpPaginatorRequestTransformer extends AbstractRequestTransformer
         private readonly PagerInterface $pager
     ) {}
 
-    /**
-     * @param Filter[] $filters
-     */
-    public function createFromRequest(Request $request, array $filters = []): void
+    public function createFromRequest(Request $request, FilterCollection $filterCollection): void
     {
-        foreach ($filters as $filter) {
+        foreach ($filterCollection->getFilters() as $filter) {
             $this->addFilteredBy([$filter->getColumn()->value => $filter->getValue()]);
         }
 
