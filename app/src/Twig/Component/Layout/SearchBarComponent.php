@@ -43,7 +43,7 @@ class SearchBarComponent
         $workResult = new SearchBarCategoryResult(new TranslatableMessage('Works', [], 'work'), $paginator->count());
         foreach ($paginator->getIterator() as $work) {
             $resultDTO = new SearchBarResult(
-                $work->getOriginalName(),
+                $work->getName(),
                 $this->urlGenerator->generate('app_work_show', ['id' => $work->getId()])
             );
 
