@@ -1,0 +1,16 @@
+{% extends 'work/show.html.twig' %}
+
+{% block content_inner %}
+    <div class="card">
+        <div class="card-header text-end">
+            <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
+                {% trans from 'work' %}Add distribution cost{% endtrans %}
+            </a>
+        </div>
+        <div class="card-body">
+            {% include 'work/adaptation/_embedded/_list.html.twig' with {
+                adaptations: work.workAdaptations
+            } %}
+        </div>
+    </div>
+{% endblock %}

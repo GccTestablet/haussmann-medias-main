@@ -1,0 +1,16 @@
+{% extends 'work/show.html.twig' %}
+
+{% block content_inner %}
+    <div class="card">
+        <div class="card-header text-end">
+            <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
+                {% trans from 'work' %}Add reversion{% endtrans %}
+            </a>
+        </div>
+        <div class="card-body">
+            {% include 'work/reversion/_embedded/_list.html.twig' with {
+                reversions: work.workReversions
+            } %}
+        </div>
+    </div>
+{% endblock %}

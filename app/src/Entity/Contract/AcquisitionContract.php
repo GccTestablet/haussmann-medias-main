@@ -50,6 +50,9 @@ class AcquisitionContract
     #[ORM\Column(length: 20, nullable: true, enumType: FrequencyEnum::class)]
     private ?FrequencyEnum $reportFrequency = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $reportFrequencyComment = null;
+
     /**
      * @var Collection<AcquisitionContractFile>
      */
@@ -160,6 +163,18 @@ class AcquisitionContract
     public function setReportFrequency(?FrequencyEnum $reportFrequency): static
     {
         $this->reportFrequency = $reportFrequency;
+
+        return $this;
+    }
+
+    public function getReportFrequencyComment(): ?string
+    {
+        return $this->reportFrequencyComment;
+    }
+
+    public function setReportFrequencyComment(?string $reportFrequencyComment): static
+    {
+        $this->reportFrequencyComment = $reportFrequencyComment;
 
         return $this;
     }

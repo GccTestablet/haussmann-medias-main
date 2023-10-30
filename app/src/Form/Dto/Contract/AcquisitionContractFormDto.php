@@ -33,6 +33,8 @@ class AcquisitionContractFormDto
 
     private ?FrequencyEnum $reportFrequency = null;
 
+    private ?string $reportFrequencyComment = null;
+
     public function __construct(
         private readonly AcquisitionContract $contract,
         private readonly bool $exists,
@@ -139,6 +141,18 @@ class AcquisitionContractFormDto
     public function setReportFrequency(?FrequencyEnum $reportFrequency): static
     {
         $this->reportFrequency = $reportFrequency;
+
+        return $this;
+    }
+
+    public function getReportFrequencyComment(): ?string
+    {
+        return $this->reportFrequencyComment;
+    }
+
+    public function setReportFrequencyComment(?string $reportFrequencyComment): static
+    {
+        $this->reportFrequencyComment = $reportFrequencyComment;
 
         return $this;
     }

@@ -6,6 +6,7 @@ namespace App\Enum\Common;
 
 enum FrequencyEnum: string
 {
+    case FLAT_FEE = 'flat-fee';
     case DAILY = 'daily';
     case WEEKLY = 'weekly';
     case MONTHLY = 'monthly';
@@ -16,6 +17,7 @@ enum FrequencyEnum: string
     public function getAsText(): string
     {
         return match ($this) {
+            self::FLAT_FEE => 'Flat fee',
             self::DAILY => 'Daily',
             self::WEEKLY => 'Weekly',
             self::MONTHLY => 'Monthly',

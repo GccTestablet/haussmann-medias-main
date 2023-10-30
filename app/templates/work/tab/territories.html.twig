@@ -1,0 +1,16 @@
+{% extends 'work/show.html.twig' %}
+
+{% block content_inner %}
+    <div class="card">
+        <div class="card-header text-end">
+            <a href="{{ path('app_work_territory_manage', {'work': work.id}) }}" class="btn btn-sm btn-warning">
+                {% trans from 'work' %}Manage territories and channels{% endtrans %}
+            </a>
+        </div>
+        <div class="card-body">
+            {% include 'work/territory/_embedded/_list.html.twig' with {
+                workTerritories: work.workTerritories
+            } %}
+        </div>
+    </div>
+{% endblock %}

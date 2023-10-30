@@ -26,6 +26,12 @@
                 </span>
             </li>
             <li class="mb-3">
+                <span class="fw-bold me-2">{% trans from 'contract' %}Report frequency comment{% endtrans %}</span>
+                <span>
+                    {{ contract.reportFrequencyComment }}
+                </span>
+            </li>
+            <li class="mb-3">
                 <span class="fw-bold me-2">{% trans from 'contract' %}Files{% endtrans %}:</span>
                 <span>
                     {% for contractFile in contract.contractFiles %}
