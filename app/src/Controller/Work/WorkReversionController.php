@@ -39,7 +39,7 @@ class WorkReversionController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_work_show', ['id' => $work->getId()]);
+            return $this->redirectToRoute('app_work_show', ['id' => $work->getId(), 'tab' => 'reversions']);
         }
 
         return $this->render('shared/common/save.html.twig', [
@@ -57,7 +57,10 @@ class WorkReversionController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_work_show', ['id' => $workReversion->getWork()->getId()]);
+            return $this->redirectToRoute('app_work_show', [
+                'id' => $workReversion->getWork()->getId(),
+                'tab' => 'reversions',
+            ]);
         }
 
         return $this->render('shared/common/save.html.twig', [

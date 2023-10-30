@@ -37,7 +37,10 @@ class WorkTerritoryController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_work_show', ['id' => $work->getId()]);
+            return $this->redirectToRoute('app_work_show', [
+                'id' => $work->getId(),
+                'tab' => 'territories',
+            ]);
         }
 
         return $this->render('work/territory/manage.html.twig', [

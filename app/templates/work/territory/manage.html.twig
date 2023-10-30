@@ -16,6 +16,7 @@
                     <thead>
                     <tr>
                         <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
+                        <th>{% trans from 'work' %}Exclusive{% endtrans %}</th>
                         <th class="text-nowrap">{% trans from 'misc' %}Select all{% endtrans %}</th>
                         {% for channel in broadcastChannels %}
                             <th>{{ channel.name }}</th>
@@ -24,9 +25,13 @@
                     </thead>
                     <tbody>
                         {% for territory in territories %}
+                            {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory) %}
                             <tr data-controller="datatable--select-all-row">
                                 <td class="text-nowrap">
                                     {{ territory.name }}
+                                </td>
+                                <td>
+                                    {{ form_widget(form.exclusives[formName]) }}
                                 </td>
                                 <td>
                                     <input type="checkbox" class="form-check-input"
@@ -36,7 +41,7 @@
                                 {% for channel in broadcastChannels %}
                                     {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory, channel) %}
                                     <td class="text-center">
-                                        {{ form_widget(form.territories[formName], {
+                                        {{ form_widget(form.broadcastChannels[formName], {
                                             'attr': {
                                                 'data-datatable--select-all-row-target': 'checkbox'
                                             }

@@ -33,6 +33,9 @@ class WorkTerritory
     #[ORM\JoinColumn(name: 'territory_id', referencedColumnName: 'id', nullable: false)]
     private Territory $territory;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private bool $exclusive = true;
+
     #[ORM\ManyToMany(targetEntity: BroadcastChannel::class)]
     #[ORM\JoinTable(name: 'work_territory_broadcast_channels')]
     private Collection $broadcastChannels;
@@ -71,9 +74,21 @@ class WorkTerritory
         return $this->territory;
     }
 
-    public function setTerritory(Territory $territory): self
+    public function setTerritory(Territory $territory): static
     {
         $this->territory = $territory;
+
+        return $this;
+    }
+
+    public function isExclusive(): bool
+    {
+        return $this->exclusive;
+    }
+
+    public function setExclusive(bool $exclusive): static
+    {
+        $this->exclusive = $exclusive;
 
         return $this;
     }

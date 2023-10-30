@@ -54,7 +54,7 @@ class WorkPager extends AbstractPager
                 ),
                 callback: fn (Work $work) => new PopoverButtonField(
                     value: new IconField(
-                        icon: 'circle-exclamation',
+                        icon: 'circle-info',
                         attributes: [
                             'class' => 'text-primary',
                         ]

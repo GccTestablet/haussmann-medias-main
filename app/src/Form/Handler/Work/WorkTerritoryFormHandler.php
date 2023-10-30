@@ -33,7 +33,7 @@ class WorkTerritoryFormHandler extends AbstractFormHandler
         $work = $dto->getWork();
         $this->entityManager->refresh($work);
 
-        $this->formDtoFactory->updateEntity($work, $dto->getTerritories());
+        $this->formDtoFactory->updateEntity($work, $dto);
 
         $this->entityManager->flush();
 
