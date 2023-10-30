@@ -59,8 +59,7 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
                 ColumnEnum::NAME => $queryBuilder->orderBy('ac.name', $direction),
                 ColumnEnum::BENEFICIARY => $queryBuilder->orderBy('b.name', $direction),
                 ColumnEnum::SIGNED_AT => $queryBuilder->orderBy('ac.signedAt', $direction),
-                ColumnEnum::STARTS_AT => $queryBuilder->orderBy('ac.startsAt', $direction),
-                ColumnEnum::ENDS_AT => $queryBuilder->orderBy('ac.endsAt', $direction),
+                ColumnEnum::PERIOD => $queryBuilder->orderBy('ac.startsAt', $direction),
                 default => null,
             };
         }

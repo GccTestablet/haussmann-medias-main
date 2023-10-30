@@ -11,12 +11,13 @@ use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
+use App\Repository\Contract\DistributionContractRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity()]
+#[ORM\Entity(repositoryClass: DistributionContractRepository::class)]
 #[ORM\Table(name: 'distribution_contracts')]
 class DistributionContract
 {

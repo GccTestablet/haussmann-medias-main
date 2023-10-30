@@ -36,6 +36,8 @@ enum ColumnEnum: string
     case DISTRIBUTION_CONTRACT = 'distributionContract';
     case BENEFICIARY = 'beneficiary';
     case BENEFICIARIES = 'beneficiaries';
+    case DISTRIBUTOR = 'distributor';
+    case DISTRIBUTORS = 'distributors';
     case WORK = 'work';
     case WORKS = 'works';
     case WORKS_COUNT = 'worksCount';

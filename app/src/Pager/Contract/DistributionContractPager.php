@@ -4,32 +4,31 @@ declare(strict_types=1);
 
 namespace App\Pager\Contract;
 
-use App\Entity\Contract\AcquisitionContract;
+use App\Entity\Contract\DistributionContract;
+use App\Entity\Setting\BroadcastChannel;
+use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
-use App\Form\Type\Pager\Contract\AcquisitionContractPagerFormType;
+use App\Form\Type\Pager\Contract\DistributionContractPagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
 use App\Model\Pager\Field\CollectionField;
 use App\Model\Pager\Field\LinkField;
-use App\Model\Pager\Field\PeriodField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Shared\PagerRepositoryInterface;
-use App\Tools\Parser\DateParser;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
 
-class AcquisitionContractPager extends AbstractPager
+class DistributionContractPager extends AbstractPager
 {
-    protected static ?string $pagerId = 'app-acquisition-contract-pager';
+    protected static ?string $pagerId = 'app-distribution-contract-pager';
     protected static array $defaultSort = [ColumnEnum::NAME->value => 'ASC'];
 
-    protected static string $formType = AcquisitionContractPagerFormType::class;
+    protected static string $formType = DistributionContractPagerFormType::class;
 
     protected static array $columns = [
         ColumnEnum::NAME,
-        ColumnEnum::BENEFICIARY,
-        ColumnEnum::SIGNED_AT,
-        ColumnEnum::PERIOD,
+        ColumnEnum::DISTRIBUTOR,
+        ColumnEnum::CHANNELS,
         ColumnEnum::WORKS,
         ColumnEnum::ACTIONS,
     ];
@@ -47,41 +46,32 @@ class AcquisitionContractPager extends AbstractPager
                 header: new ColumnHeader(
                     callback: fn () => new TranslatableMessage('Name', [], 'misc'),
                 ),
-                callback: fn (AcquisitionContract $contract) => new LinkField(
+                callback: fn (DistributionContract $contract) => new LinkField(
                     value: $contract->getName(),
                     attributes: [
-                        'href' => $this->router->generate('app_acquisition_contract_show', ['id' => $contract->getId()]),
+                        'href' => $this->router->generate('app_distribution_contract_show', ['id' => $contract->getId()]),
                     ]
                 ),
             ),
             new Column(
-                id: ColumnEnum::BENEFICIARY,
+                id: ColumnEnum::DISTRIBUTOR,
                 header: new ColumnHeader(
-                    callback: fn () => new TranslatableMessage('Beneficiary', [], 'contract'),
+                    callback: fn () => new TranslatableMessage('Distributor', [], 'contract'),
                 ),
-                callback: fn (AcquisitionContract $contract) => new LinkField(
-                    value: $contract->getBeneficiary()->getName(),
+                callback: fn (DistributionContract $contract) => new LinkField(
+                    value: $contract->getDistributor()->getName(),
                     attributes: [
-                        'href' => $this->router->generate('app_company_show', ['id' => $contract->getBeneficiary()->getId()]),
+                        'href' => $this->router->generate('app_company_show', ['id' => $contract->getDistributor()->getId()]),
                     ]
                 ),
             ),
             new Column(
-                id: ColumnEnum::SIGNED_AT,
+                id: ColumnEnum::CHANNELS,
                 header: new ColumnHeader(
-                    callback: fn () => new TranslatableMessage('Signed at', [], 'contract'),
+                    callback: fn () => new TranslatableMessage('Broadcast channels', [], 'work'),
+                    sortable: false,
                 ),
-                callback: fn (AcquisitionContract $contract) => $contract->getSignedAt()->format(DateParser::FR_DATE_FORMAT),
-            ),
-            new Column(
-                id: ColumnEnum::PERIOD,
-                header: new ColumnHeader(
-                    callback: fn () => new TranslatableMessage('Rights period', [], 'contract'),
-                ),
-                callback: fn (AcquisitionContract $contract) => new PeriodField(
-                    $contract->getStartsAt(),
-                    $contract->getEndsAt(),
-                )
+                callback: fn (DistributionContract $contract) => \implode(', ', $contract->getBroadcastChannels()->map(fn (BroadcastChannel $channel) => $channel->getName())->toArray()),
             ),
             new Column(
                 id: ColumnEnum::WORKS,
@@ -89,7 +79,7 @@ class AcquisitionContractPager extends AbstractPager
                     callback: fn () => new TranslatableMessage('Works', [], 'work'),
                     sortable: false,
                 ),
-                callback: fn (AcquisitionContract $contract) => \implode(', ', $contract->getWorks()->map(fn ($work) => $work->getName())->toArray()),
+                callback: fn (DistributionContract $contract) => \implode(', ', $contract->getWorks()->map(fn (Work $work) => $work->getName())->toArray()),
             ),
             new Column(
                 id: ColumnEnum::ACTIONS,
@@ -97,11 +87,11 @@ class AcquisitionContractPager extends AbstractPager
                     callback: fn () => new TranslatableMessage('Actions', [], 'misc'),
                     sortable: false,
                 ),
-                callback: fn (AcquisitionContract $contract) => new CollectionField([
+                callback: fn (DistributionContract $contract) => new CollectionField([
                     new LinkField(
                         value: new TranslatableMessage('Update', [], 'misc'),
                         attributes: [
-                            'href' => $this->router->generate('app_acquisition_contract_update', [
+                            'href' => $this->router->generate('app_distribution_contract_update', [
                                 'id' => $contract->getId(),
                             ]),
                             'class' => 'btn btn-sm btn-warning',
@@ -114,6 +104,6 @@ class AcquisitionContractPager extends AbstractPager
 
     private function getRepository(): PagerRepositoryInterface|EntityRepository
     {
-        return $this->entityManager->getRepository(AcquisitionContract::class);
+        return $this->entityManager->getRepository(DistributionContract::class);
     }
 }

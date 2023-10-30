@@ -32,11 +32,13 @@ Seller: Vendeur
 Beneficiary: Ayant droit
 Beneficiaries: Ayants droit
 Distributor: Distributeur
+Distributors: Distributeurs
 Select a beneficiary: Sélectionner un ayant droit
 Select a distributor: Sélectionner un distributeur
 Select report frequency: Sélectionner la fréquence des rapports
 Rights starts at: Date de début de droits
 Rights ends at: Date de fin de droits
+Rights period: Période de droits
 Select a broadcast channel: Sélectionner un canal de diffusion
 Select a broadcast service: Sélectionner un service de diffusion
 Broadcast channels: Canaux de diffusion
