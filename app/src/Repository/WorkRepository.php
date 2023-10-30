@@ -8,16 +8,18 @@ use App\Entity\Company;
 use App\Entity\Contract\DistributionContract;
 use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
+use App\Pager\Shared\PagerInterface;
 use App\Repository\Shared\PagerRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class WorkRepository extends EntityRepository implements PagerRepositoryInterface
 {
-    public function getPagerQueryBuilder(array $criteria, array $orderBy, int $limit, int $offset): QueryBuilder
+    public function getPagerQueryBuilder(array $criteria, array $orderBy, ?int $limit = PagerInterface::DEFAULT_LIMIT, int $offset = PagerInterface::DEFAULT_OFFSET): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('w')
             ->innerJoin('w.acquisitionContract', 'ac')
+            ->leftJoin('w.contractWorks', 'cw')
         ;
 
         foreach ($criteria as $field => $value) {
@@ -42,6 +44,9 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::BENEFICIARIES => $queryBuilder
                     ->andWhere('ac.beneficiary IN (:beneficiaries)')
                     ->setParameter('beneficiaries', $value),
+                ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
+                    ->andWhere('cw.distributionContract = :distributionContract')
+                    ->setParameter('distributionContract', $value),
                 default => null,
             };
         }

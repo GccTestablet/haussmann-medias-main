@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pager;
 
-use App\Model\Pager\Filter;
+use App\Model\Pager\FilterCollection;
 use App\Pager\RequestTransformer\KnpPaginatorRequestTransformer;
 use App\Pager\Shared\PagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -16,12 +16,9 @@ class PagerManager
         private readonly PaginatorInterface $paginator
     ) {}
 
-    /**
-     * @param Filter[] $filters
-     */
-    public function create(PagerInterface $pager, Request $request, array $filters = []): PagerResponse
+    public function create(PagerInterface $pager, Request $request, FilterCollection $filters): PagerResponse
     {
-        $pager->init($request);
+        $pager->init($request, $filters);
 
         $requestTransformer = new KnpPaginatorRequestTransformer($pager);
         $requestTransformer->createFromRequest($request, $filters);

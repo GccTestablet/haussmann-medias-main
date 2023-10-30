@@ -2,9 +2,12 @@
 
 {% set viewData = execute(column.callBack, [entity, options]) %}
 <td>
-    {% if viewData is instanceof('App\\Model\\Pager\\Field\\FieldInterface') %}
-        {{ block(viewData.type.value) }}
-    {% else %}
-        {{ viewData|raw }}
-    {% endif %}
+    {{ component('data_table_field_render', {
+        viewData: viewData
+    }) }}
+{#    {% if viewData is instanceof('App\\Model\\Pager\\Field\\FieldInterface') %}#}
+{#        {{ block(viewData.type.value) }}#}
+{#    {% else %}#}
+{#        {{ viewData|raw }}#}
+{#    {% endif %}#}
 </td>

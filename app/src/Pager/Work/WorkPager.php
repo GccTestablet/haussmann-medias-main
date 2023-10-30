@@ -9,9 +9,9 @@ use App\Enum\Pager\ColumnEnum;
 use App\Form\Type\Pager\Work\WorkPagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
+use App\Model\Pager\Field\CollectionField;
 use App\Model\Pager\Field\IconField;
 use App\Model\Pager\Field\LinkField;
-use App\Model\Pager\Field\LinksField;
 use App\Model\Pager\Field\PopoverButtonField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Shared\PagerRepositoryInterface;
@@ -111,7 +111,7 @@ class WorkPager extends AbstractPager
                     callback: fn () => new TranslatableMessage('Actions', [], 'misc'),
                     sortable: false,
                 ),
-                callback: fn (Work $work) => new LinksField([
+                callback: fn (Work $work) => new CollectionField([
                     new LinkField(
                         value: new TranslatableMessage('Update', [], 'misc'),
                         attributes: [

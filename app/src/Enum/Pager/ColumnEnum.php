@@ -16,6 +16,7 @@ enum ColumnEnum: string
     case NAME = 'name';
     case STARTS_AT = 'startsAt';
     case ENDS_AT = 'endsAt';
+    case AMOUNT = 'amount';
     case CREATED_AT = 'createdAt';
     case CREATED_BY = 'createdBy';
     case UPDATED_AT = 'updatedAt';
@@ -31,8 +32,14 @@ enum ColumnEnum: string
     case SIGNED_AT = 'signedAt';
     case ACQUISITION_CONTRACT = 'acquisitionContract';
     case ACQUISITION_CONTRACT_NAME = 'acquisitionContractName';
+    case DISTRIBUTION_CONTRACT = 'distributionContract';
     case BENEFICIARY = 'beneficiary';
     case BENEFICIARIES = 'beneficiaries';
+    case WORK = 'work';
     case WORKS = 'works';
     case WORKS_COUNT = 'worksCount';
+
+    // Settings
+    case CHANNEL = 'channel';
+    case CHANNELS = 'channels';
 }

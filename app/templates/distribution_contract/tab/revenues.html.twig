@@ -1,0 +1,44 @@
+{% extends 'distribution_contract/show.html.twig' %}
+
+{% block content_inner %}
+    <div class="card">
+        <div class="card-header text-end">
+            <a href="{{ path('app_distribution_contract_generate_template', {'id': contract.id}) }}" class="btn btn-sm btn-primary">
+                {% trans from 'contract' %}Download CSV template{% endtrans %}
+            </a>
+            <a href="{{ path('app_distribution_contract_work_revenue_import', {'contract': contract.id}) }}" class="btn btn-sm btn-success">
+                {% trans from 'contract' %}Import revenues{% endtrans %}
+            </a>
+        </div>
+        <div class="card-body">
+            {% component data_table with {
+                pagerResponse: revenuePagerResponse
+            } %}
+                {% block filters %}
+                    {% set form = pagerResponse.pager.form.createView %}
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-lg-6">{{ form_row(form.works) }}</div>
+                        <div class="col-lg-6">{{ form_row(form.channels) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">{{ form_row(form.startsAt) }}</div>
+                        <div class="col-lg-6">{{ form_row(form.endsAt) }}</div>
+                    </div>
+                    {{ form_rest(form) }}
+
+                    <div class="mt-3">
+                        <button class="btn btn-sm btn-primary" type="submit">
+                            {% trans from 'misc' %}Search{% endtrans %}
+                        </button>
+
+                        <button class="btn btn-sm btn-danger" data-form--reset-target="button">
+                            {% trans from 'misc' %}Reset{% endtrans %}
+                        </button>
+                    </div>
+                    {{ form_end(form) }}
+                {% endblock %}
+            {% endcomponent %}
+        </div>
+    </div>
+{% endblock %}

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Repository\Contract;
 
 use App\Enum\Pager\ColumnEnum;
+use App\Pager\Shared\PagerInterface;
 use App\Repository\Shared\PagerRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class AcquisitionContractRepository extends EntityRepository implements PagerRepositoryInterface
 {
-    public function getPagerQueryBuilder(array $criteria, array $orderBy, int $limit, int $offset): QueryBuilder
+    public function getPagerQueryBuilder(array $criteria, array $orderBy, ?int $limit = PagerInterface::DEFAULT_LIMIT, int $offset = PagerInterface::DEFAULT_OFFSET): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('ac')
             ->innerJoin('ac.beneficiary', 'b')

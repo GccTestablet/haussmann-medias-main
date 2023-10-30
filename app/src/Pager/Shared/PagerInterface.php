@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Pager\Shared;
 
 use App\Model\Pager\Column;
+use App\Model\Pager\FilterCollection;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,7 +14,7 @@ interface PagerInterface
     final public const DEFAULT_LIMIT = 25;
     final public const DEFAULT_OFFSET = 0;
 
-    public function init(Request $request): void;
+    public function init(Request $request, FilterCollection $filters): void;
 
     /**
      * @param array<string, mixed> $criteria

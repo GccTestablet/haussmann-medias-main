@@ -1,0 +1,16 @@
+{% extends 'distribution_contract/show.html.twig' %}
+
+{% block content_inner %}
+    <div class="card">
+        <div class="card-header text-end">
+            <a href="{{ path('app_distribution_contract_work_add', {'contract': contract.id}) }}" class="btn btn-sm btn-success">
+                {% trans from 'work' %}Add work{% endtrans %}
+            </a>
+        </div>
+        <div class="card-body">
+            {% include 'distribution_contract/_embedded/_work_list.html.twig' with {
+                contract: contract,
+            } %}
+        </div>
+    </div>
+{% endblock %}

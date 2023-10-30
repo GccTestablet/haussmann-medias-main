@@ -12,6 +12,7 @@ use App\Form\DtoFactory\Work\WorkFormDtoFactory;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Handler\Work\WorkFormHandler;
 use App\Model\Pager\Filter;
+use App\Model\Pager\FilterCollection;
 use App\Pager\Work\WorkPager;
 use App\Service\Security\SecurityManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,12 +36,13 @@ class WorkController extends AbstractAppController
         $pagerResponse = $this->pagerManager->create(
             $this->workPager,
             $request,
-            [
-                new Filter(
-                    ColumnEnum::COMPANY,
-                    $this->securityManager->getConnectedUser()->getConnectedOn()
-                ),
-            ]
+            (new FilterCollection())
+                ->addFilter(
+                    new Filter(
+                        ColumnEnum::COMPANY,
+                        $this->securityManager->getConnectedUser()->getConnectedOn()
+                    )
+                )
         );
 
         return $this->render('work/index.html.twig', [

@@ -1,3 +1,7 @@
+{% block pager_amount %}
+    {{ viewData.amount|format_currency(viewData.currency) }}
+{% endblock %}
+
 {% block pager_icon %}
     {% set attributes = viewData.attributes|merge({
         'class': 'fa fa-' ~ viewData.icon ~ ' ' ~ viewData.attributes.class|default('')
@@ -41,13 +45,14 @@
     </button>
 {% endblock %}
 
-{% block pager_links %}
-    {% for link in viewData.links %}
+{% block pager_collection %}
+    {% for element in viewData.elements %}
         {% with {
-            'viewData': link,
+            'viewData': element,
         } %}
             {{ block(viewData.type.value) }}
         {% endwith %}
+        {{ viewData.separator|default('')|raw }}
     {% endfor %}
 {% endblock %}
 

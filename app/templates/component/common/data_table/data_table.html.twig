@@ -69,6 +69,18 @@
                 </tr>
             {% endif %}
             </tbody>
+            <tfoot>
+                <tr>
+                    {% set footer = pager.footer %}
+                    {% for column in computed.visibleColumns %}
+                        <th>
+                            {{ component('data_table_field_render', {
+                                viewData: footer[column.id.value] ?? ''
+                            }) }}
+                        </th>
+                    {% endfor %}
+                </tr>
+            </tfoot>
         </table>
     </div>
 
