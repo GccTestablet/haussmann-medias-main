@@ -17,8 +17,8 @@ use App\Model\Pager\Filter;
 use App\Model\Pager\FilterCollection;
 use App\Pager\Contract\DistributionContractPager;
 use App\Pager\Contract\DistributionContractRevenuePager;
+use App\Pager\Contract\DistributionContractWorkPager;
 use App\Security\Voter\CompanyVoter;
-use App\Service\Contract\DistributionContractWorkManager;
 use App\Service\Contract\DistributionContractWorkRevenueImporter;
 use App\Service\Security\SecurityManager;
 use App\Tools\Manager\UploadFileManager;
@@ -36,11 +36,11 @@ class DistributionContractController extends AbstractAppController
         private readonly SecurityManager $securityManager,
         private readonly UploadFileManager $uploadFileManager,
         private readonly DistributionContractWorkRevenueImporter $distributionContractTemplateGenerator,
-        private readonly DistributionContractWorkManager $distributionContractWorkManager,
         private readonly DistributionContractFormDtoFactory $formDtoFactory,
         private readonly DistributionContractFormHandler $formHandler,
         private readonly DistributionContractRevenuePager $distributionContractRevenuePager,
         private readonly DistributionContractPager $distributionContractPager,
+        private readonly DistributionContractWorkPager $distributionContractWorkPager
     ) {}
 
     #[Route(name: 'app_distribution_contract_index')]
@@ -71,18 +71,26 @@ class DistributionContractController extends AbstractAppController
             return $this->redirectToRoute('app_distribution_contract_show', ['id' => $contract->getId(), 'tab' => 'works']);
         }
 
-        $revenuePagerResponse = $this->pagerManager->create(
-            $this->distributionContractRevenuePager,
-            $request,
-            (new FilterCollection())
-                ->addFilter(new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract)),
-        );
+        $params['pagerResponse'] = match ($tab) {
+            'works' => $this->pagerManager->create(
+                $this->distributionContractWorkPager,
+                $request,
+                (new FilterCollection())
+                    ->addFilter(new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract)),
+            ),
+            'revenues' => $this->pagerManager->create(
+                $this->distributionContractRevenuePager,
+                $request,
+                (new FilterCollection())
+                    ->addFilter(new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract)),
+            ),
+            default => null,
+        };
 
         return $this->render(\sprintf('distribution_contract/tab/%s.html.twig', $tab), [
-            'revenuePagerResponse' => $revenuePagerResponse,
             'tab' => $tab,
             'contract' => $contract,
-            'contractWorks' => $this->distributionContractWorkManager->findByDistributionContract($contract),
+            ...$params,
         ]);
     }
 

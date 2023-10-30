@@ -12,7 +12,7 @@
         </div>
         <div class="card-body">
             {% component data_table with {
-                pagerResponse: revenuePagerResponse
+                pagerResponse: pagerResponse
             } %}
                 {% block filters %}
                     {% set form = pagerResponse.pager.form.createView %}

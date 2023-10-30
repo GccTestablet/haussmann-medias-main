@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity\Setting;
 
+use App\Entity\Contract\DistributionContractWorkTerritory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Repository\Setting\TerritoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: TerritoryRepository::class)]
 #[ORM\Table(name: 'setting_territories')]
 class Territory
 {
@@ -26,6 +30,17 @@ class Territory
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    /**
+     * @var Collection<DistributionContractWorkTerritory>
+     */
+    #[ORM\OneToMany(mappedBy: 'territory', targetEntity: DistributionContractWorkTerritory::class)]
+    private Collection $distributionContractWorkTerritories;
+
+    public function __construct()
+    {
+        $this->distributionContractWorkTerritories = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -59,6 +74,24 @@ class Territory
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<DistributionContractWorkTerritory>
+     */
+    public function getDistributionContractWorkTerritories(): Collection
+    {
+        return $this->distributionContractWorkTerritories;
+    }
+
+    /**
+     * @param Collection<DistributionContractWorkTerritory> $distributionContractWorkTerritories
+     */
+    public function setDistributionContractWorkTerritories(Collection $distributionContractWorkTerritories): static
+    {
+        $this->distributionContractWorkTerritories = $distributionContractWorkTerritories;
 
         return $this;
     }

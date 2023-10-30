@@ -24,6 +24,9 @@ class DistributionContractWorkRevenueRepository extends EntityRepository impleme
             $enum = ColumnEnum::tryFrom($field);
 
             match ($enum) {
+                ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
+                    ->andWhere('cw.distributionContract = :distributionContract')
+                    ->setParameter('distributionContract', $value),
                 ColumnEnum::WORKS => $queryBuilder
                     ->andWhere('w IN (:works)')
                     ->setParameter('works', $value),

@@ -8,9 +8,31 @@
             </a>
         </div>
         <div class="card-body">
-            {% include 'distribution_contract/_embedded/_work_list.html.twig' with {
-                contract: contract,
+            {% component data_table with {
+                pagerResponse: pagerResponse
             } %}
+                {% block filters %}
+                    {% set form = pagerResponse.pager.form.createView %}
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-lg-4">{{ form_row(form.works) }}</div>
+                        <div class="col-lg-4">{{ form_row(form.territories) }}</div>
+                        <div class="col-lg-4">{{ form_row(form.channels) }}</div>
+                    </div>
+                    {{ form_rest(form) }}
+
+                    <div class="mt-3">
+                        <button class="btn btn-sm btn-primary" type="submit">
+                            {% trans from 'misc' %}Search{% endtrans %}
+                        </button>
+
+                        <button class="btn btn-sm btn-danger" data-form--reset-target="button">
+                            {% trans from 'misc' %}Reset{% endtrans %}
+                        </button>
+                    </div>
+                    {{ form_end(form) }}
+                {% endblock %}
+            {% endcomponent %}
         </div>
     </div>
 {% endblock %}

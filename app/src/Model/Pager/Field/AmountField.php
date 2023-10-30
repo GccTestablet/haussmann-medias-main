@@ -9,11 +9,11 @@ use App\Enum\Pager\FieldTypeEnum;
 class AmountField implements FieldInterface
 {
     public function __construct(
-        private readonly float $amount,
+        private readonly ?float $amount,
         private readonly string $currency,
     ) {}
 
-    public function getAmount(): float
+    public function getAmount(): ?float
     {
         return $this->amount;
     }

@@ -29,7 +29,7 @@ class DistributionContractWorkTerritory
     #[ORM\JoinColumn(name: 'distribution_contract_work_id', referencedColumnName: 'id', nullable: false)]
     private DistributionContractWork $contractWork;
 
-    #[ORM\ManyToOne(targetEntity: Territory::class)]
+    #[ORM\ManyToOne(targetEntity: Territory::class, inversedBy: 'distributionContractWorkTerritories')]
     #[ORM\JoinColumn(name: 'territory_id', referencedColumnName: 'id', nullable: false)]
     private Territory $territory;
 

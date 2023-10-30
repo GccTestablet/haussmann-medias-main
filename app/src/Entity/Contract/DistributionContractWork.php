@@ -8,12 +8,13 @@ use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
+use App\Repository\Contract\DistributionContractWorkRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: DistributionContractWorkRepository::class)]
 #[ORM\Table(name: 'distribution_contracts_works')]
 #[ORM\UniqueConstraint(columns: ['distribution_contract_id', 'work_id'])]
 class DistributionContractWork

@@ -1,5 +1,5 @@
 {% block pager_amount %}
-    {{ viewData.amount|format_currency(viewData.currency) }}
+    {{ viewData.amount ? viewData.amount|format_currency(viewData.currency) }}
 {% endblock %}
 
 {% block pager_icon %}
