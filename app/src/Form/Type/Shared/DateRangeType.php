@@ -31,6 +31,8 @@ class DateRangeType extends AbstractType
                     'autocomplete' => 'off',
                     'data-controller' => 'widgets--date-range-picker',
                 ],
+                'help' => 'Date between [...] and [...].',
+                'translation_domain' => 'misc',
             ])
         ;
     }

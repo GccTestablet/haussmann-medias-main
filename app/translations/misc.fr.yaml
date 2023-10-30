@@ -18,6 +18,7 @@ Actions: Actions
 File: Fichier
 From the: Du
 To the: Au
+Period: Période
 
 Daily: Quotidien
 Weekly: Hebdomadaire
@@ -28,6 +29,9 @@ Yearly: Annuel
 
 Starts at: Début
 Ends at: Fin
+Starts date: Date de début
+Ends date: Date de fin
+Date between [...] and [...].: Date comprise entre le [...] et le [...].
 
 Created at: Crée le
 Created by: Crée par

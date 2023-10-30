@@ -9,7 +9,7 @@ use App\Enum\Pager\ColumnEnum;
 use App\Form\Type\Common\BroadcastChannelEntityField;
 use App\Form\Type\Common\WorkEntityField;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
-use App\Form\Type\Shared\DateType;
+use App\Form\Type\Shared\DateRangeType;
 use App\Model\Pager\FilterCollection;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,12 +37,8 @@ class DistributionContractWorkRevenuePagerFormType extends BasePagerFormType
                 'multiple' => true,
                 ColumnEnum::DISTRIBUTION_CONTRACT->value => $distributionContract,
             ])
-            ->add(ColumnEnum::STARTS_AT->value, DateType::class, [
-                'label' => 'From the',
-                'translation_domain' => 'misc',
-            ])
-            ->add(ColumnEnum::ENDS_AT->value, DateType::class, [
-                'label' => 'To the',
+            ->add(ColumnEnum::ENDS_AT->value, DateRangeType::class, [
+                'label' => 'Revenus à date de',
                 'translation_domain' => 'misc',
             ])
         ;

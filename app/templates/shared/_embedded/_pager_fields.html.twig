@@ -65,3 +65,7 @@
         {% endif %}
     </a>
 {% endblock %}
+
+{% block pager_period %}
+    {{ viewData.from|date_format }} - {{ viewData.to|date_format }}
+{% endblock %}
