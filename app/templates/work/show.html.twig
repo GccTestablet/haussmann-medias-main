@@ -11,79 +11,29 @@
         <div class="col-xxl-8">
             <div class="card">
                 <ul class="nav nav-tabs nav-tabs-alt align-items-center" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#work-territories-tab" role="tab" aria-selected="true">
+                    <li class="nav-item">
+                        <a href="{{ path('app_work_show', {'id': work.id, 'tab': 'territories'}) }}" class="nav-link {{ tab == 'territories' ? 'active' }}">
                             {% trans from 'work' %}Territories{% endtrans %}
-                        </button>
+                        </a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#work-adaptations-tab" role="tab">
+                    <li class="nav-item">
+                        <a href="{{ path('app_work_show', {'id': work.id, 'tab': 'distribution-costs'}) }}" class="nav-link {{ tab == 'distribution-costs' ? 'active' }}">
                             {% trans from 'work' %}Adaptations{% endtrans %}
-                        </button>
+                        </a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#work-reversions-tab" role="tab">
+                    <li class="nav-item">
+                        <a href="{{ path('app_work_show', {'id': work.id, 'tab': 'reversions'}) }}" class="nav-link {{ tab == 'reversions' ? 'active' }}">
                             {% trans from 'work' %}Reversions{% endtrans %}
-                        </button>
+                        </a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#work-distribution-contracts-tab" role="tab">
+                    <li class="nav-item">
+                        <a href="{{ path('app_work_show', {'id': work.id, 'tab': 'distribution-contracts'}) }}" class="nav-link {{ tab == 'distribution-contracts' ? 'active' }}">
                             {% trans from 'contract' %}Distribution contracts{% endtrans %}
-                        </button>
+                        </a>
                     </li>
                 </ul>
-                <div class="card-body tab-content">
-                    <div class="tab-pane pull-x active show" id="work-territories-tab" role="tabpanel" tabindex="0">
-                        <div class="card">
-                            <div class="card-header text-end">
-                                <a href="{{ path('app_work_territory_manage', {'work': work.id}) }}" class="btn btn-sm btn-warning">
-                                    {% trans from 'work' %}Manage territories and channels{% endtrans %}
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                {% include 'work/territory/_embedded/_list.html.twig' with {
-                                    workTerritories: work.workTerritories
-                                } %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane pull-x" id="work-adaptations-tab" role="tabpanel" tabindex="0">
-                        <div class="card">
-                            <div class="card-header text-end">
-                                <a href="{{ path('app_work_adaptation_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
-                                    {% trans from 'work' %}Add distribution cost{% endtrans %}
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                {% include 'work/adaptation/_embedded/_list.html.twig' with {
-                                    adaptations: work.workAdaptations
-                                } %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane pull-x" id="work-reversions-tab" role="tabpanel" tabindex="0">
-                        <div class="card">
-                            <div class="card-header text-end">
-                                <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
-                                    {% trans from 'work' %}Add reversion{% endtrans %}
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                {% include 'work/reversion/_embedded/_list.html.twig' with {
-                                    reversions: work.workReversions
-                                } %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane pull-x" id="work-distribution-contracts-tab" role="tabpanel" tabindex="0">
-                        <div class="card">
-                            <div class="card-body">
-                                {% include 'work/_distribution_contract_list.html.twig' with {
-                                    contractWorks: work.contractWorks
-                                } %}
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    {% block content_inner %}{% endblock %}
                 </div>
             </div>
         </div>

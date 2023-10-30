@@ -1,0 +1,15 @@
+{% extends 'work/show.html.twig' %}
+
+{% block content_inner %}
+    <div class="card">
+        <div class="card-body">
+            {% component data_table with {
+                pagerResponse: pagerResponse
+            } %}
+            {% endcomponent %}
+{#            {% include 'work/_distribution_contract_list.html.twig' with {#}
+{#                contractWorks: work.contractWorks#}
+{#            } %}#}
+        </div>
+    </div>
+{% endblock %}

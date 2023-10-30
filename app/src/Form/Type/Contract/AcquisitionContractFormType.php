@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -77,6 +78,10 @@ class AcquisitionContractFormType extends AbstractType
                 'class' => FrequencyEnum::class,
                 'choice_label' => fn (FrequencyEnum $frequencyEnum) => $frequencyEnum->getAsText(),
                 'choice_translation_domain' => 'misc',
+                'required' => false,
+            ])
+            ->add('reportFrequencyComment', TextareaType::class, [
+                'label' => 'Report frequency comment',
                 'required' => false,
             ])
         ;

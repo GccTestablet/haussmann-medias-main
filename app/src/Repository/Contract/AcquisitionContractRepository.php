@@ -74,7 +74,7 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
     {
         $orX = $this->getEntityManager()->getExpressionBuilder()->orX();
 
-        $fields = ['ac.name', 'ac.originalFileName', 'b.name', 'cm.name'];
+        $fields = ['ac.name', 'b.name', 'cm.name'];
         foreach ($fields as $field) {
             $orX->add(\sprintf('LOWER(%s) LIKE LOWER(:query)', $field));
         }

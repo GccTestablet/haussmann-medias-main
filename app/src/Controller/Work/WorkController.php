@@ -13,8 +13,10 @@ use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Handler\Work\WorkFormHandler;
 use App\Model\Pager\Filter;
 use App\Model\Pager\FilterCollection;
+use App\Pager\Contract\DistributionContractPager;
 use App\Pager\Work\WorkPager;
 use App\Service\Security\SecurityManager;
+use App\Tools\Parser\StringParser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +30,7 @@ class WorkController extends AbstractAppController
         private readonly WorkPager $workPager,
         private readonly WorkFormDtoFactory $workFormDtoFactory,
         private readonly WorkFormHandler $workFormHandler,
+        private readonly DistributionContractPager $distributionContractPager
     ) {}
 
     #[Route(name: 'app_work_index')]
@@ -50,11 +53,30 @@ class WorkController extends AbstractAppController
         ]);
     }
 
-    #[Route(path: '/{id}', name: 'app_work_show', requirements: ['id' => '\d+'])]
-    public function show(Work $work): Response
+    #[Route(path: '/{id}/{tab}', name: 'app_work_show', requirements: ['id' => '\d+', 'tab' => 'territories|distribution-costs|reversions|distribution-contracts'], defaults: ['tab' => null])]
+    public function show(Request $request, Work $work, string $tab = null): Response
     {
-        return $this->render('work/show.html.twig', [
+        if (!$tab) {
+            return $this->redirectToRoute('app_work_show', [
+                'id' => $work->getId(),
+                'tab' => 'territories',
+            ]);
+        }
+
+        $params['pagerResponse'] = match ($tab) {
+            'distribution-contracts' => $this->pagerManager->create(
+                $this->distributionContractPager,
+                $request,
+                (new FilterCollection())
+                    ->addFilter(new Filter(ColumnEnum::WORKS, [$work]))
+            ),
+            default => null,
+        };
+
+        return $this->render(\sprintf('work/tab/%s.html.twig', StringParser::slugify($tab, '_')), [
             'work' => $work,
+            'tab' => $tab,
+            ...$params,
         ]);
     }
 

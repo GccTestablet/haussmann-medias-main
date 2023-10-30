@@ -9,6 +9,7 @@ use App\Entity\Shared\FileInterface;
 use App\Entity\Shared\TimestampableEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'acquisition_contract_files')]
@@ -31,6 +32,8 @@ class AcquisitionContractFile implements FileInterface
 
     #[ORM\Column()]
     private string $originalFileName;
+
+    private ?UploadedFile $file = null;
 
     public function getId(): int
     {
@@ -76,6 +79,18 @@ class AcquisitionContractFile implements FileInterface
     public function setOriginalFileName(string $originalFileName): static
     {
         $this->originalFileName = $originalFileName;
+
+        return $this;
+    }
+
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file): static
+    {
+        $this->file = $file;
 
         return $this;
     }
