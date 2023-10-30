@@ -31,13 +31,11 @@ class DistributionContractWorkRevenueRepository extends EntityRepository impleme
                     ->andWhere('bc IN (:channels)')
                     ->setParameter('channels', $value),
                 ColumnEnum::STARTS_AT => $queryBuilder
-                    ->andWhere('dcwr.startsAt BETWEEN :startsAtFrom AND :startsAtTo')
-                    ->setParameter('startsAtFrom', $value->getFrom())
-                    ->setParameter('startsAtTo', $value->getTo()),
+                    ->andWhere('dcwr.startsAt >= :startsAt')
+                    ->setParameter('startsAt', $value->setTime(0, 0, 0)),
                 ColumnEnum::ENDS_AT => $queryBuilder
-                    ->andWhere('dcwr.endsAt BETWEEN :endsAtFrom AND :endsAtTo')
-                    ->setParameter('endsAtFrom', $value->getFrom())
-                    ->setParameter('endsAtTo', $value->getTo()),
+                    ->andWhere('dcwr.endsAt <= :endsAt')
+                    ->setParameter('endsAt', $value->setTime(23, 59, 59)),
                 default => null,
             };
         }

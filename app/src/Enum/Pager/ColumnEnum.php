@@ -17,6 +17,7 @@ enum ColumnEnum: string
     case STARTS_AT = 'startsAt';
     case ENDS_AT = 'endsAt';
     case AMOUNT = 'amount';
+    case PERIOD = 'period';
     case CREATED_AT = 'createdAt';
     case CREATED_BY = 'createdBy';
     case UPDATED_AT = 'updatedAt';
