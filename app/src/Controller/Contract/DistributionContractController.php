@@ -15,6 +15,7 @@ use App\Form\Handler\Contract\DistributionContractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Model\Pager\Filter;
 use App\Model\Pager\FilterCollection;
+use App\Pager\Contract\DistributionContractPager;
 use App\Pager\Contract\DistributionContractRevenuePager;
 use App\Security\Voter\CompanyVoter;
 use App\Service\Contract\DistributionContractWorkManager;
@@ -38,11 +39,12 @@ class DistributionContractController extends AbstractAppController
         private readonly DistributionContractWorkManager $distributionContractWorkManager,
         private readonly DistributionContractFormDtoFactory $formDtoFactory,
         private readonly DistributionContractFormHandler $formHandler,
-        private readonly DistributionContractRevenuePager $distributionContractRevenuePager
+        private readonly DistributionContractRevenuePager $distributionContractRevenuePager,
+        private readonly DistributionContractPager $distributionContractPager,
     ) {}
 
     #[Route(name: 'app_distribution_contract_index')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $user = $this->securityManager->getConnectedUser();
         $company = $user->getConnectedOn();
@@ -50,9 +52,15 @@ class DistributionContractController extends AbstractAppController
             $this->createAccessDeniedException('You must be connected on a company to access this page');
         }
 
+        $pagerResponse = $this->pagerManager->create(
+            $this->distributionContractPager,
+            $request,
+            (new FilterCollection())
+                ->addFilter(new Filter(ColumnEnum::COMPANY, $company))
+        );
+
         return $this->render('distribution_contract/index.html.twig', [
-            'company' => $company,
-            'contracts' => $company->getDistributionContracts(),
+            'pagerResponse' => $pagerResponse,
         ]);
     }
 
