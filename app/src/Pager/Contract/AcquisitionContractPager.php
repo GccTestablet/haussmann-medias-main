@@ -9,8 +9,8 @@ use App\Enum\Pager\ColumnEnum;
 use App\Form\Type\Pager\Contract\AcquisitionContractPagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
+use App\Model\Pager\Field\CollectionField;
 use App\Model\Pager\Field\LinkField;
-use App\Model\Pager\Field\LinksField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Shared\PagerRepositoryInterface;
 use App\Tools\Parser\DateParser;
@@ -101,7 +101,7 @@ class AcquisitionContractPager extends AbstractPager
                     callback: fn () => new TranslatableMessage('Actions', [], 'misc'),
                     sortable: false,
                 ),
-                callback: fn (AcquisitionContract $contract) => new LinksField([
+                callback: fn (AcquisitionContract $contract) => new CollectionField([
                     new LinkField(
                         value: new TranslatableMessage('Update', [], 'misc'),
                         attributes: [

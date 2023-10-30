@@ -10,6 +10,8 @@ use App\Form\Type\Pager\Contract\DistributionContractWorkRevenuePagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
 use App\Model\Pager\Field\AmountField;
+use App\Model\Pager\Field\CollectionField;
+use App\Model\Pager\Field\FieldInterface;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Contract\DistributionContractWorkRevenueRepository;
 use App\Tools\Parser\DateParser;
@@ -31,17 +33,30 @@ class DistributionContractRevenuePager extends AbstractPager
         ColumnEnum::AMOUNT,
     ];
 
+    /**
+     * @var array <string, string>
+     */
+    private array $filteredSumByCurrency = [];
+
     public function buildQuery(array $criteria = [], array $orderBy = [], int $limit = self::DEFAULT_LIMIT, int $offset = self::DEFAULT_OFFSET): void
     {
         $this->query = $this->getRepository()->getPagerQueryBuilder($criteria, $orderBy, $limit, $offset);
+        $this->filteredSumByCurrency = $this->getRepository()->getFilteredSumByCurrency($criteria, $orderBy);
     }
 
+    /**
+     * @return array<string, FieldInterface|string>
+     */
     public function getFooter(): array
     {
-        $sum = $this->getRepository()->getFilteredTotalAmount($this->query);
+        $collection = new CollectionField(\array_map(
+            static fn (string $sum, string $currency) => new AmountField((float) $sum, $currency),
+            $this->filteredSumByCurrency,
+            \array_keys($this->filteredSumByCurrency),
+        ), '<br />');
 
         return [
-            ColumnEnum::AMOUNT->value => $sum.' €',
+            ColumnEnum::AMOUNT->value => $collection,
         ];
     }
 

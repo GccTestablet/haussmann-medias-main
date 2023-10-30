@@ -45,13 +45,14 @@
     </button>
 {% endblock %}
 
-{% block pager_links %}
-    {% for link in viewData.links %}
+{% block pager_collection %}
+    {% for element in viewData.elements %}
         {% with {
-            'viewData': link,
+            'viewData': element,
         } %}
             {{ block(viewData.type.value) }}
         {% endwith %}
+        {{ viewData.separator|default('')|raw }}
     {% endfor %}
 {% endblock %}
 

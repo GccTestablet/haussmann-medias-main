@@ -1,0 +1,7 @@
+{% use 'shared/_embedded/_pager_fields.html.twig' %}
+
+{% if viewData is instanceof('App\\Model\\Pager\\Field\\FieldInterface') %}
+    {{ block(viewData.type.value) }}
+{% else %}
+    {{ viewData|raw }}
+{% endif %}

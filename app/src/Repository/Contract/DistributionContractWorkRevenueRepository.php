@@ -61,14 +61,27 @@ class DistributionContractWorkRevenueRepository extends EntityRepository impleme
         ;
     }
 
-    public function getFilteredTotalAmount(QueryBuilder $queryBuilder): int
+    /**
+     * @param array<string, mixed> $criteria
+     * @param array<string, string> $orderBy
+     *
+     * @return array<string, string>
+     */
+    public function getFilteredSumByCurrency(array $criteria, array $orderBy): array
     {
-        return (int) $queryBuilder
-            ->resetDQLPart('orderBy')
-            ->select('SUM(dcwr.amount) as total')
-            ->setMaxResults(1)
+        $result = $this->getPagerQueryBuilder($criteria, $orderBy, null, 0)
+            ->select('SUM(dcwr.amount) as sum')
+            ->addSelect('dcwr.currency')
+            ->groupBy('dcwr.currency')
+            ->orderBy('sum', 'DESC')
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getArrayResult()
         ;
+
+        return \array_column(
+            $result,
+            'sum',
+            'currency'
+        );
     }
 }

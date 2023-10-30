@@ -6,22 +6,22 @@ namespace App\Model\Pager\Field;
 
 use App\Enum\Pager\FieldTypeEnum;
 
-class LinksField implements FieldInterface
+class CollectionField implements FieldInterface
 {
     public function __construct(
         /**
-         * @var array<LinkField>
+         * @var array<FieldInterface>
          */
-        private readonly array $links,
+        private readonly array $elements,
         private readonly string $separator = '',
     ) {}
 
     /**
-     * @return array<LinkField>
+     * @return array<FieldInterface>
      */
-    public function getLinks(): array
+    public function getElements(): array
     {
-        return $this->links;
+        return $this->elements;
     }
 
     public function getSeparator(): string
@@ -31,6 +31,6 @@ class LinksField implements FieldInterface
 
     public function getType(): FieldTypeEnum
     {
-        return FieldTypeEnum::LINKS;
+        return FieldTypeEnum::COLLECTION;
     }
 }
