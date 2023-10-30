@@ -87,4 +87,19 @@ class FormatExtensionRuntime implements RuntimeExtensionInterface
 
         return \implode(' ', $result);
     }
+
+    public function boolFormat(mixed $value, bool $onlyTrue = false, bool $color = false): ?string
+    {
+        $value = (bool) $value;
+
+        if ($value) {
+            return \sprintf("<i class='fas fa-check %s'></i>", $color ? 'text-success' : null);
+        }
+
+        if ($onlyTrue) {
+            return null;
+        }
+
+        return \sprintf("<i class='fas fa-times %s'></i>", $color ? 'text-danger' : null);
+    }
 }

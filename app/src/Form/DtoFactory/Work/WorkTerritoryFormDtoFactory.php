@@ -29,8 +29,13 @@ class WorkTerritoryFormDtoFactory
 
         foreach ($this->territoryManager->findAll() as $territory) {
             $workTerritory = $work->getWorkTerritory($territory);
+            $dto->addExclusive(
+                WorkTerritoryFormDto::getFormName($territory),
+                $workTerritory?->isExclusive() ?? true
+            );
+
             foreach ($broadcastChannels as $broadcastChannel) {
-                $dto->addTerritory(
+                $dto->addBroadcastChannel(
                     WorkTerritoryFormDto::getFormName($territory, $broadcastChannel),
                     (bool) $workTerritory?->getBroadcastChannels()->contains($broadcastChannel)
                 );
@@ -40,19 +45,17 @@ class WorkTerritoryFormDtoFactory
         return $dto;
     }
 
-    /**
-     * @param array<string, bool|string> $territories
-     */
-    public function updateEntity(Work $work, array $territories): void
+    public function updateEntity(Work $work, WorkTerritoryFormDto $dto): void
     {
         $broadcastChannels = $this->broadcastChannelManager->findAll();
 
         $workTerritories = new ArrayCollection();
         foreach ($this->territoryManager->findAll() as $territory) {
             $workTerritory = $this->workTerritoryManager->findOrCreate($work, $territory);
+            $workTerritory->setExclusive($dto->getExclusive(WorkTerritoryFormDto::getFormName($territory)));
 
             foreach ($broadcastChannels as $broadcastChannel) {
-                $value = (bool) ($territories[WorkTerritoryFormDto::getFormName($territory, $broadcastChannel)] ?? false);
+                $value = $dto->getBroadcastChannel(WorkTerritoryFormDto::getFormName($territory, $broadcastChannel));
 
                 if (!$value) {
                     $workTerritory->removeBroadcastChannel($broadcastChannel);

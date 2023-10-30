@@ -15,14 +15,24 @@ class WorkTerritoryFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('territories', CollectionType::class, [
-            'label' => false,
-            'entry_type' => CheckboxType::class,
-            'entry_options' => [
+        $builder
+            ->add('exclusives', CollectionType::class, [
                 'label' => false,
-                'required' => false,
-            ],
-        ]);
+                'entry_type' => CheckboxType::class,
+                'entry_options' => [
+                    'label' => false,
+                    'required' => false,
+                ],
+            ])
+            ->add('broadcastChannels', CollectionType::class, [
+                'label' => false,
+                'entry_type' => CheckboxType::class,
+                'entry_options' => [
+                    'label' => false,
+                    'required' => false,
+                ],
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -56,7 +56,7 @@ class DistributionContractWorkPager extends AbstractPager
                 ),
                 callback: fn (DistributionContractWork $contractWork) => new PopoverButtonField(
                     value: new IconField(
-                        icon: 'circle-exclamation',
+                        icon: 'circle-info',
                         attributes: [
                             'class' => 'text-primary',
                         ]

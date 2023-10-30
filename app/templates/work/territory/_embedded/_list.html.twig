@@ -4,6 +4,7 @@
             <thead>
             <tr>
                 <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
+                <th>{% trans from 'work' %}Exclusive{% endtrans %}</th>
                 <th>{% trans from 'setting' %}Channels{% endtrans %}</th>
             </tr>
             </thead>
@@ -11,6 +12,7 @@
             {% for workTerritory in workTerritories %}
                 <tr>
                     <td>{{ workTerritory.territory.name }}</td>
+                    <td>{{ workTerritory.exclusive|bool_format(false, true) }}</td>
                     <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
                 </tr>
             {% endfor %}

@@ -6,11 +6,14 @@ namespace App\Form\Dto\Work;
 
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Work\WorkReversion;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkReversionFormDto
 {
+    #[Assert\NotBlank]
     private ?BroadcastChannel $channel = null;
 
+    #[Assert\NotBlank]
     private ?float $percentageReversion = 0.0;
 
     public function __construct(

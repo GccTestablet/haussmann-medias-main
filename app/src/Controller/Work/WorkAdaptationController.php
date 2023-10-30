@@ -39,7 +39,7 @@ class WorkAdaptationController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_work_show', ['id' => $work->getId()]);
+            return $this->redirectToRoute('app_work_show', ['id' => $work->getId(), 'tab' => 'distribution-costs']);
         }
 
         return $this->render('shared/common/save.html.twig', [
@@ -57,7 +57,10 @@ class WorkAdaptationController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_work_show', ['id' => $workAdaptation->getWork()->getId()]);
+            return $this->redirectToRoute('app_work_show', [
+                'id' => $workAdaptation->getWork()->getId(),
+                'tab' => 'distribution-costs',
+            ]);
         }
 
         return $this->render('shared/common/save.html.twig', [
