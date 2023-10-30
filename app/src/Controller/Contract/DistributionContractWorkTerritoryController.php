@@ -39,9 +39,9 @@ class DistributionContractWorkTerritoryController extends AbstractAppController
 
         $form = $formHandlerResponse->getForm();
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_company_distribution_contract_show', [
-                'company' => $contract->getCompany()->getId(),
+            return $this->redirectToRoute('app_distribution_contract_show', [
                 'id' => $contract->getId(),
+                'tab' => 'works',
             ]);
         }
 

@@ -45,4 +45,5 @@ enum ColumnEnum: string
     // Settings
     case CHANNEL = 'channel';
     case CHANNELS = 'channels';
+    case TERRITORIES = 'territories';
 }
