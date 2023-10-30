@@ -20,6 +20,7 @@ export default class extends Controller<HTMLElement> {
   init() {
     tippy(this.element, {
       theme: "light-border",
+      maxWidth: "none",
       allowHTML: true,
       content: this.contentValue,
       placement: "auto",
