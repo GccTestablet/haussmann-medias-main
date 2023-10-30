@@ -60,9 +60,7 @@ class DistributionContractController extends AbstractAppController
         );
 
         return $this->render('distribution_contract/index.html.twig', [
-            'company' => $company,
             'pagerResponse' => $pagerResponse,
-            'contracts' => $company->getDistributionContracts(),
         ]);
     }
 
