@@ -33,7 +33,7 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
                 ColumnEnum::COMPANY => $queryBuilder
                     ->andWhere('dc.company = :company')
                     ->setParameter('company', $value),
-                ColumnEnum::BENEFICIARIES => $queryBuilder
+                ColumnEnum::DISTRIBUTORS => $queryBuilder
                     ->andWhere('dc.distributor IN (:distributors)')
                     ->setParameter('distributors', $value),
                 ColumnEnum::WORKS => $queryBuilder
