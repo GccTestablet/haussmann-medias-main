@@ -54,9 +54,8 @@ class DistributionContractFormDtoFactory
                     ->setDistributionContract($contract)
                     ->setOriginalFileName($file->getClientOriginalName())
                     ->setFileName(FileNameGenerator::generate($file))
+                    ->setFile($file)
                 ;
-
-                $this->uploadFileManager->upload($file, $contractFile->getUploadDir(), $contractFile->getFileName());
 
                 $contract->addContractFile($contractFile);
             }

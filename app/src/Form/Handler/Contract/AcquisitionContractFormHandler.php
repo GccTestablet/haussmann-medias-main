@@ -9,6 +9,7 @@ use App\Form\DtoFactory\Contract\AcquisitionContractFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Type\Contract\AcquisitionContractFormType;
+use App\Tools\Manager\UploadFileManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,7 @@ class AcquisitionContractFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly UploadFileManager $uploadFileManager,
         private readonly AcquisitionContractFormDtoFactory $companyContractFormDtoFactory,
     ) {}
 
@@ -35,10 +37,21 @@ class AcquisitionContractFormHandler extends AbstractFormHandler
             $this->entityManager->refresh($contract);
         }
 
-        $this->companyContractFormDtoFactory->updateEntity($dto, $contract);
+        try {
+            $this->companyContractFormDtoFactory->updateEntity($dto, $contract);
 
-        $this->entityManager->persist($contract);
-        $this->entityManager->flush();
+            $this->entityManager->persist($contract);
+            $this->entityManager->flush();
+
+            foreach ($contract->getContractFiles() as $contractFile) {
+                if (!$contractFile->getFile()) {
+                    continue;
+                }
+
+                $this->uploadFileManager->upload($contractFile->getFile(), $contractFile->getUploadDir(), $contractFile->getFileName());
+            }
+        } catch (\Exception) {
+        }
 
         return parent::onFormSubmitAndValid($request, $form, $options);
     }

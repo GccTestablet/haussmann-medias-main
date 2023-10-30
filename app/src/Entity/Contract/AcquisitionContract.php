@@ -179,6 +179,9 @@ class AcquisitionContract
         return $this;
     }
 
+    /**
+     * @return Collection<AcquisitionContractFile>
+     */
     public function getContractFiles(): Collection
     {
         return $this->contractFiles;
