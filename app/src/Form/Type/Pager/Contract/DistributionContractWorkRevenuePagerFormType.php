@@ -38,7 +38,7 @@ class DistributionContractWorkRevenuePagerFormType extends BasePagerFormType
                 ColumnEnum::DISTRIBUTION_CONTRACT->value => $distributionContract,
             ])
             ->add(ColumnEnum::ENDS_AT->value, DateRangeType::class, [
-                'label' => 'Revenus à date de',
+                'label' => 'Revenues to date',
                 'translation_domain' => 'misc',
             ])
         ;
