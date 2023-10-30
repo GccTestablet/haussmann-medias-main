@@ -38,11 +38,11 @@ class DistributionContractWorkRevenuePagerFormType extends BasePagerFormType
                 ColumnEnum::DISTRIBUTION_CONTRACT->value => $distributionContract,
             ])
             ->add(ColumnEnum::STARTS_AT->value, DateType::class, [
-                'label' => 'Starts after',
+                'label' => 'From the',
                 'translation_domain' => 'misc',
             ])
             ->add(ColumnEnum::ENDS_AT->value, DateType::class, [
-                'label' => 'Ends before',
+                'label' => 'To the',
                 'translation_domain' => 'misc',
             ])
         ;
