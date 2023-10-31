@@ -34,7 +34,7 @@
     </tr>
     <tr>
         <td>{% trans from 'work' %}Country{% endtrans %}</td>
-        <td>{{ work.country|country_format }}</td>
+        <td>{{ work.countries|map(code => code|country_format)|join(', ') }}</td>
     </tr>
     <tr>
         <td>{% trans from 'work' %}Quota{% endtrans %}</td>

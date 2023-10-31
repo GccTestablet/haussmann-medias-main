@@ -27,6 +27,7 @@ class DistributionContractPager extends AbstractPager
 
     protected static array $columns = [
         ColumnEnum::NAME,
+        ColumnEnum::SELLER,
         ColumnEnum::DISTRIBUTOR,
         ColumnEnum::CHANNELS,
         ColumnEnum::WORKS,
@@ -50,6 +51,18 @@ class DistributionContractPager extends AbstractPager
                     value: $contract->getName(),
                     attributes: [
                         'href' => $this->router->generate('app_distribution_contract_show', ['id' => $contract->getId()]),
+                    ]
+                ),
+            ),
+            new Column(
+                id: ColumnEnum::SELLER,
+                header: new ColumnHeader(
+                    callback: fn () => new TranslatableMessage('Seller', [], 'contract'),
+                ),
+                callback: fn (DistributionContract $contract) => new LinkField(
+                    value: $contract->getCompany()->getName(),
+                    attributes: [
+                        'href' => $this->router->generate('app_company_show', ['id' => $contract->getCompany()->getId()]),
                     ]
                 ),
             ),

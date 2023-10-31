@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Fixtures\Doctrine\Work;
 
 use App\Entity\Work\Work;
+use App\Enum\Work\WorkQuotaEnum;
 use App\Tests\Fixtures\Doctrine\Contract\AcquisitionContractFixture;
 use App\Tests\Fixtures\Doctrine\Shared\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -23,7 +24,8 @@ class WorkFixture extends AbstractFixture implements DependentFixtureInterface
             'name' => 'Winnie the Pooh',
             'originalName' => 'Winnie the Pooh: Blood and Honey',
             'acquisitionContract' => AcquisitionContractFixture::WINNIE_THE_POOH,
-            'country' => 'GB',
+            'countries' => ['GB'],
+            'quota' => WorkQuotaEnum::EUROPEAN,
         ],
         self::SNIPER => [
             'internalId' => 'CHR000001',
@@ -31,7 +33,8 @@ class WorkFixture extends AbstractFixture implements DependentFixtureInterface
             'name' => 'Sniper',
             'originalName' => 'Sniper',
             'acquisitionContract' => AcquisitionContractFixture::SNIPER_AND_MANEATER,
-            'country' => 'US',
+            'countries' => ['US'],
+            'quota' => WorkQuotaEnum::INTERNATIONAL,
         ],
         self::MANEATER => [
             'internalId' => 'CHR000002',
@@ -39,7 +42,8 @@ class WorkFixture extends AbstractFixture implements DependentFixtureInterface
             'name' => 'Maneater',
             'originalName' => 'Maneater',
             'acquisitionContract' => AcquisitionContractFixture::SNIPER_AND_MANEATER,
-            'country' => 'US',
+            'countries' => ['US'],
+            'quota' => WorkQuotaEnum::INTERNATIONAL,
         ],
     ];
 

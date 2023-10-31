@@ -59,9 +59,10 @@ class WorkFormType extends AbstractType
                     ),
                 ],
             ])
-            ->add('country', CountryType::class, [
+            ->add('countries', CountryType::class, [
                 'placeholder' => 'Select a country',
                 'preferred_choices' => ['FR', 'US'],
+                'multiple' => true,
                 'autocomplete' => true,
             ])
             ->add('quota', EnumType::class, [

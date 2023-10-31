@@ -30,7 +30,7 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
                     ->andWhere('LOWER(ac.name) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),
                 ColumnEnum::COMPANY => $queryBuilder
-                    ->andWhere('ac.company = :company')
+                    ->andWhere('ac.company = :company OR ac.beneficiary = :company')
                     ->setParameter('company', $value),
                 ColumnEnum::BENEFICIARIES => $queryBuilder
                     ->andWhere('ac.beneficiary IN (:beneficiaries)')

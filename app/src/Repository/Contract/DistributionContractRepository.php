@@ -31,7 +31,7 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
                     ->andWhere('LOWER(dc.name) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),
                 ColumnEnum::COMPANY => $queryBuilder
-                    ->andWhere('dc.company = :company')
+                    ->andWhere('dc.company = :company OR dc.distributor = :company')
                     ->setParameter('company', $value),
                 ColumnEnum::DISTRIBUTORS => $queryBuilder
                     ->andWhere('dc.distributor IN (:distributors)')

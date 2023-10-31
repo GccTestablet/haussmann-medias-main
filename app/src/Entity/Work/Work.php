@@ -40,8 +40,11 @@ class Work
     #[ORM\Column(unique: true)]
     private string $originalName;
 
-    #[ORM\Column(length: 2)]
-    private string $country;
+    /**
+     * @var array<string>
+     */
+    #[ORM\Column(type: Types::SIMPLE_ARRAY)]
+    private array $countries = [];
 
     #[ORM\Column(length: 20, enumType: WorkQuotaEnum::class)]
     private WorkQuotaEnum $quota;
@@ -157,14 +160,20 @@ class Work
         return $this;
     }
 
-    public function getCountry(): string
+    /**
+     * @return string[]
+     */
+    public function getCountries(): array
     {
-        return $this->country;
+        return $this->countries;
     }
 
-    public function setCountry(string $country): self
+    /**
+     * @param array<string> $countries
+     */
+    public function setCountries(array $countries): self
     {
-        $this->country = $country;
+        $this->countries = $countries;
 
         return $this;
     }

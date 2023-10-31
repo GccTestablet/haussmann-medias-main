@@ -101,6 +101,6 @@ class CreatePageTest extends AbstractEnd2EndTestCase
         $this->assertUrl('/distribution-contracts/3');
 
         $this->refreshCrawler();
-        $this->assertPageContains('Contrat de sous-distribution du distributeur My Digital Company');
+        $this->assertPageContains('Contrat de sous-distribution MDC - Winnie the Pooh');
     }
 }
