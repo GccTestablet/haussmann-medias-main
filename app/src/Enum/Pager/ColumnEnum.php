@@ -28,6 +28,7 @@ enum ColumnEnum: string
     case INTERNAL_ID = 'internalId';
     case CONTRACT = 'contract';
     case COMPANY = 'company';
+    case QUOTA = 'quota';
 
     // Contract
     case SIGNED_AT = 'signedAt';

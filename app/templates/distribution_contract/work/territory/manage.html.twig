@@ -32,6 +32,7 @@
                     <thead>
                     <tr>
                         <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
+                        <th>{% trans from 'work' %}Exclusive{% endtrans %}</th>
                         <th class="text-nowrap">{% trans from 'misc' %}Select all{% endtrans %}</th>
                         {% for channel in contract.broadcastChannels %}
                             <th>{{ channel.name }}</th>
@@ -40,8 +41,12 @@
                     </thead>
                     <tbody>
                     {% for territory in work.territories %}
+                        {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory) %}
                         <tr data-controller="datatable--select-all-row">
                             <td class="text-nowrap">{{ territory.name }}</td>
+                            <td>
+                                {{ form_widget(form.exclusives[formName]) }}
+                            </td>
                             <td>
                                 <input type="checkbox" class="form-check-input"
                                        data-datatable--select-all-row-target="checkAll"
@@ -49,7 +54,7 @@
                             </td>
                             {% for channel in contract.broadcastChannels %}
                                 {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory, channel) %}
-                                {% set formView = form.territories[formName] ?? null %}
+                                {% set formView = form.broadcastChannels[formName] ?? null %}
                                 <td class="text-center">
                                     {{ formView ? form_widget(formView, {
                                         'attr': {

@@ -33,7 +33,7 @@ class DistributionContractWorkTerritoryFormHandler extends AbstractFormHandler
         $contractWork = $dto->getContractWork();
         $this->entityManager->refresh($contractWork);
 
-        $this->formDtoFactory->updateEntity($contractWork, $dto->getTerritories());
+        $this->formDtoFactory->updateEntity($contractWork, $dto);
 
         $this->entityManager->flush();
 

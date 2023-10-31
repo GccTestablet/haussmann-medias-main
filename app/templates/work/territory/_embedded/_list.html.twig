@@ -1,22 +1,27 @@
-<div class="card card-body">
-    <div class="table-responsive">
-        <table id="work-territories-table" class="table">
-            <thead>
-            <tr>
-                <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
-                <th>{% trans from 'work' %}Exclusive{% endtrans %}</th>
-                <th>{% trans from 'setting' %}Channels{% endtrans %}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for workTerritory in workTerritories %}
+<div class="card">
+    <div class="card-header">
+        <h6 class="card-title">{{ title|trans }}</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="work-territories-table" class="table">
+                <thead>
                 <tr>
-                    <td>{{ workTerritory.territory.name }}</td>
-                    <td>{{ workTerritory.exclusive|bool_format(false, true) }}</td>
-                    <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
+                    <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
+                    <th>{% trans from 'work' %}Exclusive{% endtrans %}</th>
+                    <th>{% trans from 'setting' %}Channels{% endtrans %}</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for workTerritory in workTerritories %}
+                    <tr>
+                        <td>{{ workTerritory.territory.name }}</td>
+                        <td>{{ workTerritory.exclusive|bool_format(false, true) }}</td>
+                        <td>{{ workTerritory.broadcastChannels|map(channel => channel.name)|join(', ') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

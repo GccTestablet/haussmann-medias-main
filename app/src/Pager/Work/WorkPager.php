@@ -61,6 +61,7 @@ class WorkPager extends AbstractPager
                     ),
                     popoverTitle: new TranslatableMessage('Territories', [], 'work'),
                     popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
+                        'title' => new TranslatableMessage('Territories and channels acquired', [], 'work'),
                         'workTerritories' => $work->getWorkTerritories(),
                     ]),
                     attributes: [

@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Form\Type\Pager\Work;
 
 use App\Enum\Pager\ColumnEnum;
+use App\Enum\Work\OriginWorkEnum;
 use App\Form\Type\Common\CompanyEntityField;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,28 +22,25 @@ class WorkPagerFormType extends BasePagerFormType
         $builder
             ->add(ColumnEnum::INTERNAL_ID->value, TextType::class, [
                 'label' => 'Internal Id',
-                'row_attr' => [
-                    'class' => 'col-sm-6 col-lg-3',
-                ],
             ])
             ->add(ColumnEnum::NAME->value, TextType::class, [
                 'label' => 'Title (French or original)',
-                'row_attr' => [
-                    'class' => 'col-sm-6 col-lg-3',
-                ],
             ])
             ->add(ColumnEnum::ACQUISITION_CONTRACT_NAME->value, TextType::class, [
                 'label' => 'Acquisition contract name',
-                'row_attr' => [
-                    'class' => 'col-sm-6 col-lg-3',
-                ],
             ])
             ->add(ColumnEnum::BENEFICIARIES->value, CompanyEntityField::class, [
                 'label' => 'Acquisition contract beneficiary',
-                'multiple' => true,
-                'row_attr' => [
-                    'class' => 'col-sm-6 col-lg-3',
+                'attr' => [
+                    'placeholder' => 'All beneficiaries',
                 ],
+                'multiple' => true,
+            ])
+            ->add(ColumnEnum::QUOTA->value, EnumType::class, [
+                'label' => 'Quota',
+                'class' => OriginWorkEnum::class,
+                'choice_label' => fn (OriginWorkEnum $originWorkEnum) => $originWorkEnum->getAsText(),
+                'placeholder' => 'All quotas',
             ])
         ;
     }

@@ -47,6 +47,9 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('cw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
+                ColumnEnum::QUOTA => $queryBuilder
+                    ->andWhere('w.country IN (:quota)')
+                    ->setParameter('quota', $value->getCountries()),
                 default => null,
             };
         }
