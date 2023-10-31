@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Dto\Work;
 
 use App\Entity\Work\Work;
+use App\Enum\Work\WorkQuotaEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkFormDto
@@ -23,6 +24,9 @@ class WorkFormDto
 
     #[Assert\NotBlank]
     private ?string $country = null;
+
+    #[Assert\NotBlank]
+    private ?WorkQuotaEnum $quota = null;
 
     private ?float $minimumGuaranteedBeforeReversion = null;
 
@@ -105,6 +109,18 @@ class WorkFormDto
     public function setCountry(?string $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getQuota(): ?WorkQuotaEnum
+    {
+        return $this->quota;
+    }
+
+    public function setQuota(?WorkQuotaEnum $quota): static
+    {
+        $this->quota = $quota;
 
         return $this;
     }

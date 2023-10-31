@@ -16,6 +16,7 @@ use App\Model\Pager\Field\PopoverButtonField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Shared\PagerRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Intl\Countries;
 use Symfony\Component\Translation\TranslatableMessage;
 use Twig\Environment;
 
@@ -30,6 +31,7 @@ class WorkPager extends AbstractPager
         ColumnEnum::EXTRA,
         ColumnEnum::INTERNAL_ID,
         ColumnEnum::NAME,
+        ColumnEnum::COUNTRY,
         ColumnEnum::ACQUISITION_CONTRACT,
         ColumnEnum::ACTIONS,
     ];
@@ -61,6 +63,7 @@ class WorkPager extends AbstractPager
                     ),
                     popoverTitle: new TranslatableMessage('Territories', [], 'work'),
                     popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
+                        'title' => new TranslatableMessage('Territories and channels acquired', [], 'work'),
                         'workTerritories' => $work->getWorkTerritories(),
                     ]),
                     attributes: [
@@ -90,6 +93,13 @@ class WorkPager extends AbstractPager
                     callback: fn () => new TranslatableMessage('Name', [], 'work')
                 ),
                 callback: fn (Work $work) => $work->getName(),
+            ),
+            new Column(
+                id: ColumnEnum::COUNTRY,
+                header: new ColumnHeader(
+                    callback: fn () => new TranslatableMessage('Country', [], 'work')
+                ),
+                callback: fn (Work $work) => Countries::getName($work->getCountry()),
             ),
             new Column(
                 id: ColumnEnum::ACQUISITION_CONTRACT,

@@ -36,5 +36,9 @@
         <td>{% trans from 'work' %}Country{% endtrans %}</td>
         <td>{{ work.country|country_format }}</td>
     </tr>
+    <tr>
+        <td>{% trans from 'work' %}Quota{% endtrans %}</td>
+        <td>{{ work.quota.asText|trans({}, 'work') }}</td>
+    </tr>
     </tbody>
 </table>

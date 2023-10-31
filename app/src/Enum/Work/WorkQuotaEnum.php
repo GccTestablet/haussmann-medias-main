@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enum\Work;
 
-enum OriginWorkEnum: string
+enum WorkQuotaEnum: string
 {
     case FRANCE = 'france';
     case EUROPEAN = 'european';

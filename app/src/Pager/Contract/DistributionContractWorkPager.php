@@ -63,6 +63,7 @@ class DistributionContractWorkPager extends AbstractPager
                     ),
                     popoverTitle: new TranslatableMessage('Territories', [], 'work'),
                     popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
+                        'title' => new TranslatableMessage('Territories and channels distributed', [], 'contract'),
                         'workTerritories' => $contractWork->getWorkTerritories(),
                     ]),
                     attributes: [

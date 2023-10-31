@@ -20,6 +20,7 @@ Remove revenue from work %work%: Supprimer le revenu de l'œuvre %work%
 Minimum guaranteed before reversion: Minimum garanti
 Minimum cost of the top before reversion: Plafond des frais recoupables
 Manage territory and channels from work %work%: Gérer les territoires et canaux pour l’œuvre
+Territories and channels acquired: Territoires et canaux acquis
 
 Internal Id: ID interne
 Imdb: IMDB
@@ -42,6 +43,11 @@ Manage territories and channels: Gérer les territoires et les canaux
 Territories: Territoires
 Adaptations: Coûts de distribution
 Exclusive: Exclusif
+Quota: Quota
+All quotas: Tous les quotas
+All beneficiaries: Tous les ayant-droits
+Select one or more beneficiaries: Sélectionner un ou plusieurs ayant-droits
+Select one or more quotas: Sélectionner un ou plusieurs quotas
 
 # Revenue
 Distributor: Distributeur
@@ -61,4 +67,4 @@ Percentage reversion: Pourcentage ayant-droits
 # Origin
 France: France
 European: Européen
-International: International
+International: Étranger

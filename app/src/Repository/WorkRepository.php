@@ -29,6 +29,9 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::INTERNAL_ID => $queryBuilder
                     ->andWhere('LOWER(w.internalId) LIKE LOWER(:internalId)')
                     ->setParameter('internalId', \sprintf('%%%s%%', $value)),
+                ColumnEnum::IMDB_ID => $queryBuilder
+                    ->andWhere('LOWER(w.imdbId) LIKE LOWER(:imdbId)')
+                    ->setParameter('imdbId', \sprintf('%%%s%%', $value)),
                 ColumnEnum::NAME => $queryBuilder
                     ->andWhere('LOWER(w.name) LIKE LOWER(:name) OR LOWER(w.originalName) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),
@@ -47,6 +50,12 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('cw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
+                ColumnEnum::COUNTRIES => $queryBuilder
+                    ->andWhere('w.country IN (:countries)')
+                    ->setParameter('countries', $value),
+                ColumnEnum::QUOTAS => $queryBuilder
+                    ->andWhere('w.quota IN (:quotas)')
+                    ->setParameter('quotas', $value),
                 default => null,
             };
         }

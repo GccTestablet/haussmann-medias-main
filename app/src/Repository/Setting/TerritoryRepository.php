@@ -15,9 +15,9 @@ class TerritoryRepository extends EntityRepository implements PagerRepositoryInt
     public function getPagerQueryBuilder(array $criteria, array $orderBy, ?int $limit = PagerInterface::DEFAULT_LIMIT, int $offset = PagerInterface::DEFAULT_OFFSET): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('t')
-            ->innerJoin('t.distributionContractWorkTerritories', 'dcwt')
-            ->innerJoin('dcwt.contractWork', 'dcw')
-            ->innerJoin('dcw.distributionContract', 'dc')
+            ->leftJoin('t.distributionContractWorkTerritories', 'dcwt')
+            ->leftJoin('dcwt.contractWork', 'dcw')
+            ->leftJoin('dcw.distributionContract', 'dc')
         ;
 
         foreach ($criteria as $field => $value) {

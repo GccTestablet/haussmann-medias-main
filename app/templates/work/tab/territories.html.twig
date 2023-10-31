@@ -9,6 +9,7 @@
         </div>
         <div class="card-body">
             {% include 'work/territory/_embedded/_list.html.twig' with {
+                title: 'Territories and channels acquired'|trans({}, 'work'),
                 workTerritories: work.workTerritories
             } %}
         </div>
