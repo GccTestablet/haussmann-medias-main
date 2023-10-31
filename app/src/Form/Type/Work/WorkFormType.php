@@ -42,22 +42,8 @@ class WorkFormType extends AbstractType
                 'help' => 'IMDB Id starts with "tt" followed by numbers.',
             ])
             ->add('name', TextType::class, [
-                'constraints' => [
-                    new UniqueEntityField(
-                        entityClass: Work::class,
-                        field: 'name',
-                        origin: $dto->isExists() ? $dto->getWork() : null
-                    ),
-                ],
             ])
             ->add('originalName', TextType::class, [
-                'constraints' => [
-                    new UniqueEntityField(
-                        entityClass: Work::class,
-                        field: 'originalName',
-                        origin: $dto->isExists() ? $dto->getWork() : null
-                    ),
-                ],
             ])
             ->add('countries', CountryType::class, [
                 'placeholder' => 'Select a country',

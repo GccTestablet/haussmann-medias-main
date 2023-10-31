@@ -34,10 +34,10 @@ class Work
     #[ORM\Column(nullable: true)]
     private ?string $imdbId = null;
 
-    #[ORM\Column(unique: true)]
+    #[ORM\Column]
     private string $name;
 
-    #[ORM\Column(unique: true)]
+    #[ORM\Column]
     private string $originalName;
 
     /**
