@@ -12,6 +12,7 @@ use App\Model\Pager\Field\BooleanField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Work\WorkTerritoryRepository;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class WorkTerritoryPager extends AbstractPager
 {
@@ -35,21 +36,21 @@ class WorkTerritoryPager extends AbstractPager
             new Column(
                 id: ColumnEnum::TERRITORY,
                 header: new ColumnHeader(
-                    callback: fn () => 'Territory',
+                    callback: fn () => new TranslatableMessage('Territory', [], 'setting')
                 ),
                 callback: fn (WorkTerritory $workTerritory) => $workTerritory->getTerritory()->getName(),
             ),
             new Column(
                 id: ColumnEnum::EXCLUSIVE,
                 header: new ColumnHeader(
-                    callback: fn () => 'Exclusive',
+                    callback: fn () => new TranslatableMessage('Exclusive', [], 'work'),
                 ),
                 callback: fn (WorkTerritory $workTerritory) => new BooleanField($workTerritory->isExclusive()),
             ),
             new Column(
                 id: ColumnEnum::CHANNELS,
                 header: new ColumnHeader(
-                    callback: fn () => 'Channels',
+                    callback: fn () => new TranslatableMessage('Channels', [], 'setting'),
                     sortable: false,
                 ),
                 callback: fn (WorkTerritory $workTerritory) => \implode(', ', $workTerritory

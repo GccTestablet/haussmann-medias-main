@@ -12,21 +12,34 @@
         {% block body_content %}
             {{ form_start(form) }}
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" data-controller="datatable--select-all">
                     <thead>
                     <tr>
                         <th>{% trans from 'setting' %}Territory{% endtrans %}</th>
                         <th>{% trans from 'work' %}Exclusive{% endtrans %}</th>
                         <th class="text-nowrap">{% trans from 'misc' %}Select all{% endtrans %}</th>
                         {% for channel in broadcastChannels %}
-                            <th>{{ channel.name }}</th>
+                            <th>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                           id="checkbox-channel-{{ channel.id }}"
+                                           data-datatable--select-all-target="columnAll"
+                                           data-action="input->datatable--select-all#toggleColumn"
+                                           data-datatable--select-all-column-param="{{ channel.id }}"
+                                           data-column-id="{{ channel.id }}"
+                                    />
+                                    <label class="form-check-label" for="checkbox-channel-{{ channel.id }}">
+                                        {{ channel.name }}
+                                    </label>
+                                </div>
+                            </th>
                         {% endfor %}
                     </tr>
                     </thead>
                     <tbody>
                         {% for territory in territories %}
                             {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory) %}
-                            <tr data-controller="datatable--select-all-row">
+                            <tr>
                                 <td class="text-nowrap">
                                     {{ territory.name }}
                                 </td>
@@ -35,15 +48,20 @@
                                 </td>
                                 <td>
                                     <input type="checkbox" class="form-check-input"
-                                           data-datatable--select-all-row-target="checkAll"
-                                           data-action="input->datatable--select-all-row#toggleAll" />
+                                           data-datatable--select-all-target="rowAll"
+                                           data-action="input->datatable--select-all#toggleRow"
+                                           data-datatable--select-all-row-param="{{ territory.id }}"
+                                           data-row-id="{{ territory.id }}"
+                                    />
                                 </td>
                                 {% for channel in broadcastChannels %}
                                     {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory, channel) %}
                                     <td class="text-center">
                                         {{ form_widget(form.broadcastChannels[formName], {
                                             'attr': {
-                                                'data-datatable--select-all-row-target': 'checkbox'
+                                                'data-datatable--select-all-target': 'checkbox',
+                                                'data-row-id': territory.id,
+                                                'data-column-id': channel.id,
                                             }
                                         }) }}
                                     </td>
