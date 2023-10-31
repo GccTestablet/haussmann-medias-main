@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Form\Type\Work;
 
 use App\Entity\Work\Work;
+use App\Enum\Work\WorkQuotaEnum;
 use App\Form\Dto\Work\WorkFormDto;
 use App\Form\Type\Shared\CurrencyType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -60,6 +62,10 @@ class WorkFormType extends AbstractType
             ->add('country', CountryType::class, [
                 'preferred_choices' => ['FR', 'US'],
                 'autocomplete' => true,
+            ])
+            ->add('quota', EnumType::class, [
+                'class' => WorkQuotaEnum::class,
+                'required' => true,
             ])
             ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
                 'required' => false,

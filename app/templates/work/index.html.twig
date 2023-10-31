@@ -12,8 +12,12 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-sm-4">{{ form_row(form.internalId) }}</div>
+                <div class="col-sm-4">{{ form_row(form.imdbId) }}</div>
                 <div class="col-sm-4">{{ form_row(form.name) }}</div>
-                <div class="col-sm-4">{{ form_row(form.quota) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">{{ form_row(form.quotas) }}</div>
+                <div class="col-sm-4">{{ form_row(form.countries) }}</div>
             </div>
             <div class="row">
                 <div class="col-sm-6">{{ form_row(form.acquisitionContractName) }}</div>

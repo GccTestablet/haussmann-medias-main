@@ -26,9 +26,12 @@ enum ColumnEnum: string
 
     // Work
     case INTERNAL_ID = 'internalId';
+    case IMDB_ID = 'imdbId';
     case CONTRACT = 'contract';
     case COMPANY = 'company';
-    case QUOTA = 'quota';
+    case QUOTAS = 'quotas';
+    case COUNTRY = 'country';
+    case COUNTRIES = 'countries';
 
     // Contract
     case SIGNED_AT = 'signedAt';

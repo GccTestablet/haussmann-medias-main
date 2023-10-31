@@ -17,6 +17,7 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
         $queryBuilder = $this->createQueryBuilder('ac')
             ->innerJoin('ac.beneficiary', 'b')
             ->leftJoin('ac.works', 'w')
+            ->leftJoin('w.workTerritories', 'wt')
             ->groupBy('ac')
             ->addGroupBy('b')
         ;
@@ -37,6 +38,9 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
                 ColumnEnum::WORKS => $queryBuilder
                     ->andWhere('w IN (:works)')
                     ->setParameter('works', $value),
+                ColumnEnum::TERRITORIES => $queryBuilder
+                    ->andWhere('wt.territory IN (:territories)')
+                    ->setParameter('territories', $value),
                 ColumnEnum::SIGNED_AT => $queryBuilder
                     ->andWhere('ac.signedAt BETWEEN :signedAtFrom AND :signedAtTo')
                     ->setParameter('signedAtFrom', $value->getFrom())

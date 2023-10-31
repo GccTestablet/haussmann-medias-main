@@ -9,6 +9,7 @@ use App\Entity\Contract\DistributionContractWork;
 use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Enum\Work\WorkQuotaEnum;
 use App\Repository\WorkRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -41,6 +42,9 @@ class Work
 
     #[ORM\Column(length: 2)]
     private string $country;
+
+    #[ORM\Column(length: 20, enumType: WorkQuotaEnum::class)]
+    private WorkQuotaEnum $quota;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?float $minimumGuaranteedBeforeReversion = null;
@@ -161,6 +165,18 @@ class Work
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getQuota(): WorkQuotaEnum
+    {
+        return $this->quota;
+    }
+
+    public function setQuota(WorkQuotaEnum $quota): static
+    {
+        $this->quota = $quota;
 
         return $this;
     }

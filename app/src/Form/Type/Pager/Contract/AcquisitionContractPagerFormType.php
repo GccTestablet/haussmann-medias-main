@@ -6,6 +6,7 @@ namespace App\Form\Type\Pager\Contract;
 
 use App\Enum\Pager\ColumnEnum;
 use App\Form\Type\Common\CompanyEntityField;
+use App\Form\Type\Common\TerritoryEntityField;
 use App\Form\Type\Common\WorkEntityField;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
 use App\Form\Type\Shared\DateRangeType;
@@ -29,6 +30,11 @@ class AcquisitionContractPagerFormType extends BasePagerFormType
             ])
             ->add(ColumnEnum::WORKS->value, WorkEntityField::class, [
                 'label' => 'Works',
+                'translation_domain' => 'work',
+                'multiple' => true,
+            ])
+            ->add(ColumnEnum::TERRITORIES->value, TerritoryEntityField::class, [
+                'label' => 'Territories',
                 'translation_domain' => 'work',
                 'multiple' => true,
             ])

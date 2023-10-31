@@ -13,6 +13,9 @@ Name: Nom
 Cost: Montant
 Amount: Montant
 Currency: Devise
+Countries: Pays
+All countries: Tous les pays
+Select one or more countries: Sélectionner un ou plusieurs pays
 Comment: Commentaire
 Actions: Actions
 File: Fichier
