@@ -56,6 +56,10 @@
     {% endfor %}
 {% endblock %}
 
+{% block pager_simple_array %}
+    {{ viewData.values|join(viewData.separator) }}
+{% endblock %}
+
 {% block pager_link %}
     <a {{ viewData.attributes|attributes_format }}>
         {% if viewData.value is instanceof('Symfony\\Component\\Translation\\TranslatableMessage') %}

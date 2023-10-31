@@ -78,7 +78,12 @@ class DistributionContractWorkPager extends AbstractPager
                 header: new ColumnHeader(
                     callback: fn () => new TranslatableMessage('Work', [], 'work'),
                 ),
-                callback: fn (DistributionContractWork $contractWork) => $contractWork->getWork()->getName(),
+                callback: fn (DistributionContractWork $contractWork) => new LinkField(
+                    value: $contractWork->getWork()->getName(),
+                    attributes: [
+                        'href' => $this->router->generate('app_work_show', ['id' => $contractWork->getWork()->getId()]),
+                    ]
+                )
             ),
             new Column(
                 id: ColumnEnum::PERIOD,

@@ -13,6 +13,7 @@ use App\Model\Pager\Field\CollectionField;
 use App\Model\Pager\Field\IconField;
 use App\Model\Pager\Field\LinkField;
 use App\Model\Pager\Field\PopoverButtonField;
+use App\Model\Pager\Field\SimpleArrayField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Shared\PagerRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
@@ -31,7 +32,7 @@ class WorkPager extends AbstractPager
         ColumnEnum::EXTRA,
         ColumnEnum::INTERNAL_ID,
         ColumnEnum::NAME,
-        ColumnEnum::COUNTRY,
+        ColumnEnum::COUNTRIES,
         ColumnEnum::ACQUISITION_CONTRACT,
         ColumnEnum::ACTIONS,
     ];
@@ -95,11 +96,14 @@ class WorkPager extends AbstractPager
                 callback: fn (Work $work) => $work->getName(),
             ),
             new Column(
-                id: ColumnEnum::COUNTRY,
+                id: ColumnEnum::COUNTRIES,
                 header: new ColumnHeader(
                     callback: fn () => new TranslatableMessage('Country', [], 'work')
                 ),
-                callback: fn (Work $work) => Countries::getName($work->getCountry()),
+                callback: fn (Work $work) => new SimpleArrayField(\array_map(
+                    static fn (string $code) => Countries::getName($code),
+                    $work->getCountries()
+                )),
             ),
             new Column(
                 id: ColumnEnum::ACQUISITION_CONTRACT,

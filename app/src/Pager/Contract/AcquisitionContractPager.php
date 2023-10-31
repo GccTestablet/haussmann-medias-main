@@ -27,6 +27,7 @@ class AcquisitionContractPager extends AbstractPager
 
     protected static array $columns = [
         ColumnEnum::NAME,
+        ColumnEnum::ACQUIRER,
         ColumnEnum::BENEFICIARY,
         ColumnEnum::SIGNED_AT,
         ColumnEnum::PERIOD,
@@ -51,6 +52,18 @@ class AcquisitionContractPager extends AbstractPager
                     value: $contract->getName(),
                     attributes: [
                         'href' => $this->router->generate('app_acquisition_contract_show', ['id' => $contract->getId()]),
+                    ]
+                ),
+            ),
+            new Column(
+                id: ColumnEnum::ACQUIRER,
+                header: new ColumnHeader(
+                    callback: fn () => new TranslatableMessage('Acquirer', [], 'contract'),
+                ),
+                callback: fn (AcquisitionContract $contract) => new LinkField(
+                    value: $contract->getCompany()->getName(),
+                    attributes: [
+                        'href' => $this->router->generate('app_company_show', ['id' => $contract->getCompany()->getId()]),
                     ]
                 ),
             ),

@@ -15,10 +15,12 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
     public function getPagerQueryBuilder(array $criteria, array $orderBy, ?int $limit = PagerInterface::DEFAULT_LIMIT, int $offset = PagerInterface::DEFAULT_OFFSET): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('ac')
+            ->innerJoin('ac.company', 'c')
             ->innerJoin('ac.beneficiary', 'b')
             ->leftJoin('ac.works', 'w')
             ->leftJoin('w.workTerritories', 'wt')
             ->groupBy('ac')
+            ->addGroupBy('c')
             ->addGroupBy('b')
         ;
 
@@ -30,7 +32,7 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
                     ->andWhere('LOWER(ac.name) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),
                 ColumnEnum::COMPANY => $queryBuilder
-                    ->andWhere('ac.company = :company')
+                    ->andWhere('ac.company = :company OR ac.beneficiary = :company')
                     ->setParameter('company', $value),
                 ColumnEnum::BENEFICIARIES => $queryBuilder
                     ->andWhere('ac.beneficiary IN (:beneficiaries)')
@@ -61,6 +63,7 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
             $enum = ColumnEnum::tryFrom($field);
             match ($enum) {
                 ColumnEnum::NAME => $queryBuilder->orderBy('ac.name', $direction),
+                ColumnEnum::ACQUIRER => $queryBuilder->orderBy('c.name', $direction),
                 ColumnEnum::BENEFICIARY => $queryBuilder->orderBy('b.name', $direction),
                 ColumnEnum::SIGNED_AT => $queryBuilder->orderBy('ac.signedAt', $direction),
                 ColumnEnum::PERIOD => $queryBuilder->orderBy('ac.startsAt', $direction),

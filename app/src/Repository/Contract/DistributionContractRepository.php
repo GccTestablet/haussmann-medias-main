@@ -15,11 +15,13 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
     public function getPagerQueryBuilder(array $criteria, array $orderBy, ?int $limit = PagerInterface::DEFAULT_LIMIT, int $offset = PagerInterface::DEFAULT_OFFSET): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('dc')
+            ->innerJoin('dc.company', 'c')
             ->innerJoin('dc.distributor', 'd')
             ->leftJoin('dc.contractWorks', 'cw')
             ->leftJoin('cw.work', 'w')
             ->leftJoin('dc.broadcastChannels', 'bc')
             ->groupBy('dc')
+            ->addGroupBy('c')
             ->addGroupBy('d')
         ;
 
@@ -31,7 +33,7 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
                     ->andWhere('LOWER(dc.name) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),
                 ColumnEnum::COMPANY => $queryBuilder
-                    ->andWhere('dc.company = :company')
+                    ->andWhere('dc.company = :company OR dc.distributor = :company')
                     ->setParameter('company', $value),
                 ColumnEnum::DISTRIBUTORS => $queryBuilder
                     ->andWhere('dc.distributor IN (:distributors)')
@@ -54,6 +56,7 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
             $enum = ColumnEnum::tryFrom($field);
             match ($enum) {
                 ColumnEnum::NAME => $queryBuilder->orderBy('dc.name', $direction),
+                ColumnEnum::SELLER => $queryBuilder->orderBy('c.name', $direction),
                 ColumnEnum::DISTRIBUTOR => $queryBuilder->orderBy('d.name', $direction),
                 ColumnEnum::SIGNED_AT => $queryBuilder->orderBy('dc.signedAt', $direction),
                 default => null,

@@ -17,6 +17,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
 {
     public function getPagerQueryBuilder(array $criteria, array $orderBy, ?int $limit = PagerInterface::DEFAULT_LIMIT, int $offset = PagerInterface::DEFAULT_OFFSET): QueryBuilder
     {
+        $expr = $this->getEntityManager()->getExpressionBuilder();
         $queryBuilder = $this->createQueryBuilder('w')
             ->innerJoin('w.acquisitionContract', 'ac')
             ->leftJoin('w.contractWorks', 'cw')
@@ -50,9 +51,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('cw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
-                ColumnEnum::COUNTRIES => $queryBuilder
-                    ->andWhere('w.country IN (:countries)')
-                    ->setParameter('countries', $value),
+                ColumnEnum::COUNTRIES => $this->addMultiple($queryBuilder, 'w.countries', $value),
                 ColumnEnum::QUOTAS => $queryBuilder
                     ->andWhere('w.quota IN (:quotas)')
                     ->setParameter('quotas', $value),
@@ -155,5 +154,20 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
             ->setFirstResult(0)
             ->setMaxResults($limit)
         ;
+    }
+
+    /**
+     * @param array<mixed> $values
+     */
+    private function addMultiple(QueryBuilder $queryBuilder, string $field, array $values): void
+    {
+        $expr = $queryBuilder->expr();
+        $orX = $expr->orX();
+        foreach ($values as $key => $value) {
+            $orX->add($expr->like($field, \sprintf(':value_%s', $key)));
+            $queryBuilder->setParameter(\sprintf('value_%s', $key), \sprintf('%%%s%%', $value));
+        }
+
+        $queryBuilder->andWhere($orX);
     }
 }

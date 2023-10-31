@@ -12,6 +12,7 @@ enum FieldTypeEnum: string
     case POPOVER_BUTTON = 'pager_popover_button';
     case LINK = 'pager_link';
     case COLLECTION = 'pager_collection';
+    case SIMPLE_ARRAY = 'pager_simple_array';
     case PERIOD = 'pager_period';
     case BOOLEAN = 'pager_boolean';
 }

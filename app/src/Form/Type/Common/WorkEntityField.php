@@ -36,7 +36,7 @@ class WorkEntityField extends AbstractType
                         limit: null
                     );
                 },
-                'choice_label' => 'name',
+                'choice_label' => fn (Work $work) => \sprintf('%s (%s)', $work->getName(), $work->getInternalId()),
                 'autocomplete' => true,
             ])
         ;

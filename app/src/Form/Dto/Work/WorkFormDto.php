@@ -22,8 +22,11 @@ class WorkFormDto
     #[Assert\NotBlank]
     private ?string $originalName = null;
 
+    /**
+     * @var array<string>
+     */
     #[Assert\NotBlank]
-    private ?string $country = null;
+    private array $countries = [];
 
     #[Assert\NotBlank]
     private ?WorkQuotaEnum $quota = null;
@@ -101,14 +104,20 @@ class WorkFormDto
         return $this;
     }
 
-    public function getCountry(): ?string
+    /**
+     * @return string[]
+     */
+    public function getCountries(): array
     {
-        return $this->country;
+        return $this->countries;
     }
 
-    public function setCountry(?string $country): static
+    /**
+     * @param array<string> $countries
+     */
+    public function setCountries(array $countries): static
     {
-        $this->country = $country;
+        $this->countries = $countries;
 
         return $this;
     }

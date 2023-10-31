@@ -31,7 +31,7 @@ class ShowPageTest extends AbstractEnd2EndTestCase
 
     public function testPageTitle(): void
     {
-        $this->assertPageContains('Contrat de sous-distribution du distributeur Mediawan');
+        $this->assertPageContains('Contrat de sous-distribution MW - Winnie the Pooh');
     }
 
     public function testInfo(): void
