@@ -58,7 +58,10 @@ class BroadcastChannelRepository extends EntityRepository implements PagerReposi
             $channels[] = $reversion->getChannel();
         }
 
-        $queryBuilder = $this->createQueryBuilder('bc');
+        $queryBuilder = $this->createQueryBuilder('bc')
+            ->orderBy('bc.name', 'ASC')
+        ;
+
         if (0 === \count($channels)) {
             return $queryBuilder;
         }
