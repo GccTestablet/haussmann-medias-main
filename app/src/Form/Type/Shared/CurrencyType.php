@@ -16,6 +16,7 @@ class CurrencyType extends BaseCurrencyType
         $resolver
             ->setDefaults([
                 'preferred_choices' => ['EUR', 'USD'],
+                'translation_domain' => 'misc',
             ])
         ;
     }
