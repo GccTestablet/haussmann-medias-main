@@ -70,6 +70,12 @@ class WorkFormType extends AbstractType
                 'choice_label' => fn (WorkQuotaEnum $originWorkEnum) => $originWorkEnum->getAsText(),
                 'required' => true,
             ])
+            ->add('year', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('duration', TextType::class, [
+                'required' => false,
+            ])
             ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
                 'required' => false,
             ])
@@ -78,12 +84,6 @@ class WorkFormType extends AbstractType
             ])
             ->add('currency', CurrencyType::class, [
                 'required' => true,
-            ])
-            ->add('year', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('duration', TextType::class, [
-                'required' => false,
             ])
         ;
     }
