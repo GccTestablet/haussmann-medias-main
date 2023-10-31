@@ -65,6 +65,7 @@ class WorkFormType extends AbstractType
             ])
             ->add('quota', EnumType::class, [
                 'class' => WorkQuotaEnum::class,
+                'choice_label' => fn (WorkQuotaEnum $originWorkEnum) => $originWorkEnum->getAsText(),
                 'required' => true,
             ])
             ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
