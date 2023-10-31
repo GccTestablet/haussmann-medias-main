@@ -69,3 +69,7 @@
 {% block pager_period %}
     {{ viewData.from|date_format }} - {{ viewData.to|date_format }}
 {% endblock %}
+
+{% block pager_boolean %}
+    {{ viewData.value|bool_format(false, true) }}
+{% endblock %}

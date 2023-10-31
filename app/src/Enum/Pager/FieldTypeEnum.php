@@ -13,4 +13,5 @@ enum FieldTypeEnum: string
     case LINK = 'pager_link';
     case COLLECTION = 'pager_collection';
     case PERIOD = 'pager_period';
+    case BOOLEAN = 'pager_boolean';
 }

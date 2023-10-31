@@ -15,6 +15,7 @@ use App\Model\Pager\Filter;
 use App\Model\Pager\FilterCollection;
 use App\Pager\Contract\DistributionContractPager;
 use App\Pager\Work\WorkPager;
+use App\Pager\Work\WorkTerritoryPager;
 use App\Service\Security\SecurityManager;
 use App\Tools\Parser\StringParser;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,8 @@ class WorkController extends AbstractAppController
         private readonly WorkPager $workPager,
         private readonly WorkFormDtoFactory $workFormDtoFactory,
         private readonly WorkFormHandler $workFormHandler,
-        private readonly DistributionContractPager $distributionContractPager
+        private readonly DistributionContractPager $distributionContractPager,
+        private readonly WorkTerritoryPager $workTerritoryPager,
     ) {}
 
     #[Route(name: 'app_work_index')]
@@ -64,6 +66,12 @@ class WorkController extends AbstractAppController
         }
 
         $params['pagerResponse'] = match ($tab) {
+            'territories' => $this->pagerManager->create(
+                $this->workTerritoryPager,
+                $request,
+                (new FilterCollection())
+                    ->addFilter(new Filter(ColumnEnum::WORK, $work))
+            ),
             'distribution-contracts' => $this->pagerManager->create(
                 $this->distributionContractPager,
                 $request,

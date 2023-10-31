@@ -8,12 +8,13 @@ use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Repository\Work\WorkTerritoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: WorkTerritoryRepository::class)]
 #[ORM\Table(name: 'work_territories')]
 class WorkTerritory
 {
@@ -38,6 +39,7 @@ class WorkTerritory
 
     #[ORM\ManyToMany(targetEntity: BroadcastChannel::class)]
     #[ORM\JoinTable(name: 'work_territory_broadcast_channels')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     private Collection $broadcastChannels;
 
     public function __construct()

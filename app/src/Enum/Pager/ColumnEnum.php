@@ -32,6 +32,7 @@ enum ColumnEnum: string
     case QUOTAS = 'quotas';
     case COUNTRY = 'country';
     case COUNTRIES = 'countries';
+    case EXCLUSIVE = 'exclusive';
 
     // Contract
     case SIGNED_AT = 'signedAt';
@@ -49,5 +50,6 @@ enum ColumnEnum: string
     // Settings
     case CHANNEL = 'channel';
     case CHANNELS = 'channels';
+    case TERRITORY = 'territory';
     case TERRITORIES = 'territories';
 }
