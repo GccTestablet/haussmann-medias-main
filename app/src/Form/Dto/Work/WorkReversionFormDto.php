@@ -14,7 +14,8 @@ class WorkReversionFormDto
     private ?BroadcastChannel $channel = null;
 
     #[Assert\NotBlank]
-    private ?float $percentageReversion = 0.0;
+    #[Assert\Type(type: 'float')]
+    private ?float $percentageReversion = null;
 
     public function __construct(
         private readonly WorkReversion $workReversion,

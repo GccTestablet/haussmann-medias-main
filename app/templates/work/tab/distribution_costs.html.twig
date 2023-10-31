@@ -8,9 +8,10 @@
             </a>
         </div>
         <div class="card-body">
-            {% include 'work/adaptation/_embedded/_list.html.twig' with {
-                adaptations: work.workAdaptations
+            {% component data_table with {
+                pagerResponse: pagerResponse
             } %}
+            {% endcomponent %}
         </div>
     </div>
 {% endblock %}

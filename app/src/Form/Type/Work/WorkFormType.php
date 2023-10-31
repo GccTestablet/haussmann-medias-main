@@ -60,13 +60,21 @@ class WorkFormType extends AbstractType
                 ],
             ])
             ->add('country', CountryType::class, [
+                'placeholder' => 'Select a country',
                 'preferred_choices' => ['FR', 'US'],
                 'autocomplete' => true,
             ])
             ->add('quota', EnumType::class, [
+                'placeholder' => 'Select a quota',
                 'class' => WorkQuotaEnum::class,
                 'choice_label' => fn (WorkQuotaEnum $originWorkEnum) => $originWorkEnum->getAsText(),
                 'required' => true,
+            ])
+            ->add('year', NumberType::class, [
+                'required' => false,
+            ])
+            ->add('duration', TextType::class, [
+                'required' => false,
             ])
             ->add('minimumGuaranteedBeforeReversion', NumberType::class, [
                 'required' => false,
@@ -76,12 +84,6 @@ class WorkFormType extends AbstractType
             ])
             ->add('currency', CurrencyType::class, [
                 'required' => true,
-            ])
-            ->add('year', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('duration', TextType::class, [
-                'required' => false,
             ])
         ;
     }

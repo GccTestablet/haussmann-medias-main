@@ -41,6 +41,7 @@ Select a work: Sélectionner une œuvre
 Manage territories: Gérer les territoires
 Manage territories and channels: Gérer les territoires et les canaux
 Territories: Territoires
+Territories and channels: Territoires et canaux
 Adaptations: Coûts de distribution
 Exclusive: Exclusif
 Quota: Quota
@@ -48,6 +49,8 @@ All quotas: Tous les quotas
 All beneficiaries: Tous les ayant-droits
 Select one or more beneficiaries: Sélectionner un ou plusieurs ayant-droits
 Select one or more quotas: Sélectionner un ou plusieurs quotas
+Select a country: Sélectionner un pays
+Select a quota: Sélectionner un quota
 
 # Revenue
 Distributor: Distributeur
@@ -62,7 +65,7 @@ Add distribution cost: Ajouter un coût
 
 # Reversions
 Reversions: Reversements
-Percentage reversion: Pourcentage ayant-droits
+Percentage reversion: Pourcentage ayant-droit
 
 # Origin
 France: France

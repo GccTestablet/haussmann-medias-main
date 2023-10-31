@@ -7,10 +7,11 @@ namespace App\Entity\Work;
 use App\Entity\Setting\AdaptationCostType;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Repository\Work\WorkAdaptationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: WorkAdaptationRepository::class)]
 #[ORM\Table(name: 'work_adaptations')]
 class WorkAdaptation
 {

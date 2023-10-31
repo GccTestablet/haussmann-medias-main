@@ -7,10 +7,11 @@ namespace App\Entity\Work;
 use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Repository\Work\WorkReversionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: WorkReversionRepository::class)]
 #[ORM\Table(name: 'work_reversions')]
 class WorkReversion
 {

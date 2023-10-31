@@ -2,16 +2,17 @@
 
 {% block content_inner %}
     <div class="card">
-        <div class="card-header text-end">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h6 class="card-title">{% trans from 'work' %}Territories and channels acquired{% endtrans %}</h6>
             <a href="{{ path('app_work_territory_manage', {'work': work.id}) }}" class="btn btn-sm btn-warning">
                 {% trans from 'work' %}Manage territories and channels{% endtrans %}
             </a>
         </div>
         <div class="card-body">
-            {% include 'work/territory/_embedded/_list.html.twig' with {
-                title: 'Territories and channels acquired'|trans({}, 'work'),
-                workTerritories: work.workTerritories
+            {% component data_table with {
+                pagerResponse: pagerResponse
             } %}
+            {% endcomponent %}
         </div>
     </div>
 {% endblock %}

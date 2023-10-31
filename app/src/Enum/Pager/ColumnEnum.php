@@ -14,6 +14,8 @@ enum ColumnEnum: string
     // Misc
     case ID = 'id';
     case NAME = 'name';
+    case TYPE = 'type';
+    case COMMENT = 'comment';
     case STARTS_AT = 'startsAt';
     case ENDS_AT = 'endsAt';
     case AMOUNT = 'amount';
@@ -32,6 +34,8 @@ enum ColumnEnum: string
     case QUOTAS = 'quotas';
     case COUNTRY = 'country';
     case COUNTRIES = 'countries';
+    case EXCLUSIVE = 'exclusive';
+    case PERCENT_REVERSION = 'percentReversion';
 
     // Contract
     case SIGNED_AT = 'signedAt';
@@ -49,5 +53,6 @@ enum ColumnEnum: string
     // Settings
     case CHANNEL = 'channel';
     case CHANNELS = 'channels';
+    case TERRITORY = 'territory';
     case TERRITORIES = 'territories';
 }
