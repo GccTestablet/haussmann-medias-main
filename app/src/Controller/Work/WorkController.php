@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Work;
 
 use App\Controller\Shared\AbstractAppController;
+use App\Entity\Company;
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
@@ -42,16 +43,19 @@ class WorkController extends AbstractAppController
     #[Route(name: 'app_work_index')]
     public function index(Request $request): Response
     {
+        $user = $this->securityManager->getConnectedUser();
+        $company = $user->getConnectedOn();
+        if (!$company instanceof Company) {
+            $this->createAccessDeniedException('You must be connected on a company to access this page');
+        }
+
         $pagerResponse = $this->pagerManager->create(
             $this->workPager,
             $request,
-            (new FilterCollection())
-                ->addFilter(
-                    new Filter(
-                        ColumnEnum::COMPANY,
-                        $this->securityManager->getConnectedUser()->getConnectedOn()
-                    )
-                )
+            new FilterCollection([
+                new Filter(ColumnEnum::COMPANY, $company),
+                new Filter(ColumnEnum::ARCHIVED, false),
+            ])
         );
 
         return $this->render('work/index.html.twig', [
@@ -73,26 +77,30 @@ class WorkController extends AbstractAppController
             'territories' => $this->pagerManager->create(
                 $this->workTerritoryPager,
                 $request,
-                (new FilterCollection())
-                    ->addFilter(new Filter(ColumnEnum::WORK, $work))
+                new FilterCollection([
+                    new Filter(ColumnEnum::WORK, $work),
+                ])
             ),
             'distribution-costs' => $this->pagerManager->create(
                 $this->workAdaptationCostPager,
                 $request,
-                (new FilterCollection())
-                    ->addFilter(new Filter(ColumnEnum::WORK, $work))
+                new FilterCollection([
+                    new Filter(ColumnEnum::WORK, $work),
+                ])
             ),
             'reversions' => $this->pagerManager->create(
                 $this->workReversionPager,
                 $request,
-                (new FilterCollection())
-                    ->addFilter(new Filter(ColumnEnum::WORK, $work))
+                new FilterCollection([
+                    new Filter(ColumnEnum::WORK, $work),
+                ])
             ),
             'distribution-contracts' => $this->pagerManager->create(
                 $this->distributionContractPager,
                 $request,
-                (new FilterCollection())
-                    ->addFilter(new Filter(ColumnEnum::WORKS, [$work]))
+                new FilterCollection([
+                    new Filter(ColumnEnum::WORKS, [$work]),
+                ])
             ),
             default => null,
         };

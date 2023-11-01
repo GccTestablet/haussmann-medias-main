@@ -14,6 +14,7 @@
                     <thead>
                     <tr>
                         <th>{% trans from 'misc' %}Name{% endtrans %}</th>
+                        <th>{% trans from 'misc' %}Archived?{% endtrans %}</th>
                         <th>{% trans from 'setting' %}Broadcast services{% endtrans %}</th>
                         <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
                     </tr>
@@ -22,7 +23,8 @@
                     {% for channel in channels %}
                         <tr>
                             <td><a href="{{ path('app_setting_broadcast_channel_show', {'id': channel.id}) }}">{{ channel.name }}</a></td>
-                            <td>{{ channel.broadcastServices|length }}</td>
+                            <td>{{ channel.archived|bool_format }}</td>
+                            <td>{{ channel.broadcastServices|map(service => service.name)|join(', ') }}</td>
                             <td><a class="btn btn-sm btn-warning" href="{{ path('app_setting_broadcast_channel_update', {'id': channel.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
                         </tr>
                     {% endfor %}

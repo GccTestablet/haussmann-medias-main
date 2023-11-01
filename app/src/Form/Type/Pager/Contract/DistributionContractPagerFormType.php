@@ -9,6 +9,7 @@ use App\Form\Type\Common\BroadcastChannelEntityField;
 use App\Form\Type\Common\CompanyEntityField;
 use App\Form\Type\Common\WorkEntityField;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,6 +37,10 @@ class DistributionContractPagerFormType extends BasePagerFormType
                 'label' => 'Broadcast channels',
                 'translation_domain' => 'setting',
                 'multiple' => true,
+            ])
+            ->add(ColumnEnum::ARCHIVED->value, CheckboxType::class, [
+                'label' => 'Show archive?',
+                'translation_domain' => 'misc',
             ])
         ;
     }

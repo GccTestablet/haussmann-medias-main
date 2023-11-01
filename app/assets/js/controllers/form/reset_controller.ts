@@ -27,6 +27,10 @@ export default class extends Controller<HTMLElement> {
         element.innerHTML = "";
       });
 
+      form.querySelectorAll("input[type=checkbox]").forEach((element: HTMLInputElement) => {
+        element.checked = false;
+      });
+
       form.querySelectorAll("select").forEach((element: HTMLTomSelectElement) => {
         if (element.tomselect) {
           element.tomselect.clear();

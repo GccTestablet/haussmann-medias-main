@@ -21,6 +21,9 @@ class BroadcastService
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    private bool $archived = false;
+
     #[ORM\Column(unique: true)]
     private string $name;
 
@@ -36,6 +39,18 @@ class BroadcastService
     public function setId(int $id): static
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): static
+    {
+        $this->archived = $archived;
 
         return $this;
     }

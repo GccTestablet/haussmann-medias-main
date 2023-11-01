@@ -8,6 +8,7 @@ use App\Enum\Pager\ColumnEnum;
 use App\Enum\Work\WorkQuotaEnum;
 use App\Form\Type\Common\CompanyEntityField;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -56,6 +57,10 @@ class WorkPagerFormType extends BasePagerFormType
                 ],
                 'multiple' => true,
                 'autocomplete' => true,
+            ])
+            ->add(ColumnEnum::ARCHIVED->value, CheckboxType::class, [
+                'label' => 'Show archive?',
+                'translation_domain' => 'misc',
             ])
         ;
     }

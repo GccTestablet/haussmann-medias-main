@@ -8,6 +8,7 @@ use App\Entity\Setting\BroadcastChannel;
 use App\Form\Dto\Setting\BroadcastChannelFormDto;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,6 +21,11 @@ class BroadcastChannelFormType extends AbstractType
         $dto = $builder->getData();
 
         $builder
+            ->add('archived', CheckboxType::class, [
+                'label' => 'Archived?',
+                'required' => false,
+                'translation_domain' => 'misc',
+            ])
             ->add('name', TextType::class, [
                 'constraints' => new UniqueEntityField(
                     entityClass: BroadcastChannel::class,

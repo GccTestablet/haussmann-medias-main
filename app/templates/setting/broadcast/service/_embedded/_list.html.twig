@@ -3,6 +3,7 @@
         <thead>
         <tr>
             <th>Name</th>
+            <th>{% trans from 'misc' %}Archived?{% endtrans %}</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -10,6 +11,7 @@
         {% for service in services %}
             <tr>
                 <td><a href="{{ path('app_setting_broadcast_service_show', {'id': service.id}) }}">{{ service.name }}</a></td>
+                <td>{{ service.archived|bool_format }}</td>
                 <td>
                     <a href="{{ path('app_setting_broadcast_channel_service_update', {'channel': service.broadcastChannel.id, 'id': service.id}) }}" class="btn btn-sm btn-warning">Update</a>
                 </td>

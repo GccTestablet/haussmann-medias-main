@@ -14,6 +14,7 @@
                     <thead>
                     <tr>
                         <th>{% trans from 'misc' %}Name{% endtrans %}</th>
+                        <th>{% trans from 'misc' %}Archived?{% endtrans %}</th>
                         <th>{% trans from 'misc' %}Actions{% endtrans %}</th>
                     </tr>
                     </thead>
@@ -21,6 +22,7 @@
                     {% for type in types %}
                         <tr>
                             <td><a href="{{ path('app_setting_adaptation_cost_type_show', {'id': type.id}) }}">{{ type.name }}</a></td>
+                            <td>{{ type.archived|bool_format }}</td>
                             <td><a class="btn btn-sm btn-warning" href="{{ path('app_setting_adaptation_cost_type_update', {'id': type.id}) }}">{% trans from 'misc' %}Update{% endtrans %}</a></td>
                         </tr>
                     {% endfor %}

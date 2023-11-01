@@ -29,6 +29,9 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
             $enum = ColumnEnum::tryFrom($field);
 
             match ($enum) {
+                ColumnEnum::ARCHIVED => $queryBuilder
+                    ->andWhere('dc.archived = :archived')
+                    ->setParameter('archived', $value),
                 ColumnEnum::NAME => $queryBuilder
                     ->andWhere('LOWER(dc.name) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),

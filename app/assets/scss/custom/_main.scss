@@ -11,6 +11,10 @@
 // For example you can create _component1.scss and include it as follows:
 // @import 'component1';
 
+html {
+  scroll-behavior: auto !important; // Fix End2End tests
+}
+
 .rotate {
   &-90 {
     transform: rotate(90deg);

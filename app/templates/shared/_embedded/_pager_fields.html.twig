@@ -47,12 +47,14 @@
 
 {% block pager_collection %}
     {% for element in viewData.elements %}
-        {% with {
-            'viewData': element,
-        } %}
-            {{ block(viewData.type.value) }}
-        {% endwith %}
-        {{ viewData.separator|default('')|raw }}
+        {% if element is not null %}
+            {% with {
+                'viewData': element,
+            } %}
+                {{ block(viewData.type.value) }}
+            {% endwith %}
+            {{ viewData.separator|default('')|raw }}
+        {% endif %}
     {% endfor %}
 {% endblock %}
 

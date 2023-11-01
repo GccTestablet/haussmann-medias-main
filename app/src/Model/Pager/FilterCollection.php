@@ -12,9 +12,13 @@ class FilterCollection
 {
     private readonly Collection $filters;
 
-    public function __construct()
-    {
-        $this->filters = new ArrayCollection();
+    /**
+     * @param array<Filter> $filters
+     */
+    public function __construct(
+        array $filters = []
+    ) {
+        $this->filters = new ArrayCollection($filters);
     }
 
     public function getFilters(): Collection

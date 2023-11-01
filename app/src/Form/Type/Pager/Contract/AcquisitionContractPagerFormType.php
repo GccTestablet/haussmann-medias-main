@@ -10,6 +10,7 @@ use App\Form\Type\Common\TerritoryEntityField;
 use App\Form\Type\Common\WorkEntityField;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
 use App\Form\Type\Shared\DateRangeType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,6 +47,10 @@ class AcquisitionContractPagerFormType extends BasePagerFormType
             ])
             ->add(ColumnEnum::ENDS_AT->value, DateRangeType::class, [
                 'label' => 'Rights ends at',
+            ])
+            ->add(ColumnEnum::ARCHIVED->value, CheckboxType::class, [
+                'label' => 'Show archive?',
+                'translation_domain' => 'misc',
             ])
         ;
     }

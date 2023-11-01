@@ -8,6 +8,8 @@ use App\Entity\Setting\AdaptationCostType;
 
 class AdaptationCostTypeFormDto
 {
+    private bool $archived = false;
+
     private ?string $name = null;
 
     public function __construct(
@@ -23,6 +25,18 @@ class AdaptationCostTypeFormDto
     public function isExists(): bool
     {
         return $this->exists;
+    }
+
+    public function isArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(?bool $archived): static
+    {
+        $this->archived = $archived;
+
+        return $this;
     }
 
     public function getName(): ?string

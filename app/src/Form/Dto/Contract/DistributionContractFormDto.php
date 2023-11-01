@@ -18,6 +18,8 @@ class DistributionContractFormDto
     #[Assert\NotBlank]
     private ?Company $distributor = null;
 
+    private bool $archived = false;
+
     #[Assert\NotBlank]
     private ?string $name = null;
 
@@ -70,6 +72,18 @@ class DistributionContractFormDto
     public function setDistributor(?Company $distributor): static
     {
         $this->distributor = $distributor;
+
+        return $this;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): static
+    {
+        $this->archived = $archived;
 
         return $this;
     }

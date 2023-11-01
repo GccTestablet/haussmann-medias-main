@@ -55,8 +55,10 @@ class DistributionContractController extends AbstractAppController
         $pagerResponse = $this->pagerManager->create(
             $this->distributionContractPager,
             $request,
-            (new FilterCollection())
-                ->addFilter(new Filter(ColumnEnum::COMPANY, $company))
+            new FilterCollection([
+                new Filter(ColumnEnum::COMPANY, $company),
+                new Filter(ColumnEnum::ARCHIVED, false),
+            ])
         );
 
         return $this->render('distribution_contract/index.html.twig', [
@@ -75,14 +77,16 @@ class DistributionContractController extends AbstractAppController
             'works' => $this->pagerManager->create(
                 $this->distributionContractWorkPager,
                 $request,
-                (new FilterCollection())
-                    ->addFilter(new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract)),
+                new FilterCollection([
+                    new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract),
+                ])
             ),
             'revenues' => $this->pagerManager->create(
                 $this->distributionContractRevenuePager,
                 $request,
-                (new FilterCollection())
-                    ->addFilter(new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract)),
+                new FilterCollection([
+                    new Filter(ColumnEnum::DISTRIBUTION_CONTRACT, $contract),
+                ])
             ),
             default => null,
         };

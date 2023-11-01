@@ -12,6 +12,8 @@ enum ColumnEnum: string
     case PAGE = 'page';
 
     // Misc
+    case ARCHIVED = 'archived';
+    case SHOW_ARCHIVED = 'showArchived';
     case ID = 'id';
     case NAME = 'name';
     case TYPE = 'type';

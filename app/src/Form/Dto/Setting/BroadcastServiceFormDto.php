@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class BroadcastServiceFormDto
 {
+    private bool $archived = false;
+
     #[Assert\NotBlank]
     private ?string $name = null;
 
@@ -25,6 +27,18 @@ class BroadcastServiceFormDto
     public function isExists(): bool
     {
         return $this->exists;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): static
+    {
+        $this->archived = $archived;
+
+        return $this;
     }
 
     public function getName(): ?string

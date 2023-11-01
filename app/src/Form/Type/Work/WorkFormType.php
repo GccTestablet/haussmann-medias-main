@@ -10,6 +10,7 @@ use App\Form\Dto\Work\WorkFormDto;
 use App\Form\Type\Shared\CurrencyType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -25,6 +26,11 @@ class WorkFormType extends AbstractType
         $dto = $builder->getData();
 
         $builder
+            ->add('archived', CheckboxType::class, [
+                'label' => 'Archived?',
+                'required' => false,
+                'translation_domain' => 'misc',
+            ])
             ->add('internalId', TextType::class, [
                 'label' => 'Internal Id',
                 'disabled' => true,
@@ -41,10 +47,8 @@ class WorkFormType extends AbstractType
                 'required' => false,
                 'help' => 'IMDB Id starts with "tt" followed by numbers.',
             ])
-            ->add('name', TextType::class, [
-            ])
-            ->add('originalName', TextType::class, [
-            ])
+            ->add('name', TextType::class)
+            ->add('originalName', TextType::class)
             ->add('countries', CountryType::class, [
                 'placeholder' => 'Select a country',
                 'preferred_choices' => ['FR', 'US'],
