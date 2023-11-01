@@ -10,6 +10,7 @@ use App\Form\Type\Pager\Contract\AcquisitionContractPagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
 use App\Model\Pager\Field\CollectionField;
+use App\Model\Pager\Field\IconField;
 use App\Model\Pager\Field\LinkField;
 use App\Model\Pager\Field\PeriodField;
 use App\Pager\Shared\AbstractPager;
@@ -26,6 +27,7 @@ class AcquisitionContractPager extends AbstractPager
     protected static string $formType = AcquisitionContractPagerFormType::class;
 
     protected static array $columns = [
+        ColumnEnum::ARCHIVED,
         ColumnEnum::NAME,
         ColumnEnum::ACQUIRER,
         ColumnEnum::BENEFICIARY,
@@ -43,6 +45,20 @@ class AcquisitionContractPager extends AbstractPager
     protected function configureColumnSchema(): void
     {
         static::$columnSchema = [
+            new Column(
+                id: ColumnEnum::ARCHIVED,
+                header: new ColumnHeader(
+                    callback: fn () => null,
+                    sortable: false,
+                ),
+                callback: fn (AcquisitionContract $contract) => $contract->isArchived() ? new IconField(
+                    icon: 'fas fa-archive',
+                    attributes: [
+                        'title' => new TranslatableMessage('Archived', [], 'misc'),
+                        'class' => 'text-warning',
+                    ]
+                ) : null,
+            ),
             new Column(
                 id: ColumnEnum::NAME,
                 header: new ColumnHeader(

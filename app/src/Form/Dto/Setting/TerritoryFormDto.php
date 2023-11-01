@@ -8,6 +8,8 @@ use App\Entity\Setting\Territory;
 
 class TerritoryFormDto
 {
+    private bool $archived = false;
+
     private ?string $name = null;
 
     private ?string $description = null;
@@ -25,6 +27,18 @@ class TerritoryFormDto
     public function isExists(): bool
     {
         return $this->exists;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): static
+    {
+        $this->archived = $archived;
+
+        return $this;
     }
 
     public function getName(): ?string

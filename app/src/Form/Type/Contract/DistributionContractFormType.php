@@ -16,6 +16,7 @@ use App\Repository\CompanyRepository;
 use App\Service\Contract\ContractFileHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -46,6 +47,11 @@ class DistributionContractFormType extends AbstractType
                 'placeholder' => 'Select a distributor',
                 'query_builder' => fn (CompanyRepository $repository) => $repository->createQueryBuilder('b')->orderBy('b.name'),
                 'choice_label' => 'name',
+            ])
+            ->add('archived', CheckboxType::class, [
+                'label' => 'Archived?',
+                'required' => false,
+                'translation_domain' => 'misc',
             ])
             ->add('name', TextType::class, [
                 'constraints' => new UniqueEntityField(

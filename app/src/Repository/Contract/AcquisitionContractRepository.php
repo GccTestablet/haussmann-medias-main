@@ -28,6 +28,9 @@ class AcquisitionContractRepository extends EntityRepository implements PagerRep
             $enum = ColumnEnum::tryFrom($field);
 
             match ($enum) {
+                ColumnEnum::ARCHIVED => $queryBuilder
+                    ->andWhere('ac.archived = :archived')
+                    ->setParameter('archived', $value),
                 ColumnEnum::NAME => $queryBuilder
                     ->andWhere('LOWER(ac.name) LIKE LOWER(:name)')
                     ->setParameter('name', \sprintf('%%%s%%', $value)),

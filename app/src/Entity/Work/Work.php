@@ -31,6 +31,9 @@ class Work
     #[ORM\Column(unique: true)]
     private string $internalId;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    private bool $archived = false;
+
     #[ORM\Column(nullable: true)]
     private ?string $imdbId = null;
 
@@ -120,6 +123,18 @@ class Work
     public function setInternalId(string $internalId): static
     {
         $this->internalId = $internalId;
+
+        return $this;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): static
+    {
+        $this->archived = $archived;
 
         return $this;
     }

@@ -37,7 +37,13 @@ class TerritoryEntityField extends AbstractType
                     );
                 },
                 'choice_label' => 'name',
+                'choice_attr' => fn (Territory $territory) => [
+                    'class' => $territory->isArchived() ? 'text-decoration-line-through' : null,
+                ],
                 'autocomplete' => true,
+                'attr' => [
+                    'data-controller' => 'form--autocomplete',
+                ],
             ])
         ;
     }

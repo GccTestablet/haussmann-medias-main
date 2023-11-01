@@ -55,24 +55,33 @@ class WorkPager extends AbstractPager
                     callback: fn () => '',
                     sortable: false,
                 ),
-                callback: fn (Work $work) => new PopoverButtonField(
-                    value: new IconField(
-                        icon: 'circle-info',
+                callback: fn (Work $work) => new CollectionField([
+                    $work->isArchived() ? new IconField(
+                        icon: 'fas fa-archive',
                         attributes: [
-                            'class' => 'text-primary',
+                            'title' => new TranslatableMessage('Archived', [], 'misc'),
+                            'class' => 'text-warning',
                         ]
+                    ) : null,
+                    new PopoverButtonField(
+                        value: new IconField(
+                            icon: 'circle-info',
+                            attributes: [
+                                'class' => 'text-primary',
+                            ]
+                        ),
+                        popoverTitle: new TranslatableMessage('Territories', [], 'work'),
+                        popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
+                            'title' => new TranslatableMessage('Territories and channels acquired', [], 'work'),
+                            'workTerritories' => $work->getWorkTerritories(),
+                        ]),
+                        attributes: [
+                            'title' => new TranslatableMessage('Territories', [], 'work'),
+                            'class' => 'btn btn-sm',
+                            'data-work-id' => $work->getId(),
+                        ],
                     ),
-                    popoverTitle: new TranslatableMessage('Territories', [], 'work'),
-                    popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
-                        'title' => new TranslatableMessage('Territories and channels acquired', [], 'work'),
-                        'workTerritories' => $work->getWorkTerritories(),
-                    ]),
-                    attributes: [
-                        'title' => new TranslatableMessage('Territories', [], 'work'),
-                        'class' => 'btn btn-sm',
-                        'data-work-id' => $work->getId(),
-                    ],
-                )
+                ])
             ),
             new Column(
                 id: ColumnEnum::INTERNAL_ID,

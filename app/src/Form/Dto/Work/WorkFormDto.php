@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkFormDto
 {
+    private bool $archived = false;
+
     private ?string $internalId = null;
 
     #[Assert\Regex('/^tt[0-9]*$/')]
@@ -54,6 +56,18 @@ class WorkFormDto
     public function isExists(): bool
     {
         return $this->exists;
+    }
+
+    public function isArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(?bool $archived): static
+    {
+        $this->archived = $archived;
+
+        return $this;
     }
 
     public function getInternalId(): ?string

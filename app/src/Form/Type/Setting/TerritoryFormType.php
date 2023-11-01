@@ -8,6 +8,7 @@ use App\Entity\Setting\Territory;
 use App\Form\Dto\Setting\TerritoryFormDto;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +22,11 @@ class TerritoryFormType extends AbstractType
         $dto = $builder->getData();
 
         $builder
+            ->add('archived', CheckboxType::class, [
+                'label' => 'Archived?',
+                'required' => false,
+                'translation_domain' => 'misc',
+            ])
             ->add('name', TextType::class, [
                 'constraints' => new UniqueEntityField(
                     entityClass: Territory::class,

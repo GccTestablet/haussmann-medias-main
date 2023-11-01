@@ -27,6 +27,9 @@ class AcquisitionContract
     #[ORM\Column(type: Types::INTEGER)]
     private int $id;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    private bool $archived = false;
+
     #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'acquisitionContracts')]
     #[ORM\JoinColumn(name: 'company_id', referencedColumnName: 'id', nullable: false)]
     private Company $company;
@@ -79,6 +82,18 @@ class AcquisitionContract
     public function setId(int $id): static
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): static
+    {
+        $this->archived = $archived;
 
         return $this;
     }

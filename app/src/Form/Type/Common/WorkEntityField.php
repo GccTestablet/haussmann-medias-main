@@ -37,7 +37,15 @@ class WorkEntityField extends AbstractType
                     );
                 },
                 'choice_label' => fn (Work $work) => \sprintf('%s (%s)', $work->getName(), $work->getInternalId()),
+                'choice_attr' => fn (Work $work) => [
+                    'class' => $work->isArchived() ? 'text-decoration-line-through' : null,
+                ],
                 'autocomplete' => true,
+                'placeholder' => 'Select a work',
+                'translation_domain' => 'work',
+                'attr' => [
+                    'data-controller' => 'form--autocomplete',
+                ],
             ])
         ;
     }

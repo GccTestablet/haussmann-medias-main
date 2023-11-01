@@ -15,6 +15,8 @@ class AcquisitionContractFormDto
     #[Assert\NotBlank()]
     private ?Company $beneficiary = null;
 
+    private bool $archived = false;
+
     #[Assert\NotBlank()]
     private ?string $name = null;
 
@@ -63,6 +65,18 @@ class AcquisitionContractFormDto
     public function setBeneficiary(?Company $beneficiary): static
     {
         $this->beneficiary = $beneficiary;
+
+        return $this;
+    }
+
+    public function isArchived(): bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): static
+    {
+        $this->archived = $archived;
 
         return $this;
     }

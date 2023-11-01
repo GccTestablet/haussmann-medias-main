@@ -51,8 +51,10 @@ class AcquisitionContractController extends AbstractAppController
         $pagerResponse = $this->pagerManager->create(
             $this->acquisitionContractPager,
             $request,
-            (new FilterCollection())
-                ->addFilter(new Filter(ColumnEnum::COMPANY, $company))
+            new FilterCollection([
+                new Filter(ColumnEnum::COMPANY, $company),
+                new Filter(ColumnEnum::ARCHIVED, false),
+            ])
         );
 
         return $this->render('acquisition_contract/index.html.twig', [
@@ -66,8 +68,9 @@ class AcquisitionContractController extends AbstractAppController
         $workPagerResponse = $this->pagerManager->create(
             $this->acquisitionContractWorkPager,
             $request,
-            (new FilterCollection())
-                ->addFilter(new Filter(ColumnEnum::ACQUISITION_CONTRACT, $contract))
+            new FilterCollection([
+                new Filter(ColumnEnum::ACQUISITION_CONTRACT, $contract),
+            ])
         );
 
         return $this->render('acquisition_contract/show.html.twig', [

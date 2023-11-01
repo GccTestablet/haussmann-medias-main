@@ -37,7 +37,13 @@ class BroadcastChannelEntityField extends AbstractType
                     );
                 },
                 'choice_label' => 'name',
+                'choice_attr' => fn (BroadcastChannel $channel) => [
+                    'class' => $channel->isArchived() ? 'text-decoration-line-through' : null,
+                ],
                 'autocomplete' => true,
+                'attr' => [
+                    'data-controller' => 'form--autocomplete',
+                ],
             ])
         ;
     }

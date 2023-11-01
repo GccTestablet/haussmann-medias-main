@@ -12,6 +12,7 @@ use App\Form\Type\Pager\Contract\DistributionContractPagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
 use App\Model\Pager\Field\CollectionField;
+use App\Model\Pager\Field\IconField;
 use App\Model\Pager\Field\LinkField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Shared\PagerRepositoryInterface;
@@ -26,6 +27,7 @@ class DistributionContractPager extends AbstractPager
     protected static string $formType = DistributionContractPagerFormType::class;
 
     protected static array $columns = [
+        ColumnEnum::ARCHIVED,
         ColumnEnum::NAME,
         ColumnEnum::SELLER,
         ColumnEnum::DISTRIBUTOR,
@@ -42,6 +44,20 @@ class DistributionContractPager extends AbstractPager
     protected function configureColumnSchema(): void
     {
         static::$columnSchema = [
+            new Column(
+                id: ColumnEnum::ARCHIVED,
+                header: new ColumnHeader(
+                    callback: fn () => null,
+                    sortable: false,
+                ),
+                callback: fn (DistributionContract $contract) => $contract->isArchived() ? new IconField(
+                    icon: 'fas fa-archive',
+                    attributes: [
+                        'title' => new TranslatableMessage('Archived', [], 'misc'),
+                        'class' => 'text-warning',
+                    ]
+                ) : null,
+            ),
             new Column(
                 id: ColumnEnum::NAME,
                 header: new ColumnHeader(

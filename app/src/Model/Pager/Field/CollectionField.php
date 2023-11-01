@@ -8,10 +8,10 @@ use App\Enum\Pager\FieldTypeEnum;
 
 class CollectionField implements FieldInterface
 {
+    /**
+     * @param array<FieldInterface> $elements
+     */
     public function __construct(
-        /**
-         * @var array<FieldInterface>
-         */
         private readonly array $elements,
         private readonly string $separator = '',
     ) {}

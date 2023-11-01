@@ -17,16 +17,19 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
 {
     public function getPagerQueryBuilder(array $criteria, array $orderBy, ?int $limit = PagerInterface::DEFAULT_LIMIT, int $offset = PagerInterface::DEFAULT_OFFSET): QueryBuilder
     {
-        $expr = $this->getEntityManager()->getExpressionBuilder();
         $queryBuilder = $this->createQueryBuilder('w')
             ->innerJoin('w.acquisitionContract', 'ac')
             ->leftJoin('w.contractWorks', 'cw')
+            ->orderBy('w.name', 'ASC')
         ;
 
         foreach ($criteria as $field => $value) {
             $enum = ColumnEnum::tryFrom($field);
 
             match ($enum) {
+                ColumnEnum::ARCHIVED => $queryBuilder
+                    ->andWhere('w.archived = :archived')
+                    ->setParameter('archived', $value),
                 ColumnEnum::INTERNAL_ID => $queryBuilder
                     ->andWhere('LOWER(w.internalId) LIKE LOWER(:internalId)')
                     ->setParameter('internalId', \sprintf('%%%s%%', $value)),
@@ -105,7 +108,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
     public function getAvailableWorksByDistributionContractQueryBuilder(DistributionContract $distributionContract, Work $excludeWork = null): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder('w')
-            ->orderBy('w.internalId', 'ASC')
+            ->orderBy('w.name', 'ASC')
         ;
 
         $works = $distributionContract->getWorks();
@@ -118,7 +121,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
         }
 
         return $queryBuilder
-            ->where('w NOT IN (:works)')
+            ->andWhere('w NOT IN (:works)')
             ->setParameter('works', $works)
         ;
     }
