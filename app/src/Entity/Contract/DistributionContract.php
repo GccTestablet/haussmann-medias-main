@@ -221,9 +221,22 @@ class DistributionContract
         return $this->territories;
     }
 
+    public function addTerritory(Territory $territory): static
+    {
+        if (!$this->territories->contains($territory)) {
+            $this->territories->add($territory);
+        }
+
+        return $this;
+    }
+
     public function setTerritories(Collection $territories): static
     {
-        $this->territories = $territories;
+        $this->territories->clear();
+
+        foreach ($territories as $territory) {
+            $this->addTerritory($territory);
+        }
 
         return $this;
     }
@@ -231,6 +244,15 @@ class DistributionContract
     public function getBroadcastChannels(): Collection
     {
         return $this->broadcastChannels;
+    }
+
+    public function addBroadcastChannel(BroadcastChannel $broadcastChannel): static
+    {
+        if (!$this->broadcastChannels->contains($broadcastChannel)) {
+            $this->broadcastChannels->add($broadcastChannel);
+        }
+
+        return $this;
     }
 
     public function setBroadcastChannels(Collection $broadcastChannels): static
