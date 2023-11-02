@@ -24,7 +24,7 @@ use Twig\Environment;
 class WorkPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-pager-work';
-    protected static array $defaultSort = [ColumnEnum::NAME->value => 'ASC'];
+    protected static array $defaultSort = [ColumnEnum::NAME => 'ASC'];
 
     protected static string $formType = WorkPagerFormType::class;
 

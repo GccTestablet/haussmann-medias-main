@@ -23,7 +23,7 @@ class WorkAdaptationFormType extends AbstractType
         $builder
             ->add('type', AdaptationCostTypeEntityField::class, [
                 'required' => true,
-                ColumnEnum::TYPE->value => $dto->getType(),
+                ColumnEnum::TYPE => $dto->getType(),
             ])
             ->add('amount', NumberType::class, [
                 'required' => true,

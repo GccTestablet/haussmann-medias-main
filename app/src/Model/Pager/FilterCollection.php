@@ -26,8 +26,12 @@ class FilterCollection
         return $this->filters;
     }
 
-    public function getFilter(ColumnEnum $column): ?Filter
+    public function getFilter(string $column): ?Filter
     {
+        if (!ColumnEnum::isValueValid($column)) {
+            throw new \InvalidArgumentException(\sprintf('Invalid column "%s" given.', $column));
+        }
+
         foreach ($this->filters as $filter) {
             if ($filter->getColumn() === $column) {
                 return $filter;

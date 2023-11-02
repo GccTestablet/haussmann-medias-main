@@ -18,9 +18,9 @@ class AdaptationCostTypeEntityField extends AbstractType
     {
         $resolver
             ->setRequired([
-                ColumnEnum::TYPE->value,
+                ColumnEnum::TYPE,
             ])
-            ->setAllowedTypes(ColumnEnum::TYPE->value, [AdaptationCostType::class, 'null'])
+            ->setAllowedTypes(ColumnEnum::TYPE, [AdaptationCostType::class, 'null'])
             ->setDefaults([
                 'placeholder' => 'Select a cost type',
                 'class' => AdaptationCostType::class,
@@ -28,7 +28,7 @@ class AdaptationCostTypeEntityField extends AbstractType
                     ->createQueryBuilder('act')
                     ->orderBy('act.name', 'ASC'),
                 'choice_filter' => function (Options $options) {
-                    $type = $options[ColumnEnum::TYPE->value];
+                    $type = $options[ColumnEnum::TYPE];
 
                     return static fn (?AdaptationCostType $costType) => !$costType?->isArchived() || $costType === $type;
                 },

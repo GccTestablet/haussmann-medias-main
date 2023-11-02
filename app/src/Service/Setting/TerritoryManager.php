@@ -25,7 +25,7 @@ class TerritoryManager
     public function findAll(Collection $includeTerritories = null): array
     {
         $territories = $this->getRepository()
-            ->getPagerQueryBuilder([], [ColumnEnum::NAME->value => 'ASC'], null)
+            ->getPagerQueryBuilder([], [ColumnEnum::NAME => 'ASC'], null)
             ->getQuery()
             ->getResult()
         ;

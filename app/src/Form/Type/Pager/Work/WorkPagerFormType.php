@@ -22,26 +22,26 @@ class WorkPagerFormType extends BasePagerFormType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add(ColumnEnum::INTERNAL_ID->value, TextType::class, [
+            ->add(ColumnEnum::INTERNAL_ID, TextType::class, [
                 'label' => 'Internal Id',
             ])
-            ->add(ColumnEnum::IMDB_ID->value, TextType::class, [
+            ->add(ColumnEnum::IMDB_ID, TextType::class, [
                 'label' => 'Imdb id',
             ])
-            ->add(ColumnEnum::NAME->value, TextType::class, [
+            ->add(ColumnEnum::NAME, TextType::class, [
                 'label' => 'Title (French or original)',
             ])
-            ->add(ColumnEnum::ACQUISITION_CONTRACT_NAME->value, TextType::class, [
+            ->add(ColumnEnum::ACQUISITION_CONTRACT_NAME, TextType::class, [
                 'label' => 'Acquisition contract name',
             ])
-            ->add(ColumnEnum::BENEFICIARIES->value, CompanyEntityField::class, [
+            ->add(ColumnEnum::BENEFICIARIES, CompanyEntityField::class, [
                 'label' => 'Acquisition contract beneficiary',
                 'attr' => [
                     'placeholder' => 'Select one or more beneficiaries',
                 ],
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::COUNTRIES->value, CountryType::class, [
+            ->add(ColumnEnum::COUNTRIES, CountryType::class, [
                 'attr' => [
                     'placeholder' => 'Select one or more countries',
                 ],
@@ -49,7 +49,7 @@ class WorkPagerFormType extends BasePagerFormType
                 'multiple' => true,
                 'autocomplete' => true,
             ])
-            ->add(ColumnEnum::QUOTAS->value, EnumType::class, [
+            ->add(ColumnEnum::QUOTAS, EnumType::class, [
                 'class' => WorkQuotaEnum::class,
                 'choice_label' => fn (WorkQuotaEnum $originWorkEnum) => $originWorkEnum->getAsText(),
                 'attr' => [
@@ -58,7 +58,7 @@ class WorkPagerFormType extends BasePagerFormType
                 'multiple' => true,
                 'autocomplete' => true,
             ])
-            ->add(ColumnEnum::ARCHIVED->value, CheckboxType::class, [
+            ->add(ColumnEnum::ARCHIVED, CheckboxType::class, [
                 'label' => 'Show archive?',
                 'translation_domain' => 'misc',
             ])

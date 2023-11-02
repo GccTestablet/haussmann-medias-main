@@ -25,22 +25,22 @@ class BroadcastChannelEntityField extends AbstractType
     {
         $resolver
             ->setDefined([
-                ColumnEnum::DISTRIBUTION_CONTRACT->value,
-                ColumnEnum::INCLUDE->value,
+                ColumnEnum::DISTRIBUTION_CONTRACT,
+                ColumnEnum::INCLUDE,
             ])
-            ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT->value, DistributionContract::class)
-            ->setAllowedTypes(ColumnEnum::INCLUDE->value, Collection::class)
+            ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT, DistributionContract::class)
+            ->setAllowedTypes(ColumnEnum::INCLUDE, Collection::class)
             ->setDefaults([
                 'class' => BroadcastChannel::class,
                 'query_builder' => function (Options $options) {
                     $criteria = [];
-                    if (isset($options[ColumnEnum::DISTRIBUTION_CONTRACT->value])) {
-                        $criteria[ColumnEnum::DISTRIBUTION_CONTRACT->value] = $options[ColumnEnum::DISTRIBUTION_CONTRACT->value];
+                    if (isset($options[ColumnEnum::DISTRIBUTION_CONTRACT])) {
+                        $criteria[ColumnEnum::DISTRIBUTION_CONTRACT] = $options[ColumnEnum::DISTRIBUTION_CONTRACT];
                     }
 
                     return static fn (BroadcastChannelRepository $repository) => $repository->getPagerQueryBuilder(
                         criteria: $criteria,
-                        orderBy: [ColumnEnum::NAME->value => 'ASC'],
+                        orderBy: [ColumnEnum::NAME => 'ASC'],
                         limit: null
                     );
                 },
@@ -49,12 +49,12 @@ class BroadcastChannelEntityField extends AbstractType
                     'class' => $channel->isArchived() ? 'text-danger' : null,
                 ],
                 'choice_filter' => function (Options $options) {
-                    if (!isset($options[ColumnEnum::INCLUDE->value])) {
-                        return null;
+                    if (!isset($options[ColumnEnum::INCLUDE])) {
+                        return static fn (BroadcastChannel $channel) => !$channel->isArchived();
                     }
 
                     /** @var Collection $include */
-                    $include = $options[ColumnEnum::INCLUDE->value];
+                    $include = $options[ColumnEnum::INCLUDE];
 
                     return static fn (BroadcastChannel $channel) => !$channel->isArchived() || $include->contains($channel);
                 },

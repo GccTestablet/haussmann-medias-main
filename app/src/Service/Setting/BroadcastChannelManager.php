@@ -25,7 +25,7 @@ class BroadcastChannelManager
     public function findAll(Collection $includeBroadcastChannels = null): array
     {
         $broadcastChannels = $this->getRepository()
-            ->getPagerQueryBuilder([], [ColumnEnum::NAME->value => 'ASC'], null)
+            ->getPagerQueryBuilder([], [ColumnEnum::NAME => 'ASC'], null)
             ->getQuery()
             ->getResult()
         ;

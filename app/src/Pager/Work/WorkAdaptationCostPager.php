@@ -18,7 +18,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 class WorkAdaptationCostPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-pager-work-adaptation-cost';
-    protected static array $defaultSort = [ColumnEnum::TYPE->value => 'ASC'];
+    protected static array $defaultSort = [ColumnEnum::TYPE => 'ASC'];
 
     protected static array $columns = [
         ColumnEnum::TYPE,

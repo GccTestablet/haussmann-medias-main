@@ -26,9 +26,7 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
         ;
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::ARCHIVED => $queryBuilder
                     ->andWhere('dc.archived = :archived')
                     ->setParameter('archived', $value),
@@ -56,8 +54,7 @@ class DistributionContractRepository extends EntityRepository implements PagerRe
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::NAME => $queryBuilder->orderBy('dc.name', $direction),
                 ColumnEnum::SELLER => $queryBuilder->orderBy('c.name', $direction),
                 ColumnEnum::DISTRIBUTOR => $queryBuilder->orderBy('d.name', $direction),

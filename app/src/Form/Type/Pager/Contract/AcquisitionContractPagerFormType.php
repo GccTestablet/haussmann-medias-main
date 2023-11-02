@@ -22,33 +22,33 @@ class AcquisitionContractPagerFormType extends BasePagerFormType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add(ColumnEnum::NAME->value, TextType::class, [
+            ->add(ColumnEnum::NAME, TextType::class, [
                 'label' => 'Name',
             ])
-            ->add(ColumnEnum::BENEFICIARIES->value, CompanyEntityField::class, [
+            ->add(ColumnEnum::BENEFICIARIES, CompanyEntityField::class, [
                 'label' => 'Beneficiaries',
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::WORKS->value, WorkEntityField::class, [
+            ->add(ColumnEnum::WORKS, WorkEntityField::class, [
                 'label' => 'Works',
                 'translation_domain' => 'work',
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::TERRITORIES->value, TerritoryEntityField::class, [
+            ->add(ColumnEnum::TERRITORIES, TerritoryEntityField::class, [
                 'label' => 'Territories',
                 'translation_domain' => 'work',
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::SIGNED_AT->value, DateRangeType::class, [
+            ->add(ColumnEnum::SIGNED_AT, DateRangeType::class, [
                 'label' => 'Signed at',
             ])
-            ->add(ColumnEnum::STARTS_AT->value, DateRangeType::class, [
+            ->add(ColumnEnum::STARTS_AT, DateRangeType::class, [
                 'label' => 'Rights starts at',
             ])
-            ->add(ColumnEnum::ENDS_AT->value, DateRangeType::class, [
+            ->add(ColumnEnum::ENDS_AT, DateRangeType::class, [
                 'label' => 'Rights ends at',
             ])
-            ->add(ColumnEnum::ARCHIVED->value, CheckboxType::class, [
+            ->add(ColumnEnum::ARCHIVED, CheckboxType::class, [
                 'label' => 'Show archive?',
                 'translation_domain' => 'misc',
             ])

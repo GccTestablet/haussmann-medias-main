@@ -17,9 +17,7 @@ class WorkAdaptationRepository extends EntityRepository implements PagerReposito
         $queryBuilder = $this->createQueryBuilder('wa');
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::WORK => $queryBuilder
                     ->andWhere('wa.work = :work')
                     ->setParameter('work', $value),
@@ -28,9 +26,7 @@ class WorkAdaptationRepository extends EntityRepository implements PagerReposito
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::TYPE => $queryBuilder->orderBy('wa.type', $direction),
                 ColumnEnum::AMOUNT => $queryBuilder->orderBy('wa.amount', $direction),
                 default => null,

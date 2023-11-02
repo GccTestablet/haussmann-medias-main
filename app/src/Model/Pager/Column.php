@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Model\Pager;
 
-use App\Enum\Pager\ColumnEnum;
-
 class Column
 {
     public function __construct(
-        private readonly ColumnEnum $id,
+        private readonly string $id,
         private readonly ColumnHeader $header,
         private readonly \Closure $callback,
         private readonly bool $visible = true,
@@ -19,7 +17,7 @@ class Column
         private readonly array $attributes = [],
     ) {}
 
-    public function getId(): ColumnEnum
+    public function getId(): string
     {
         return $this->id;
     }

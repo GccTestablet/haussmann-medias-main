@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Pager\Shared;
 
-use App\Enum\Pager\ColumnEnum;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
 use App\Model\Pager\Column;
 use App\Model\Pager\Field\FieldInterface;
@@ -40,7 +39,7 @@ abstract class AbstractPager implements PagerInterface
     protected static array $defaultSort = ['createdAt' => 'DESC'];
 
     /**
-     * @var array<ColumnEnum>
+     * @var array<string>
      */
     protected static array $columns = [];
 
@@ -111,7 +110,7 @@ abstract class AbstractPager implements PagerInterface
         $columns = [];
         foreach (static::$columns as $columnId) {
             $column = \array_filter(static::$columnSchema, static fn (Column $column) => $column->getId() === $columnId);
-            $columns[$columnId->name] = ArrayParser::getFirstValue($column);
+            $columns[$columnId] = ArrayParser::getFirstValue($column);
         }
 
         return $columns;

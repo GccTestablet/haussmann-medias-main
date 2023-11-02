@@ -24,9 +24,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
         ;
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::ARCHIVED => $queryBuilder
                     ->andWhere('w.archived = :archived')
                     ->setParameter('archived', $value),
@@ -63,8 +61,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::INTERNAL_ID => $queryBuilder->addOrderBy('w.internalId', $direction),
                 ColumnEnum::NAME => $queryBuilder->addOrderBy('w.name', $direction),
                 ColumnEnum::ACQUISITION_CONTRACT => $queryBuilder->addOrderBy('ac.name', $direction),

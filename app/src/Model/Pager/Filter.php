@@ -9,11 +9,15 @@ use App\Enum\Pager\ColumnEnum;
 class Filter
 {
     public function __construct(
-        private readonly ColumnEnum $column,
+        private readonly string $column,
         private readonly mixed $value,
-    ) {}
+    ) {
+        if (!ColumnEnum::isValueValid($column)) {
+            throw new \InvalidArgumentException(\sprintf('Invalid column "%s" given.', $column));
+        }
+    }
 
-    public function getColumn(): ColumnEnum
+    public function getColumn(): string
     {
         return $this->column;
     }

@@ -22,8 +22,7 @@ class TerritoryRepository extends EntityRepository implements PagerRepositoryInt
         ;
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('dc = :distributionContract')
                     ->setParameter('distributionContract', $value),
@@ -32,8 +31,7 @@ class TerritoryRepository extends EntityRepository implements PagerRepositoryInt
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::NAME => $queryBuilder->addOrderBy('t.name', $direction),
                 default => null,
             };

@@ -21,24 +21,24 @@ class DistributionContractPagerFormType extends BasePagerFormType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add(ColumnEnum::NAME->value, TextType::class, [
+            ->add(ColumnEnum::NAME, TextType::class, [
                 'label' => 'Name',
             ])
-            ->add(ColumnEnum::DISTRIBUTORS->value, CompanyEntityField::class, [
+            ->add(ColumnEnum::DISTRIBUTORS, CompanyEntityField::class, [
                 'label' => 'Distributors',
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::WORKS->value, WorkEntityField::class, [
+            ->add(ColumnEnum::WORKS, WorkEntityField::class, [
                 'label' => 'Works',
                 'translation_domain' => 'work',
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::CHANNELS->value, BroadcastChannelEntityField::class, [
+            ->add(ColumnEnum::CHANNELS, BroadcastChannelEntityField::class, [
                 'label' => 'Broadcast channels',
                 'translation_domain' => 'setting',
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::ARCHIVED->value, CheckboxType::class, [
+            ->add(ColumnEnum::ARCHIVED, CheckboxType::class, [
                 'label' => 'Show archive?',
                 'translation_domain' => 'misc',
             ])

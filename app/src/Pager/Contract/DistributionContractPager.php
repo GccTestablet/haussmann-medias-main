@@ -22,7 +22,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 class DistributionContractPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-distribution-contract-pager';
-    protected static array $defaultSort = [ColumnEnum::NAME->value => 'ASC'];
+    protected static array $defaultSort = [ColumnEnum::NAME => 'ASC'];
 
     protected static string $formType = DistributionContractPagerFormType::class;
 

@@ -76,7 +76,7 @@
                     {% for column in computed.visibleColumns %}
                         <th>
                             {{ component('data_table_field_render', {
-                                viewData: footer[column.id.value] ?? ''
+                                viewData: footer[column.id] ?? ''
                             }) }}
                         </th>
                     {% endfor %}
