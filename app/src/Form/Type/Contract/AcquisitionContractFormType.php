@@ -34,6 +34,11 @@ class AcquisitionContractFormType extends AbstractType
         $dto = $builder->getData();
 
         $builder
+            ->add('archived', CheckboxType::class, [
+                'label' => 'Archived?',
+                'required' => false,
+                'translation_domain' => 'misc',
+            ])
             ->add('company', EntityType::class, [
                 'label' => 'Acquirer',
                 'class' => Company::class,
@@ -45,11 +50,6 @@ class AcquisitionContractFormType extends AbstractType
                 'placeholder' => 'Select a beneficiary',
                 'query_builder' => fn (CompanyRepository $repository) => $repository->createQueryBuilder('b')->orderBy('b.name'),
                 'choice_label' => 'name',
-            ])
-            ->add('archived', CheckboxType::class, [
-                'label' => 'Archived?',
-                'required' => false,
-                'translation_domain' => 'misc',
             ])
             ->add('name', TextType::class, [
                 'constraints' => new UniqueEntityField(

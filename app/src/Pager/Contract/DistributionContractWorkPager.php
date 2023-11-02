@@ -24,7 +24,7 @@ use Twig\Environment;
 class DistributionContractWorkPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-distribution-contract-work-pager';
-    protected static array $defaultSort = [ColumnEnum::WORK->value => 'ASC'];
+    protected static array $defaultSort = [ColumnEnum::WORK => 'ASC'];
 
     protected static string $formType = DistributionContractWorkPagerFormType::class;
 
@@ -79,7 +79,7 @@ class DistributionContractWorkPager extends AbstractPager
                     callback: fn () => new TranslatableMessage('Work', [], 'work'),
                 ),
                 callback: fn (DistributionContractWork $contractWork) => new LinkField(
-                    value: $contractWork->getWork()->getName(),
+                    value: \sprintf('%s (%s)', $contractWork->getWork()->getName(), $contractWork->getWork()->getInternalId()),
                     attributes: [
                         'href' => $this->router->generate('app_work_show', ['id' => $contractWork->getWork()->getId()]),
                     ]

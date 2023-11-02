@@ -21,7 +21,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 class DistributionContractRevenuePager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-distribution-contract-pager';
-    protected static array $defaultSort = [ColumnEnum::STARTS_AT->value => 'DESC'];
+    protected static array $defaultSort = [ColumnEnum::STARTS_AT => 'DESC'];
 
     protected static string $formType = DistributionContractWorkRevenuePagerFormType::class;
 
@@ -55,7 +55,7 @@ class DistributionContractRevenuePager extends AbstractPager
         ), '<br />');
 
         return [
-            ColumnEnum::AMOUNT->value => $collection,
+            ColumnEnum::AMOUNT => $collection,
         ];
     }
 

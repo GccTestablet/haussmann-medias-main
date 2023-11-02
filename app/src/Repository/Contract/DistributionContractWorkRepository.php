@@ -19,8 +19,7 @@ class DistributionContractWorkRepository extends EntityRepository implements Pag
         ;
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('dcw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
@@ -29,8 +28,7 @@ class DistributionContractWorkRepository extends EntityRepository implements Pag
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::WORK => $queryBuilder->orderBy('w.name', $direction),
                 ColumnEnum::PERIOD => $queryBuilder->orderBy('dcw.startsAt', $direction),
                 ColumnEnum::AMOUNT => $queryBuilder->orderBy('dcw.amount', $direction),

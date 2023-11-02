@@ -18,7 +18,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 class WorkTerritoryPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-pager-work-territory';
-    protected static array $defaultSort = [ColumnEnum::TERRITORY->value => 'ASC'];
+    protected static array $defaultSort = [ColumnEnum::TERRITORY => 'ASC'];
 
     protected static array $columns = [
         ColumnEnum::EXTRA,

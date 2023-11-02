@@ -16,7 +16,7 @@ use Symfony\Component\Translation\TranslatableMessage;
 class WorkReversionPager extends AbstractPager
 {
     protected static ?string $pagerId = 'app-pager-work-reversion';
-    protected static array $defaultSort = [ColumnEnum::TYPE->value => 'ASC'];
+    protected static array $defaultSort = [ColumnEnum::TYPE => 'ASC'];
 
     protected static array $columns = [
         ColumnEnum::CHANNEL,

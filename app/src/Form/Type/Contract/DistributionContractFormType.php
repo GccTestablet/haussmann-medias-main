@@ -37,6 +37,11 @@ class DistributionContractFormType extends AbstractType
         $dto = $builder->getData();
 
         $builder
+            ->add('archived', CheckboxType::class, [
+                'label' => 'Archived?',
+                'required' => false,
+                'translation_domain' => 'misc',
+            ])
             ->add('company', EntityType::class, [
                 'label' => 'Seller',
                 'class' => Company::class,
@@ -48,11 +53,6 @@ class DistributionContractFormType extends AbstractType
                 'placeholder' => 'Select a distributor',
                 'query_builder' => fn (CompanyRepository $repository) => $repository->createQueryBuilder('b')->orderBy('b.name'),
                 'choice_label' => 'name',
-            ])
-            ->add('archived', CheckboxType::class, [
-                'label' => 'Archived?',
-                'required' => false,
-                'translation_domain' => 'misc',
             ])
             ->add('name', TextType::class, [
                 'constraints' => new UniqueEntityField(
@@ -69,7 +69,7 @@ class DistributionContractFormType extends AbstractType
             ->add('broadcastChannels', BroadcastChannelEntityField::class, [
                 'multiple' => true,
                 'required' => false,
-                ColumnEnum::INCLUDE->value => $dto->getBroadcastChannels(),
+                ColumnEnum::INCLUDE => $dto->getBroadcastChannels(),
             ])
             ->add('signedAt', DateType::class, [
                 'label' => 'Signed at',

@@ -19,7 +19,7 @@ class KnpPaginatorRequestTransformer extends AbstractRequestTransformer
     public function createFromRequest(Request $request, FilterCollection $filterCollection): void
     {
         foreach ($filterCollection->getFilters() as $filter) {
-            $this->addFilteredBy([$filter->getColumn()->value => $filter->getValue()]);
+            $this->addFilteredBy([$filter->getColumn() => $filter->getValue()]);
         }
 
         $form = $this->pager->getForm();

@@ -17,9 +17,7 @@ class WorkReversionRepository extends EntityRepository implements PagerRepositor
         $queryBuilder = $this->createQueryBuilder('wr');
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::WORK => $queryBuilder
                     ->andWhere('wr.work = :work')
                     ->setParameter('work', $value),
@@ -28,9 +26,7 @@ class WorkReversionRepository extends EntityRepository implements PagerRepositor
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::CHANNEL => $queryBuilder->orderBy('wr.channel', $direction),
                 ColumnEnum::PERCENT_REVERSION => $queryBuilder->orderBy('wr.percentageReversion', $direction),
                 default => null,

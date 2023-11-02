@@ -26,20 +26,20 @@ class DistributionContractWorkPagerFormType extends BasePagerFormType
         $distributionContract = $filters->getFilter(ColumnEnum::DISTRIBUTION_CONTRACT)?->getValue();
 
         $builder
-            ->add(ColumnEnum::WORKS->value, WorkEntityField::class, [
+            ->add(ColumnEnum::WORKS, WorkEntityField::class, [
                 'label' => 'Works',
                 'translation_domain' => 'work',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT->value => $distributionContract,
+                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
             ])
-            ->add(ColumnEnum::TERRITORIES->value, TerritoryEntityField::class, [
+            ->add(ColumnEnum::TERRITORIES, TerritoryEntityField::class, [
                 'label' => 'Territories',
                 'multiple' => true,
             ])
-            ->add(ColumnEnum::CHANNELS->value, BroadcastChannelEntityField::class, [
+            ->add(ColumnEnum::CHANNELS, BroadcastChannelEntityField::class, [
                 'label' => 'Broadcast channels',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT->value => $distributionContract,
+                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
             ])
         ;
     }

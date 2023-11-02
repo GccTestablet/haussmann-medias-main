@@ -9,6 +9,7 @@ use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
 use App\Repository\WorkRepository;
 use App\Service\Security\SecurityManager;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
@@ -26,23 +27,25 @@ class WorkEntityField extends AbstractType
     {
         $resolver
             ->setDefined([
-                ColumnEnum::DISTRIBUTION_CONTRACT->value,
+                ColumnEnum::DISTRIBUTION_CONTRACT,
+                ColumnEnum::INCLUDE,
             ])
-            ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT->value, DistributionContract::class)
+            ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT, DistributionContract::class)
+            ->setAllowedTypes(ColumnEnum::INCLUDE, Collection::class)
             ->setDefaults([
                 'class' => Work::class,
                 'query_builder' => function (Options $options) {
                     $criteria = [
-                        ColumnEnum::COMPANY->value => $this->securityManager->getConnectedUser()->getConnectedOn(),
+                        ColumnEnum::COMPANY => $this->securityManager->getConnectedUser()->getConnectedOn(),
                     ];
 
-                    if (isset($options[ColumnEnum::DISTRIBUTION_CONTRACT->value])) {
-                        $criteria[ColumnEnum::DISTRIBUTION_CONTRACT->value] = $options[ColumnEnum::DISTRIBUTION_CONTRACT->value];
+                    if (isset($options[ColumnEnum::DISTRIBUTION_CONTRACT])) {
+                        $criteria[ColumnEnum::DISTRIBUTION_CONTRACT] = $options[ColumnEnum::DISTRIBUTION_CONTRACT];
                     }
 
                     return static fn (WorkRepository $repository) => $repository->getPagerQueryBuilder(
                         criteria: $criteria,
-                        orderBy: [ColumnEnum::NAME->value => 'ASC'],
+                        orderBy: [ColumnEnum::NAME => 'ASC'],
                         limit: null
                     );
                 },
@@ -50,6 +53,16 @@ class WorkEntityField extends AbstractType
                 'choice_attr' => fn (Work $work) => [
                     'class' => $work->isArchived() ? 'text-danger' : null,
                 ],
+                'choice_filter' => function (Options $options) {
+                    if (!isset($options[ColumnEnum::INCLUDE])) {
+                        return static fn (?Work $work) => !$work?->isArchived();
+                    }
+
+                    /** @var Collection $include */
+                    $include = $options[ColumnEnum::INCLUDE];
+
+                    return static fn (Work $work) => !$work->isArchived() || $include->contains($work);
+                },
                 'group_by' => fn (Work $work) => $this->translator->trans($work->isArchived() ? 'Archived' : 'Active', [], 'misc'),
                 'autocomplete' => true,
                 'placeholder' => 'Select a work',

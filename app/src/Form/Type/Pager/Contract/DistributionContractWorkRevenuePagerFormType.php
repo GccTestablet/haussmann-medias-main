@@ -26,18 +26,18 @@ class DistributionContractWorkRevenuePagerFormType extends BasePagerFormType
         $distributionContract = $filters->getFilter(ColumnEnum::DISTRIBUTION_CONTRACT)?->getValue();
 
         $builder
-            ->add(ColumnEnum::WORKS->value, WorkEntityField::class, [
+            ->add(ColumnEnum::WORKS, WorkEntityField::class, [
                 'label' => 'Works',
                 'translation_domain' => 'work',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT->value => $distributionContract,
+                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
             ])
-            ->add(ColumnEnum::CHANNELS->value, BroadcastChannelEntityField::class, [
+            ->add(ColumnEnum::CHANNELS, BroadcastChannelEntityField::class, [
                 'label' => 'Broadcast channels',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT->value => $distributionContract,
+                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
             ])
-            ->add(ColumnEnum::ENDS_AT->value, DateRangeType::class, [
+            ->add(ColumnEnum::ENDS_AT, DateRangeType::class, [
                 'label' => 'Revenues to date',
                 'translation_domain' => 'misc',
             ])

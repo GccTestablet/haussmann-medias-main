@@ -20,13 +20,13 @@ class BasePagerFormType extends AbstractType
         $pagerDefaultData = $options['pager_default_data'];
 
         $builder
-            ->add(ColumnEnum::SORT->value, HiddenType::class, [
+            ->add(ColumnEnum::SORT, HiddenType::class, [
                 'data' => \key($pagerDefaultData),
             ])
-            ->add(ColumnEnum::DIRECTION->value, HiddenType::class, [
+            ->add(ColumnEnum::DIRECTION, HiddenType::class, [
                 'data' => \current($pagerDefaultData),
             ])
-            ->add(ColumnEnum::PAGE->value, HiddenType::class, [
+            ->add(ColumnEnum::PAGE, HiddenType::class, [
                 'data' => 1,
             ])
         ;

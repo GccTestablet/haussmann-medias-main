@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Contract;
 
+use App\Enum\Pager\ColumnEnum;
 use App\Form\Dto\Contract\DistributionContractWorkFormDto;
 use App\Form\Type\Common\WorkEntityField;
 use App\Form\Type\Shared\CurrencyType;
 use App\Form\Type\Shared\DateType;
-use App\Repository\WorkRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,9 +25,8 @@ class DistributionContractWorkFormType extends AbstractType
 
         $builder
             ->add('work', WorkEntityField::class, [
-                'query_builder' => fn (WorkRepository $repository) => $repository
-                    ->getAvailableWorksByDistributionContractQueryBuilder($distributionContract, $dto->getWork()),
                 'required' => true,
+                ...$dto->getWork() ? [ColumnEnum::INCLUDE => new ArrayCollection([$dto->getWork()])] : [],
             ])
             ->add('startsAt', DateType::class, [
                 'label' => 'Rights starts at',

@@ -20,9 +20,7 @@ class WorkTerritoryRepository extends EntityRepository implements PagerRepositor
         ;
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::WORK => $queryBuilder
                     ->andWhere('wt.work = :work')
                     ->setParameter('work', $value),
@@ -31,9 +29,7 @@ class WorkTerritoryRepository extends EntityRepository implements PagerRepositor
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::TERRITORY => $queryBuilder->addOrderBy('t.name', $direction),
                 ColumnEnum::EXCLUSIVE => $queryBuilder->addOrderBy('wt.exclusive', $direction),
                 default => null,

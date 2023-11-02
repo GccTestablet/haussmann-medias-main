@@ -21,9 +21,7 @@ class DistributionContractWorkRevenueRepository extends EntityRepository impleme
         ;
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('cw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
@@ -42,9 +40,7 @@ class DistributionContractWorkRevenueRepository extends EntityRepository impleme
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::WORK => $queryBuilder->orderBy('w.name', $direction),
                 ColumnEnum::CHANNEL => $queryBuilder->orderBy('bc.name', $direction),
                 ColumnEnum::STARTS_AT => $queryBuilder->orderBy('dcwr.startsAt', $direction),

@@ -12,7 +12,7 @@
             _fragment: pager.pagerId,
         } %}
 
-        {{ knp_pagination_sortable(pagination, (viewData|trans|raw), column.id.value, options, params) }}
+        {{ knp_pagination_sortable(pagination, (viewData|trans|raw), column.id, options, params) }}
     {% elseif viewData is instanceof('App\\Model\\Shared\\Pager\\Field\\FieldInterface') %}
         {{ block(viewData.type) }}
     {% else %}

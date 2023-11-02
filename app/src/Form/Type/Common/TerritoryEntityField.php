@@ -24,20 +24,20 @@ class TerritoryEntityField extends AbstractType
     {
         $resolver
             ->setDefined([
-                ColumnEnum::DISTRIBUTION_CONTRACT->value,
+                ColumnEnum::DISTRIBUTION_CONTRACT,
             ])
-            ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT->value, DistributionContract::class)
+            ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT, DistributionContract::class)
             ->setDefaults([
                 'class' => Territory::class,
                 'query_builder' => function (Options $options) {
                     $criteria = [];
-                    if (isset($options[ColumnEnum::DISTRIBUTION_CONTRACT->value])) {
-                        $criteria[ColumnEnum::DISTRIBUTION_CONTRACT->value] = $options[ColumnEnum::DISTRIBUTION_CONTRACT->value];
+                    if (isset($options[ColumnEnum::DISTRIBUTION_CONTRACT])) {
+                        $criteria[ColumnEnum::DISTRIBUTION_CONTRACT] = $options[ColumnEnum::DISTRIBUTION_CONTRACT];
                     }
 
                     return static fn (TerritoryRepository $repository) => $repository->getPagerQueryBuilder(
                         criteria: $criteria,
-                        orderBy: [ColumnEnum::NAME->value => 'ASC'],
+                        orderBy: [ColumnEnum::NAME => 'ASC'],
                         limit: null
                     );
                 },

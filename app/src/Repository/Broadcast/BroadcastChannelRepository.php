@@ -23,9 +23,7 @@ class BroadcastChannelRepository extends EntityRepository implements PagerReposi
         ;
 
         foreach ($criteria as $field => $value) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('cw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
@@ -34,9 +32,7 @@ class BroadcastChannelRepository extends EntityRepository implements PagerReposi
         }
 
         foreach ($orderBy as $field => $direction) {
-            $enum = ColumnEnum::tryFrom($field);
-
-            match ($enum) {
+            match ($field) {
                 ColumnEnum::NAME => $queryBuilder->addOrderBy('bc.name', $direction),
                 default => null,
             };
