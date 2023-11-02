@@ -42,7 +42,7 @@ class IndexPageTest extends AbstractEnd2EndTestCase
         $this->assertTableContains('table',
             ['NOM', 'DISTRIBUTEUR', 'ŒUVRES'],
             [
-                ['MDC - Sniper and Maneater', 'My Digital Company', 'Sniper, Maneater'],
+                ['MDC - Sniper and Maneater', 'My Digital Company', 'Maneater, Sniper'],
             ]
         );
     }

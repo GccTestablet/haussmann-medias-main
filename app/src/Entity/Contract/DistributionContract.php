@@ -6,12 +6,14 @@ namespace App\Entity\Contract;
 
 use App\Entity\Company;
 use App\Entity\Setting\BroadcastChannel;
+use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
 use App\Repository\Contract\DistributionContractRepository;
+use App\Tools\Parser\ArrayCollectionParser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -59,10 +61,19 @@ class DistributionContract
     private ?FrequencyEnum $reportFrequency = null;
 
     /**
+     * @var Collection<Territory>
+     */
+    #[ORM\ManyToMany(targetEntity: Territory::class)]
+    #[ORM\JoinTable(name: 'distribution_contracts_territories')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    private Collection $territories;
+
+    /**
      * @var Collection<BroadcastChannel>
      */
     #[ORM\ManyToMany(targetEntity: BroadcastChannel::class)]
     #[ORM\JoinTable(name: 'distribution_contracts_broadcast_channels')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     private Collection $broadcastChannels;
 
     /**
@@ -79,6 +90,7 @@ class DistributionContract
 
     public function __construct()
     {
+        $this->territories = new ArrayCollection();
         $this->broadcastChannels = new ArrayCollection();
         $this->contractFiles = new ArrayCollection();
         $this->contractWorks = new ArrayCollection();
@@ -204,6 +216,18 @@ class DistributionContract
         return $this;
     }
 
+    public function getTerritories(): Collection
+    {
+        return $this->territories;
+    }
+
+    public function setTerritories(Collection $territories): static
+    {
+        $this->territories = $territories;
+
+        return $this;
+    }
+
     public function getBroadcastChannels(): Collection
     {
         return $this->broadcastChannels;
@@ -247,7 +271,9 @@ class DistributionContract
 
     public function getWorks(): Collection
     {
-        return $this->contractWorks->map(fn (DistributionContractWork $contractWork) => $contractWork->getWork());
+        $works = $this->contractWorks->map(fn (DistributionContractWork $contractWork) => $contractWork->getWork());
+
+        return ArrayCollectionParser::sort($works, static fn (Work $a, Work $b) => $a->getName() <=> $b->getName());
     }
 
     public function getContractWork(Work $work): ?DistributionContractWork

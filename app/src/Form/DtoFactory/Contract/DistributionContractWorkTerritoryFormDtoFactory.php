@@ -21,24 +21,19 @@ class DistributionContractWorkTerritoryFormDtoFactory
     {
         $dto = new DistributionContractWorkTerritoryFormDto($contractWork);
 
-        $work = $contractWork->getWork();
-        $territories = $work->getTerritories();
+        $territories = $contractWork->getDistributionContract()->getTerritories();
         $broadcastChannels = $contractWork->getDistributionContract()->getBroadcastChannels();
 
         foreach ($territories as $territory) {
-            $workTerritory = $work->getWorkTerritory($territory);
+            $workTerritory = $contractWork->getWorkTerritory($territory);
             $dto->addExclusive(
                 DistributionContractWorkTerritoryFormDto::getFormName($territory),
                 $workTerritory?->isExclusive() ?? true
             );
             foreach ($broadcastChannels as $broadcastChannel) {
-                if (!$workTerritory?->hasBroadcastChannel($broadcastChannel)) {
-                    continue;
-                }
-
                 $dto->addBroadcastChannel(
                     DistributionContractWorkTerritoryFormDto::getFormName($territory, $broadcastChannel),
-                    (bool) $contractWork->getWorkTerritory($territory)?->getBroadcastChannels()->contains($broadcastChannel)
+                    (bool) $workTerritory?->getBroadcastChannels()->contains($broadcastChannel)
                 );
             }
         }
@@ -48,11 +43,11 @@ class DistributionContractWorkTerritoryFormDtoFactory
 
     public function updateEntity(DistributionContractWork $contractWork, DistributionContractWorkTerritoryFormDto $dto): void
     {
-        $work = $contractWork->getWork();
+        $territories = $contractWork->getDistributionContract()->getTerritories();
         $broadcastChannels = $contractWork->getDistributionContract()->getBroadcastChannels();
 
         $workTerritories = new ArrayCollection();
-        foreach ($work->getTerritories() as $territory) {
+        foreach ($territories as $territory) {
             $workTerritory = $this->distributionContractWorkTerritoryManager->findOrCreate($contractWork, $territory);
             $workTerritory->setExclusive($dto->getExclusive(DistributionContractWorkTerritoryFormDto::getFormName($territory)));
 

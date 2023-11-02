@@ -21,6 +21,12 @@
         </div>
         <!-- END Left Section -->
 
+        {% if SHOW_ALERT %}
+            <h6 class="alert text-bg-danger d-flex align-items-center justify-content-center text-uppercase fw-bold">
+                <i class="fas fa-exclamation-triangle fa-2x me-3"></i> {% trans from 'misc' %}Be careful, you are on a TEST environment{% endtrans %}
+            </h6>
+        {% endif %}
+
         <!-- Right Section -->
         <div class="d-flex align-items-center">
             {{ include('shared/layout/_embedded/_navbar/_user.html.twig') }}

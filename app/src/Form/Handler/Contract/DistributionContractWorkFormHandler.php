@@ -9,6 +9,7 @@ use App\Form\DtoFactory\Contract\DistributionContractWorkFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Type\Contract\DistributionContractWorkFormType;
+use App\Service\Contract\DistributionContractWorkTerritoryManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ class DistributionContractWorkFormHandler extends AbstractFormHandler
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly DistributionContractWorkFormDtoFactory $formDtoFactory,
+        private readonly DistributionContractWorkTerritoryManager $distributionContractWorkTerritoryManager
     ) {}
 
     protected static string $form = DistributionContractWorkFormType::class;
@@ -36,6 +38,13 @@ class DistributionContractWorkFormHandler extends AbstractFormHandler
         }
 
         $this->formDtoFactory->updateEntity($contractWork, $dto);
+
+        if (!$dto->isExists()) {
+            $this->distributionContractWorkTerritoryManager->createFromContract(
+                $contractWork->getDistributionContract(),
+                $contractWork
+            );
+        }
 
         $this->entityManager->persist($contractWork);
         $this->entityManager->flush();

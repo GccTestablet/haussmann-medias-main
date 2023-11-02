@@ -171,6 +171,15 @@ class DistributionContractWork
         return null;
     }
 
+    public function addWorkTerritory(DistributionContractWorkTerritory $workTerritory): static
+    {
+        if (!$this->workTerritories->contains($workTerritory)) {
+            $this->workTerritories->add($workTerritory);
+        }
+
+        return $this;
+    }
+
     public function setWorkTerritories(Collection $workTerritories): static
     {
         $this->workTerritories = $workTerritories;
