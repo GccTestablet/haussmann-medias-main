@@ -16,6 +16,7 @@ class WorkTerritoryRepository extends EntityRepository implements PagerRepositor
     {
         $queryBuilder = $this->createQueryBuilder('wt')
             ->innerJoin('wt.territory', 't')
+            ->orderBy('t.archived', 'ASC')
         ;
 
         foreach ($criteria as $field => $value) {
@@ -33,8 +34,8 @@ class WorkTerritoryRepository extends EntityRepository implements PagerRepositor
             $enum = ColumnEnum::tryFrom($field);
 
             match ($enum) {
-                ColumnEnum::TERRITORY => $queryBuilder->orderBy('t.name', $direction),
-                ColumnEnum::EXCLUSIVE => $queryBuilder->orderBy('wt.exclusive', $direction),
+                ColumnEnum::TERRITORY => $queryBuilder->addOrderBy('t.name', $direction),
+                ColumnEnum::EXCLUSIVE => $queryBuilder->addOrderBy('wt.exclusive', $direction),
                 default => null,
             };
         }

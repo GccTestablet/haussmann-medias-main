@@ -25,9 +25,9 @@ class WorkTerritoryFormDtoFactory
     {
         $dto = new WorkTerritoryFormDto($work);
 
-        $broadcastChannels = $this->broadcastChannelManager->findAll();
+        $broadcastChannels = $this->broadcastChannelManager->findAll($work->getBroadcastChannels());
 
-        foreach ($this->territoryManager->findAll() as $territory) {
+        foreach ($this->territoryManager->findAll($work->getTerritories()) as $territory) {
             $workTerritory = $work->getWorkTerritory($territory);
             $dto->addExclusive(
                 WorkTerritoryFormDto::getFormName($territory),
@@ -47,10 +47,10 @@ class WorkTerritoryFormDtoFactory
 
     public function updateEntity(Work $work, WorkTerritoryFormDto $dto): void
     {
-        $broadcastChannels = $this->broadcastChannelManager->findAll();
+        $broadcastChannels = $this->broadcastChannelManager->findAll($work->getBroadcastChannels());
 
         $workTerritories = new ArrayCollection();
-        foreach ($this->territoryManager->findAll() as $territory) {
+        foreach ($this->territoryManager->findAll($work->getTerritories()) as $territory) {
             $workTerritory = $this->workTerritoryManager->findOrCreate($work, $territory);
             $workTerritory->setExclusive($dto->getExclusive(WorkTerritoryFormDto::getFormName($territory)));
 

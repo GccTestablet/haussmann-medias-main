@@ -13,6 +13,7 @@ enum ColumnEnum: string
 
     // Misc
     case ARCHIVED = 'archived';
+    case INCLUDE = 'include';
     case ID = 'id';
     case NAME = 'name';
     case TYPE = 'type';

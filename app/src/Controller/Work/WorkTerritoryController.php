@@ -45,8 +45,8 @@ class WorkTerritoryController extends AbstractAppController
 
         return $this->render('work/territory/manage.html.twig', [
             'work' => $work,
-            'territories' => $this->territoryManager->findAll(),
-            'broadcastChannels' => $this->broadcastChannelManager->findAll(),
+            'territories' => $this->territoryManager->findAll($work->getTerritories()),
+            'broadcastChannels' => $this->broadcastChannelManager->findAll($work->getBroadcastChannels()),
             'form' => $form,
         ]);
     }

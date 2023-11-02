@@ -8,6 +8,7 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Setting\BroadcastChannel;
 use App\Enum\Pager\ColumnEnum;
 use App\Repository\Broadcast\BroadcastChannelRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
@@ -25,8 +26,10 @@ class BroadcastChannelEntityField extends AbstractType
         $resolver
             ->setDefined([
                 ColumnEnum::DISTRIBUTION_CONTRACT->value,
+                ColumnEnum::INCLUDE->value,
             ])
             ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT->value, DistributionContract::class)
+            ->setAllowedTypes(ColumnEnum::INCLUDE->value, Collection::class)
             ->setDefaults([
                 'class' => BroadcastChannel::class,
                 'query_builder' => function (Options $options) {
@@ -45,6 +48,16 @@ class BroadcastChannelEntityField extends AbstractType
                 'choice_attr' => fn (BroadcastChannel $channel) => [
                     'class' => $channel->isArchived() ? 'text-danger' : null,
                 ],
+                'choice_filter' => function (Options $options) {
+                    if (!isset($options[ColumnEnum::INCLUDE->value])) {
+                        return null;
+                    }
+
+                    /** @var Collection $include */
+                    $include = $options[ColumnEnum::INCLUDE->value];
+
+                    return static fn (BroadcastChannel $channel) => !$channel->isArchived() || $include->contains($channel);
+                },
                 'group_by' => fn (BroadcastChannel $channel) => $this->translator->trans($channel->isArchived() ? 'Archived' : 'Active', [], 'misc'),
                 'autocomplete' => true,
                 'attr' => [

@@ -5,6 +5,7 @@ Update work %name%: Mettre à jour l'œuvre %name%
 Add adaptation: Ajouter une adaptation
 Add reversion: Ajouter un reversement
 Add revenue: Ajouter un revenu
+Manage reversions: Gérer les reversements
 
 List of works: Liste des œuvres
 Add adaptation to work %work%: Ajouter un coût de distribution à l’œuvre %work%
@@ -16,6 +17,7 @@ Remove reversion from work %work%: Supprimer le reversement de l'œuvre %work%
 Add revenue to work %work%: Ajouter un revenu à l'œuvre %work%
 Update revenue from work %work%: Mettre à jour le revenu de l'œuvre %work%
 Remove revenue from work %work%: Supprimer le revenu de l'œuvre %work%
+Manage reversions from work %work%: Gérer les reversements de l'œuvre %work%
 
 Minimum guaranteed before reversion: Minimum garanti
 Minimum cost of the top before reversion: Plafond des frais recoupables
