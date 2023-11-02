@@ -25,12 +25,20 @@ class DistributionContractWorkTerritoryFormDtoFactory
         $broadcastChannels = $contractWork->getDistributionContract()->getBroadcastChannels();
 
         foreach ($territories as $territory) {
+            if (!$contractWork->getWork()->getTerritories()->contains($territory)) {
+                continue;
+            }
+
             $workTerritory = $contractWork->getWorkTerritory($territory);
             $dto->addExclusive(
                 DistributionContractWorkTerritoryFormDto::getFormName($territory),
                 $workTerritory?->isExclusive() ?? true
             );
             foreach ($broadcastChannels as $broadcastChannel) {
+                if (!$contractWork->getWork()->getBroadcastChannels()->contains($broadcastChannel)) {
+                    continue;
+                }
+
                 $dto->addBroadcastChannel(
                     DistributionContractWorkTerritoryFormDto::getFormName($territory, $broadcastChannel),
                     (bool) $workTerritory?->getBroadcastChannels()->contains($broadcastChannel)
