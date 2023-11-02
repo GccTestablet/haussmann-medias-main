@@ -30,6 +30,9 @@ class FormatExtension extends AbstractExtension
             new TwigFilter('bool_format', [FormatExtensionRuntime::class, 'boolFormat'], [
                 'is_safe' => ['html'],
             ]),
+            new TwigFilter('archive_format', [FormatExtensionRuntime::class, 'archivedFormat'], [
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 }

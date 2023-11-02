@@ -17,7 +17,7 @@
                     <tr>
                         <th class="text-nowrap">{% trans from 'misc' %}Fill all{% endtrans %}</th>
                         {% for channel in work.broadcastChannels %}
-                            <th>{{ channel.name }}</th>
+                            <th>{{ channel.name }} {{ channel.archived|archive_format }}</th>
                         {% endfor %}
                     </tr>
                     </thead>

@@ -9,6 +9,7 @@ use App\Enum\Pager\ColumnEnum;
 use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
 use App\Model\Pager\Field\BooleanField;
+use App\Model\Pager\Field\IconField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Work\WorkTerritoryRepository;
 use Doctrine\ORM\EntityRepository;
@@ -20,6 +21,7 @@ class WorkTerritoryPager extends AbstractPager
     protected static array $defaultSort = [ColumnEnum::TERRITORY->value => 'ASC'];
 
     protected static array $columns = [
+        ColumnEnum::EXTRA,
         ColumnEnum::TERRITORY,
         ColumnEnum::EXCLUSIVE,
         ColumnEnum::CHANNELS,
@@ -33,6 +35,20 @@ class WorkTerritoryPager extends AbstractPager
     protected function configureColumnSchema(): void
     {
         self::$columnSchema = [
+            new Column(
+                id: ColumnEnum::EXTRA,
+                header: new ColumnHeader(
+                    callback: fn () => '',
+                    sortable: false,
+                ),
+                callback: fn (WorkTerritory $workTerritory) => $workTerritory->getTerritory()->isArchived() ? new IconField(
+                    icon: 'fas fa-archive',
+                    attributes: [
+                        'title' => new TranslatableMessage('Archived', [], 'misc'),
+                        'class' => 'text-warning',
+                    ]
+                ) : null,
+            ),
             new Column(
                 id: ColumnEnum::TERRITORY,
                 header: new ColumnHeader(

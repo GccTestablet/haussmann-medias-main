@@ -12,6 +12,7 @@ use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Enum\Work\WorkQuotaEnum;
 use App\Repository\WorkRepository;
+use App\Tools\Parser\ArrayCollectionParser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -361,7 +362,10 @@ class Work
             }
         }
 
-        return $channels;
+        return ArrayCollectionParser::sort(
+            $channels,
+            static fn (BroadcastChannel $a, BroadcastChannel $b) => $a->isArchived() <=> $b->isArchived()
+        );
     }
 
     public function getWorkTerritory(Territory $territory): ?WorkTerritory

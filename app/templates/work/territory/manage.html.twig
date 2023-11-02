@@ -29,7 +29,7 @@
                                            data-column-id="{{ channel.id }}"
                                     />
                                     <label class="form-check-label" for="checkbox-channel-{{ channel.id }}">
-                                        {{ channel.name }}
+                                        {{ channel.name }} {{ channel.archived|archive_format }}
                                     </label>
                                 </div>
                             </th>
@@ -41,7 +41,7 @@
                             {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory) %}
                             <tr>
                                 <td class="text-nowrap">
-                                    {{ territory.name }}
+                                    {{ territory.archived|archive_format }} {{ territory.name }}
                                 </td>
                                 <td>
                                     {{ form_widget(form.exclusives[formName]) }}

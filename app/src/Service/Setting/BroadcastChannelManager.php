@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Service\Setting;
 
 use App\Entity\Setting\BroadcastChannel;
+use App\Enum\Pager\ColumnEnum;
+use App\Repository\Broadcast\BroadcastChannelRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -15,11 +18,26 @@ class BroadcastChannelManager
     ) {}
 
     /**
+     * @param Collection<BroadcastChannel>|null $includeBroadcastChannels
+     *
      * @return BroadcastChannel[]
      */
-    public function findAll(): array
+    public function findAll(Collection $includeBroadcastChannels = null): array
     {
-        return $this->getRepository()->findBy([], ['name' => 'ASC']);
+        $broadcastChannels = $this->getRepository()
+            ->getPagerQueryBuilder([], [ColumnEnum::NAME->value => 'ASC'], null)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        if (!$includeBroadcastChannels) {
+            return $broadcastChannels;
+        }
+
+        return \array_filter(
+            $broadcastChannels,
+            static fn (BroadcastChannel $broadcastChannel) => !$broadcastChannel->isArchived() || $includeBroadcastChannels->contains($broadcastChannel)
+        );
     }
 
     public function findOneByName(string $name): ?BroadcastChannel
@@ -32,7 +50,10 @@ class BroadcastChannelManager
         return $this->getRepository()->findOneBy(['slug' => $slug]);
     }
 
-    private function getRepository(): EntityRepository
+    /**
+     * @return BroadcastChannelRepository|EntityRepository<BroadcastChannel>
+     */
+    private function getRepository(): BroadcastChannelRepository|EntityRepository
     {
         return $this->entityManager->getRepository(BroadcastChannel::class);
     }

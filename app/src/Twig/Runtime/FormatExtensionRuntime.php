@@ -102,4 +102,16 @@ class FormatExtensionRuntime implements RuntimeExtensionInterface
 
         return \sprintf("<i class='fas fa-times %s'></i>", $color ? 'text-danger' : null);
     }
+
+    public function archivedFormat(bool $isArchived): ?string
+    {
+        if (!$isArchived) {
+            return null;
+        }
+
+        return \sprintf(
+            "<i class='fas fa-archive text-warning' title='%s'></i>",
+            $this->translator->trans('Archived', [], 'misc'),
+        );
+    }
 }

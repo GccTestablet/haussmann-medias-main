@@ -20,7 +20,6 @@ class BroadcastChannelRepository extends EntityRepository implements PagerReposi
             ->leftJoin('bc.distributionContractWorkRevenues', 'dcwr')
             ->leftJoin('dcwr.contractWork', 'cw')
             ->orderBy('bc.archived', 'ASC')
-            ->addOrderBy('bc.name', 'ASC')
         ;
 
         foreach ($criteria as $field => $value) {
