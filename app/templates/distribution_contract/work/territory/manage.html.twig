@@ -68,7 +68,7 @@
                                        data-row-id="{{ territory.id }}"
                                 />
                             </td>
-                            {% for channel in contract.broadcastChannels|filter(channel => channel in work.broadcastChannels) %}
+                            {% for channel in contract.broadcastChannels|filter(channel => channel in work.territoryBroadcastChannels(territory)) %}
                                 {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory, channel) %}
                                 {% set formView = form.broadcastChannels[formName] ?? null %}
                                 <td class="text-center">

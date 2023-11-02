@@ -348,6 +348,32 @@ class Work
     /**
      * @return Collection<BroadcastChannel>
      */
+    public function getTerritoryBroadcastChannels(Territory $territory): Collection
+    {
+        $channels = new ArrayCollection();
+        $workTerritory = $this->getWorkTerritory($territory);
+        if (!$workTerritory) {
+            return new ArrayCollection();
+        }
+
+        foreach ($workTerritory->getBroadcastChannels() as $channel) {
+            /* @phpstan-ignore-next-line */
+            if ($channels->contains($channel)) {
+                continue;
+            }
+
+            $channels->add($channel);
+        }
+
+        return ArrayCollectionParser::sort(
+            $channels,
+            static fn (BroadcastChannel $a, BroadcastChannel $b) => $a->isArchived() <=> $b->isArchived()
+        );
+    }
+
+    /**
+     * @return Collection<BroadcastChannel>
+     */
     public function getBroadcastChannels(): Collection
     {
         $channels = new ArrayCollection();

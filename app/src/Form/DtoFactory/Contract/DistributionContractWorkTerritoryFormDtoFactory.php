@@ -35,7 +35,7 @@ class DistributionContractWorkTerritoryFormDtoFactory
                 $workTerritory?->isExclusive() ?? true
             );
             foreach ($broadcastChannels as $broadcastChannel) {
-                if (!$contractWork->getWork()->getBroadcastChannels()->contains($broadcastChannel)) {
+                if (!$contractWork->getWork()->getTerritoryBroadcastChannels($territory)->contains($broadcastChannel)) {
                     continue;
                 }
 
