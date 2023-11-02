@@ -53,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for territory in work.territories %}
+                    {% for territory in contract.territories %}
                         {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory) %}
                         <tr>
                             <td class="text-nowrap">{{ territory.name }}</td>

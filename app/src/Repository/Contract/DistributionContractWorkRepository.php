@@ -16,6 +16,8 @@ class DistributionContractWorkRepository extends EntityRepository implements Pag
     {
         $queryBuilder = $this->createQueryBuilder('dcw')
             ->leftJoin('dcw.work', 'w')
+            ->leftJoin('dcw.workTerritories', 'wt')
+            ->leftJoin('wt.broadcastChannels', 'bc')
         ;
 
         foreach ($criteria as $field => $value) {
@@ -23,6 +25,15 @@ class DistributionContractWorkRepository extends EntityRepository implements Pag
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('dcw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
+                ColumnEnum::WORKS => $queryBuilder
+                    ->andWhere('dcw.work IN (:works)')
+                    ->setParameter('works', $value),
+                ColumnEnum::TERRITORIES => $queryBuilder
+                    ->andWhere('wt.territory IN (:territories)')
+                    ->setParameter('territories', $value),
+                ColumnEnum::CHANNELS => $queryBuilder
+                    ->andWhere('bc IN (:channels)')
+                    ->setParameter('channels', $value),
                 default => null,
             };
         }

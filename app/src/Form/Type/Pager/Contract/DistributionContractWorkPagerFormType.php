@@ -19,6 +19,7 @@ class DistributionContractWorkPagerFormType extends BasePagerFormType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         parent::buildForm($builder, $options);
+
         /** @var FilterCollection $filters */
         $filters = $options['filters'];
 
@@ -30,16 +31,17 @@ class DistributionContractWorkPagerFormType extends BasePagerFormType
                 'label' => 'Works',
                 'translation_domain' => 'work',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
+                'choices' => $distributionContract->getWorks(),
             ])
             ->add(ColumnEnum::TERRITORIES, TerritoryEntityField::class, [
                 'label' => 'Territories',
                 'multiple' => true,
+                'choices' => $distributionContract->getTerritories(),
             ])
             ->add(ColumnEnum::CHANNELS, BroadcastChannelEntityField::class, [
                 'label' => 'Broadcast channels',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
+                'choices' => $distributionContract->getBroadcastChannels(),
             ])
         ;
     }

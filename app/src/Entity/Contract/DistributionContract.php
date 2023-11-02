@@ -13,6 +13,7 @@ use App\Entity\Work\Work;
 use App\Enum\Common\FrequencyEnum;
 use App\Enum\Contract\DistributionContractTypeEnum;
 use App\Repository\Contract\DistributionContractRepository;
+use App\Tools\Parser\ArrayCollectionParser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -270,7 +271,9 @@ class DistributionContract
 
     public function getWorks(): Collection
     {
-        return $this->contractWorks->map(fn (DistributionContractWork $contractWork) => $contractWork->getWork());
+        $works = $this->contractWorks->map(fn (DistributionContractWork $contractWork) => $contractWork->getWork());
+
+        return ArrayCollectionParser::sort($works, static fn (Work $a, Work $b) => $a->getName() <=> $b->getName());
     }
 
     public function getContractWork(Work $work): ?DistributionContractWork

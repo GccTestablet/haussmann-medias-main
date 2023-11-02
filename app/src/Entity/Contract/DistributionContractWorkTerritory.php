@@ -107,6 +107,11 @@ class DistributionContractWorkTerritory
         return $this;
     }
 
+    public function hasBroadcastChannel(BroadcastChannel $channel): bool
+    {
+        return $this->broadcastChannels->contains($channel);
+    }
+
     public function removeBroadcastChannel(BroadcastChannel $channel): static
     {
         if ($this->broadcastChannels->contains($channel)) {
