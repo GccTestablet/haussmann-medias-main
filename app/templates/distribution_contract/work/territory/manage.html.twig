@@ -53,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for territory in contract.territories %}
+                    {% for territory in contract.territories|filter(territory => territory in work.territories) %}
                         {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory) %}
                         <tr>
                             <td class="text-nowrap">{{ territory.name }}</td>
@@ -68,7 +68,7 @@
                                        data-row-id="{{ territory.id }}"
                                 />
                             </td>
-                            {% for channel in contract.broadcastChannels %}
+                            {% for channel in contract.broadcastChannels|filter(channel => channel in work.broadcastChannels) %}
                                 {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory, channel) %}
                                 {% set formView = form.broadcastChannels[formName] ?? null %}
                                 <td class="text-center">
