@@ -6,6 +6,7 @@ namespace App\Entity\Contract;
 
 use App\Entity\Company;
 use App\Entity\Setting\BroadcastChannel;
+use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
 use App\Entity\Work\Work;
@@ -59,10 +60,19 @@ class DistributionContract
     private ?FrequencyEnum $reportFrequency = null;
 
     /**
+     * @var Collection<Territory>
+     */
+    #[ORM\ManyToMany(targetEntity: Territory::class)]
+    #[ORM\JoinTable(name: 'distribution_contracts_territories')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    private Collection $territories;
+
+    /**
      * @var Collection<BroadcastChannel>
      */
     #[ORM\ManyToMany(targetEntity: BroadcastChannel::class)]
     #[ORM\JoinTable(name: 'distribution_contracts_broadcast_channels')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     private Collection $broadcastChannels;
 
     /**
@@ -79,6 +89,7 @@ class DistributionContract
 
     public function __construct()
     {
+        $this->territories = new ArrayCollection();
         $this->broadcastChannels = new ArrayCollection();
         $this->contractFiles = new ArrayCollection();
         $this->contractWorks = new ArrayCollection();
@@ -200,6 +211,18 @@ class DistributionContract
     public function setReportFrequency(?FrequencyEnum $reportFrequency): static
     {
         $this->reportFrequency = $reportFrequency;
+
+        return $this;
+    }
+
+    public function getTerritories(): Collection
+    {
+        return $this->territories;
+    }
+
+    public function setTerritories(Collection $territories): static
+    {
+        $this->territories = $territories;
 
         return $this;
     }

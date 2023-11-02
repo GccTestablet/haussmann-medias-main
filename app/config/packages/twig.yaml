@@ -1,9 +1,13 @@
+parameters:
+  env(SHOW_ALERT): false
+
 twig:
   default_path: "%kernel.project_dir%/templates"
   form_themes: ["bootstrap_5_layout.html.twig"]
   globals:
     SENTRY_FRONTEND_DSN: "%env(SENTRY_FRONTEND_DSN)%"
     SENTRY_ENVIRONMENT: "%env(SENTRY_ENVIRONMENT)%"
+    SHOW_ALERT: "%env(bool:SHOW_ALERT)%"
 
 when@test:
   twig:

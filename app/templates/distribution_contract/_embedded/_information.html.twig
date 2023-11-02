@@ -8,6 +8,10 @@
         <span>{{ contract.signedAt|date_format }}</span>
     </li>
     <li class="mb-3">
+        <span class="fw-bold me-2">{% trans from 'setting' %}Territories{% endtrans %}:</span>
+        <span>{{ contract.territories|map(territory => territory.name)|join(', ') }}</span>
+    </li>
+    <li class="mb-3">
         <span class="fw-bold me-2">{% trans from 'setting' %}Broadcast channels{% endtrans %}:</span>
         <span>{{ contract.broadcastChannels|map(channel => channel.name)|join(', ') }}</span>
     </li>

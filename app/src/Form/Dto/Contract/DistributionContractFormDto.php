@@ -26,6 +26,10 @@ class DistributionContractFormDto
     #[Assert\NotBlank]
     private ?DistributionContractTypeEnum $type = null;
 
+    #[Assert\NotBlank]
+    private Collection $territories;
+
+    #[Assert\NotBlank]
     private Collection $broadcastChannels;
 
     /**
@@ -46,6 +50,7 @@ class DistributionContractFormDto
         private readonly DistributionContract $contract,
         private readonly bool $exists,
     ) {
+        $this->territories = new ArrayCollection();
         $this->broadcastChannels = new ArrayCollection();
     }
 
@@ -108,6 +113,18 @@ class DistributionContractFormDto
     public function setType(?DistributionContractTypeEnum $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTerritories(): Collection
+    {
+        return $this->territories;
+    }
+
+    public function setTerritories(Collection $territories): static
+    {
+        $this->territories = $territories;
 
         return $this;
     }

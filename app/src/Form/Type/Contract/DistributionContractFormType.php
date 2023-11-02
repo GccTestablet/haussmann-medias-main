@@ -11,6 +11,7 @@ use App\Enum\Contract\DistributionContractTypeEnum;
 use App\Enum\Pager\ColumnEnum;
 use App\Form\Dto\Contract\DistributionContractFormDto;
 use App\Form\Type\Common\BroadcastChannelEntityField;
+use App\Form\Type\Common\TerritoryEntityField;
 use App\Form\Type\Shared\DateType;
 use App\Form\Validator\Constraint\UniqueEntityField;
 use App\Repository\CompanyRepository;
@@ -66,9 +67,12 @@ class DistributionContractFormType extends AbstractType
                 'choice_label' => fn (DistributionContractTypeEnum $enum) => $enum->getAsText(),
                 'placeholder' => 'Select a contract type',
             ])
+            ->add('territories', TerritoryEntityField::class, [
+                'multiple' => true,
+                ColumnEnum::INCLUDE => $dto->getTerritories(),
+            ])
             ->add('broadcastChannels', BroadcastChannelEntityField::class, [
                 'multiple' => true,
-                'required' => false,
                 ColumnEnum::INCLUDE => $dto->getBroadcastChannels(),
             ])
             ->add('signedAt', DateType::class, [

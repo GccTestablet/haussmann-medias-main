@@ -8,6 +8,7 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Setting\Territory;
 use App\Enum\Pager\ColumnEnum;
 use App\Repository\Setting\TerritoryRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
@@ -25,8 +26,10 @@ class TerritoryEntityField extends AbstractType
         $resolver
             ->setDefined([
                 ColumnEnum::DISTRIBUTION_CONTRACT,
+                ColumnEnum::INCLUDE,
             ])
             ->setAllowedTypes(ColumnEnum::DISTRIBUTION_CONTRACT, DistributionContract::class)
+            ->setAllowedTypes(ColumnEnum::INCLUDE, Collection::class)
             ->setDefaults([
                 'class' => Territory::class,
                 'query_builder' => function (Options $options) {
@@ -45,6 +48,16 @@ class TerritoryEntityField extends AbstractType
                 'choice_attr' => fn (Territory $territory) => [
                     'class' => $territory->isArchived() ? 'text-danger' : null,
                 ],
+                'choice_filter' => function (Options $options) {
+                    if (!isset($options[ColumnEnum::INCLUDE])) {
+                        return static fn (Territory $territory) => !$territory->isArchived();
+                    }
+
+                    /** @var Collection $include */
+                    $include = $options[ColumnEnum::INCLUDE];
+
+                    return static fn (Territory $territory) => !$territory->isArchived() || $include->contains($territory);
+                },
                 'group_by' => fn (Territory $territory) => $this->translator->trans($territory->isArchived() ? 'Archived' : 'Active', [], 'misc'),
                 'autocomplete' => true,
                 'attr' => [
