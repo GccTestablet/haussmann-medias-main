@@ -3,7 +3,7 @@
 {% set isCompanyAdmin = is_granted(constant('App\\Security\\Voter\\CompanyVoter::COMPANY_ADMIN'), contract.company) %}
 
 {% block content_title %}
-    {% trans with {'%name%': contract.name} from 'contract' %}Distribution contract %name%{% endtrans %}
+    {{ contract.archived|archive_format }} {% trans with {'%name%': contract.name} from 'contract' %}Distribution contract %name%{% endtrans %}
 {% endblock %}
 
 {% block content_action %}

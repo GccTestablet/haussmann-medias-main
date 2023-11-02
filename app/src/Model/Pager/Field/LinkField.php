@@ -10,14 +10,14 @@ use Symfony\Component\Translation\TranslatableMessage;
 class LinkField implements FieldInterface
 {
     public function __construct(
-        private readonly TranslatableMessage|string $value,
+        private readonly TranslatableMessage|string|IconField $value,
         /**
          * @var array<string, mixed>
          */
         private readonly array $attributes
     ) {}
 
-    public function getValue(): TranslatableMessage|string
+    public function getValue(): TranslatableMessage|string|IconField
     {
         return $this->value;
     }

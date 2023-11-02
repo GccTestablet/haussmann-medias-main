@@ -66,6 +66,12 @@
     <a {{ viewData.attributes|attributes_format }}>
         {% if viewData.value is instanceof('Symfony\\Component\\Translation\\TranslatableMessage') %}
             {{ viewData.value|trans|e }}
+        {% elseif viewData.value is instanceof('App\\Model\\Pager\\Field\\IconField') %}
+            {% with {
+                'viewData': viewData.value,
+            } %}
+                {{ block(viewData.type.value) }}
+            {% endwith %}
         {% else %}
             {{ viewData.value|e }}
         {% endif %}

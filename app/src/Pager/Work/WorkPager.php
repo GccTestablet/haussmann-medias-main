@@ -16,6 +16,7 @@ use App\Model\Pager\Field\PopoverButtonField;
 use App\Model\Pager\Field\SimpleArrayField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Shared\PagerRepositoryInterface;
+use App\Tools\Parser\StringParser;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Translation\TranslatableMessage;
@@ -118,10 +119,10 @@ class WorkPager extends AbstractPager
             new Column(
                 id: ColumnEnum::ACQUISITION_CONTRACT,
                 header: new ColumnHeader(
-                    callback: fn () => new TranslatableMessage('Contract', [], 'work')
+                    callback: fn () => new TranslatableMessage('Acquisition contract', [], 'contract')
                 ),
                 callback: fn (Work $work) => new LinkField(
-                    value: $work->getAcquisitionContract()->getName(),
+                    value: StringParser::truncate($work->getAcquisitionContract()->getName(), 20, true),
                     attributes: [
                         'href' => $this->router->generate('app_acquisition_contract_show', [
                             'id' => $work->getAcquisitionContract()->getId(),

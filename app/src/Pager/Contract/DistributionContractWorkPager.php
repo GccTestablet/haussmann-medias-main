@@ -54,24 +54,33 @@ class DistributionContractWorkPager extends AbstractPager
                     callback: fn () => '',
                     sortable: false,
                 ),
-                callback: fn (DistributionContractWork $contractWork) => new PopoverButtonField(
-                    value: new IconField(
-                        icon: 'circle-info',
+                callback: fn (DistributionContractWork $contractWork) => new CollectionField([
+                    $contractWork->getWork()->isArchived() ? new IconField(
+                        icon: 'fas fa-archive',
                         attributes: [
-                            'class' => 'text-primary',
+                            'title' => new TranslatableMessage('Archived', [], 'misc'),
+                            'class' => 'text-warning',
                         ]
+                    ) : null,
+                    new PopoverButtonField(
+                        value: new IconField(
+                            icon: 'circle-info',
+                            attributes: [
+                                'class' => 'text-primary',
+                            ]
+                        ),
+                        popoverTitle: new TranslatableMessage('Territories', [], 'work'),
+                        popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
+                            'title' => new TranslatableMessage('Territories and channels distributed', [], 'contract'),
+                            'workTerritories' => $contractWork->getWorkTerritories(),
+                        ]),
+                        attributes: [
+                            'title' => new TranslatableMessage('Territories', [], 'work'),
+                            'class' => 'btn btn-sm',
+                            'data-work-id' => $contractWork->getId(),
+                        ],
                     ),
-                    popoverTitle: new TranslatableMessage('Territories', [], 'work'),
-                    popoverContent: $this->twig->render('work/territory/_embedded/_list.html.twig', [
-                        'title' => new TranslatableMessage('Territories and channels distributed', [], 'contract'),
-                        'workTerritories' => $contractWork->getWorkTerritories(),
-                    ]),
-                    attributes: [
-                        'title' => new TranslatableMessage('Territories', [], 'work'),
-                        'class' => 'btn btn-sm',
-                        'data-work-id' => $contractWork->getId(),
-                    ],
-                )
+                ]),
             ),
             new Column(
                 id: ColumnEnum::WORK,
