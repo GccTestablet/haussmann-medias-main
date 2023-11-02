@@ -127,6 +127,7 @@ class WorkPager extends AbstractPager
                         'href' => $this->router->generate('app_acquisition_contract_show', [
                             'id' => $work->getAcquisitionContract()->getId(),
                         ]),
+                        'title' => $work->getAcquisitionContract()->getName(),
                     ]
                 ),
             ),
