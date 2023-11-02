@@ -56,6 +56,7 @@ enum ColumnEnum: string
     // Settings
     case CHANNEL = 'channel';
     case CHANNELS = 'channels';
+    case EXCLUDE_CHANNELS = 'excludeChannels';
     case TERRITORY = 'territory';
     case TERRITORIES = 'territories';
 }

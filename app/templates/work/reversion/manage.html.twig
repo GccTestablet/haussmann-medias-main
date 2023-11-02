@@ -1,0 +1,58 @@
+{% extends 'shared/layout/layout_base.html.twig' %}
+
+{% block content %}
+    {% component card %}
+        {% block header_content %}
+            <h1 class="h3 fw-bold mb-1">
+                {% trans with {
+                    '%work%': work.name
+                } from 'work' %}Manage reversions from work %work%{% endtrans %}
+            </h1>
+        {% endblock %}
+        {% block body_content %}
+            {{ form_start(form) }}
+            <div class="table-responsive">
+                <table class="table" data-controller="datatable--fill-all">
+                    <thead>
+                    <tr>
+                        <th class="text-nowrap">{% trans from 'misc' %}Fill all{% endtrans %}</th>
+                        {% for channel in work.broadcastChannels %}
+                            <th>{{ channel.name }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control"
+                                   data-datatable--fill-all-target="rowAll"
+                                   data-action="input->datatable--fill-all#fillRow"
+                                   data-datatable--fill-all-row-param="0"
+                                   data-row-id="0"
+                            />
+                        </td>
+                        {% for channel in work.broadcastChannels %}
+                            {% set formName = call_static('App\\Form\\Dto\\Work\\WorkReversionFormDto', 'getFormName', channel) %}
+                            <td>
+                                {{ form_widget(form.reversions[formName], {
+                                    'attr': {
+                                        'data-datatable--fill-all-target': 'input',
+                                        'data-row-id': 0,
+                                    }
+                                }) }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-sm btn-warning" type="submit">
+                {% trans from 'misc' %}Save{% endtrans %}
+            </button>
+            <a href="{{ path('app_work_show', {'id': work.id, 'tab': 'reversions'}) }}" class="btn btn-sm btn-dark">
+                {% trans from 'misc' %}Back{% endtrans %}
+            </a>
+            {{ form_end(form) }}
+        {% endblock %}
+    {% endcomponent %}
+{% endblock %}

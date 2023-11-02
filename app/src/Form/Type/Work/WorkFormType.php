@@ -54,6 +54,7 @@ class WorkFormType extends AbstractType
                 'preferred_choices' => ['FR', 'US'],
                 'multiple' => true,
                 'autocomplete' => true,
+                'translation_domain' => 'misc',
             ])
             ->add('quota', EnumType::class, [
                 'placeholder' => 'Select a quota',

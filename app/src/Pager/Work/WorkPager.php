@@ -107,7 +107,8 @@ class WorkPager extends AbstractPager
             new Column(
                 id: ColumnEnum::COUNTRIES,
                 header: new ColumnHeader(
-                    callback: fn () => new TranslatableMessage('Country', [], 'work')
+                    callback: fn () => new TranslatableMessage('Country', [], 'work'),
+                    sortable: false,
                 ),
                 callback: fn (Work $work) => new SimpleArrayField(\array_map(
                     static fn (string $code) => Countries::getName($code),

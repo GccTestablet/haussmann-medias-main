@@ -6,10 +6,11 @@ namespace App\Entity\Setting;
 
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
+use App\Repository\Setting\AdaptationCostTypeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: AdaptationCostTypeRepository::class)]
 #[ORM\Table(name: 'setting_adaptation_cost_types')]
 class AdaptationCostType
 {

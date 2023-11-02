@@ -3,8 +3,8 @@
 {% block content_inner %}
     <div class="card">
         <div class="card-header text-end">
-            <a href="{{ path('app_work_reversion_add', {'work': work.id}) }}" class="btn btn-sm btn-success">
-                {% trans from 'work' %}Add reversion{% endtrans %}
+            <a href="{{ path('app_work_reversion_manage', {'work': work.id}) }}" class="btn btn-sm btn-warning">
+                {% trans from 'work' %}Manage reversions{% endtrans %}
             </a>
         </div>
         <div class="card-body">
