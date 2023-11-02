@@ -12,9 +12,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TerritoryEntityField extends AbstractType
 {
+    public function __construct(
+        private readonly TranslatorInterface $translator
+    ) {}
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -38,8 +43,9 @@ class TerritoryEntityField extends AbstractType
                 },
                 'choice_label' => 'name',
                 'choice_attr' => fn (Territory $territory) => [
-                    'class' => $territory->isArchived() ? 'text-decoration-line-through' : null,
+                    'class' => $territory->isArchived() ? 'text-danger' : null,
                 ],
+                'group_by' => fn (Territory $territory) => $this->translator->trans($territory->isArchived() ? 'Archived' : 'Active', [], 'misc'),
                 'autocomplete' => true,
                 'attr' => [
                     'data-controller' => 'form--autocomplete',

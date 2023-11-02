@@ -70,12 +70,12 @@ class WorkReversion
         return $this;
     }
 
-    public function getPercentageReversion(): ?float
+    public function getPercentageReversion(): float
     {
         return $this->percentageReversion;
     }
 
-    public function setPercentageReversion(?float $percentageReversion): static
+    public function setPercentageReversion(float $percentageReversion): static
     {
         $this->percentageReversion = $percentageReversion;
 

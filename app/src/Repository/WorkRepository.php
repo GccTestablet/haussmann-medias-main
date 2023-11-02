@@ -20,7 +20,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
         $queryBuilder = $this->createQueryBuilder('w')
             ->innerJoin('w.acquisitionContract', 'ac')
             ->leftJoin('w.contractWorks', 'cw')
-            ->orderBy('w.name', 'ASC')
+            ->orderBy('w.archived', 'ASC')
         ;
 
         foreach ($criteria as $field => $value) {

@@ -18,6 +18,7 @@ class TerritoryRepository extends EntityRepository implements PagerRepositoryInt
             ->leftJoin('t.distributionContractWorkTerritories', 'dcwt')
             ->leftJoin('dcwt.contractWork', 'dcw')
             ->leftJoin('dcw.distributionContract', 'dc')
+            ->orderBy('t.archived', 'ASC')
         ;
 
         foreach ($criteria as $field => $value) {

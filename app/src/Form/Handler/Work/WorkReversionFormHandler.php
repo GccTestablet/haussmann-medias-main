@@ -30,14 +30,11 @@ class WorkReversionFormHandler extends AbstractFormHandler
             throw new UnexpectedTypeException($dto, WorkReversionFormDto::class);
         }
 
-        $workReversion = $dto->getWorkReversion();
-        if ($dto->isExists()) {
-            $this->entityManager->refresh($workReversion);
-        }
+        $work = $dto->getWork();
+        $this->entityManager->refresh($work);
 
-        $this->workReversionFormDtoFactory->updateEntity($dto, $workReversion);
+        $this->workReversionFormDtoFactory->updateEntity($work, $dto);
 
-        $this->entityManager->persist($workReversion);
         $this->entityManager->flush();
 
         return parent::onFormSubmitAndValid($request, $form, $options);

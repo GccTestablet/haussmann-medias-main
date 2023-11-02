@@ -5,34 +5,53 @@ declare(strict_types=1);
 namespace App\Form\DtoFactory\Work;
 
 use App\Entity\Work\Work;
-use App\Entity\Work\WorkReversion;
 use App\Form\Dto\Work\WorkReversionFormDto;
-use App\Tools\Parser\ObjectParser;
+use App\Service\Work\WorkReversionManager;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 
 class WorkReversionFormDtoFactory
 {
     public function __construct(
-        private readonly ObjectParser $objectParser
+        private readonly EntityManagerInterface $entityManager,
+        private readonly WorkReversionManager $workReversionManager,
     ) {}
 
-    public function create(Work $work, ?WorkReversion $workReversion): WorkReversionFormDto
+    public function create(Work $work): WorkReversionFormDto
     {
-        if (!$workReversion) {
-            $workReversion = (new WorkReversion())
-                ->setWork($work)
-            ;
+        $dto = new WorkReversionFormDto($work);
 
-            return new WorkReversionFormDto($workReversion, false);
+        foreach ($work->getBroadcastChannels() as $channel) {
+            $workReversion = $work->getWorkReversion($channel);
+            $dto->addReversion(
+                WorkReversionFormDto::getFormName($channel),
+                $workReversion?->getPercentageReversion()
+            );
         }
-
-        $dto = new WorkReversionFormDto($workReversion, true);
-        $this->objectParser->mergeFromObject($workReversion, $dto);
 
         return $dto;
     }
 
-    public function updateEntity(WorkReversionFormDto $dto, WorkReversion $workReversion): void
+    public function updateEntity(Work $work, WorkReversionFormDto $dto): void
     {
-        $this->objectParser->mergeFromObject($dto, $workReversion);
+        $workReversions = new ArrayCollection();
+        foreach ($work->getBroadcastChannels() as $channel) {
+            $value = $dto->getReversion(WorkReversionFormDto::getFormName($channel));
+            $workReversion = $this->workReversionManager->find($work, $channel);
+            if (!$value && $workReversion) {
+                $this->entityManager->remove($workReversion);
+            }
+
+            if (!$value) {
+                continue;
+            }
+
+            $workReversion = $this->workReversionManager->findOrCreate($work, $channel);
+
+            $workReversion->setPercentageReversion($value);
+            $workReversions->add($workReversion);
+        }
+
+        $work->setWorkReversions($workReversions);
     }
 }

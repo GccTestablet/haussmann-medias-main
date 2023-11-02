@@ -6,6 +6,7 @@ namespace App\Entity\Work;
 
 use App\Entity\Contract\AcquisitionContract;
 use App\Entity\Contract\DistributionContractWork;
+use App\Entity\Setting\BroadcastChannel;
 use App\Entity\Setting\Territory;
 use App\Entity\Shared\BlameableEntity;
 use App\Entity\Shared\TimestampableEntity;
@@ -297,6 +298,27 @@ class Work
         return $this->workReversions;
     }
 
+    public function getWorkReversion(BroadcastChannel $channel): ?WorkReversion
+    {
+        foreach ($this->workReversions as $workReversion) {
+            if ($workReversion->getChannel() === $channel) {
+                return $workReversion;
+            }
+        }
+
+        return null;
+    }
+
+    public function addWorkReversion(WorkReversion $workReversion): static
+    {
+        if (!$this->workReversions->contains($workReversion)) {
+            $this->workReversions->add($workReversion);
+            $workReversion->setWork($this);
+        }
+
+        return $this;
+    }
+
     public function setWorkReversions(Collection $workReversions): static
     {
         $this->workReversions = $workReversions;
@@ -320,6 +342,26 @@ class Work
         return $this->workTerritories
             ->map(fn (WorkTerritory $workTerritory) => $workTerritory->getTerritory())
         ;
+    }
+
+    /**
+     * @return Collection<BroadcastChannel>
+     */
+    public function getBroadcastChannels(): Collection
+    {
+        $channels = new ArrayCollection();
+        foreach ($this->workTerritories as $workTerritory) {
+            foreach ($workTerritory->getBroadcastChannels() as $channel) {
+                /* @phpstan-ignore-next-line */
+                if ($channels->contains($channel)) {
+                    continue;
+                }
+
+                $channels->add($channel);
+            }
+        }
+
+        return $channels;
     }
 
     public function getWorkTerritory(Territory $territory): ?WorkTerritory

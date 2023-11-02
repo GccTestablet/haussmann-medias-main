@@ -8,13 +8,20 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Work\Work;
 use App\Enum\Pager\ColumnEnum;
 use App\Repository\WorkRepository;
+use App\Service\Security\SecurityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class WorkEntityField extends AbstractType
 {
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly SecurityManager $securityManager,
+    ) {}
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -25,7 +32,10 @@ class WorkEntityField extends AbstractType
             ->setDefaults([
                 'class' => Work::class,
                 'query_builder' => function (Options $options) {
-                    $criteria = [];
+                    $criteria = [
+                        ColumnEnum::COMPANY->value => $this->securityManager->getConnectedUser()->getConnectedOn(),
+                    ];
+
                     if (isset($options[ColumnEnum::DISTRIBUTION_CONTRACT->value])) {
                         $criteria[ColumnEnum::DISTRIBUTION_CONTRACT->value] = $options[ColumnEnum::DISTRIBUTION_CONTRACT->value];
                     }
@@ -38,8 +48,9 @@ class WorkEntityField extends AbstractType
                 },
                 'choice_label' => fn (Work $work) => \sprintf('%s (%s)', $work->getName(), $work->getInternalId()),
                 'choice_attr' => fn (Work $work) => [
-                    'class' => $work->isArchived() ? 'text-decoration-line-through' : null,
+                    'class' => $work->isArchived() ? 'text-danger' : null,
                 ],
+                'group_by' => fn (Work $work) => $this->translator->trans($work->isArchived() ? 'Archived' : 'Active', [], 'misc'),
                 'autocomplete' => true,
                 'placeholder' => 'Select a work',
                 'translation_domain' => 'work',

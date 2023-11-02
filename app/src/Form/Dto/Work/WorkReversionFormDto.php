@@ -5,53 +5,55 @@ declare(strict_types=1);
 namespace App\Form\Dto\Work;
 
 use App\Entity\Setting\BroadcastChannel;
-use App\Entity\Work\WorkReversion;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Work\Work;
 
 class WorkReversionFormDto
 {
-    #[Assert\NotBlank]
-    private ?BroadcastChannel $channel = null;
+    public static function getFormName(BroadcastChannel $broadcastChannel): string
+    {
+        return \sprintf('broadcast_channel_%d', $broadcastChannel->getId());
+    }
 
-    #[Assert\NotBlank]
-    #[Assert\Type(type: 'float')]
-    private ?float $percentageReversion = null;
+    /**
+     * @var array<string, float|null>
+     */
+    private array $reversions = [];
 
     public function __construct(
-        private readonly WorkReversion $workReversion,
-        private readonly bool $exists,
+        private readonly Work $work,
     ) {}
 
-    public function getWorkReversion(): WorkReversion
+    public function getWork(): Work
     {
-        return $this->workReversion;
+        return $this->work;
     }
 
-    public function isExists(): bool
+    /**
+     * @return array<string, float|null>
+     */
+    public function getReversions(): array
     {
-        return $this->exists;
+        return $this->reversions;
     }
 
-    public function getChannel(): ?BroadcastChannel
+    public function getReversion(string $key): ?float
     {
-        return $this->channel;
+        return $this->reversions[$key] ?? null;
     }
 
-    public function setChannel(?BroadcastChannel $channel): static
+    public function addReversion(string $key, ?float $value): static
     {
-        $this->channel = $channel;
+        $this->reversions[$key] = $value;
 
         return $this;
     }
 
-    public function getPercentageReversion(): ?float
+    /**
+     * @param array<string, float|null> $reversions
+     */
+    public function setReversions(array $reversions): static
     {
-        return $this->percentageReversion;
-    }
-
-    public function setPercentageReversion(?float $percentageReversion): static
-    {
-        $this->percentageReversion = $percentageReversion;
+        $this->reversions = $reversions;
 
         return $this;
     }

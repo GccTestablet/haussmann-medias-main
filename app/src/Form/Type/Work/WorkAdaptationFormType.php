@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Form\Type\Work;
 
-use App\Entity\Setting\AdaptationCostType;
+use App\Enum\Pager\ColumnEnum;
 use App\Form\Dto\Work\WorkAdaptationFormDto;
+use App\Form\Type\Common\AdaptationCostTypeEntityField;
 use App\Form\Type\Shared\CurrencyType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -18,13 +18,12 @@ class WorkAdaptationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var WorkAdaptationFormDto $dto */
+        $dto = $builder->getData();
         $builder
-            ->add('type', EntityType::class, [
-                'placeholder' => 'Select a cost type',
-                'class' => AdaptationCostType::class,
-                'choice_label' => fn (AdaptationCostType $type) => $type->getName(),
+            ->add('type', AdaptationCostTypeEntityField::class, [
                 'required' => true,
-                'autocomplete' => true,
+                ColumnEnum::TYPE->value => $dto->getType(),
             ])
             ->add('amount', NumberType::class, [
                 'required' => true,
