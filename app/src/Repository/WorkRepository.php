@@ -21,6 +21,7 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
             ->innerJoin('w.acquisitionContract', 'ac')
             ->leftJoin('w.contractWorks', 'cw')
             ->orderBy('w.archived', 'ASC')
+            ->groupBy('w.id')
         ;
 
         foreach ($criteria as $field => $value) {
@@ -49,7 +50,9 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::ACQUISITION_CONTRACT_TERRITORIES => $queryBuilder
                     ->leftJoin('w.workTerritories', 'wt')
                     ->andWhere('wt.territory IN (:acquisitionContractTerritories)')
-                    ->setParameter('acquisitionContractTerritories', $value),
+                    ->andHaving('COUNT(wt.id) = :acquisitionContractTerritoriesCount')
+                    ->setParameter('acquisitionContractTerritories', $value)
+                    ->setParameter('acquisitionContractTerritoriesCount', $value->count()),
                 ColumnEnum::BENEFICIARIES => $queryBuilder
                     ->andWhere('ac.beneficiary IN (:beneficiaries)')
                     ->setParameter('beneficiaries', $value),
@@ -59,7 +62,9 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::DISTRIBUTION_CONTRACT_TERRITORIES => $queryBuilder
                     ->leftJoin('cw.workTerritories', 'dcwt')
                     ->andWhere('dcwt.territory IN (:distributionContractTerritories)')
-                    ->setParameter('distributionContractTerritories', $value),
+                    ->andHaving('COUNT(dcwt.id) = :distributionContractTerritoriesCount')
+                    ->setParameter('distributionContractTerritories', $value)
+                    ->setParameter('distributionContractTerritoriesCount', $value->count()),
                 ColumnEnum::COUNTRIES => $this->addMultiple($queryBuilder, 'w.countries', $value),
                 ColumnEnum::QUOTAS => $queryBuilder
                     ->andWhere('w.quota IN (:quotas)')
