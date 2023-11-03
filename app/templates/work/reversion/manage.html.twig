@@ -11,6 +11,21 @@
         {% endblock %}
         {% block body_content %}
             {{ form_start(form) }}
+            {% if 0 == work.broadcastChannels|length %}
+                <div class="alert alert-danger">
+                    {% trans from 'work' %}No broadcast channels available for this work{% endtrans %}<br />
+
+                    {% set link %}
+                        <a href="{{ path('app_work_show', {'id': work.id, 'tab': 'territories'}) }}">
+                            {% trans from 'work' %}update the work{% endtrans %}
+                        </a>
+                    {% endset %}
+                    {% trans with {
+                        '%link%': link
+                    } from 'work' %}Please %link% and add broadcast channels to be able to continue
+                    {% endtrans %}
+                </div>
+            {% endif %}
             <div class="table-responsive">
                 <table class="table" data-controller="datatable--fill-all">
                     <thead>

@@ -24,6 +24,11 @@ Minimum cost of the top before reversion: Plafond des frais recoupables
 Manage territory and channels from work %work%: Gérer les territoires et canaux pour l’œuvre
 Territories and channels acquired: Territoires et canaux acquis
 
+# Messages
+No broadcast channels available for this work: Aucun canal de diffusion disponible pour cette œuvre
+update the work: modifier l'œuvre
+Please %link% and add broadcast channels to be able to continue: Veuillez %link% et ajouter des canaux de diffusion pour pouvoir continuer
+
 Internal Id: ID interne
 Imdb: IMDB
 Imdb id: ID IMDB
