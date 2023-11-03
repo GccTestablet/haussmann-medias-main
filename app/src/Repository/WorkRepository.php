@@ -46,12 +46,20 @@ class WorkRepository extends EntityRepository implements PagerRepositoryInterfac
                 ColumnEnum::ACQUISITION_CONTRACT_NAME => $queryBuilder
                     ->andWhere('LOWER(ac.name) LIKE LOWER(:acquisitionContractName)')
                     ->setParameter('acquisitionContractName', \sprintf('%%%s%%', $value)),
+                ColumnEnum::ACQUISITION_CONTRACT_TERRITORIES => $queryBuilder
+                    ->leftJoin('w.workTerritories', 'wt')
+                    ->andWhere('wt.territory IN (:acquisitionContractTerritories)')
+                    ->setParameter('acquisitionContractTerritories', $value),
                 ColumnEnum::BENEFICIARIES => $queryBuilder
                     ->andWhere('ac.beneficiary IN (:beneficiaries)')
                     ->setParameter('beneficiaries', $value),
                 ColumnEnum::DISTRIBUTION_CONTRACT => $queryBuilder
                     ->andWhere('cw.distributionContract = :distributionContract')
                     ->setParameter('distributionContract', $value),
+                ColumnEnum::DISTRIBUTION_CONTRACT_TERRITORIES => $queryBuilder
+                    ->leftJoin('cw.workTerritories', 'dcwt')
+                    ->andWhere('dcwt.territory IN (:distributionContractTerritories)')
+                    ->setParameter('distributionContractTerritories', $value),
                 ColumnEnum::COUNTRIES => $this->addMultiple($queryBuilder, 'w.countries', $value),
                 ColumnEnum::QUOTAS => $queryBuilder
                     ->andWhere('w.quota IN (:quotas)')

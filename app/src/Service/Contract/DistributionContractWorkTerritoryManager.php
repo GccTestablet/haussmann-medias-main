@@ -43,7 +43,7 @@ class DistributionContractWorkTerritoryManager
             $contractWorkTerritory = $this->findOrCreate($contractWork, $territory);
 
             foreach ($broadcastChannels as $channel) {
-                if (!$work->getBroadcastChannels()->contains($channel)) {
+                if (!$work->getTerritoryBroadcastChannels($territory)->contains($channel)) {
                     continue;
                 }
 
