@@ -22,7 +22,6 @@ Feature: Distribution contract show page
 
   @javascript
   Scenario: We check the work list
-    Then Debug: HTML content
     Then I should see "Ajouter une œuvre"
     And I should see a table with:
       | Œuvre                       | Période                 | Montant     |
