@@ -4,7 +4,7 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 env:
-  HOST: www.haussmann-medias.local
+  HOST: test.haussmann-medias.local
   APP_PATH: /var/www/haussmann-medias
   BUILDER_TAG: haussmann-medias-main-builder
   DOCKER_COMPOSE_FILE: docker/docker-compose.test.yaml
