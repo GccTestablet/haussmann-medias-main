@@ -257,7 +257,11 @@ class DistributionContract
 
     public function setBroadcastChannels(Collection $broadcastChannels): static
     {
-        $this->broadcastChannels = $broadcastChannels;
+        $this->broadcastChannels->clear();
+
+        foreach ($broadcastChannels as $channel) {
+            $this->addBroadcastChannel($channel);
+        }
 
         return $this;
     }
