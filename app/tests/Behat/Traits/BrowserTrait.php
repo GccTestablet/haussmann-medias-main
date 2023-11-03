@@ -23,4 +23,13 @@ trait BrowserTrait
     {
         $this->getSession()->wait($seconds * 1000);
     }
+
+    /**
+     * @Then /^Debug: HTML content$/
+     */
+    public function iShowHtmlContent(): void
+    {
+        // @phpstan-ignore-next-line
+        echo $this->getSession()->getPage()->getText();
+    }
 }
