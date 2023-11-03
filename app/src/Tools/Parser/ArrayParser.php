@@ -40,7 +40,11 @@ class ArrayParser
     {
         foreach ($arrayA as $key => $array) {
             if (!isset($arrayB[$key])) {
-                continue;
+                throw new \Exception(\sprintf(
+                    'Key "%s" is not present in array. Available keys are: "%s"',
+                    $key,
+                    \implode(', ', \array_keys($arrayB))
+                ));
             }
 
             if ($arrayB[$key] !== $array) {

@@ -110,8 +110,13 @@
     }
   },
   "require-dev": {
+    "behat/mink-selenium2-driver": "^1.6",
     "dbrekelmans/bdi": "^1.1",
     "doctrine/doctrine-fixtures-bundle": "^3.4",
+    "friends-of-behat/mink": "^1.10",
+    "friends-of-behat/mink-browserkit-driver": "^1.6",
+    "friends-of-behat/mink-extension": "^2.7",
+    "friends-of-behat/symfony-extension": "^2.4",
     "friendsofphp/php-cs-fixer": "^3.34",
     "kubawerlos/php-cs-fixer-custom-fixers": "^3.16",
     "phpstan/phpstan": "^1.10",

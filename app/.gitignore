@@ -39,3 +39,7 @@ phpstan.neon
 .idea/
 public/media/
 public/tmp/
+
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###
