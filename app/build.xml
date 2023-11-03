@@ -56,6 +56,13 @@
         <exec command="bin/phpunit --testsuite=integration" dir="${project_dir}" passthru="true" checkreturn="true" />
     </target>
 
+    <target name="testing_php_end2end" description="Run End2End tests (Behat)">
+        <echo message="End2End tests (Behat) running" />
+        <retry retryCount="1">
+            <exec command="bin/behat --rerun" dir="${project_dir}" passthru="true" checkreturn="true" />
+        </retry>
+    </target>
+
     <!-- Analysis -->
     <target name="analyze" description="Analyze code">
         <phingcall target="php_analyze" />

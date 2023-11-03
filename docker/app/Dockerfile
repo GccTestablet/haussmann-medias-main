@@ -16,6 +16,7 @@ EXPOSE 80
 # Configure
 COPY docker/app/config/*.local /etc/nginx/sites-enabled/
 COPY docker/app/config/.env.ci /var/www/haussmann-medias/app/.env
+COPY docker/app/config/behat.yml /var/www/haussmann-medias/app/
 
 COPY docker/app/entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
