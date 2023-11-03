@@ -20,8 +20,12 @@
                 <div class="col-sm-4">{{ form_row(form.countries) }}</div>
             </div>
             <div class="row">
-                <div class="col-sm-6">{{ form_row(form.acquisitionContractName) }}</div>
-                <div class="col-sm-6">{{ form_row(form.beneficiaries) }}</div>
+                <div class="col-sm-4">{{ form_row(form.acquisitionContractName) }}</div>
+                <div class="col-sm-4">{{ form_row(form.beneficiaries) }}</div>
+                <div class="col-sm-4">{{ form_row(form.acquisitionContractTerritories) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">{{ form_row(form.distributionContractTerritories) }}</div>
             </div>
             {{ form_rest(form) }}
 

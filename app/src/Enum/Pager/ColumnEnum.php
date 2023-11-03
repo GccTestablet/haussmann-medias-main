@@ -47,7 +47,9 @@ class ColumnEnum
     final public const SIGNED_AT = 'signedAt';
     final public const ACQUISITION_CONTRACT = 'acquisitionContract';
     final public const ACQUISITION_CONTRACT_NAME = 'acquisitionContractName';
+    final public const ACQUISITION_CONTRACT_TERRITORIES = 'acquisitionContractTerritories';
     final public const DISTRIBUTION_CONTRACT = 'distributionContract';
+    final public const DISTRIBUTION_CONTRACT_TERRITORIES = 'distributionContractTerritories';
     final public const BENEFICIARY = 'beneficiary';
     final public const BENEFICIARIES = 'beneficiaries';
     final public const SELLER = 'seller';

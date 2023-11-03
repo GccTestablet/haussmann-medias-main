@@ -7,6 +7,7 @@ namespace App\Form\Type\Pager\Work;
 use App\Enum\Pager\ColumnEnum;
 use App\Enum\Work\WorkQuotaEnum;
 use App\Form\Type\Common\CompanyEntityField;
+use App\Form\Type\Common\TerritoryEntityField;
 use App\Form\Type\Pager\Shared\BasePagerFormType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -14,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class WorkPagerFormType extends BasePagerFormType
 {
@@ -34,16 +36,24 @@ class WorkPagerFormType extends BasePagerFormType
             ->add(ColumnEnum::ACQUISITION_CONTRACT_NAME, TextType::class, [
                 'label' => 'Acquisition contract name',
             ])
+            ->add(ColumnEnum::ACQUISITION_CONTRACT_TERRITORIES, TerritoryEntityField::class, [
+                'label' => 'Acquired territories',
+                'attr' => [
+                    'placeholder' => new TranslatableMessage('Select one or more', [], 'misc'),
+                ],
+                'multiple' => true,
+                'translation_domain' => 'contract',
+            ])
             ->add(ColumnEnum::BENEFICIARIES, CompanyEntityField::class, [
                 'label' => 'Acquisition contract beneficiary',
                 'attr' => [
-                    'placeholder' => 'Select one or more beneficiaries',
+                    'placeholder' => new TranslatableMessage('Select one or more', [], 'misc'),
                 ],
                 'multiple' => true,
             ])
             ->add(ColumnEnum::COUNTRIES, CountryType::class, [
                 'attr' => [
-                    'placeholder' => 'Select one or more countries',
+                    'placeholder' => new TranslatableMessage('Select one or more', [], 'misc'),
                 ],
                 'translation_domain' => 'misc',
                 'multiple' => true,
@@ -53,10 +63,18 @@ class WorkPagerFormType extends BasePagerFormType
                 'class' => WorkQuotaEnum::class,
                 'choice_label' => fn (WorkQuotaEnum $originWorkEnum) => $originWorkEnum->getAsText(),
                 'attr' => [
-                    'placeholder' => 'Select one or more quotas',
+                    'placeholder' => new TranslatableMessage('Select one or more', [], 'misc'),
                 ],
                 'multiple' => true,
                 'autocomplete' => true,
+            ])
+            ->add(ColumnEnum::DISTRIBUTION_CONTRACT_TERRITORIES, TerritoryEntityField::class, [
+                'label' => 'Distributed territories',
+                'attr' => [
+                    'placeholder' => new TranslatableMessage('Select one or more', [], 'misc'),
+                ],
+                'translation_domain' => 'contract',
+                'multiple' => true,
             ])
             ->add(ColumnEnum::ARCHIVED, CheckboxType::class, [
                 'label' => 'Show archive?',
