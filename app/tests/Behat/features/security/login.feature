@@ -1,5 +1,6 @@
 @security
 Feature: Login page
+
   Background:
     Given I load fixtures:
       | user |

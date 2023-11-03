@@ -11,8 +11,16 @@ trait UserTrait
      */
     public function iAmLoggedOn(): void
     {
+        $this->iAmLoggedOnAs('super-admin@hm.mail');
+    }
+
+    /**
+     * @Given /^I am logged on as "([^"]*)"$/
+     */
+    public function iAmLoggedOnAs(string $email): void
+    {
         $this->visitPath('/login');
-        $this->fillField('login_form[email]', 'super-admin@hm.mail');
+        $this->fillField('login_form[email]', $email);
         $this->fillField('login_form[password]', 'Qwerty123');
         $this->pressButton('Connexion');
         $this->assertPageAddress('/');

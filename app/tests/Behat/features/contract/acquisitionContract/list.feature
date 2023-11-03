@@ -30,5 +30,5 @@ Feature: Acquisition contract list page
     When I switch to company "Chrome Films"
     Then I should see "1 enregistrements trouvés"
     And I should see a table with:
-      | Nom                  | Acquéreur        | Ayant droit | Date de signature | Période de droits       | Œuvres          |
-      | MW - Sniper and Maneater | Chrome Films | Mediawan   | 01/01/2023        | 01/01/2023 - | Sniper, Maneater |
+      | Nom                      | Acquéreur    | Ayant droit | Date de signature | Période de droits | Œuvres           |
+      | MW - Sniper and Maneater | Chrome Films | Mediawan    | 01/01/2023        | 01/01/2023 -      | Sniper, Maneater |

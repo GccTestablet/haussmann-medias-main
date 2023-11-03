@@ -15,4 +15,12 @@ trait BrowserTrait
 
         $element->click();
     }
+
+    /**
+     * @Given /^I wait for (\d+) seconds?$/
+     */
+    public function iWaitFor(int $seconds): void
+    {
+        $this->getSession()->wait($seconds * 1000);
+    }
 }

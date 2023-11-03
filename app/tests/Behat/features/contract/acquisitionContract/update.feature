@@ -1,5 +1,6 @@
 @acquisitionContract
 Feature: Acquisition contract update page
+
   Background:
     Given I load fixtures:
       | userCompany                  |
