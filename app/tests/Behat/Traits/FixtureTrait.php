@@ -30,6 +30,8 @@ trait FixtureTrait
 
     /**
      * @Given /^I update entity "([^"]*)" with ID "([^"]*)":$/
+     *
+     * @param class-string $entityName
      */
     public function iUpdateEntityWithID(string $entityName, string $id, TableNode $data): void
     {
