@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Fixtures\Doctrine\Shared;
 
+use App\Tests\Traits\NormalizerTrait;
 use App\Tools\Parser\ArrayParser;
 use App\Tools\Parser\ObjectParser;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -13,6 +14,8 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 abstract class AbstractFixture extends Fixture implements ContainerAwareInterface
 {
+    use NormalizerTrait;
+
     private ?ContainerInterface $container = null;
 
     public function setContainer(ContainerInterface $container = null): void
@@ -55,52 +58,52 @@ abstract class AbstractFixture extends Fixture implements ContainerAwareInterfac
         throw new \LogicException('You should never be here!');
     }
 
-    /**
-     * @param array<string, mixed> $data
-     * @param array<string> $fields
-     */
-    protected function denormalizeDateTimeFields(array &$data, array $fields): void
-    {
-        foreach ($fields as $field) {
-            if (isset($data[$field])) {
-                $data[$field] = new \DateTime($data[$field]);
-            }
-        }
-    }
+    //    /**
+    //     * @param array<string, mixed> $data
+    //     * @param array<string> $fields
+    //     */
+    //    protected function denormalizeDateTimeFields(array &$data, array $fields): void
+    //    {
+    //        foreach ($fields as $field) {
+    //            if (isset($data[$field])) {
+    //                $data[$field] = new \DateTime($data[$field]);
+    //            }
+    //        }
+    //    }
 
-    /**
-     * @param array<string, mixed> $data
-     * @param array<string> $fields
-     */
-    protected function denormalizeReferenceFields(array &$data, array $fields): void
-    {
-        foreach ($fields as $field) {
-            if (isset($data[$field])) {
-                if (\is_array($data[$field])) {
-                    foreach ($data[$field] as $key => $datum) {
-                        $data[$field][$key] = $this->getReference($datum);
-                    }
-                } else {
-                    $data[$field] = $this->getReference($data[$field]);
-                }
-            }
-        }
-    }
+    //    /**
+    //     * @param array<string, mixed> $data
+    //     * @param array<string> $fields
+    //     */
+    //    protected function denormalizeReferenceFields(array &$data, array $fields): void
+    //    {
+    //        foreach ($fields as $field) {
+    //            if (isset($data[$field])) {
+    //                if (\is_array($data[$field])) {
+    //                    foreach ($data[$field] as $key => $datum) {
+    //                        $data[$field][$key] = $this->getReference($datum);
+    //                    }
+    //                } else {
+    //                    $data[$field] = $this->getReference($data[$field]);
+    //                }
+    //            }
+    //        }
+    //    }
 
-    /**
-     * @param array<string, mixed> $data
-     * @param array<string> $fields
-     */
-    protected function denormalizeArrayCollectionReferenceFields(array &$data, array $fields): void
-    {
-        foreach ($fields as $field) {
-            if (isset($data[$field]) && \is_array($data[$field])) {
-                foreach ($data[$field] as $key => $datum) {
-                    $data[$field][$key] = $this->getReference($datum);
-                }
-
-                $data[$field] = new ArrayCollection($data[$field]);
-            }
-        }
-    }
+    //    /**
+    //     * @param array<string, mixed> $data
+    //     * @param array<string> $fields
+    //     */
+    //    protected function denormalizeArrayCollectionReferenceFields(array &$data, array $fields): void
+    //    {
+    //        foreach ($fields as $field) {
+    //            if (isset($data[$field]) && \is_array($data[$field])) {
+    //                foreach ($data[$field] as $key => $datum) {
+    //                    $data[$field][$key] = $this->getReference($datum);
+    //                }
+    //
+    //                $data[$field] = new ArrayCollection($data[$field]);
+    //            }
+    //        }
+    //    }
 }

@@ -42,8 +42,8 @@ class WorkFixture extends AbstractFixture implements DependentFixtureInterface
             'name' => 'Maneater',
             'originalName' => 'Maneater',
             'acquisitionContract' => AcquisitionContractFixture::SNIPER_AND_MANEATER,
-            'countries' => ['US'],
-            'quota' => WorkQuotaEnum::INTERNATIONAL,
+            'countries' => ['FR'],
+            'quota' => WorkQuotaEnum::FRANCE,
         ],
     ];
 

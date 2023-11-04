@@ -118,6 +118,7 @@
     "friends-of-behat/mink-extension": "^2.7",
     "friends-of-behat/symfony-extension": "^2.4",
     "friendsofphp/php-cs-fixer": "^3.34",
+    "genesis/behat-fail-aid": "^3.7",
     "kubawerlos/php-cs-fixer-custom-fixers": "^3.16",
     "phpstan/phpstan": "^1.10",
     "phpstan/phpstan-doctrine": "^1.3",

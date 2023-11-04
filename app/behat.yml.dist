@@ -3,12 +3,16 @@ default:
     default:
       contexts:
         - App\Tests\Behat\BaseContext
+        - FailAid\Context\FailureContext
       paths:
         - tests/Behat/features
       filters:
         tags: '~@skip'
 
   extensions:
+    FailAid\Extension:
+      output:
+        screenshot: false
     FriendsOfBehat\SymfonyExtension:
       bootstrap: 'tests/bootstrap.php'
     Behat\MinkExtension:

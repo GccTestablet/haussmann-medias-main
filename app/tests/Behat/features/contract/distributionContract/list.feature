@@ -22,6 +22,7 @@ Feature: Distribution contract list page
 
   Scenario: I check if datatable has expected rows
     Then I should see "Liste des contrats de sous-distribution"
+    And I should see "Afficher les filtres"
     And I should see "1 enregistrements trouvés"
     And I should see a table with:
       | Nom                  | Vendeur          | Distributeur | Canaux de diffusion | Œuvres          |
