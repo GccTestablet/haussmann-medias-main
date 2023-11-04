@@ -10,10 +10,7 @@ default:
 
   extensions:
     FriendsOfBehat\SymfonyExtension:
-      kernel:
-        environment: test
       bootstrap: 'tests/bootstrap.php'
-
     Behat\MinkExtension:
       base_url: http://test.haussmann-medias.local/
       files_path: '%paths.base%/tests/Fixtures'
