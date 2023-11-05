@@ -1,0 +1,36 @@
+default:
+  suites:
+    default:
+      contexts:
+        - App\Tests\Behat\BaseContext
+        - FailAid\Context\FailureContext
+      paths:
+        - tests/Behat/features
+      filters:
+        tags: '~@skip'
+
+  extensions:
+    FailAid\Extension:
+      output:
+        screenshot: false
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: 'tests/bootstrap.php'
+    Behat\MinkExtension:
+      base_url: http://test.haussmann-medias.local/
+      files_path: '%paths.base%/tests/Fixtures'
+      default_session: symfony
+      javascript_session: javascript
+      sessions:
+        symfony:
+          symfony: ~
+        javascript:
+          selenium2:
+            browser: chrome
+            wd_host: 'http://127.0.0.1:9515'
+            capabilities:
+              extra_capabilities:
+                chromeOptions:
+                  args:
+                    - "--window-size=1440,900"
+                    - "--headless"
+                    - "--disable-gpu"

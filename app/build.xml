@@ -29,7 +29,6 @@
         <phingcall target="test_prepare" />
         <phingcall target="testing_php_unit" />
         <phingcall target="testing_php_integration" />
-        <phingcall target="testing_php_end2end" />
     </target>
 
     <!-- Prepare -->
@@ -57,9 +56,11 @@
         <exec command="bin/phpunit --testsuite=integration" dir="${project_dir}" passthru="true" checkreturn="true" />
     </target>
 
-    <target name="testing_php_end2end" description="Run PHPUnit tests (End2End suite)">
-        <echo message="PHPUnit tests (Integration suite) running" />
-        <exec command="bin/phpunit --testsuite=end2end" dir="${project_dir}" passthru="true" checkreturn="true" />
+    <target name="testing_php_end2end" description="Run End2End tests (Behat)">
+        <echo message="End2End tests (Behat) running" />
+        <retry retryCount="1">
+            <exec command="bin/behat --rerun" dir="${project_dir}" passthru="true" checkreturn="true" />
+        </retry>
     </target>
 
     <!-- Analysis -->

@@ -26,9 +26,6 @@
         <testsuite name="integration">
             <directory>tests/Integration</directory>
         </testsuite>
-        <testsuite name="end2end">
-            <directory>tests/End2End</directory>
-        </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="true">
@@ -42,6 +39,5 @@
     </listeners>
 
     <extensions>
-        <extension class="Symfony\Component\Panther\ServerExtension" />
     </extensions>
 </phpunit>

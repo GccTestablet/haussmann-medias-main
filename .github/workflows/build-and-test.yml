@@ -4,7 +4,7 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 env:
-  HOST: www.haussmann-medias.local
+  HOST: test.haussmann-medias.local
   APP_PATH: /var/www/haussmann-medias
   BUILDER_TAG: haussmann-medias-main-builder
   DOCKER_COMPOSE_FILE: docker/docker-compose.test.yaml
@@ -105,12 +105,51 @@ jobs:
           docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} down --remove-orphans --volumes
           docker rmi -f app
 
+  behat:
+    name: Behat tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: /tmp/build/
+      - name: Extract archive
+        run: |
+          tar xzf /tmp/build/archive.tar.gz
+          rm -rf /tmp/build
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: nanasess/setup-chromedriver@v2
+      - name: Add hosts to /etc/hosts
+        run: |
+          sudo echo "127.0.0.1 ${{ env.HOST }}" | sudo tee -a /etc/hosts
+      - name: Build containers
+        timeout-minutes: 5
+        run: |
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} build
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} up -d
+      - name: Run Behat
+        run: |
+          chromedriver --allowed-ips="" --allowed-origins="*" &
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T app bash -c 'bin/phing test_prepare && bin/phing testing_php_end2end'
+      - name: Clean up
+        if: ${{ always() }}
+        run: |
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} down --remove-orphans --volumes
+          docker rmi -f app
+
   cleanup:
     name: Cleanup
     runs-on: ubuntu-latest
     needs:
       - code-style
       - phpunit
+      - behat
     if: ${{ success() && github.actor != 'renovate[bot]' }}
     steps:
       - name: Delete artifact

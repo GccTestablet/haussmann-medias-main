@@ -1,0 +1,10 @@
+imports:
+  - behat.yml.dist
+
+default:
+  extensions:
+    Behat\MinkExtension:
+      sessions:
+        javascript:
+          selenium2:
+            wd_host: http://host.docker.internal:9515

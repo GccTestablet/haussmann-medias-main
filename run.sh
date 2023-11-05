@@ -54,7 +54,6 @@ case "$1" in
         docker-sync-stack clean
     ;;
     build)
-
         docker-compose -f ${DOCKER_FILE} build --no-cache
     ;;
     force-stop)
@@ -69,4 +68,7 @@ case "$1" in
     code-cleanup)
         exec_in_container sh -c "bin/phing cleanup"
     ;;
+    chromedriver)
+      app/bin/bdi detect "./app/drivers"
+      app/drivers/chromedriver --allowed-ips="" --allowed-origins="*"
 esac

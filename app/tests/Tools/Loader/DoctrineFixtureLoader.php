@@ -9,10 +9,11 @@ use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DoctrineFixtureLoader
 {
+    private const FIXTURE_FOLDER = '%s/tests/Fixtures/Doctrine';
+
     public function __construct(
         private readonly ContainerInterface $container,
         private readonly EntityManagerInterface $entityManager,
@@ -24,14 +25,25 @@ class DoctrineFixtureLoader
      */
     public function loadFixtures(array $fixtureNames, bool $append = false): void
     {
+        $fixtureFolder = \sprintf(self::FIXTURE_FOLDER, $this->container->getParameter('kernel.project_dir'));
+
         $loader = new ContainerAwareLoader($this->container);
 
         foreach ($fixtureNames as $fixtureName) {
-            if (!\class_exists($fixtureName)) {
-                throw new NotFoundHttpException(\sprintf('Fixture "%s" not found', $fixtureName));
+            if (\class_exists($fixtureName)) {
+                $loader->addFixture(new $fixtureName());
+
+                continue;
             }
 
-            $loader->addFixture(new $fixtureName());
+            $fixtureName = \preg_replace_callback("/[^\/]*/", static fn ($m) => \ucfirst($m[0]), $fixtureName);
+            $fixturePath = \sprintf('%s/%sFixture.php', $fixtureFolder, $fixtureName);
+
+            if (!\file_exists($fixturePath)) {
+                throw new \InvalidArgumentException(\sprintf('Could not find fixture at path %s', $fixturePath));
+            }
+
+            $loader->loadFromFile($fixturePath);
         }
 
         if (!$append) {

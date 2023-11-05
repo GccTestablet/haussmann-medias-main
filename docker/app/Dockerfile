@@ -1,14 +1,5 @@
 FROM gccteam/haussmann-medias:0.1.0
 
-# Chromium and ChromeDriver
-ENV PANTHER_NO_SANDBOX 1
-# Not mandatory, but recommended
-ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage'
-
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-    chromium-driver
-
 COPY . /var/www/haussmann-medias
 
 EXPOSE 80
@@ -16,6 +7,7 @@ EXPOSE 80
 # Configure
 COPY docker/app/config/*.local /etc/nginx/sites-enabled/
 COPY docker/app/config/.env.ci /var/www/haussmann-medias/app/.env
+COPY docker/app/config/behat.yml /var/www/haussmann-medias/app/
 
 COPY docker/app/entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint

@@ -8,6 +8,6 @@ trait ServiceTrait
 {
     protected function getService(string $id): ?object
     {
-        return self::getContainer()->get($id);
+        return static::getContainer()->get($id);
     }
 }
