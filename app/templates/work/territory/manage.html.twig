@@ -23,7 +23,6 @@
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input"
                                            id="checkbox-channel-{{ channel.id }}"
-                                           name="{{ form.vars.id }}[selectAll][column][{{ channel.id }}]"
                                            data-datatable--select-all-target="columnAll"
                                            data-action="input->datatable--select-all#toggleColumn"
                                            data-datatable--select-all-column-param="{{ channel.id }}"
@@ -49,7 +48,6 @@
                                 </td>
                                 <td>
                                     <input type="checkbox" class="form-check-input"
-                                           name="{{ form.vars.id }}[selectAll][row][{{ territory.id }}]"
                                            data-datatable--select-all-target="rowAll"
                                            data-action="input->datatable--select-all#toggleRow"
                                            data-datatable--select-all-row-param="{{ territory.id }}"
@@ -73,12 +71,9 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-sm btn-warning" type="submit">
+            <button class="btn btn-sm btn-warning mt-3" type="submit">
                 {% trans from 'misc' %}Save{% endtrans %}
             </button>
-            <a href="{{ path('app_work_show', {'id': work.id, 'tab': 'territories'}) }}" class="btn btn-sm btn-dark">
-                {% trans from 'misc' %}Back{% endtrans %}
-            </a>
             {{ form_end(form) }}
         {% endblock %}
     {% endcomponent %}

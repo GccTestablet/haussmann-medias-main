@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatableMessage;
 
-#[Route(path: '/works/{work}/distribution-costs', requirements: ['work' => '\d+'])]
+#[Route(path: '/works/{work}/adaptations', requirements: ['work' => '\d+'])]
 class WorkAdaptationController extends AbstractAppController
 {
     public function __construct(
@@ -38,12 +38,8 @@ class WorkAdaptationController extends AbstractAppController
         $formHandlerResponse = $this->getFormHandlerResponse($request, null, $work);
 
         $form = $formHandlerResponse->getForm();
-        $redirectUrl = $this->generateUrl('app_work_show', [
-            'id' => $work->getId(),
-            'tab' => 'distribution-costs',
-        ]);
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirect($redirectUrl);
+            return $this->redirectToRoute('app_work_show', ['id' => $work->getId(), 'tab' => 'distribution-costs']);
         }
 
         return $this->render('shared/common/save.html.twig', [
@@ -51,7 +47,6 @@ class WorkAdaptationController extends AbstractAppController
                 '%work%' => $work->getName(),
             ], 'work'),
             'form' => $form,
-            'backUrl' => $redirectUrl,
         ]);
     }
 
@@ -61,12 +56,11 @@ class WorkAdaptationController extends AbstractAppController
         $formHandlerResponse = $this->getFormHandlerResponse($request, $workAdaptation, $workAdaptation->getWork());
 
         $form = $formHandlerResponse->getForm();
-        $redirectUrl = $this->generateUrl('app_work_show', [
-            'id' => $workAdaptation->getWork()->getId(),
-            'tab' => 'distribution-costs',
-        ]);
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirect($redirectUrl);
+            return $this->redirectToRoute('app_work_show', [
+                'id' => $workAdaptation->getWork()->getId(),
+                'tab' => 'distribution-costs',
+            ]);
         }
 
         return $this->render('shared/common/save.html.twig', [
@@ -74,7 +68,6 @@ class WorkAdaptationController extends AbstractAppController
                 '%work%' => $workAdaptation->getWork()->getName(),
             ], 'work'),
             'form' => $form,
-            'backUrl' => $redirectUrl,
         ]);
     }
 

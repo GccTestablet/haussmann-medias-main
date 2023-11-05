@@ -25,7 +25,7 @@ Feature: Distribution contract show page
     Then I should see "Ajouter une œuvre"
     And I should see a table with:
       | Œuvre                       | Période                 | Montant     |
-      | Winnie the Pooh (HAU000001) | 01/01/2023 - 31/12/2023 | 50 000,00 € |
+      | Winnie the Pooh (HAU000001) | 01/01/2023 - 31/12/2023 | 50 000,00 € |
     When I click on "[data-work-id='1']"
     Then I should see "Territoires et canaux distribués"
     And I should see a table "#work-1-territories-table" with:
