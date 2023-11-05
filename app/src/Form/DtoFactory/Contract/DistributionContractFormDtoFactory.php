@@ -9,14 +9,11 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Contract\DistributionContractFile;
 use App\Form\Dto\Contract\DistributionContractFormDto;
 use App\Tools\Generator\FileNameGenerator;
-use App\Tools\Manager\UploadFileManager;
 use App\Tools\Parser\ObjectParser;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DistributionContractFormDtoFactory
 {
     public function __construct(
-        private readonly UploadFileManager $uploadFileManager,
         private readonly ObjectParser $objectParser
     ) {}
 
@@ -30,17 +27,7 @@ class DistributionContractFormDtoFactory
             return new DistributionContractFormDto($contract, false);
         }
 
-        $files = [];
-        foreach ($contract->getContractFiles() as $contractFile) {
-            $files[$contractFile->getId()] = new UploadedFile(
-                $this->uploadFileManager->path($contractFile->getUploadDir(), $contractFile->getFileName()),
-                $contractFile->getOriginalFileName()
-            );
-        }
-
-        $dto = (new DistributionContractFormDto($contract, true))
-            ->setFiles($files)
-        ;
+        $dto = new DistributionContractFormDto($contract, true);
         $this->objectParser->mergeFromObject($contract, $dto, ['company', 'files', 'works']);
 
         return $dto;
