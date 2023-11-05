@@ -67,7 +67,7 @@
                                     {{ nonAcquiredMessage }}
                                 </td>
                             {% else %}
-                                {% set formName = call_static('App\\Form\\Dto\\Work\\WorkTerritoryFormDto', 'getFormName', territory) %}
+                                {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory) %}
 
                                 <td>
                                     {{ form_widget(form.exclusives[formName]) }}

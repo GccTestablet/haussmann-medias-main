@@ -13,7 +13,7 @@ class DistributionContractWorkTerritoryFormDto
     public static function getFormName(Territory $territory, BroadcastChannel $broadcastChannel = null): string
     {
         if (!$broadcastChannel) {
-            return \sprintf('territory_%d_', $territory->getId());
+            return \sprintf('territory_%d', $territory->getId());
         }
 
         return \sprintf('territory_%d_broadcast_channel_%d', $territory->getId(), $broadcastChannel->getId());
