@@ -43,6 +43,11 @@ class UploadFileManager
         );
     }
 
+    public function exists(string $directory, string $filename): bool
+    {
+        return \file_exists($this->path($directory, $filename));
+    }
+
     public function upload(UploadedFile $file, string $directory, string $filename): void
     {
         $file->move($directory, $filename);
