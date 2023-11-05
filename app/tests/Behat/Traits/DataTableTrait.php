@@ -28,6 +28,19 @@ trait DataTableTrait
         $this->checkIfTableIsAvailableOrNot($tableNode, $css, false);
     }
 
+    /**
+     * @When /^I click "([^"]*)" on the row containing "([^"]*)"$/
+     */
+    public function iClickOnOnTheRowContaining(string $linkName, string $rowText): void
+    {
+        $row = $this->getSession()->getPage()->find('css', \sprintf('table tr:contains("%s")', $rowText));
+        if (!$row) {
+            throw new \LogicException(\sprintf('Cannot find any row on the page containing the text "%s"', $rowText));
+        }
+
+        $row->clickLink($linkName);
+    }
+
     private function checkIfTableIsAvailableOrNot(TableNode $tableNode, string $css, bool $isAvailable): void
     {
         $expectedArray = $tableNode->getColumnsHash();
@@ -124,13 +137,13 @@ trait DataTableTrait
 
         $content = $element->getHtml();
         // replace multiple space/new lines with single space
-        $content = \str_replace('&nbsp;', ' ', $content);
+        $content = \str_replace(['&nbsp;', "\u{a0}", "\u{202f}"], ' ', $content);
         $content = \preg_replace('/\s+/', ' ', $content);
 
         if (\str_contains($content, 'fas fa-check')) {
             return 'true';
         }
-        if (\str_contains($content, 'fas fa-ban')) {
+        if (\str_contains($content, 'fa-ban') || \str_contains($content, 'fa-times')) {
             return 'false';
         }
 
