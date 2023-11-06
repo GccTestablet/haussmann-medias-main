@@ -26,7 +26,7 @@ Feature: Acquisition contract show page
       | ID interne | Titre français  |
       | HAU000001  | Winnie the Pooh |
     When I click on "[data-work-id='1']"
-    Then I should see "Territoires et canaux acquis"
+    Then I wait to see "Territoires et canaux acquis"
     And I should see a table "#work-1-territories-table" with:
       | Territoire     | Canaux           |
       | France         | AVOD, SVOD       |
