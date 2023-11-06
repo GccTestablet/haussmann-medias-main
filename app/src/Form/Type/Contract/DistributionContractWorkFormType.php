@@ -21,7 +21,6 @@ class DistributionContractWorkFormType extends AbstractType
     {
         /** @var DistributionContractWorkFormDto $dto */
         $dto = $builder->getData();
-        $distributionContract = $dto->getContractWork()->getDistributionContract();
 
         $builder
             ->add('work', WorkEntityField::class, [

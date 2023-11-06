@@ -39,6 +39,7 @@ class WorkTerritoryFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => WorkTerritoryFormDto::class,
+            'allow_extra_fields' => true,
         ]);
     }
 }

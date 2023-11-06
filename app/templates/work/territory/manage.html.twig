@@ -11,6 +11,7 @@
         {% endblock %}
         {% block body_content %}
             {{ form_start(form) }}
+            {{ form_errors(form) }}
             <div class="table-responsive">
                 <table class="table" data-controller="datatable--select-all">
                     <thead>
