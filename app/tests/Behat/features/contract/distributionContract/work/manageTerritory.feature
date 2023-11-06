@@ -38,7 +38,7 @@ Feature: Distribution contract work territory manage page
     And I press "Enregistrer"
     Then I should be on "/distribution-contracts/1/works"
     When I click on "[data-work-id='1']"
-    Then I should see "Territoires et canaux distribués"
+    Then I wait to see "Territoires et canaux distribués"
     And I should see a table "#work-1-territories-table" with:
       | Territoire     | Exclusif | Canaux           |
       | France         | false    | AVOD, SVOD       |
@@ -52,7 +52,7 @@ Feature: Distribution contract work territory manage page
     And I press "Enregistrer"
     Then I should be on "/distribution-contracts/1/works"
     When I click on "[data-work-id='1']"
-    Then I should see "Territoires et canaux distribués"
+    Then I wait to see "Territoires et canaux distribués"
     And I should see a table "#work-1-territories-table" with:
       | Territoire |
       | France     |
