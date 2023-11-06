@@ -113,18 +113,20 @@ class WorkController extends AbstractAppController
     }
 
     #[Route('/{id}/update', name: 'app_work_update', requirements: ['id' => '\d+'])]
-    public function update(Request $request, Work $work): Response
+    public function update(Request $request, Work $work, string $redirectTo = null): Response
     {
         $formHandlerResponse = $this->getFormHandlerResponse($request, $work->getAcquisitionContract(), $work);
 
         $form = $formHandlerResponse->getForm();
+        $redirectTo ??= $this->generateUrl('app_work_show', ['id' => $work->getId()]);
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_work_show', ['id' => $work->getId()]);
+            return $this->redirect($redirectTo);
         }
 
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update work %name%', ['%name%' => $work->getName()], 'work'),
             'form' => $form,
+            'backUrl' => $redirectTo,
         ]);
     }
 

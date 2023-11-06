@@ -49,6 +49,10 @@ class DistributionContractWorkTerritoryController extends AbstractAppController
             'contract' => $contract,
             'work' => $work,
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_distribution_contract_show', [
+                'id' => $contract->getId(),
+                'tab' => 'works',
+            ]),
         ]);
     }
 }

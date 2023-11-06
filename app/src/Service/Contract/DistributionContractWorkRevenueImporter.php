@@ -8,7 +8,6 @@ use App\Entity\Contract\DistributionContract;
 use App\Model\Importer\Contract\DistributionContractWorkRevenueImporterModel;
 use App\Service\Work\WorkManager;
 use App\Tools\Parser\CsvParser;
-use App\Tools\Parser\StringParser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -73,7 +72,7 @@ class DistributionContractWorkRevenueImporter
                     continue;
                 }
 
-                if ('' === $record[$header]) {
+                if (\in_array($record[$header], ['', 'N.A.'], true)) {
                     continue;
                 }
 
@@ -96,17 +95,24 @@ class DistributionContractWorkRevenueImporter
     private function addHeaders(DistributionContract $contract): void
     {
         foreach ($contract->getBroadcastChannels() as $channel) {
-            $this->headers[] = \strtoupper(StringParser::slugify($channel->getName(), '_'));
+            $this->headers[] = \strtoupper($channel->getSlug());
         }
     }
 
     private function addRows(DistributionContract $contract): void
     {
         foreach ($this->workManager->findByDistributionContract($contract) as $work) {
-            $this->rows[] = [
+            $row = [
                 self::INTERNAL_ID => $work->getInternalId(),
                 self::NAME => $work->getName(),
             ];
+
+            $workBroadcastChannels = $contract->getContractWork($work)?->getBroadcastChannels();
+            foreach ($contract->getBroadcastChannels() as $channel) {
+                $row[\strtoupper($channel->getSlug())] = !$workBroadcastChannels->contains($channel) ? 'N.A.' : null;
+            }
+
+            $this->rows[] = $row;
         }
     }
 }

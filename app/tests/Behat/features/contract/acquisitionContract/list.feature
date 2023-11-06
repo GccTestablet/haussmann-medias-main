@@ -3,8 +3,8 @@ Feature: Acquisition contract list page
 
   Background:
     Given I load fixtures:
-      | userCompany                  |
-      | work/work                    |
+      | userCompany |
+      | work/work   |
     And I am logged on
     And I am on "/acquisition-contracts"
 
@@ -23,10 +23,11 @@ Feature: Acquisition contract list page
   Scenario: I check if datatable has expected rows
     Then I should see "Liste des contrats d'acquisition"
     And I should see "Afficher les filtres"
-    And I should see "1 enregistrements trouvés"
+    And I should see "2 enregistrements trouvés"
     And I should see a table with:
-      | Nom                  | Acquéreur        | Ayant droit | Date de signature | Période de droits       | Œuvres          |
-      | HF - Winnie the Pooh | Haussmann Medias | HKA Films   | 01/01/2023        | 01/01/2023 - 31/12/2023 | Winnie the Pooh |
+      | Nom                  | Acquéreur        | Ayant droit  | Date de signature | Période de droits       | Œuvres          |
+      | HF - Winnie the Pooh | Haussmann Medias | HKA Films    | 01/01/2023        | 01/01/2023 - 31/12/2023 | Winnie the Pooh |
+      | CF - Hurricane       | Haussmann Medias | Chrome Films | 01/01/2022        | 12/04/2022 -            | Hurricane       |
     When I switch to company "Chrome Films"
     Then I should see "1 enregistrements trouvés"
     And I should see a table with:

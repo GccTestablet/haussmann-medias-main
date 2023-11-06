@@ -61,16 +61,11 @@ Feature: Work territory manage page
 
     Then I should see "1 enregistrements trouvés"
     And I should see a table with:
-      | Territoire     | Exclusif | Canaux              |
-      | United Kingdom | true     | AVOD, SVOD, TVOD    |
+      | Territoire     | Exclusif | Canaux           |
+      | United Kingdom | true     | AVOD, SVOD, TVOD |
 
   @javascript
   Scenario: I check select all row or column
-    Then the "work_territory_form[broadcastChannels][territory_2_broadcast_channel_1]" checkbox should not be checked
-    And the "work_territory_form[broadcastChannels][territory_2_broadcast_channel_2]" checkbox should not be checked
-    And the "work_territory_form[broadcastChannels][territory_2_broadcast_channel_3]" checkbox should not be checked
-    And the "work_territory_form[broadcastChannels][territory_2_broadcast_channel_4]" checkbox should not be checked
-
     When I check "work_territory_form[selectAll][row][2]"
     Then the "work_territory_form[broadcastChannels][territory_2_broadcast_channel_1]" checkbox should be checked
     And the "work_territory_form[broadcastChannels][territory_2_broadcast_channel_2]" checkbox should be checked

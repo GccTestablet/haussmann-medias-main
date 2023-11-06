@@ -6,7 +6,10 @@ namespace App\Tests\Behat;
 
 use App\Tests\Behat\Traits\BrowserTrait;
 use App\Tests\Behat\Traits\DataTableTrait;
+use App\Tests\Behat\Traits\DebugTrait;
+use App\Tests\Behat\Traits\FileTrait;
 use App\Tests\Behat\Traits\FixtureTrait as BehatFixtureTrait;
+use App\Tests\Behat\Traits\FormTrait;
 use App\Tests\Behat\Traits\GeneralAssertTrait;
 use App\Tests\Behat\Traits\UserTrait;
 use App\Tests\Shared\Traits\FixtureTrait;
@@ -22,7 +25,10 @@ class BaseContext extends MinkContext
     use BehatFixtureTrait;
     use BrowserTrait;
     use DataTableTrait;
+    use DebugTrait;
+    use FileTrait;
     use FixtureTrait;
+    use FormTrait;
     use GeneralAssertTrait;
     use NormalizerTrait;
     use ServiceTrait;

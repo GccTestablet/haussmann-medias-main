@@ -69,7 +69,6 @@
                                 </td>
                             {% else %}
                                 {% set formName = call_static('App\\Form\\Dto\\Contract\\DistributionContractWorkTerritoryFormDto', 'getFormName', territory) %}
-
                                 <td>
                                     {{ form_widget(form.exclusives[formName]) }}
                                 </td>
@@ -101,9 +100,10 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-warning mt-3" type="submit">
+            <button class="btn btn-sm btn-warning" type="submit">
                 {% trans from 'misc' %}Save{% endtrans %}
             </button>
+            <a href="{{ backUrl }}" class="btn btn-sm btn-dark">{% trans from 'misc' %}Back{% endtrans %}</a>
             {{ form_end(form) }}
         {% endblock %}
     {% endcomponent %}

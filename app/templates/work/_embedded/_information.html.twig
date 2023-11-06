@@ -18,11 +18,11 @@
     </tr>
     <tr>
         <td>{% trans from 'work' %}Minimum guaranteed before reversion{% endtrans %}</td>
-        <td>{{ work.minimumGuaranteedBeforeReversion }}</td>
+        <td>{{ work.minimumGuaranteedBeforeReversion ? work.minimumGuaranteedBeforeReversion|format_currency(work.currency) }}</td>
     </tr>
     <tr>
         <td>{% trans from 'work' %}Minimum cost of the top before reversion{% endtrans %}</td>
-        <td>{{ work.minimumCostOfTheTopBeforeReversion }}</td>
+        <td>{{ work.minimumCostOfTheTopBeforeReversion ? work.minimumCostOfTheTopBeforeReversion|format_currency(work.currency) }}</td>
     </tr>
     <tr>
         <td>{% trans from 'work' %}Year{% endtrans %}</td>

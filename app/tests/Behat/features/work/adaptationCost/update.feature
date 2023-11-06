@@ -19,5 +19,5 @@ Feature: Work adaptation cost create page
     And I press "Enregistrer"
     Then I should see "2 enregistrements trouvés"
     And I should see a table with:
-      | Type            | Montant    | Commentaire                             |
+      | Type         | Montant    | Commentaire                          |
       | Dubbing cost | 1 500,00 € | This is a comment about dubbing cost |

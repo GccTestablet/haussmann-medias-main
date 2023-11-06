@@ -16,6 +16,7 @@ class WorkFixture extends AbstractFixture implements DependentFixtureInterface
     final public const WINNIE_THE_POOH = 'work.winnie_the_pooh';
     final public const SNIPER = 'work.sniper';
     final public const MANEATER = 'work.maneater';
+    final public const HURRICANE = 'work.hurricane';
 
     private const ROWS = [
         self::WINNIE_THE_POOH => [
@@ -44,6 +45,17 @@ class WorkFixture extends AbstractFixture implements DependentFixtureInterface
             'acquisitionContract' => AcquisitionContractFixture::SNIPER_AND_MANEATER,
             'countries' => ['FR'],
             'quota' => WorkQuotaEnum::FRANCE,
+        ],
+        self::HURRICANE => [
+            'internalId' => 'HAU000002',
+            'imdbId' => 'tt1937274',
+            'name' => 'Hurricane',
+            'originalName' => 'Ouragan, l\'odyssée d\'un vent',
+            'acquisitionContract' => AcquisitionContractFixture::HURRICANE,
+            'countries' => ['FR'],
+            'quota' => WorkQuotaEnum::FRANCE,
+            'year' => 2016,
+            'duration' => '83',
         ],
     ];
 

@@ -13,7 +13,6 @@ use App\Service\Contract\DistributionContractWorkManager;
 use App\Service\Contract\DistributionContractWorkRevenueImporter;
 use App\Service\Setting\BroadcastChannelManager;
 use App\Service\Work\WorkManager;
-use App\Tools\Parser\StringParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
@@ -39,8 +38,9 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             throw new UnexpectedTypeException($dto, DistributionContractWorkRevenueImportFormDto::class);
         }
 
+        $contract = $dto->getDistributionContract();
         try {
-            $this->contractWorkRevenueImporter->build(['contract' => $dto->getDistributionContract()]);
+            $this->contractWorkRevenueImporter->build(['contract' => $contract]);
             $records = $this->contractWorkRevenueImporter->getRecords($dto->getFile());
         } catch (\Exception $exception) {
             $form->addError(new FormError($exception->getMessage()));
@@ -57,22 +57,26 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
             }
 
             $contractWork = $this->distributionContractWorkManager->findOneByDistributionContractAndWork(
-                $dto->getDistributionContract(),
+                $contract,
                 $work
             );
 
             if (!$contractWork) {
-                $form->addError(new FormError(\sprintf('Work "%s" not found in contract %s', $work->getName(), $dto->getDistributionContract()->getName())));
+                $form->addError(new FormError(\sprintf('Work "%s" not found in contract %s', $work->getName(), $contract->getName())));
 
                 continue;
             }
 
-            foreach ($record->getChannels() as $channelName => $revenue) {
-                $slug = StringParser::slugify($channelName);
+            foreach ($record->getChannels() as $slug => $revenue) {
                 $channel = $this->broadcastChannelManager->findOneBySlug($slug);
                 if (!$channel) {
                     $form->addError(new FormError(\sprintf('Broadcast channel with slug "%s" does not exist', $slug)));
 
+                    continue;
+                }
+
+                $workBroadcastChannels = $contract->getContractWork($work)?->getBroadcastChannels();
+                if (!$workBroadcastChannels->contains($channel)) {
                     continue;
                 }
 

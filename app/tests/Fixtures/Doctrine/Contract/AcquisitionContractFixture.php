@@ -15,6 +15,7 @@ class AcquisitionContractFixture extends AbstractFixture implements DependentFix
 {
     final public const WINNIE_THE_POOH = 'acquisition_contract.winnie_the_pooh';
     final public const SNIPER_AND_MANEATER = 'acquisition_contract.sniper_and_maneater';
+    final public const HURRICANE = 'acquisition_contract.hurricane';
 
     private const ROWS = [
         self::WINNIE_THE_POOH => [
@@ -33,6 +34,14 @@ class AcquisitionContractFixture extends AbstractFixture implements DependentFix
             'signedAt' => '2023-01-01',
             'startsAt' => '2023-01-01',
             'reportFrequency' => FrequencyEnum::YEARLY,
+        ],
+        self::HURRICANE => [
+            'name' => 'CF - Hurricane',
+            'company' => CompanyFixture::HAUSSMANN_MEDIAS,
+            'beneficiary' => CompanyFixture::CHROME_FILMS,
+            'signedAt' => '2022-01-01',
+            'startsAt' => '2022-04-12',
+            'reportFrequency' => FrequencyEnum::MONTHLY,
         ],
     ];
 

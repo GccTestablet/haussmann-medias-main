@@ -13,20 +13,21 @@ Feature: Work list page
     Then I should be on "/works/1/territories"
 
     When I am on "/works"
-    And I follow "HF - Winnie the Pooh"
+    And I click "HF - Winnie the Pooh" on the row containing "HAU000001"
     Then I should be on "/acquisition-contracts/1"
 
     When I am on "/works"
-    And I follow "Modifier"
+    And I click "Modifier" on the row containing "HAU000001"
     Then I should be on "/works/1/update"
 
   Scenario: I check if datatable has expected rows
     Then I should see "Liste des œuvres"
     And I should see "Afficher les filtres"
-    And I should see "1 enregistrements trouvés"
+    And I should see "2 enregistrements trouvés"
     And I should see a table with:
       | ID interne | Titre français  | Pays d'origine | Contrat d'acquisition |
       | HAU000001  | Winnie the Pooh | Royaume-Uni    | HF - Winnie the Pooh  |
+      | HAU000002  | Hurricane       | France         | CF - Hurricane        |
     When I switch to company "Chrome Films"
     Then I should see "2 enregistrements trouvés"
     And I should see a table with:
