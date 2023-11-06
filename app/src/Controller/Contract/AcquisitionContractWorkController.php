@@ -40,6 +40,7 @@ class AcquisitionContractWorkController extends AbstractAppController
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add work', [], 'work'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_acquisition_contract_show', ['id' => $contract->getId()]),
         ]);
     }
 
@@ -56,6 +57,7 @@ class AcquisitionContractWorkController extends AbstractAppController
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Update work %name%', ['%name%' => $work->getName()], 'work'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_acquisition_contract_show', ['id' => $work->getAcquisitionContract()->getId()]),
         ]);
     }
 

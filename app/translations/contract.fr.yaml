@@ -15,6 +15,7 @@ Update work %name% for distribution contract: Modifier l'oeuvre %name% du contra
 Download CSV template: Télécharger le modèle CSV
 Import revenues: Importer le CSV des revenus
 Territories and channels distributed: Territoires et canaux distribués
+Import revenues to distribution contract %contract%: Importer les revenus au contrat de sous-distribution %contract%
 
 Name: Nom du contrat
 Period: Période
@@ -57,7 +58,7 @@ One-off: Contrat à paiement unique
 Recurring: Contrat à paiement récurrent
 
 # Work
-Add work to contract: Ajouter une œuvre au contrat
+Add work to distribution contract %contract%: Ajouter une œuvre au contrat de sous-distribution %contract%
 Update work %work% for contract %contract%: Modifier l'œuvre %work% du contrat %contract%
 
 # Messages

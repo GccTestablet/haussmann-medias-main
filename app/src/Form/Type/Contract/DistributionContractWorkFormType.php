@@ -26,6 +26,7 @@ class DistributionContractWorkFormType extends AbstractType
             ->add('work', WorkEntityField::class, [
                 'required' => true,
                 ...$dto->getWork() ? [ColumnEnum::INCLUDE => new ArrayCollection([$dto->getWork()])] : [],
+                ColumnEnum::EXCLUDE => $dto->getContractWork()->getDistributionContract()->getWorks(),
             ])
             ->add('startsAt', DateType::class, [
                 'label' => 'Rights starts at',

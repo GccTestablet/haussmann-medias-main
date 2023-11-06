@@ -33,6 +33,7 @@ class DistributionContractWorkRevenueFixture extends AbstractFixture implements 
             'startsAt' => '2023-07-01',
             'endsAt' => '2023-09-30',
             'amount' => 400.00,
+            'currency' => 'USD',
         ],
         [
             'contractWork' => DistributionContractWorkFixture::WINNIE_THE_POOH,
@@ -54,6 +55,7 @@ class DistributionContractWorkRevenueFixture extends AbstractFixture implements 
             'startsAt' => '2023-07-01',
             'endsAt' => '2023-09-30',
             'amount' => 450.50,
+            'currency' => 'USD',
         ],
     ];
 

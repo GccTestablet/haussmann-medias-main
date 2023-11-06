@@ -30,12 +30,12 @@ class DistributionContractWorkRevenuePagerFormType extends BasePagerFormType
                 'label' => 'Works',
                 'translation_domain' => 'work',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
+                'choices' => $distributionContract->getWorks(),
             ])
             ->add(ColumnEnum::CHANNELS, BroadcastChannelEntityField::class, [
                 'label' => 'Broadcast channels',
                 'multiple' => true,
-                ColumnEnum::DISTRIBUTION_CONTRACT => $distributionContract,
+                'choices' => $distributionContract->getBroadcastChannels(),
             ])
             ->add(ColumnEnum::ENDS_AT, DateRangeType::class, [
                 'label' => 'Revenues to date',

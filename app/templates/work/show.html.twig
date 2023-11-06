@@ -4,7 +4,7 @@
     {{ work.archived|archive_format }} {{ work.name }}
 {% endblock %}
 {% block content_action %}
-    <a href="{{ path('app_acquisition_contract_work_update', {'contract': work.acquisitionContract.id, 'id': work.id}) }}" class="btn btn-warning btn-sm">{% trans from "misc" %}Update{% endtrans %}</a>
+    <a href="{{ path('app_work_update', {'id': work.id, 'redirectTo': app.request.requestUri}) }}" class="btn btn-warning btn-sm">{% trans from "misc" %}Update{% endtrans %}</a>
 {% endblock %}
 {% block content %}
     <div class="row">

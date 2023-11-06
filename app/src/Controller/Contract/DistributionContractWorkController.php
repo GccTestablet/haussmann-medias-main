@@ -37,12 +37,19 @@ class DistributionContractWorkController extends AbstractAppController
         if ($formHandlerResponse->isSuccessful()) {
             return $this->redirectToRoute('app_distribution_contract_show', [
                 'id' => $contract->getId(),
+                'tab' => 'works',
             ]);
         }
 
         return $this->render('shared/common/save.html.twig', [
-            'title' => new TranslatableMessage('Add work to contract', [], 'contract'),
+            'title' => new TranslatableMessage('Add work to distribution contract %contract%', [
+                '%contract%' => $contract->getName(),
+            ], 'contract'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_distribution_contract_show', [
+                'id' => $contract->getId(),
+                'tab' => 'works',
+            ]),
         ]);
     }
 
@@ -75,6 +82,10 @@ class DistributionContractWorkController extends AbstractAppController
                 '%contract%' => $contract->getName(),
             ], 'contract'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_distribution_contract_show', [
+                'id' => $contract->getId(),
+                'tab' => 'works',
+            ]),
         ]);
     }
 

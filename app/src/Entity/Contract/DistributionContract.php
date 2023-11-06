@@ -241,6 +241,9 @@ class DistributionContract
         return $this;
     }
 
+    /**
+     * @return Collection<BroadcastChannel>
+     */
     public function getBroadcastChannels(): Collection
     {
         return $this->broadcastChannels;

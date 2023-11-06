@@ -21,7 +21,8 @@ Feature: Work adaptation cost create page
     And I fill in "work_adaptation_form[currency]" with "USD"
     And I fill in "work_adaptation_form[comment]" with "This is a comment about Subtitling cost"
     And I press "Enregistrer"
-    Then I should see "3 enregistrements trouvés"
+    Then I should be on "/works/1/distribution-costs"
+    And I should see "3 enregistrements trouvés"
     And I should see a table with:
       | Type            | Montant    | Commentaire                             |
       | Subtitling cost | 100,00 $US | This is a comment about Subtitling cost |

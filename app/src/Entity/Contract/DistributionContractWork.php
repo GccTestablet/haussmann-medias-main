@@ -50,6 +50,9 @@ class DistributionContractWork
     #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkRevenue::class)]
     private Collection $revenues;
 
+    /**
+     * @var Collection<DistributionContractWorkTerritory>
+     */
     #[ORM\OneToMany(mappedBy: 'contractWork', targetEntity: DistributionContractWorkTerritory::class, cascade: ['persist'])]
     private Collection $workTerritories;
 
@@ -185,5 +188,22 @@ class DistributionContractWork
         $this->workTerritories = $workTerritories;
 
         return $this;
+    }
+
+    public function getBroadcastChannels(): Collection
+    {
+        $broadcastChannels = new ArrayCollection();
+        foreach ($this->workTerritories as $workTerritory) {
+            foreach ($workTerritory->getBroadcastChannels() as $broadcastChannel) {
+                /* @phpstan-ignore-next-line */
+                if ($broadcastChannels->contains($broadcastChannel)) {
+                    continue;
+                }
+
+                $broadcastChannels->add($broadcastChannel);
+            }
+        }
+
+        return $broadcastChannels;
     }
 }

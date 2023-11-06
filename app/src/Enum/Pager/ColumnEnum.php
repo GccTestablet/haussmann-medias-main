@@ -18,6 +18,7 @@ class ColumnEnum
     // Misc
     final public const ARCHIVED = 'archived';
     final public const INCLUDE = 'include';
+    final public const EXCLUDE = 'exclude';
     final public const ID = 'id';
     final public const NAME = 'name';
     final public const TYPE = 'type';

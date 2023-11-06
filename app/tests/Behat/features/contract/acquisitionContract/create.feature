@@ -24,5 +24,5 @@ Feature: Acquisition contract create page
       | acquisition_contract_form[name]     | HKF - Fast And Furious 3 |
       | acquisition_contract_form[signedAt] | 01/05/2023               |
     And I press "Enregistrer"
-    Then I should be on "/acquisition-contracts/3"
+    Then I should be on "/acquisition-contracts/4"
     And I should see "HKF - Fast And Furious 3"

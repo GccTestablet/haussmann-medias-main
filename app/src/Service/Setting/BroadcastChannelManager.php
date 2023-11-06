@@ -47,7 +47,7 @@ class BroadcastChannelManager
 
     public function findOneBySlug(string $slug): ?BroadcastChannel
     {
-        return $this->getRepository()->findOneBy(['slug' => $slug]);
+        return $this->getRepository()->findOneBy(['slug' => \strtolower($slug)]);
     }
 
     /**

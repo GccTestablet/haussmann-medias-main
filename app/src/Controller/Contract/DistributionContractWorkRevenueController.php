@@ -28,13 +28,20 @@ class DistributionContractWorkRevenueController extends AbstractAppController
         $formHandlerResponse = $this->getFormHandlerResponse($request, $contract);
 
         $form = $formHandlerResponse->getForm();
+        $redirectTo = $this->generateUrl('app_distribution_contract_show', [
+            'id' => $contract->getId(),
+            'tab' => 'revenues',
+        ]);
         if ($formHandlerResponse->isSuccessful()) {
-            return $this->redirectToRoute('app_distribution_contract_show', ['id' => $contract->getId()]);
+            return $this->redirect($redirectTo);
         }
 
         return $this->render('shared/common/save.html.twig', [
-            'title' => new TranslatableMessage('Import', [], 'contract'),
+            'title' => new TranslatableMessage('Import revenues to distribution contract %contract%', [
+                '%contract%' => $contract->getName(),
+            ], 'contract'),
             'form' => $form,
+            'backUrl' => $redirectTo,
         ]);
     }
 
