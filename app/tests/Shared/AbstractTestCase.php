@@ -7,6 +7,7 @@ namespace App\Tests\Shared;
 use App\Entity\User;
 use App\Tests\Shared\Traits\FixtureTrait;
 use App\Tests\Shared\Traits\ServiceTrait;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -15,6 +16,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 abstract class AbstractTestCase extends WebTestCase
 {
     use FixtureTrait;
+    use ProphecyTrait;
+
     use ServiceTrait;
 
     protected function logInAs(string $reference): void

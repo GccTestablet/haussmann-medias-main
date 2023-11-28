@@ -9,7 +9,7 @@ use App\EventSubscriber\UserEventSubscriber;
 use App\Service\Security\SecurityManager;
 use App\Service\User\UserActivityManager;
 use App\Tests\Shared\AbstractTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
+use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -17,18 +17,18 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class UserEventSubscriberTest extends AbstractTestCase
 {
-    private SecurityManager|MockObject|null $securityManager;
-    private UserActivityManager|MockObject|null $userActivityManager;
+    private SecurityManager|ObjectProphecy|null $securityManager;
+    private UserActivityManager|ObjectProphecy|null $userActivityManager;
     private ?UserEventSubscriber $userEventSubscriber;
 
     protected function setUp(): void
     {
-        $this->securityManager = $this->createMock(SecurityManager::class);
-        $this->userActivityManager = $this->createMock(UserActivityManager::class);
+        $this->securityManager = $this->prophesize(SecurityManager::class);
+        $this->userActivityManager = $this->prophesize(UserActivityManager::class);
 
         $this->userEventSubscriber = new UserEventSubscriber(
-            $this->securityManager,
-            $this->userActivityManager
+            $this->securityManager->reveal(),
+            $this->userActivityManager->reveal()
         );
     }
 
@@ -41,13 +41,13 @@ class UserEventSubscriberTest extends AbstractTestCase
 
     public function testOnKernelControllerWithSubRequest(): void
     {
-        $this->securityManager->expects($this->never())->method('getConnectedUser');
-        $this->userActivityManager->expects($this->never())->method('updateLastActivity');
+        $this->securityManager->getConnectedUser()->shouldNotBeCalled();
+        $this->userActivityManager->updateLastActivity()->shouldNotBeCalled();
 
         $event = new ControllerEvent(
-            $this->createMock(HttpKernelInterface::class),
+            $this->prophesize(HttpKernelInterface::class)->reveal(),
             fn () => null,
-            $this->createMock(Request::class),
+            $this->prophesize(Request::class)->reveal(),
             HttpKernelInterface::SUB_REQUEST
         );
 
@@ -56,13 +56,13 @@ class UserEventSubscriberTest extends AbstractTestCase
 
     public function testOnKernelControllerWithoutConnectedUser(): void
     {
-        $this->securityManager->expects($this->once())->method('getConnectedUser')->willThrowException(new AccessDeniedHttpException());
-        $this->userActivityManager->expects($this->never())->method('updateLastActivity');
+        $this->securityManager->getConnectedUser()->willThrow(new AccessDeniedHttpException());
+        $this->userActivityManager->updateLastActivity()->shouldNotBeCalled();
 
         $event = new ControllerEvent(
-            $this->createMock(HttpKernelInterface::class),
+            $this->prophesize(HttpKernelInterface::class)->reveal(),
             fn () => null,
-            $this->createMock(Request::class),
+            $this->prophesize(Request::class)->reveal(),
             HttpKernelInterface::MAIN_REQUEST
         );
 
@@ -72,13 +72,13 @@ class UserEventSubscriberTest extends AbstractTestCase
     public function testOnKernelControllerWithUserAndMainRequest(): void
     {
         $user = new User();
-        $this->securityManager->expects($this->once())->method('getConnectedUser')->willReturn($user);
-        $this->userActivityManager->expects($this->once())->method('updateLastActivity')->with($user);
+        $this->securityManager->getConnectedUser()->willReturn($user);
+        $this->userActivityManager->updateLastActivity($user)->shouldBeCalled();
 
         $event = new ControllerEvent(
-            $this->createMock(HttpKernelInterface::class),
+            $this->prophesize(HttpKernelInterface::class)->reveal(),
             fn () => null,
-            $this->createMock(Request::class),
+            $this->prophesize(Request::class)->reveal(),
             HttpKernelInterface::MAIN_REQUEST
         );
 
