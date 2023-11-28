@@ -42,7 +42,7 @@ class DistributionContractWork
     private ?\DateTime $endsAt = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?float $amount = null;
+    private ?string $amount = null;
 
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
@@ -122,12 +122,12 @@ class DistributionContractWork
         return $this;
     }
 
-    public function getAmount(): ?float
+    public function getAmount(): ?string
     {
         return $this->amount;
     }
 
-    public function setAmount(?float $amount): static
+    public function setAmount(?string $amount): static
     {
         $this->amount = $amount;
 

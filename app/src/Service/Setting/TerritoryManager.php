@@ -9,7 +9,6 @@ use App\Enum\Pager\ColumnEnum;
 use App\Repository\Setting\TerritoryRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 
 class TerritoryManager
 {
@@ -37,10 +36,7 @@ class TerritoryManager
         return \array_filter($territories, static fn (Territory $territory) => !$territory->isArchived() || $includeTerritories->contains($territory));
     }
 
-    /**
-     * @return TerritoryRepository|EntityRepository<Territory>
-     */
-    private function getRepository(): TerritoryRepository|EntityRepository
+    private function getRepository(): TerritoryRepository
     {
         return $this->entityManager->getRepository(Territory::class);
     }

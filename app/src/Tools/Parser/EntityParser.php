@@ -15,6 +15,7 @@ class EntityParser
 
     public function getClassName(string|object $classOrObject): string
     {
+        /** @var class-string $class */
         $class = $this->objectParser->getClassName($classOrObject);
 
         return $this->entityManager->getClassMetadata($class)->getName();

@@ -8,7 +8,6 @@ use App\Entity\Company;
 use App\Entity\User;
 use App\Repository\CompanyRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 
 class CompanyManager
 {
@@ -28,10 +27,7 @@ class CompanyManager
         return $this->getRepository()->findByUser($user);
     }
 
-    /**
-     * @return CompanyRepository|EntityRepository<Company>
-     */
-    private function getRepository(): CompanyRepository|EntityRepository
+    private function getRepository(): CompanyRepository
     {
         return $this->entityManager->getRepository(Company::class);
     }

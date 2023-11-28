@@ -7,7 +7,6 @@ namespace App\Service\Contract;
 use App\Entity\Contract\AcquisitionContract;
 use App\Repository\Contract\AcquisitionContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ContractManager
@@ -23,10 +22,7 @@ class ContractManager
         return new Paginator($queryBuilder);
     }
 
-    /**
-     * @return AcquisitionContractRepository|EntityRepository<AcquisitionContract>
-     */
-    private function getRepository(): AcquisitionContractRepository|EntityRepository
+    private function getRepository(): AcquisitionContractRepository
     {
         return $this->entityManager->getRepository(AcquisitionContract::class);
     }

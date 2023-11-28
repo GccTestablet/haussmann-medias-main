@@ -10,7 +10,6 @@ use App\Model\Pager\Column;
 use App\Model\Pager\ColumnHeader;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Work\WorkReversionRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class WorkReversionPager extends AbstractPager
@@ -48,10 +47,7 @@ class WorkReversionPager extends AbstractPager
         ];
     }
 
-    /**
-     * @return WorkReversionRepository|EntityRepository<WorkReversion>
-     */
-    private function getRepository(): WorkReversionRepository|EntityRepository
+    private function getRepository(): WorkReversionRepository
     {
         return $this->entityManager->getRepository(WorkReversion::class);
     }

@@ -12,7 +12,6 @@ use App\Model\Pager\Field\AmountField;
 use App\Model\Pager\Field\LinkField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Work\WorkAdaptationRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class WorkAdaptationCostPager extends AbstractPager
@@ -77,10 +76,7 @@ class WorkAdaptationCostPager extends AbstractPager
         ];
     }
 
-    /**
-     * @return WorkAdaptationRepository|EntityRepository<WorkAdaptation>
-     */
-    private function getRepository(): WorkAdaptationRepository|EntityRepository
+    private function getRepository(): WorkAdaptationRepository
     {
         return $this->entityManager->getRepository(WorkAdaptation::class);
     }

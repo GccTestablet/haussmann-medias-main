@@ -17,7 +17,6 @@ use App\Model\Pager\Field\PeriodField;
 use App\Model\Pager\Field\PopoverButtonField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Contract\DistributionContractWorkRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
 use Twig\Environment;
 
@@ -148,9 +147,9 @@ class DistributionContractWorkPager extends AbstractPager
     }
 
     /**
-     * @return DistributionContractWorkRepository|EntityRepository<DistributionContractWork>
+     * @return DistributionContractWorkRepository
      */
-    private function getRepository(): DistributionContractWorkRepository|EntityRepository
+    private function getRepository(): DistributionContractWorkRepository
     {
         return $this->entityManager->getRepository(DistributionContractWork::class);
     }

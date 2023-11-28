@@ -16,22 +16,22 @@ class WorkAdaptationFixture extends AbstractFixture implements DependentFixtureI
         [
             'work' => WorkFixture::WINNIE_THE_POOH,
             'type' => AdaptationCostTypeFixture::DUBBING_COST,
-            'amount' => 2300,
+            'amount' => '2300',
         ],
         [
             'work' => WorkFixture::WINNIE_THE_POOH,
             'type' => AdaptationCostTypeFixture::SUBTITLING_COST,
-            'amount' => 500,
+            'amount' => '500',
         ],
         [
             'work' => WorkFixture::SNIPER,
             'type' => AdaptationCostTypeFixture::DUBBING_COST,
-            'amount' => 5000,
+            'amount' => '5000',
         ],
         [
             'work' => WorkFixture::MANEATER,
             'type' => AdaptationCostTypeFixture::DUBBING_COST,
-            'amount' => 1500,
+            'amount' => '1500',
         ],
     ];
 

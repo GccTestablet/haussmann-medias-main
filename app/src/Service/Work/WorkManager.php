@@ -10,7 +10,6 @@ use App\Entity\Contract\DistributionContract;
 use App\Entity\Work\Work;
 use App\Repository\WorkRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class WorkManager
@@ -69,10 +68,7 @@ class WorkManager
         return new Paginator($queryBuilder);
     }
 
-    /**
-     * @return WorkRepository|EntityRepository<Work>
-     */
-    private function getRepository(): WorkRepository|EntityRepository
+    private function getRepository(): WorkRepository
     {
         return $this->entityManager->getRepository(Work::class);
     }

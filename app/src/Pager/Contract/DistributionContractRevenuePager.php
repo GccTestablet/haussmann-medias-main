@@ -15,7 +15,6 @@ use App\Model\Pager\Field\FieldInterface;
 use App\Model\Pager\Field\PeriodField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Contract\DistributionContractWorkRevenueRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class DistributionContractRevenuePager extends AbstractPager
@@ -49,7 +48,7 @@ class DistributionContractRevenuePager extends AbstractPager
     public function getFooter(): array
     {
         $collection = new CollectionField(\array_map(
-            static fn (string $sum, string $currency) => new AmountField((float) $sum, $currency),
+            static fn (string $sum, string $currency) => new AmountField($sum, $currency),
             $this->filteredSumByCurrency,
             \array_keys($this->filteredSumByCurrency),
         ), '<br />');
@@ -96,10 +95,7 @@ class DistributionContractRevenuePager extends AbstractPager
         ];
     }
 
-    /**
-     * @return DistributionContractWorkRevenueRepository|EntityRepository<DistributionContractWorkRevenue>
-     */
-    private function getRepository(): DistributionContractWorkRevenueRepository|EntityRepository
+    private function getRepository(): DistributionContractWorkRevenueRepository
     {
         return $this->entityManager->getRepository(DistributionContractWorkRevenue::class);
     }
