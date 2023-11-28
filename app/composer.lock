@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26328b4d61dfbe9cede20587a582e721",
+    "content-hash": "6fba1820a077811a2bea4491043e8199",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -4733,6 +4733,78 @@
             "time": "2023-10-31T08:07:48+00:00"
         },
         {
+            "name": "symfony/doctrine-messenger",
+            "version": "v6.3.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/doctrine-messenger.git",
+                "reference": "6fa8a21e013ea22dd490cc6060508b14f7ad4b51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/doctrine-messenger/zipball/6fa8a21e013ea22dd490cc6060508b14f7ad4b51",
+                "reference": "6fa8a21e013ea22dd490cc6060508b14f7ad4b51",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.13|^3|^4",
+                "php": ">=8.1",
+                "symfony/messenger": "^5.4|^6.0",
+                "symfony/service-contracts": "^2.5|^3"
+            },
+            "conflict": {
+                "doctrine/persistence": "<1.3"
+            },
+            "require-dev": {
+                "doctrine/persistence": "^1.3|^2|^3",
+                "symfony/property-access": "^5.4|^6.0",
+                "symfony/serializer": "^5.4|^6.0"
+            },
+            "type": "symfony-messenger-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Messenger\\Bridge\\Doctrine\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Doctrine Messenger Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/doctrine-messenger/tree/v6.3.8"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-11-07T10:17:15+00:00"
+        },
+        {
             "name": "symfony/dotenv",
             "version": "v6.3.7",
             "source": {
@@ -6054,6 +6126,93 @@
                 }
             ],
             "time": "2023-09-06T09:47:15+00:00"
+        },
+        {
+            "name": "symfony/messenger",
+            "version": "v6.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/messenger.git",
+                "reference": "a0a8860ca625116c474c9c1f5570bd7ec752c599"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/a0a8860ca625116c474c9c1f5570bd7ec752c599",
+                "reference": "a0a8860ca625116c474c9c1f5570bd7ec752c599",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "psr/log": "^1|^2|^3",
+                "symfony/clock": "^6.3",
+                "symfony/deprecation-contracts": "^2.5|^3"
+            },
+            "conflict": {
+                "symfony/console": "<6.3",
+                "symfony/event-dispatcher": "<5.4",
+                "symfony/event-dispatcher-contracts": "<2.5",
+                "symfony/framework-bundle": "<5.4",
+                "symfony/http-kernel": "<5.4",
+                "symfony/serializer": "<5.4"
+            },
+            "require-dev": {
+                "psr/cache": "^1.0|^2.0|^3.0",
+                "symfony/console": "^6.3",
+                "symfony/dependency-injection": "^5.4|^6.0",
+                "symfony/event-dispatcher": "^5.4|^6.0",
+                "symfony/http-kernel": "^5.4|^6.0",
+                "symfony/process": "^5.4|^6.0",
+                "symfony/property-access": "^5.4|^6.0",
+                "symfony/rate-limiter": "^5.4|^6.0",
+                "symfony/routing": "^5.4|^6.0",
+                "symfony/serializer": "^5.4|^6.0",
+                "symfony/service-contracts": "^2.5|^3",
+                "symfony/stopwatch": "^5.4|^6.0",
+                "symfony/validator": "^5.4|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Messenger\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Roze",
+                    "email": "samuel.roze@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Helps applications send and receive messages to/from other applications or via message queues",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/messenger/tree/v6.3.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-10-26T18:15:14+00:00"
         },
         {
             "name": "symfony/mime",
@@ -9773,6 +9932,48 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "alexandresalome/mailcatcher",
+            "version": "v1.4.0",
+            "target-dir": "Alex/MailCatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexandresalome/mailcatcher.git",
+                "reference": "0f35c25df319600ec7d97d1b0c27fce13b3f81d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexandresalome/mailcatcher/zipball/0f35c25df319600ec7d97d1b0c27fce13b3f81d8",
+                "reference": "0f35c25df319600ec7d97d1b0c27fce13b3f81d8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.3.3",
+                "symfony/dom-crawler": "~2.3 || ~3.0 || ~4.0 || ~5.0 || ~6.0"
+            },
+            "require-dev": {
+                "behat/behat": "~3.0",
+                "phpunit/phpunit": "~4.6",
+                "swiftmailer/swiftmailer": "~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Alex\\MailCatcher": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A library to access MailCatcher",
+            "support": {
+                "issues": "https://github.com/alexandresalome/mailcatcher/issues",
+                "source": "https://github.com/alexandresalome/mailcatcher/tree/v1.4.0"
+            },
+            "time": "2022-04-13T06:48:46+00:00"
+        },
         {
             "name": "behat/behat",
             "version": "v3.13.0",

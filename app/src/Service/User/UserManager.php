@@ -15,6 +15,11 @@ class UserManager
         private readonly EntityManagerInterface $entityManager,
     ) {}
 
+    public function find(int $id): ?User
+    {
+        return $this->getRepository()->find($id);
+    }
+
     /**
      * @return User[]
      */

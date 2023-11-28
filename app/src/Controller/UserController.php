@@ -63,6 +63,7 @@ class UserController extends AbstractAppController
         return $this->render('shared/common/save.html.twig', [
             'title' => new TranslatableMessage('Add user', [], 'user'),
             'form' => $form,
+            'backUrl' => $this->generateUrl('app_user_index'),
         ]);
     }
 

@@ -6,3 +6,10 @@ Forgot password?: Mot de passe oublié ?
 Remember me?: Se souvenir de moi ?
 Email: Email
 Password: Mot de passe
+Back to authentication: Retour à l'authentification
+Reset password: Réinitialiser mot de passe
+
+Please enter the email address used to receive a password reset link.: Veuillez entrer l'adresse email utilisée pour recevoir un lien de réinitialisation de mot de passe.
+An email has been sent. It contains a link that you will need to click to reset your password.: Un email a été envoyé. Il contient un lien sur lequel vous devez cliquer pour réinitialiser votre mot de passe.
+You can only request a new password every %tokenLifetime% minutes.: Vous ne pouvez demander un nouveau mot de passe que toutes les %tokenLifetime% minutes.
+If you don't receive an email, check your spam folder or try again.: Si vous ne recevez pas d'email, vérifiez votre dossier spam ou réessayez.

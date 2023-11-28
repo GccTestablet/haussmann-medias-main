@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Service\Security;
 
 use App\Entity\User;
-use App\Event\Mailer\Security\ResetPasswordEvent;
+use App\Messenger\Message\Email\Security\ResetPasswordEmailMessage;
 use App\Tools\Generator\PasswordGenerator;
 use App\Tools\Parser\DateParser;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class UserPasswordManager
 {
@@ -18,7 +18,7 @@ class UserPasswordManager
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly MessageBusInterface $messageBus,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly DateParser $dateParser
     ) {}
@@ -48,9 +48,9 @@ class UserPasswordManager
             ->setPasswordResetToken(PasswordGenerator::generate(32))
         ;
 
-        $event = new ResetPasswordEvent($user);
-        $this->eventDispatcher->dispatch($event);
-
         $this->entityManager->flush();
+
+        $message = new ResetPasswordEmailMessage($user->getId());
+        $this->messageBus->dispatch($message);
     }
 }

@@ -4,6 +4,7 @@ default:
       contexts:
         - App\Tests\Behat\BaseContext
         - FailAid\Context\FailureContext
+        - Alex\MailCatcher\Behat\MailCatcherContext
       paths:
         - tests/Behat/features
       filters:
@@ -15,6 +16,8 @@ default:
         screenshot: false
     FriendsOfBehat\SymfonyExtension:
       bootstrap: 'tests/bootstrap.php'
+    Alex\MailCatcher\Behat\MailCatcherExtension\Extension:
+      url: http://mailcatcher:1080
     Behat\MinkExtension:
       base_url: http://test.haussmann-medias.local/
       files_path: '%paths.base%/tests/Fixtures'
