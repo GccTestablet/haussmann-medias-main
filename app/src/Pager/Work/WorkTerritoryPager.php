@@ -12,7 +12,6 @@ use App\Model\Pager\Field\BooleanField;
 use App\Model\Pager\Field\IconField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Work\WorkTerritoryRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Translation\TranslatableMessage;
 
 class WorkTerritoryPager extends AbstractPager
@@ -78,10 +77,7 @@ class WorkTerritoryPager extends AbstractPager
         ];
     }
 
-    /**
-     * @return WorkTerritoryRepository|EntityRepository<WorkTerritory>
-     */
-    private function getRepository(): WorkTerritoryRepository|EntityRepository
+    private function getRepository(): WorkTerritoryRepository
     {
         return $this->entityManager->getRepository(WorkTerritory::class);
     }

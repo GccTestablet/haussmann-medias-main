@@ -45,7 +45,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
         } catch (\Exception $exception) {
             $form->addError(new FormError($exception->getMessage()));
 
-            return parent::onFormNotSubmitAndValid($request, $form, $options);
+            return $this->onFormNotSubmitAndValid($request, $form, $options);
         }
 
         foreach ($records as $record) {
@@ -80,7 +80,7 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
                     continue;
                 }
 
-                $revenue = (new DistributionContractWorkRevenue())
+                $contractWorkRevenue = (new DistributionContractWorkRevenue())
                     ->setContractWork($contractWork)
                     ->setStartsAt($dto->getStartsAt())
                     ->setEndsAt($dto->getEndsAt())
@@ -89,12 +89,12 @@ class DistributionContractWorkImportFormHandler extends AbstractFormHandler
                     ->setCurrency($dto->getCurrency())
                 ;
 
-                $this->entityManager->persist($revenue);
+                $this->entityManager->persist($contractWorkRevenue);
             }
         }
 
         if (\count($form->getErrors()) > 0) {
-            return parent::onFormNotSubmitAndValid($request, $form, $options);
+            return $this->onFormNotSubmitAndValid($request, $form, $options);
         }
 
         $this->entityManager->flush();

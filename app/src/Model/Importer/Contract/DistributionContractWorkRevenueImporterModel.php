@@ -7,7 +7,7 @@ namespace App\Model\Importer\Contract;
 class DistributionContractWorkRevenueImporterModel
 {
     /**
-     * @var array<string, float>
+     * @var array<string, string>
      */
     private array $channels = [];
 
@@ -27,14 +27,14 @@ class DistributionContractWorkRevenueImporterModel
     }
 
     /**
-     * @return array<string, float>
+     * @return array<string, string>
      */
     public function getChannels(): array
     {
         return $this->channels;
     }
 
-    public function addChannel(string $name, float $revenue): static
+    public function addChannel(string $name, string $revenue): static
     {
         $this->channels[$name] = $revenue;
 

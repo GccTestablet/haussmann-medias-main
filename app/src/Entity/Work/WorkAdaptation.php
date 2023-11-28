@@ -31,8 +31,8 @@ class WorkAdaptation
     #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', nullable: false)]
     private AdaptationCostType $type;
 
-    #[ORM\Column(type: Types::FLOAT, precision: 10, scale: 2, options: ['default' => 0.0])]
-    private float $amount = 0.0;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.0'])]
+    private string $amount = '0.0';
 
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
@@ -76,12 +76,12 @@ class WorkAdaptation
         return $this;
     }
 
-    public function getAmount(): float
+    public function getAmount(): string
     {
         return $this->amount;
     }
 
-    public function setAmount(float $amount): static
+    public function setAmount(string $amount): static
     {
         $this->amount = $amount;
 

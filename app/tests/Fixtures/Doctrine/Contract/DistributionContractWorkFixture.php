@@ -22,7 +22,7 @@ class DistributionContractWorkFixture extends AbstractFixture implements Depende
             'work' => WorkFixture::WINNIE_THE_POOH,
             'startsAt' => '2023-01-01',
             'endsAt' => '2023-12-31',
-            'amount' => 50000.00,
+            'amount' => '50000.00',
         ],
         self::SNIPER => [
             'distributionContract' => DistributionContractFixture::SNIPER_AND_MANEATER,

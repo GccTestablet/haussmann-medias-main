@@ -15,9 +15,8 @@ use App\Model\Pager\Field\LinkField;
 use App\Model\Pager\Field\PopoverButtonField;
 use App\Model\Pager\Field\SimpleArrayField;
 use App\Pager\Shared\AbstractPager;
-use App\Repository\Shared\PagerRepositoryInterface;
+use App\Repository\WorkRepository;
 use App\Tools\Parser\StringParser;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Intl\Countries;
 use Symfony\Component\Translation\TranslatableMessage;
 use Twig\Environment;
@@ -153,10 +152,7 @@ class WorkPager extends AbstractPager
         ];
     }
 
-    /**
-     * @return PagerRepositoryInterface|EntityRepository<Work>
-     */
-    private function getRepository(): PagerRepositoryInterface|EntityRepository
+    private function getRepository(): WorkRepository
     {
         return $this->entityManager->getRepository(Work::class);
     }

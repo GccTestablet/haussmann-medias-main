@@ -76,7 +76,7 @@ class DistributionContractWorkRevenueImporter
                     continue;
                 }
 
-                $model->addChannel($header, (float) $record[$header]);
+                $model->addChannel($header, $record[$header]);
             }
 
             $records[] = $model;

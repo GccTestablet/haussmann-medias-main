@@ -37,8 +37,8 @@ class DistributionContractWorkRevenue
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTime $endsAt;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => 0.0])]
-    private float $amount = 0.0;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.0'])]
+    private string $amount = '0.0';
 
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
@@ -103,12 +103,12 @@ class DistributionContractWorkRevenue
         return $this;
     }
 
-    public function getAmount(): float
+    public function getAmount(): string
     {
         return $this->amount;
     }
 
-    public function setAmount(float $amount): static
+    public function setAmount(string $amount): static
     {
         $this->amount = $amount;
 

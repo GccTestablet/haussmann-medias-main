@@ -55,10 +55,10 @@ class Work
     private WorkQuotaEnum $quota;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?float $minimumGuaranteedBeforeReversion = null;
+    private ?string $minimumGuaranteedBeforeReversion = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    private ?float $minimumCostOfTheTopBeforeReversion = null;
+    private ?string $minimumCostOfTheTopBeforeReversion = null;
 
     #[ORM\Column(length: 3, options: ['default' => 'EUR'])]
     private string $currency = 'EUR';
@@ -207,24 +207,24 @@ class Work
         return $this;
     }
 
-    public function getMinimumGuaranteedBeforeReversion(): ?float
+    public function getMinimumGuaranteedBeforeReversion(): ?string
     {
         return $this->minimumGuaranteedBeforeReversion;
     }
 
-    public function setMinimumGuaranteedBeforeReversion(?float $minimumGuaranteedBeforeReversion): static
+    public function setMinimumGuaranteedBeforeReversion(?string $minimumGuaranteedBeforeReversion): static
     {
         $this->minimumGuaranteedBeforeReversion = $minimumGuaranteedBeforeReversion;
 
         return $this;
     }
 
-    public function getMinimumCostOfTheTopBeforeReversion(): ?float
+    public function getMinimumCostOfTheTopBeforeReversion(): ?string
     {
         return $this->minimumCostOfTheTopBeforeReversion;
     }
 
-    public function setMinimumCostOfTheTopBeforeReversion(?float $minimumCostOfTheTopBeforeReversion): static
+    public function setMinimumCostOfTheTopBeforeReversion(?string $minimumCostOfTheTopBeforeReversion): static
     {
         $this->minimumCostOfTheTopBeforeReversion = $minimumCostOfTheTopBeforeReversion;
 

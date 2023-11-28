@@ -9,7 +9,6 @@ use App\Enum\Pager\ColumnEnum;
 use App\Repository\Broadcast\BroadcastChannelRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 
 class BroadcastChannelManager
 {
@@ -50,10 +49,7 @@ class BroadcastChannelManager
         return $this->getRepository()->findOneBy(['slug' => \strtolower($slug)]);
     }
 
-    /**
-     * @return BroadcastChannelRepository|EntityRepository<BroadcastChannel>
-     */
-    private function getRepository(): BroadcastChannelRepository|EntityRepository
+    private function getRepository(): BroadcastChannelRepository
     {
         return $this->entityManager->getRepository(BroadcastChannel::class);
     }
