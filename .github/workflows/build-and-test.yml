@@ -136,7 +136,7 @@ jobs:
       - name: Run Behat
         run: |
           chromedriver --allowed-ips="" --allowed-origins="*" &
-          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T app bash -c 'bin/phing test_prepare && bin/phing testing_php_end2end'
+          docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} exec -T app bash -c 'bin/phing test_prepare && bin/phing testing_php_end2end -D env=test'
       - name: Clean up
         if: ${{ always() }}
         run: |
