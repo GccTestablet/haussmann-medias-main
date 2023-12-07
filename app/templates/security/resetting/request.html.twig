@@ -1,14 +1,14 @@
 {% extends 'shared/layout/layout_authentication.html.twig' %}
 
 {% block content_title %}
-    Reset password
+    {% trans from 'security' %}Reset password{% endtrans %}
 {% endblock %}
 {% block content_action %}
     <a href="{{ path('app_login') }}" class="btn-block-option">{% trans from 'security' %}Back to authentication{% endtrans %}</a>
 {% endblock %}
 {% block content %}
     {{ form_start(form) }}
-    <p class="fw-medium text-muted">Please enter the email address used to receive a password reset link.</p>
+    <p class="fw-medium text-muted">{% trans from 'security' %}Please enter the email address used to receive a password reset link.{% endtrans %}</p>
     {{ form_rest(form) }}
     <div class="justify-content-between">
         <div class="d-grid mt-3">

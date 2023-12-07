@@ -1,13 +1,21 @@
 {% extends 'shared/layout/layout_authentication.html.twig' %}
 
 {% block content_title %}
-    Informations
+    {% trans from 'security' %}Reset password{% endtrans %}
 {% endblock %}
 {% block content_action %}
     <a href="{{ path('app_login') }}" class="btn btn-sm btn-link">{% trans from 'security' %}Back to authentication{% endtrans %}</a>
 {% endblock %}
 {% block content %}
-        <p class="fw-medium text-muted">An email has been sent. It contains a link that you will need to click to reset your password.</p>
-        <p class="fw-medium text-muted">Note: You can only request a new password every {{ tokenLifetime }} minutes.</p>
-        <p class="fw-medium text-muted">If you don't receive an email, check your spam folder or try again.</p>
+        <p class="fw-medium text-muted">
+            {% trans from 'security' %}An email has been sent. It contains a link that you will need to click to reset your password.{% endtrans %}
+        </p>
+        <p class="fw-medium text-muted">
+            {% trans with {
+                '%tokenLifetime%': tokenLifetime
+            } from 'security' %}You can only request a new password every %tokenLifetime% minutes.{% endtrans %}
+        </p>
+        <p class="fw-medium text-muted">
+            {% trans from 'security' %}If you don't receive an email, check your spam folder or try again.{% endtrans %}
+        </p>
 {% endblock %}

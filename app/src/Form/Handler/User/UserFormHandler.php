@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace App\Form\Handler\User;
 
-use App\Event\Mailer\Security\RegistrationEvent;
 use App\Form\Dto\User\UserFormDto;
 use App\Form\DtoFactory\User\UserFormDtoFactory;
 use App\Form\Handler\Shared\AbstractFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
 use App\Form\Type\User\UserFormType;
+use App\Messenger\Message\Email\Security\RegistrationEmailMessage;
 use App\Service\Security\UserPasswordManager;
 use App\Tools\Generator\PasswordGenerator;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class UserFormHandler extends AbstractFormHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly MessageBusInterface $messageBus,
         private readonly UserFormDtoFactory $userFormDtoFactory,
         private readonly UserPasswordManager $userPasswordManager
     ) {}
@@ -53,8 +53,8 @@ class UserFormHandler extends AbstractFormHandler
         $this->entityManager->flush();
 
         if (!$dto->isExists()) {
-            $event = new RegistrationEvent($user, $plainPassword);
-            $this->eventDispatcher->dispatch($event);
+            $message = new RegistrationEmailMessage($user->getId(), $plainPassword);
+            $this->messageBus->dispatch($message);
         }
 
         return parent::onFormSubmitAndValid($request, $form, $options);
