@@ -26,8 +26,8 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6">{{ form_row(form.endsAt) }}</div>
-                        <a href="{{ path('app_distribution_contract_work_delete', {'id': item.id}) }}" class="btn btn-sm btn-danger">
-                            {% trans from 'misc' %}Delete{% endtrans %}
+                        <a href="{{ path('app_distribution_contract_work_update', {'id': item.id}) }}" class="btn btn-sm btn-warning">
+                            {% trans from 'misc' %}Edit{% endtrans %}
                         </a>
                     </div>
                     {{ form_rest(form) }}

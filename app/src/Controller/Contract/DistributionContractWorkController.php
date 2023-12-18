@@ -90,29 +90,28 @@ class DistributionContractWorkController extends AbstractAppController
         ]);
     }
 
-    #[Route(path: '/{work}/delete', name: 'app_distribution_contract_work_delete', requirements: ['work' => '\d+'])]
-    public function delete(DistributionContract $contract, Work $work): RedirectResponse
-    {
-        $contractWork = $contract->getContractWork($work);
-
-        if (!$contractWork) {
-            throw $this->createNotFoundException(
-                sprintf('Work %s not found in contract %s', $work->getName(), $contract->getName())
-            );
-        }
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($contractWork);
-        $entityManager->flush();
-
-        // Ajoutez un message flash pour informer l'utilisateur de la suppression réussie
-        $this->addFlash('success', 'Work deleted successfully.');
-
-        return $this->redirectToRoute('app_distribution_contract_show', [
-            'id' => $contract->getId(),
-            'tab' => 'works',
-        ]);
-    }
+//    #[Route(path: '/{work}/delete', name: 'app_distribution_contract_work_delete', requirements: ['work' => '\d+'])]
+//    public function delete(DistributionContract $contract, Work $work): RedirectResponse
+//    {
+//        $contractWork = $contract->getContractWork($work);
+//
+//        if (!$contractWork) {
+//            throw $this->createNotFoundException(
+//                sprintf('Work %s not found in contract %s', $work->getName(), $contract->getName())
+//            );
+//        }
+//
+//        $entityManager = $this->getDoctrine()->getManager();
+//        $entityManager->remove($contractWork);
+//        $entityManager->flush();
+//
+//        $this->addFlash('success', 'Work deleted successfully.');
+//
+//        return $this->redirectToRoute('app_distribution_contract_show', [
+//            'id' => $contract->getId(),
+//            'tab' => 'works',
+//        ]);
+//    }
 
     private function getFormHandlerResponse(Request $request, DistributionContract $contract, ?DistributionContractWork $contractWork): FormHandlerResponseInterface
     {
