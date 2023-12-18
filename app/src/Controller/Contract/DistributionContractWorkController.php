@@ -11,7 +11,6 @@ use App\Entity\Work\Work;
 use App\Form\DtoFactory\Contract\DistributionContractWorkFormDtoFactory;
 use App\Form\Handler\Contract\DistributionContractWorkFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
