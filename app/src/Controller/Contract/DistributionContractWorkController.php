@@ -11,6 +11,7 @@ use App\Entity\Work\Work;
 use App\Form\DtoFactory\Contract\DistributionContractWorkFormDtoFactory;
 use App\Form\Handler\Contract\DistributionContractWorkFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -86,6 +87,30 @@ class DistributionContractWorkController extends AbstractAppController
                 'id' => $contract->getId(),
                 'tab' => 'works',
             ]),
+        ]);
+    }
+
+    #[Route(path: '/{work}/delete', name: 'app_distribution_contract_work_delete', requirements: ['work' => '\d+'])]
+    public function delete(DistributionContract $contract, Work $work): RedirectResponse
+    {
+        $contractWork = $contract->getContractWork($work);
+
+        if (!$contractWork) {
+            throw $this->createNotFoundException(
+                sprintf('Work %s not found in contract %s', $work->getName(), $contract->getName())
+            );
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($contractWork);
+        $entityManager->flush();
+
+        // Ajoutez un message flash pour informer l'utilisateur de la suppression réussie
+        $this->addFlash('success', 'Work deleted successfully.');
+
+        return $this->redirectToRoute('app_distribution_contract_show', [
+            'id' => $contract->getId(),
+            'tab' => 'works',
         ]);
     }
 

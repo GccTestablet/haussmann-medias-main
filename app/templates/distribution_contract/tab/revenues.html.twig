@@ -3,6 +3,9 @@
 {% block content_inner %}
     <div class="card">
         <div class="card-header text-end">
+            <a href="{{ path('app_distribution_contract_work_update', {'contract': contract.id}) }}" class="btn btn-sm btn-warning">
+                {% trans from 'work' %}Edit{% endtrans %}
+            </a>
             <a href="{{ path('app_distribution_contract_generate_template', {'id': contract.id}) }}" class="btn btn-sm btn-primary">
                 {% trans from 'contract' %}Download CSV template{% endtrans %}
             </a>
@@ -23,6 +26,9 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6">{{ form_row(form.endsAt) }}</div>
+                        <a href="{{ path('app_distribution_contract_work_delete', {'id': item.id}) }}" class="btn btn-sm btn-danger">
+                            {% trans from 'misc' %}Delete{% endtrans %}
+                        </a>
                     </div>
                     {{ form_rest(form) }}
 
