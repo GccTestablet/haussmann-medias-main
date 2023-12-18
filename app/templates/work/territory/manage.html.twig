@@ -20,7 +20,7 @@
                         <th>{% trans from 'work' %}Exclusive{% endtrans %}</th>
                         <th class="text-nowrap">{% trans from 'misc' %}Select all{% endtrans %}</th>
                         {% for channel in broadcastChannels %}
-                            <th>
+                            <th class="sticky-header">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input"
                                            id="checkbox-channel-{{ channel.id }}"
