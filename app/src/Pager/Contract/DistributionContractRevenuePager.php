@@ -12,10 +12,14 @@ use App\Model\Pager\ColumnHeader;
 use App\Model\Pager\Field\AmountField;
 use App\Model\Pager\Field\CollectionField;
 use App\Model\Pager\Field\FieldInterface;
+use App\Model\Pager\Field\IconField;
+use App\Model\Pager\Field\LinkField;
 use App\Model\Pager\Field\PeriodField;
 use App\Pager\Shared\AbstractPager;
 use App\Repository\Contract\DistributionContractWorkRevenueRepository;
+use Egulias\EmailValidator\Parser\IDLeftPart;
 use Symfony\Component\Translation\TranslatableMessage;
+use function PHPUnit\Framework\callback;
 
 class DistributionContractRevenuePager extends AbstractPager
 {
@@ -29,6 +33,7 @@ class DistributionContractRevenuePager extends AbstractPager
         ColumnEnum::CHANNEL,
         ColumnEnum::PERIOD,
         ColumnEnum::AMOUNT,
+        ColumnEnum::ACTIONS,
     ];
 
     /**
@@ -91,6 +96,24 @@ class DistributionContractRevenuePager extends AbstractPager
                     callback: fn () => new TranslatableMessage('Amount', [], 'misc'),
                 ),
                 callback: fn (DistributionContractWorkRevenue $revenue) => new AmountField($revenue->getAmount(), $revenue->getCurrency()),
+            ),
+            new Column(
+                id: ColumnEnum::ACTIONS,
+                header: new ColumnHeader(
+                    callback: fn () => new TranslatableMessage('Actions', [], 'misc'),
+                    sortable: false,
+                ),
+                callback: fn (DistributionContractWorkRevenue $contractWork) => new CollectionField([
+                    new LinkField(
+                        value: new TranslatableMessage('Update', [], 'misc'),
+                        attributes: [
+                            'href' => $this->router->generate('app_distribution_contract_work_revenue_update', [
+                                'contract' => $contractWork->getContractWork()->getId(),
+                            ]),
+                            'class' => 'btn btn-sm btn-warning',
+                        ]
+                    ),
+                ]),
             ),
         ];
     }

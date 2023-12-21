@@ -6,9 +6,6 @@
             <a href="{{ path('app_distribution_contract_work_add', {'contract': contract.id}) }}" class="btn btn-sm btn-success">
                 {% trans from 'work' %}Add{% endtrans %}
             </a>
-            <a href="{{ path('app_distribution_contract_work_update', {'contract': contract.id}) }}" class="btn btn-sm btn-warning">
-                {% trans from 'work' %}Edit{% endtrans %}
-            </a>
             <a href="{{ path('app_distribution_contract_generate_template', {'id': contract.id}) }}" class="btn btn-sm btn-primary">
                 {% trans from 'contract' %}Download CSV template{% endtrans %}
             </a>
