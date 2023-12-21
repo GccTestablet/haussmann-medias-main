@@ -6,6 +6,7 @@ namespace App\Controller\Contract;
 
 use App\Controller\Shared\AbstractAppController;
 use App\Entity\Contract\DistributionContract;
+use App\Entity\Work\Work;
 use App\Form\DtoFactory\Contract\DistributionContractWorkRevenueImportFormDtoFactory;
 use App\Form\Handler\Contract\DistributionContractWorkImportFormHandler;
 use App\Form\Handler\Shared\FormHandlerResponseInterface;
@@ -42,6 +43,42 @@ class DistributionContractWorkRevenueController extends AbstractAppController
             ], 'contract'),
             'form' => $form,
             'backUrl' => $redirectTo,
+        ]);
+    }
+
+    #[Route(path: '/{work}/update', name: 'app_distribution_contract_work_revenue_update', requirements: ['work' => '\d+'])]
+    public function update(Request $request, DistributionContract $contract, Work $work): Response
+    {
+        $contractWorkRevenue = $contract->getContractWork($work);
+        if (!$contractWorkRevenue) {
+            throw $this->createNotFoundException(
+                \sprintf('Work revenue %s not found in contract %s', $work->getName(), $contract->getName())
+            );
+        }
+
+        $formHandlerResponse = $this->getFormHandlerResponse(
+            $request,
+            $contract,
+            $contractWorkRevenue
+        );
+
+        $form = $formHandlerResponse->getForm();
+        if ($formHandlerResponse->isSuccessful()) {
+            return $this->redirectToRoute('app_distribution_contract_show', [
+                'id' => $contract->getId(),
+            ]);
+        }
+
+        return $this->render('shared/common/save.html.twig', [
+            'title' => new TranslatableMessage('Update work revenue %work% for contract %contract%', [
+                '%work%' => $work->getName(),
+                '%contract%' => $contract->getName(),
+            ], 'contract'),
+            'form' => $form,
+            'backUrl' => $this->generateUrl('app_distribution_contract_show', [
+                'id' => $contract->getId(),
+                'tab' => 'works',
+            ]),
         ]);
     }
 

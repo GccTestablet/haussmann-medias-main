@@ -13,4 +13,9 @@ class DistributionContractWorkRevenueImportFormDtoFactory
     {
         return new DistributionContractWorkRevenueImportFormDto($distributionContract);
     }
+
+    public function updateEntity(DistributionContractWorkRevenueImportFormDto $dto, DistributionContract $distributionContract): void
+    {
+
+    }
 }
